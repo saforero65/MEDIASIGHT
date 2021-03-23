@@ -1,51 +1,61 @@
 <template>
-  <div class="container">
-    <form action="#" @submit.prevent="login">
-      <h2 class="text-center">Iniciar Sesion</h2>
+  <div class="block">
+    <div class="container">
+      <form
+        class="position-absolute col-4 form"
+        action="#"
+        @submit.prevent="login"
+      >
+        <h2 class="text-center">Iniciar Sesion</h2>
 
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"
-          v-model="email"
-        />
-        <small id="emailHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            v-model="email"
+          />
+          <small id="emailHelp" class="form-text text-muted"
+            >We'll never share your email with anyone else.</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+            v-model="password"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      <div v-if="error">
+        <b-alert show variant="danger">
+          <h4 class="alert-heading">Hey!</h4>
+          <p>
+            {{ error }}
+          </p>
+        </b-alert>
       </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-          placeholder="Password"
-          v-model="password"
-        />
-      </div>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-    <div v-if="error">
-      <b-alert show variant="danger">
-        <h4 class="alert-heading">Hey!</h4>
-        <p>
-          {{ error }}
-        </p>
-      </b-alert>
     </div>
+    <fondo2></fondo2>
   </div>
 </template>
 <script>
 import "@/firebase/init.js";
 import firebase from "firebase/app";
-
+import fondo2 from "../Fondo2";
 export default {
+  components: {
+    fondo2,
+  },
   data() {
     return {
       name: "",
@@ -63,7 +73,7 @@ export default {
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then((user) => {
-            this.$router.push({ name: "dashboard" });
+            this.$router.push({ name: "fondo2board" });
             console.log(user);
           })
           .catch((err) => {
@@ -76,3 +86,12 @@ export default {
   },
 };
 </script>
+<style>
+.container {
+  display: flex;
+  justify-content: center;
+}
+/* form {
+  background: chartreuse;
+} */
+</style>

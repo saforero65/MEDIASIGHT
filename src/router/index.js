@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
-import Dashboard from '../views/Auth/Dashboard.vue'
+import Dashboard from '../views/Dashboard.vue'
 import Firebase from 'firebase'
 
 Vue.use(VueRouter)
