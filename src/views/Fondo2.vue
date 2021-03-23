@@ -1,103 +1,116 @@
 <template>
-  <div id="scene-container" ref="sceneContainer"></div>
+  <div class="home">
+    <div id="container"></div>
+  </div>
 </template>
 
 <script>
+// @ is an alias to /src
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { mapGetters } from "vuex";
 
 export default {
-  name: "HelloWorld",
+  name: "home",
   data() {
     return {
-      container: null,
-      scene: null,
       camera: null,
-      controls: null,
+      scene: null,
       renderer: null,
+      controls: null,
+      container: null,
     };
   },
+  computed: {
+    ...mapGetters({
+      model: "getModel",
+    }),
+  },
   methods: {
-    init() {
-      // set container
-      this.container = this.$refs.sceneContainer;
+    init: function () {
+      this.container = document.getElementById("container");
 
-      // add camera
-      const fov = 60; // Field of view
-      const aspect = this.container.clientWidth / this.container.clientHeight;
-      const near = 0.1; // the near clipping plane
-      const far = 30; // the far clipping plane
-      const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-      camera.position.set(0, 5, 10);
-      this.camera = camera;
-
-      // create scene
-      this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color("skyblue");
-
-      // add lights
-      const ambientLight = new THREE.HemisphereLight(
-        0xffffff, // bright sky color
-        0x222222, // dim ground color
-        1 // intensity
-      );
-      const mainLight = new THREE.DirectionalLight(0xffffff, 4.0);
-      mainLight.position.set(10, 10, 10);
-      this.scene.add(ambientLight, mainLight);
-
-      // add controls
-      this.controls = new OrbitControls(this.camera, this.container);
-
-      // create renderer
-      this.renderer = new THREE.WebGLRenderer({ antialias: true });
+      this.renderer = new THREE.WebGLRenderer();
       this.renderer.setSize(
         this.container.clientWidth,
         this.container.clientHeight
       );
-      this.renderer.setPixelRatio(window.devicePixelRatio);
-      this.renderer.gammaFactor = 2.2;
-      this.renderer.outputEncoding = THREE.sRGBEncoding;
-      this.renderer.physicallyCorrectLights = true;
       this.container.appendChild(this.renderer.domElement);
 
-      // set aspect ratio to match the new browser window aspect ratio
+      this.scene = new THREE.Scene();
+      this.scene.background = new THREE.Color("skyblue");
+      this.camera = new THREE.PerspectiveCamera(
+        45,
+        this.container.clientWidth / this.container.clientHeight,
+        1,
+        1000
+      );
+      this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+      this.controls.screenSpacePanning = true;
+
+      var size = 10;
+      var divisions = 10;
+
+      var gridHelper = new THREE.GridHelper(size, divisions);
+      gridHelper.position.y = -1.5;
+      this.scene.add(gridHelper);
+
+      const light = new THREE.HemisphereLight(0xffffbb, 0x080820, 2);
+      // const helper = new THREE.HemisphereLightHelper(light, 5);
+      this.scene.add(light);
+
+      var directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight2.position.set(10, -10, 10);
+      this.scene.add(directionalLight2);
+
+      this.$store.dispatch("loadModel", "/three-assets/RobotExpressive.glb");
+
+      this.camera.position.z = 5;
+      // this.camera.position.x = 5;
+    },
+    animate: function () {
+      requestAnimationFrame(this.animate);
+      // cube.rotation.x += 0.01;
+      // cube.rotation.y += 0.01;
+      this.renderer.render(this.scene, this.camera);
+    },
+    onWindowResize: function () {
+      console.log("resize");
       this.camera.aspect =
         this.container.clientWidth / this.container.clientHeight;
       this.camera.updateProjectionMatrix();
+
       this.renderer.setSize(
         this.container.clientWidth,
         this.container.clientHeight
       );
-
-      const loader = new GLTFLoader();
-
-      loader.load(
-        "/three-assets/RobotExpressive.glb",
-        (gltf) => {
-          this.scene.add(gltf.scene);
-        },
-        undefined,
-        undefined
-      );
-
-      this.renderer.setAnimationLoop(() => {
-        this.render();
-      });
     },
-    render() {
-      this.renderer.render(this.scene, this.camera);
+    addModel: function () {
+      this.$store.subscribe((mutation) => {
+        switch (mutation.type) {
+          case "setModel":
+            this.scene.add(this.model);
+            this.model.position.y = -1.5;
+            this.model.position.x = -3.5;
+            this.model.position.z = -3.5;
+            break;
+        }
+      });
     },
   },
   mounted() {
     this.init();
+    this.animate();
+    this.addModel();
+
+    window.addEventListener("resize", this.onWindowResize, false);
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
-#scene-container {
-  height: 91vh;
+#container {
+  width: 100%;
+  height: 100vh;
 }
 </style>
