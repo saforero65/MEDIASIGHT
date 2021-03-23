@@ -91,7 +91,7 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then((user) => {
-            //actualizar el usuario
+            this.$router.push({ name: "dashboard" });
             if (user) {
               user
                 .updateProfile({
@@ -101,7 +101,6 @@ export default {
                   this.name = "";
                   this.email = "";
                   this.password = "";
-                  this.$router.push({ name: "dashboard" });
                 })
                 .catch((err) => {
                   this.error = err.message;

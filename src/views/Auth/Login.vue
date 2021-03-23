@@ -1,11 +1,7 @@
 <template>
   <div class="block">
     <div class="container">
-      <form
-        class="position-absolute col-4 form"
-        action="#"
-        @submit.prevent="login"
-      >
+      <form class="position-absolute col-4" action="#" @submit.prevent="login">
         <h2 class="text-center">Iniciar Sesion</h2>
 
         <div class="form-group">
@@ -73,7 +69,7 @@ export default {
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then((user) => {
-            this.$router.push({ name: "fondo2board" });
+            this.$router.push({ name: "dashboard" });
             console.log(user);
           })
           .catch((err) => {
@@ -91,7 +87,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-/* form {
-  background: chartreuse;
-} */
+form {
+  margin-top: 20vh;
+}
 </style>
