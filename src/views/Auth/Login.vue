@@ -1,7 +1,11 @@
 <template>
   <div class="block">
     <div class="container">
-      <form class="position-absolute col-4" action="#" @submit.prevent="login">
+      <form
+        class="position-absolute col-4 form"
+        action="#"
+        @submit.prevent="login"
+      >
         <h2 class="text-center">Iniciar Sesion</h2>
 
         <div class="form-group">
@@ -89,5 +93,8 @@ export default {
 }
 form {
   margin-top: 20vh;
+  padding: 2rem;
+  background: #243241;
+  color: white;
 }
 </style>
