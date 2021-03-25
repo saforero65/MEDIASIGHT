@@ -108,6 +108,7 @@ export default {
       password: "",
       error: "",
       ver: true,
+      dominio: "@unimilitar.edu.co",
     };
   },
   components: {
@@ -117,34 +118,42 @@ export default {
   methods: {
     register() {
       this.error = "";
-      if (this.name && this.email && this.password) {
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
-          .then((user) => {
-            this.$router.push({ name: "dashboard" });
-            if (user) {
-              user
-                .updateProfile({
-                  displayName: this.name,
-                })
-                .then(() => {
-                  this.name = "";
-                  this.email = "";
-                  this.password = "";
-                })
-                .catch((err) => {
-                  this.error = err.message;
-                  this.ver = true;
-                });
-            }
-          })
-          .catch((err) => {
-            this.error = err.message;
-            this.ver = true;
-          });
+      if (this.email.includes(this.dominio)) {
+        console.log(this.email);
+
+        if (this.name && this.email && this.password) {
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(this.email, this.password)
+            .then((user) => {
+              this.$router.push({ name: "dashboard" });
+              if (user) {
+                user
+                  .updateProfile({
+                    displayName: this.name,
+                  })
+                  .then(() => {
+                    this.name = "";
+                    this.email = "";
+                    this.password = "";
+                  })
+                  .catch((err) => {
+                    this.error = err.message;
+                    this.ver = true;
+                  });
+              }
+            })
+            .catch((err) => {
+              this.error = err.message;
+              this.ver = true;
+            });
+        } else {
+          this.error = "Todos los campos son requeridos";
+          this.ver = true;
+        }
       } else {
-        this.error = "Todos los campos son requeridos";
+        this.email = "";
+        this.error = "El dominio no es de la unimilitar";
         this.ver = true;
       }
     },
