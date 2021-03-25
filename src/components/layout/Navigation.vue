@@ -1,7 +1,13 @@
 <template>
-  <b-navbar type="dark" variant="dark">
-    <b-navbar-brand href="/">MEDIASIGHT</b-navbar-brand>
-
+  <b-navbar>
+    <!-- <b-navbar-brand href="/">MEDIASIGHT</b-navbar-brand> -->
+    <router-link to="/">
+      <img
+        class="logo_main"
+        src="@/assets/img/logo_main.png"
+        alt="logo_principal"
+      />
+    </router-link>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
@@ -63,3 +69,11 @@ export default {
   },
 };
 </script>
+<style >
+.logo_main {
+  max-width: 10%;
+  min-width: 7rem;
+  object-fit: contain;
+  margin: 1vh 0;
+}
+</style>
