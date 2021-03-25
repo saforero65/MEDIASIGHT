@@ -30,7 +30,7 @@ export default {
     init: function () {
       this.container = document.getElementById("container");
 
-      this.renderer = new THREE.WebGLRenderer();
+      this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setSize(
         this.container.clientWidth,
         this.container.clientHeight
@@ -38,7 +38,7 @@ export default {
       this.container.appendChild(this.renderer.domElement);
 
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color("skyblue");
+      this.scene.background = new THREE.Color("black");
       this.camera = new THREE.PerspectiveCamera(
         45,
         this.container.clientWidth / this.container.clientHeight,
