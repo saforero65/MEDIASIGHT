@@ -2,65 +2,95 @@
   <div>
     <div class="container">
       <form
-        class="col-4 position-absolute"
+        class="col-4 position-absolute form"
         action="#"
         @submit.prevent="register"
       >
-        <h2 class="text-center">Registro</h2>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Name</label>
+        <div class="row block_superior">
+          <div class="col contenedor_img">
+            <router-link to="/">
+              <img
+                class="img_cerrar"
+                src="@/assets/img/icons/cerrar.svg"
+                alt="imagnen"
+            /></router-link>
 
-          <input
-            type="text"
-            class="form-control"
-            id="Pepito Perez"
-            placeholder="Nombre"
-            v-model="name"
-          />
-          <small id="emailHelp" class="form-text text-muted"
-            >Este va a ser su username.</small
+            <div class="img_sup">
+              <img
+                class="img_logoBlanco"
+                src="@/assets/img/logo_blanco.png"
+                alt="imagen"
+              />
+            </div>
+            <p class="content_sup">
+              Al ingresar podrás enviarnos los proyectos que quieras que la
+              comunidad de Ingenieros Multimedia de la UMNG podrían ser
+              publicados en la Pagina Principal.
+            </p>
+          </div>
+        </div>
+        <div class="row justify-content-start fila_pestañas">
+          <router-link class="col-3 pestaña_signIn" to="/login"
+            >Identificate
+          </router-link>
+          <router-link class="col-3 pestaña_signUp" to="#"
+            >Registrate</router-link
           >
         </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
-            v-model="email"
-          />
-          <small id="emailHelp" class="form-text text-muted"
-            >We'll never share your email with anyone else.</small
-          >
+        <div class="row block_inferior">
+          <div class="col">
+            <div class="cont_inferior">
+              <h2 class="text-center title">Registro</h2>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="input"
+                  placeholder="Nombre"
+                  v-model="name"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="input"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter email"
+                  v-model="email"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="input"
+                  placeholder="Password"
+                  v-model="password"
+                />
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" />
+                <label class="form-check-label" for="exampleCheck1"
+                  >Acepto condiciones</label
+                >
+              </div>
+              <button type="submit" class="boton">Submit</button>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
-            v-model="password"
-          />
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-          <label class="form-check-label" for="exampleCheck1"
-            >Acepto condiciones</label
-          >
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
       <div v-if="error">
-        <b-alert show variant="danger">
-          <h4 class="alert-heading">Hey!</h4>
-          <p>
-            {{ error }}
-          </p>
-        </b-alert>
+        <div v-show="ver" class="alert alert-danger position-absolute">
+          <button
+            v-on:click="ver = !ver"
+            type="button"
+            class="close"
+            data-dismiss="alert"
+          >
+            &times;
+          </button>
+          <!-- <h4 class="alert-heading">Hey!</h4> -->
+          <strong>Hey! </strong>{{ error }}
+        </div>
       </div>
     </div>
     <fondo2></fondo2>
@@ -69,7 +99,7 @@
 <script>
 import "@/firebase/init";
 import firebase from "firebase";
-import fondo2 from "../Fondo2";
+import fondo2 from "@/components/layout/Fondo2";
 export default {
   data() {
     return {
@@ -77,6 +107,7 @@ export default {
       email: "",
       password: "",
       error: "",
+      ver: true,
     };
   },
   components: {
@@ -104,16 +135,31 @@ export default {
                 })
                 .catch((err) => {
                   this.error = err.message;
+                  this.ver = true;
                 });
             }
           })
           .catch((err) => {
             this.error = err.message;
+            this.ver = true;
           });
       } else {
         this.error = "Todos los campos son requeridos";
+        this.ver = true;
       }
     },
   },
 };
 </script>
+<style  scoped>
+.pestaña_signIn:hover {
+  background: white;
+  color: black;
+}
+.pestaña_signUp:hover {
+  color: white;
+}
+.pestaña_signIn {
+  background: #ff4b46;
+}
+</style>

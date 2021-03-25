@@ -1,5 +1,5 @@
 <template>
-  <div class="block">
+  <div>
     <div class="container">
       <form
         class="position-absolute col-4 form"
@@ -77,12 +77,18 @@
       </form>
 
       <div v-if="error">
-        <b-alert show variant="danger">
-          <h4 class="alert-heading">Hey!</h4>
-          <p>
-            {{ error }}
-          </p>
-        </b-alert>
+        <div v-show="ver" class="alert alert-danger position-absolute">
+          <button
+            v-on:click="ver = !ver"
+            type="button"
+            class="close"
+            data-dismiss="alert"
+          >
+            &times;
+          </button>
+          <!-- <h4 class="alert-heading">Hey!</h4> -->
+          <strong>Hey! </strong>{{ error }}
+        </div>
       </div>
     </div>
     <fondo2></fondo2>
@@ -91,7 +97,7 @@
 <script>
 import "@/firebase/init.js";
 import firebase from "firebase/app";
-import fondo2 from "../Fondo2";
+import fondo2 from "@/components/layout/Fondo2";
 export default {
   components: {
     fondo2,
@@ -102,6 +108,7 @@ export default {
       email: "",
       password: "",
       error: "",
+      ver: true,
     };
   },
   name: "Login",
@@ -118,9 +125,11 @@ export default {
           })
           .catch((err) => {
             this.error = err.message;
+            this.ver = true;
           });
       } else {
         this.error = "Todos los campos son requeridos";
+        this.ver = true;
       }
     },
   },
@@ -198,20 +207,9 @@ export default {
   color: white;
 }
 
-.pestaña_signUp:hover {
-  background: white;
-  color: black;
-}
-.pestaña_signIn:hover {
-  color: white;
-}
 .pestaña_signIn:hover,
 .pestaña_signUp:hover {
   text-decoration: none;
-}
-
-.pestaña_signUp {
-  background: #ff4b46;
 }
 
 .block_inferior {
@@ -292,5 +290,25 @@ span {
 .boton:hover {
   background-color: #fff;
   color: black;
+}
+.alert {
+  width: 30%;
+  min-width: 15rem;
+
+  left: 0;
+  right: 0;
+  margin: 3vh auto;
+}
+</style>
+<style scoped>
+.pestaña_signUp:hover {
+  background: white;
+  color: black;
+}
+.pestaña_signIn:hover {
+  color: white;
+}
+.pestaña_signUp {
+  background: #ff4b46;
 }
 </style>
