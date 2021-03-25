@@ -16,18 +16,6 @@ export default {
 };
 </script>
 <style>
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-body {
-  margin: 0px;
-}
-/* canvas {
- width: ;
-} */
 #app {
   height: 100%;
 }
