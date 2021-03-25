@@ -47,7 +47,7 @@
 
                 <input
                   type="email"
-                  class="input"
+                  class="input icon_email"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   placeholder="Correo Electrónico"
@@ -57,7 +57,7 @@
               <div class="form-group">
                 <input
                   type="password"
-                  class="input"
+                  class="input icon_pswrd"
                   id="exampleInputPassword1"
                   placeholder="Contraseña"
                   v-model="password"
@@ -86,7 +86,7 @@
           >
             &times;
           </button>
-          <!-- <h4 class="alert-heading">Hey!</h4> -->
+
           <strong>Hey! </strong>{{ error }}
         </div>
       </div>
@@ -255,8 +255,19 @@ export default {
   background-color: #00000021;
   font-size: 1.5vh;
   text-transform: uppercase;
-  text-align: center;
-  color: #7f8c8d6b;
+  color: #7f8c8df6;
+  box-sizing: border-box;
+  background-image: url(~@/assets/logo.png);
+  background-size: 6%;
+  background-position: 10px;
+  background-repeat: no-repeat;
+  padding: 0px 20px 0px 40px;
+}
+.icon_email {
+  background-image: url(~@/assets/img/icons/email.svg);
+}
+.icon_pswrd {
+  background-image: url(~@/assets/img/icons/candado.svg);
 }
 .boton {
   margin: 0 auto;
