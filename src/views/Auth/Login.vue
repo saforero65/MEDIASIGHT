@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="row justify-content-start fila_pestañas">
-          <div class="col-3 pestaña_signIn">Iniciar Sesion</div>
+          <div class="col-3 pestaña_signIn">Iniciar Sesión</div>
           <div class="col-3 pestaña_signUp">Registro</div>
           <div class="col-6 pestraña_restante"></div>
         </div>
@@ -137,15 +137,15 @@ export default {
 .block_superior {
   display: flex;
   background: #ff4b46;
-  height: 35vh;
+  height: 30vh;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
-  /* max-width: 60%; */
   min-width: 15rem;
   min-height: 10rem;
 }
 .contenedor_img {
   min-width: 10rem;
+  min-height: 10rem;
 }
 .img_sup {
   width: 100%;
@@ -167,28 +167,32 @@ export default {
 
   object-fit: cover;
 }
-.pestaña_signIn {
+.fila_pestañas {
+  background: #ff4b46;
+  min-width: 15rem;
+  font-weight: bold;
+  font-size: 1.6vh;
+  height: 4.6vh;
+}
+.pestaña_signIn,
+.pestaña_signUp {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   background: #243241;
-  text-align: center;
-  font-size: 1.7vh;
-  height: 46px;
 }
 .pestaña_signUp {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
   background: #ff4b46;
 }
 
-.fila_pestañas {
-  background: red;
-  min-width: 15rem;
-}
 .block_inferior {
   height: 33vh;
   min-width: 15rem;
-  min-height: 20rem;
+  min-height: 10rem;
 }
 .content_sup {
   padding: 1vh 5vh;
