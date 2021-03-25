@@ -6,34 +6,65 @@
         action="#"
         @submit.prevent="login"
       >
-        <h2 class="text-center">Iniciar Sesion</h2>
+        <div class="row block_superior">
+          <div class="col contenedor_img">
+            <a href="/"
+              ><img
+                class="img_cerrar"
+                src="@/assets/img/icons/cerrar.svg"
+                alt="imagnen"
+            /></a>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
-            v-model="email"
-          />
-          <small id="emailHelp" class="form-text text-muted"
-            >We'll never share your email with anyone else.</small
-          >
+            <div class="img_sup">
+              <img
+                class="img_logoBlanco"
+                src="@/assets/img/logo_blanco.png"
+                alt="imagnen"
+              />
+            </div>
+            <p class="content_sup">
+              Al ingresar podrás enviarnos los proyectos que quieras que la
+              comunidad de Ingenieros Multimedia de la UMNG podrían ser
+              publicados en la Pagina Principal.
+            </p>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
-            v-model="password"
-          />
+        <div class="row justify-content-start fila_pestañas">
+          <div class="col-3 pestaña_signIn">Iniciar Sesion</div>
+          <div class="col-3 pestaña_signUp">Registro</div>
+          <div class="col-6 pestraña_restante"></div>
         </div>
+        <div class="row block_inferior">
+          <div class="col">
+            <div class="cont_inferior">
+              <h2 class="text-center title">Iniciar Sesión</h2>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+              <div class="form-group">
+                <!-- <img src="@/assets/img/logo_blanco.png" alt="" /> -->
+
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="Correo Electrónico"
+                  v-model="email"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  placeholder="Contraseña"
+                  v-model="password"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
       </form>
 
       <div v-if="error">
@@ -88,13 +119,92 @@ export default {
 </script>
 <style>
 .container {
+  font-family: "Roboto Mono", monospace;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+}
+.form {
+  margin-top: 12vh;
+  padding: 0;
+  background: #243241;
+  color: white;
+  height: 70%;
+  border-radius: 0.5rem;
+  min-width: 15rem;
+  min-height: 20rem;
+}
+.block_superior {
+  display: flex;
+  background: #ff4b46;
+  height: 35vh;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  /* max-width: 60%; */
+  min-width: 15rem;
+  min-height: 10rem;
+}
+.contenedor_img {
+  min-width: 10rem;
+}
+.img_sup {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
-form {
-  margin-top: 20vh;
-  padding: 2rem;
+.img_cerrar {
+  float: right;
+  margin-top: 2vh;
+  max-width: 3%;
+  min-width: 1rem;
+
+  object-fit: cover;
+}
+.img_logoBlanco {
+  margin-top: 2vh;
+  max-width: 45%;
+  min-width: 10rem;
+
+  object-fit: cover;
+}
+.pestaña_signIn {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
   background: #243241;
-  color: white;
+  text-align: center;
+  font-size: 1.7vh;
+  height: 46px;
+}
+.pestaña_signUp {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  background: #ff4b46;
+}
+
+.fila_pestañas {
+  background: red;
+  min-width: 15rem;
+}
+.block_inferior {
+  height: 33vh;
+  min-width: 15rem;
+  min-height: 20rem;
+}
+.content_sup {
+  padding: 1vh 5vh;
+  margin: 1vh;
+  font-size: 1.35vh;
+  line-height: 1.5vh;
+  text-transform: initial;
+  text-align: center;
+  font-weight: normal;
+}
+.cont_inferior {
+  min-height: 10rem;
+}
+.title {
+  margin: 2vh 0;
+  font-size: 1.125rem;
+  font-weight: bold;
 }
 </style>
