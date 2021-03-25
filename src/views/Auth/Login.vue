@@ -8,18 +8,18 @@
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
-            <a href="/"
-              ><img
+            <router-link to="/">
+              <img
                 class="img_cerrar"
                 src="@/assets/img/icons/cerrar.svg"
                 alt="imagnen"
-            /></a>
+            /></router-link>
 
             <div class="img_sup">
               <img
                 class="img_logoBlanco"
                 src="@/assets/img/logo_blanco.png"
-                alt="imagnen"
+                alt="imagen"
               />
             </div>
             <p class="content_sup">
@@ -30,9 +30,12 @@
           </div>
         </div>
         <div class="row justify-content-start fila_pestañas">
-          <div class="col-3 pestaña_signIn">Iniciar Sesión</div>
-          <div class="col-3 pestaña_signUp">Registro</div>
-          <div class="col-6 pestraña_restante"></div>
+          <router-link class="col-3 pestaña_signIn" to="#"
+            >Identificate
+          </router-link>
+          <router-link class="col-3 pestaña_signUp" to="/register"
+            >Registrate</router-link
+          >
         </div>
         <div class="row block_inferior">
           <div class="col">
@@ -44,7 +47,7 @@
 
                 <input
                   type="email"
-                  class="form-control"
+                  class="input"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   placeholder="Correo Electrónico"
@@ -54,14 +57,20 @@
               <div class="form-group">
                 <input
                   type="password"
-                  class="form-control"
+                  class="input"
                   id="exampleInputPassword1"
                   placeholder="Contraseña"
                   v-model="password"
                 />
               </div>
 
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="boton">Iniciar</button>
+              <span
+                >Aun no tienes cuenta?
+                <router-link class="link_Registro" to="/register"
+                  >Registrate</router-link
+                >
+              </span>
             </div>
           </div>
         </div>
@@ -127,24 +136,25 @@ export default {
 .form {
   margin-top: 12vh;
   padding: 0;
-  background: #243241;
+  /* background: #243241; */
   color: white;
-  height: 70%;
+  height: 69%;
   border-radius: 0.5rem;
-  min-width: 15rem;
-  min-height: 20rem;
+  min-width: 20rem;
+  min-height: 30vh;
 }
 .block_superior {
   display: flex;
   background: #ff4b46;
-  height: 30vh;
+  height: 35vh;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
-  min-width: 15rem;
+  min-width: 20rem;
   min-height: 10rem;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.493);
 }
 .contenedor_img {
-  min-width: 10rem;
+  min-width: 20rem;
   min-height: 10rem;
 }
 .img_sup {
@@ -157,21 +167,22 @@ export default {
   margin-top: 2vh;
   max-width: 3%;
   min-width: 1rem;
-
   object-fit: cover;
+}
+.img_cerrar:hover {
+  filter: brightness(0);
 }
 .img_logoBlanco {
   margin-top: 2vh;
   max-width: 45%;
   min-width: 10rem;
-
   object-fit: cover;
 }
 .fila_pestañas {
   background: #ff4b46;
-  min-width: 15rem;
+  min-width: 20rem;
   font-weight: bold;
-  font-size: 1.6vh;
+  font-size: 1.7vh;
   height: 4.6vh;
 }
 .pestaña_signIn,
@@ -184,31 +195,102 @@ export default {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   background: #243241;
+  color: white;
 }
+
+.pestaña_signUp:hover {
+  background: white;
+  color: black;
+}
+.pestaña_signIn:hover {
+  color: white;
+}
+.pestaña_signIn:hover,
+.pestaña_signUp:hover {
+  text-decoration: none;
+}
+
 .pestaña_signUp {
   background: #ff4b46;
 }
 
 .block_inferior {
-  height: 33vh;
-  min-width: 15rem;
+  display: flex;
+  align-items: center;
+  height: 30vh;
+  min-width: 20rem;
   min-height: 10rem;
+  background: #243241;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.493);
 }
 .content_sup {
-  padding: 1vh 5vh;
+  padding: 1vh 2vh;
   margin: 1vh;
-  font-size: 1.35vh;
-  line-height: 1.5vh;
+  font-size: 1.75vh;
+  line-height: 2vh;
   text-transform: initial;
   text-align: center;
   font-weight: normal;
 }
 .cont_inferior {
-  min-height: 10rem;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
+
 .title {
-  margin: 2vh 0;
+  margin: 3vh 0;
   font-size: 1.125rem;
   font-weight: bold;
+  min-width: 100%;
+}
+.input {
+  display: block;
+  margin: 0 auto;
+  min-width: 60%;
+  height: 3.5vh;
+  border-radius: 15px;
+  border: 1px solid #7f8c8d6b;
+  background-color: #00000021;
+  font-size: 1.5vh;
+  text-transform: uppercase;
+  text-align: center;
+  color: #7f8c8d6b;
+}
+.boton {
+  margin: 0 auto;
+  border-radius: 25px;
+  height: 3.5vh;
+  width: 20%;
+  background-color: #ff4b46;
+  color: #243241;
+  display: inline-flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5vh;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
+}
+span {
+  margin: 1.5vh;
+  text-transform: initial;
+  font-size: 1.2vh;
+  text-align: center;
+}
+.link_Registro {
+  color: #ff4b46;
+}
+.link_Registro:hover {
+  color: #ff4b46;
+}
+.boton:hover {
+  background-color: #fff;
+  color: black;
 }
 </style>
