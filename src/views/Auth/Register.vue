@@ -117,7 +117,7 @@
   </div>
 </template>
 <script>
-// import "@/firebase/init";
+import "@/firebase/init";
 import firebase from "firebase";
 import { db } from "@/firebase/init";
 import fondo2 from "@/components/layout/Fondo2";

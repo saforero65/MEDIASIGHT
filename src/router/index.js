@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 // import Register from '../views/Auth/Register.vue'
 // import Dashboard from '../views/Dashboard.vue'
 import Firebase from 'firebase'
+import '../firebase/init'
 
 Vue.use(VueRouter)
 

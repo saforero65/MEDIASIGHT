@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import { auth } from '../firebase/init'
-// import router from '../router'
+// import '../firebase/init'
+// import '../router'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 Vue.use(Vuex);
