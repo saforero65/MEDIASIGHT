@@ -4,7 +4,7 @@
       <form
         class="col-4 position-absolute form"
         action="#"
-        @submit.prevent="register"
+        @submit.prevent="crearUsuario({ email: email, password: password })"
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
@@ -38,42 +38,48 @@
           >
         </div>
         <div class="row block_inferior">
-          <div class="col">
-            <div class="cont_inferior">
-              <h2 class="text-center title">Registro</h2>
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="input"
-                  placeholder="Nombre"
-                  v-model="name"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="email"
-                  class="input"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                  v-model="email"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="password"
-                  class="input"
-                  placeholder="Password"
-                  v-model="password"
-                />
-              </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" />
-                <label class="form-check-label" for="exampleCheck1"
-                  >Acepto condiciones</label
-                >
-              </div>
-              <button type="submit" class="boton">Submit</button>
+          <div class="col cont_inferior">
+            <h2 class="text-center title">Registro</h2>
+            <div class="form-group">
+              <input
+                type="text"
+                class="input"
+                placeholder="Nombre"
+                v-model="name"
+              />
             </div>
+            <div class="form-group">
+              <input
+                type="email"
+                class="input"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+                v-model="email"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="input"
+                placeholder="Password"
+                v-model="password"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="input"
+                placeholder="Repita la contraseña"
+                v-model="password2"
+              />
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" />
+              <label class="form-check-label" for="exampleCheck1"
+                >Acepto condiciones</label
+              >
+            </div>
+            <button type="submit" class="boton">Submit</button>
           </div>
         </div>
       </form>
@@ -97,18 +103,21 @@
   </div>
 </template>
 <script>
-import "@/firebase/init";
-import firebase from "firebase";
+// import "@/firebase/init";
+// import firebase from "firebase";
 import fondo2 from "@/components/layout/Fondo2";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       name: "",
       email: "",
       password: "",
+      password2: "",
+      type: ["docente", "egresado", "estudiante"],
+      dominio: "@unimilitar.edu.co",
       error: "",
       ver: true,
-      dominio: "@unimilitar.edu.co",
     };
   },
   components: {
@@ -116,51 +125,58 @@ export default {
   },
   name: "Register",
   methods: {
-    register() {
-      this.error = "";
-      if (this.email.includes(this.dominio)) {
-        console.log(this.email);
+    ...mapActions(["crearUsuario"]),
+    // register() {
+    //   this.error = "";
+    //   if (this.email.includes(this.dominio)) {
+    //     console.log(this.email);
 
-        if (this.name && this.email && this.password) {
-          firebase
-            .auth()
-            .createUserWithEmailAndPassword(this.email, this.password)
-            .then((user) => {
-              this.$router.push({ name: "dashboard" });
-              if (user) {
-                user
-                  .updateProfile({
-                    displayName: this.name,
-                  })
-                  .then(() => {
-                    this.name = "";
-                    this.email = "";
-                    this.password = "";
-                  })
-                  .catch((err) => {
-                    this.error = err.message;
-                    this.ver = true;
-                  });
-              }
-            })
-            .catch((err) => {
-              this.error = err.message;
-              this.ver = true;
-            });
-        } else {
-          this.error = "Todos los campos son requeridos";
-          this.ver = true;
-        }
-      } else {
-        this.email = "";
-        this.error = "El dominio no es de la unimilitar";
-        this.ver = true;
-      }
-    },
+    //     if (this.name && this.email && this.password) {
+    //       firebase
+    //         .auth()
+    //         .createUserWithEmailAndPassword(this.email, this.password)
+    //         .then((user) => {
+    //           this.$router.push({ name: "dashboard" });
+    //           if (user) {
+    //             user
+    //               .updateProfile({
+    //                 displayName: this.name,
+    //               })
+    //               .then(() => {
+    //                 this.name = "";
+    //                 this.email = "";
+    //                 this.password = "";
+    //               })
+    //               .catch((err) => {
+    //                 this.error = err.message;
+    //                 this.ver = true;
+    //               });
+    //           }
+    //         })
+    //         .catch((err) => {
+    //           this.error = err.message;
+    //           this.ver = true;
+    //         });
+    //     } else {
+    //       this.error = "Todos los campos son requeridos";
+    //       this.ver = true;
+    //     }
+    //   } else {
+    //     this.email = "";
+    //     this.error = "El dominio no es de la unimilitar";
+    //     this.ver = true;
+    //   }
+    // },
   },
 };
 </script>
 <style  scoped>
+.cont_inferior {
+  height: initial;
+}
+.block_inferior {
+  min-height: 17rem;
+}
 .pestaña_signIn:hover {
   background: white;
   color: black;
