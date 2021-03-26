@@ -122,7 +122,7 @@
 .input {
     display: block;
     margin: 0 auto;
-    min-width: 60%;
+    width: 60%;
     height: 3.5vh;
     border-radius: 10px;
     border: 1px solid #7f8c8d6b;
