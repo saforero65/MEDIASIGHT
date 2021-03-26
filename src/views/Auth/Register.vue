@@ -59,7 +59,7 @@
             </div>
             <div class="form-group">
               <b-form-select
-                class="input col-4 icon_tipo"
+                class="input icon_tipo"
                 v-model="type"
                 :options="types"
                 required
@@ -226,6 +226,9 @@ export default {
 }
 .pestaña_signIn {
   background: #ff4b46;
+}
+.custom-select {
+  appearance: revert;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .block_inferior {
