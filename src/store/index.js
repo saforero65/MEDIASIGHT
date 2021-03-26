@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { auth } from '../firebase/init'
-import router from '../router'
+// import { auth } from '../firebase/init'
+// import router from '../router'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 Vue.use(Vuex);
@@ -9,8 +9,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         model: null,
-        usuario: '',
-        error: null,
+        // usuario: '',
+        // error: null,
     },
     getters: {
         getModel(state) {
@@ -21,30 +21,30 @@ export default new Vuex.Store({
         setModel(state, newModel) {
             state.model = newModel
         },
-        setUsuario(state, payload) {
-            state.usuario = payload
-        },
-        setError(state, payload) {
-            state.error = payload
-        }
+        // setUsuario(state, payload) {
+        //     state.usuario = payload
+        // },
+        // setError(state, payload) {
+        //     state.error = payload
+        // }
     },
     actions: {
-        crearUsuario({ commit }, usuario) {
-            auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
-                .then(res => {
-                    console.log(res)
-                    const usuario = {
-                        email: res.user.email,
-                        uid: res.user.uid
-                    }
-                    commit('setUsuario', usuario)
-                    router.push('/dashboard')
-                })
-                .catch(error => {
-                    console.log(error)
-                    commit('setError', error)
-                })
-        },
+        // crearUsuario({ commit }, usuario) {
+        //     auth.createUserWithEmailAndPassword(usuario.email, usuario.password)
+        //         .then(res => {
+        //             console.log(res)
+        //             const usuario = {
+        //                 email: res.user.email,
+        //                 uid: res.user.uid
+        //             }
+        //             commit('setUsuario', usuario)
+        //             router.push('/dashboard')
+        //         })
+        //         .catch(error => {
+        //             console.log(error)
+        //             commit('setError', error)
+        //         })
+        // },
         loadModel: function(context, path) {
             console.log('loading model into store', path)
 
@@ -53,6 +53,7 @@ export default new Vuex.Store({
             switch (path.split('.').pop()) {
                 case 'gltf':
                     loader = new GLTFLoader();
+
                     break;
                 case 'glb':
                     loader = new GLTFLoader();
