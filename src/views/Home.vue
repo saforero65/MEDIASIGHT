@@ -2,7 +2,6 @@
   <div class="body">
     <Navigation></Navigation>
     <fondo2></fondo2>
-    <div>Home</div>
   </div>
 </template>
 
