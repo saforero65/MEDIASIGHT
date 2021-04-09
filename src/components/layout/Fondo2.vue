@@ -92,14 +92,6 @@ export default {
         model.needsUpdate = true;
       });
       this.render();
-      // this.renderer.setAnimationLoop(() => {
-      //   if (this.mixer) {
-      //     // this.render();
-      //     // console.log(` carga el modelo`);
-      //   } else {
-      //     console.log(`aun no se carga el modelo`);
-      //   }
-      // });
     },
     onWindowResize: function () {
       console.log("resize");
@@ -116,31 +108,11 @@ export default {
       requestAnimationFrame(this.render);
       const delta = this.clock.getDelta();
 
-      //  FIXME:Arreglar que renderice hasta que la carga del modelo sea ocmpletada
-
-      //TODO:
-      // - Ordenar Codigo
-      // console.log(this.clock.getDelta());
-
-      // if (this.mixer) {
-      //   console.log(`mixer true en if`);
-      //   this.mixer.update(0.001);
-      // }
-      // if (this.mixer) {
-      //   this.mixer.update(delta);
-      //   console.log("update mixer");
-      // }
-      // console.log(`estos es mixer ${this.mixer[1]}`);
       if (this.mixer.length != 0) {
-        // console.log(this.mixer);
-        for (let i = 0; i < 1; ++i) {
-          // console.log("entro al for");
-          this.mixer.update(delta);
-          console.log(`mixer update true en for`);
-          // this.mixer.update(0.000001 + 0.01);
-        }
+        this.mixer.update(delta);
+        console.log(`mixer update true en for`);
       }
-      // console.log("salio al for");
+
       this.renderer.render(this.scene, this.camera);
     },
   },
