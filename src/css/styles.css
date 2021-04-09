@@ -128,7 +128,7 @@
     border: 1px solid #7f8c8d6b;
     background-color: #00000021;
     font-size: 1.5vh;
-    text-transform: uppercase;
+    text-transform: none;
     color: #7f8c8df6;
     box-sizing: border-box;
     background-image: url(~@/assets/logo.png);
