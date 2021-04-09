@@ -44,7 +44,7 @@
               <input
                 type="text"
                 class="input icon_usuario"
-                placeholder="Nombre"
+                placeholder="NOMBRE"
                 v-model="name"
               />
             </div>
@@ -53,7 +53,7 @@
                 type="email"
                 class="input icon_email"
                 aria-describedby="emailHelp"
-                placeholder="e-mail"
+                placeholder="E-MAIL"
                 v-model="email"
               />
             </div>
@@ -69,7 +69,7 @@
               <input
                 type="password"
                 class="input icon_pswrd"
-                placeholder="contraseña "
+                placeholder="CONTRASEÑA"
                 v-model="password"
               />
             </div>
@@ -77,7 +77,7 @@
               <input
                 type="password"
                 class="input icon_pswrd"
-                placeholder="Repita la contraseña"
+                placeholder="REPITA LA CONTRASEÑA"
                 v-model="password2"
               />
             </div>
@@ -157,28 +157,13 @@ export default {
           firebase
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
-            .then((user) => {
+            .then(() => {
               this.$router.push({ name: "dashboard" });
               db.collection(this.email).add({
                 nombre: this.name,
                 correo: this.email,
                 tipo: this.type,
               });
-              if (user) {
-                user
-                  .updateProfile({
-                    displayName: this.name,
-                  })
-                  .then(() => {
-                    this.name = "";
-                    this.email = "";
-                    this.password = "";
-                  })
-                  .catch((err) => {
-                    this.error = err.message;
-                    this.ver = true;
-                  });
-              }
             })
             .catch((err) => {
               this.error = err.message;

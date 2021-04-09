@@ -50,7 +50,7 @@
                   class="input icon_email"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  placeholder="Correo Electrónico"
+                  placeholder="CORREO ELECTRONICO"
                   v-model="email"
                 />
               </div>
@@ -59,7 +59,7 @@
                   type="password"
                   class="input icon_pswrd"
                   id="exampleInputPassword1"
-                  placeholder="Contraseña"
+                  placeholder="CONTRASEÑA"
                   v-model="password"
                 />
               </div>
@@ -120,9 +120,10 @@ export default {
         firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then((user) => {
+          .then(() => {
+            console.log(this.email);
+
             this.$router.push({ name: "dashboard" });
-            console.log(user);
           })
           .catch((err) => {
             this.error = err.message;
