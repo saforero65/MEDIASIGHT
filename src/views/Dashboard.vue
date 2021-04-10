@@ -1,47 +1,14 @@
 <template >
-  <div v-if="user">
-    <template v-if="user.email == 'admin@unimilitar.edu.co'">
-      <div>
-        perfil admin
-
-        <perfiladmin></perfiladmin>
-      </div>
-    </template>
-    <template v-else>
-      <div>
-        perfil miembro
-
-        <perfilmiembro></perfilmiembro>
-      </div>
-    </template>
+  <div>
+    <dashboardboxs></dashboardboxs>
   </div>
 </template>
 <script>
-import Firebase from "firebase";
-import perfiladmin from "@/components/PerfilAdmin";
-import perfilmiembro from "@/components/PerfilMiembro";
+import dashboardboxs from "@/components/layout/Dashboardboxs";
 export default {
   name: "dashboard",
   components: {
-    perfiladmin,
-    perfilmiembro,
-  },
-  data() {
-    return {
-      user: null,
-    };
-  },
-  created() {
-    Firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.user = user;
-        console.log("this.user");
-        console.log(user);
-        console.log(user);
-      } else {
-        this.user = null;
-      }
-    });
+    dashboardboxs,
   },
 };
 </script>
