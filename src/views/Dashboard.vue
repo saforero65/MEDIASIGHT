@@ -1,12 +1,16 @@
-<template>
-  <div>Dashboard</div>
+<template >
+  <div>
+    <dashboardboxs></dashboardboxs>
+  </div>
 </template>
-
 <script>
-// @ is an alias to /src
-
+import dashboardboxs from "@/components/layout/Dashboardboxs";
 export default {
-  name: "Dashboard",
-  components: {},
+  name: "dashboard",
+  components: {
+    dashboardboxs,
+  },
 };
 </script>
+<style>
+</style>

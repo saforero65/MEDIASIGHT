@@ -1,5 +1,5 @@
 <template>
-  <div class="block">
+  <div>
     <div class="container">
       <form
         class="position-absolute col-4 form"
@@ -8,18 +8,18 @@
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
-            <a href="/"
-              ><img
+            <router-link to="/">
+              <img
                 class="img_cerrar"
                 src="@/assets/img/icons/cerrar.svg"
                 alt="imagnen"
-            /></a>
+            /></router-link>
 
             <div class="img_sup">
               <img
                 class="img_logoBlanco"
                 src="@/assets/img/logo_blanco.png"
-                alt="imagnen"
+                alt="imagen"
               />
             </div>
             <p class="content_sup">
@@ -30,9 +30,12 @@
           </div>
         </div>
         <div class="row justify-content-start fila_pestañas">
-          <div class="col-3 pestaña_signIn">Iniciar Sesión</div>
-          <div class="col-3 pestaña_signUp">Registro</div>
-          <div class="col-6 pestraña_restante"></div>
+          <router-link class="col-3 pestaña_signIn" to="#"
+            >Identificate
+          </router-link>
+          <router-link class="col-3 pestaña_signUp" to="/register"
+            >Registrate</router-link
+          >
         </div>
         <div class="row block_inferior">
           <div class="col">
@@ -44,36 +47,48 @@
 
                 <input
                   type="email"
-                  class="form-control"
+                  class="input icon_email"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  placeholder="Correo Electrónico"
+                  placeholder="CORREO ELECTRONICO"
                   v-model="email"
                 />
               </div>
               <div class="form-group">
                 <input
                   type="password"
-                  class="form-control"
+                  class="input icon_pswrd"
                   id="exampleInputPassword1"
-                  placeholder="Contraseña"
+                  placeholder="CONTRASEÑA"
                   v-model="password"
                 />
               </div>
 
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="boton">Iniciar</button>
+              <span
+                >Aun no tienes cuenta?
+                <router-link class="link_Registro" to="/register"
+                  >Registrate</router-link
+                >
+              </span>
             </div>
           </div>
         </div>
       </form>
 
       <div v-if="error">
-        <b-alert show variant="danger">
-          <h4 class="alert-heading">Hey!</h4>
-          <p>
-            {{ error }}
-          </p>
-        </b-alert>
+        <div v-show="ver" class="alert alert-danger position-absolute">
+          <button
+            v-on:click="ver = !ver"
+            type="button"
+            class="close"
+            data-dismiss="alert"
+          >
+            &times;
+          </button>
+
+          <strong>Hey! </strong>{{ error }}
+        </div>
       </div>
     </div>
     <fondo2></fondo2>
@@ -82,7 +97,8 @@
 <script>
 import "@/firebase/init.js";
 import firebase from "firebase/app";
-import fondo2 from "../Fondo2";
+import fondo2 from "@/components/layout/Fondo2";
+require("@/css/styles.css");
 export default {
   components: {
     fondo2,
@@ -93,6 +109,7 @@ export default {
       email: "",
       password: "",
       error: "",
+      ver: true,
     };
   },
   name: "Login",
@@ -103,112 +120,34 @@ export default {
         firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then((user) => {
+          .then(() => {
+            console.log(this.email);
+
             this.$router.push({ name: "dashboard" });
-            console.log(user);
           })
           .catch((err) => {
             this.error = err.message;
+            this.ver = true;
           });
       } else {
         this.error = "Todos los campos son requeridos";
+        this.ver = true;
       }
     },
   },
 };
 </script>
-<style>
-.container {
-  font-family: "Roboto Mono", monospace;
-  display: flex;
-  justify-content: center;
-  text-transform: uppercase;
+<style scoped>
+.pestaña_signUp:hover {
+  background: white;
+  color: black;
 }
-.form {
-  margin-top: 12vh;
-  padding: 0;
-  background: #243241;
+
+.pestaña_signIn:hover {
   color: white;
-  height: 70%;
-  border-radius: 0.5rem;
-  min-width: 15rem;
-  min-height: 20rem;
 }
-.block_superior {
-  display: flex;
-  background: #ff4b46;
-  height: 30vh;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  min-width: 15rem;
-  min-height: 10rem;
-}
-.contenedor_img {
-  min-width: 10rem;
-  min-height: 10rem;
-}
-.img_sup {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.img_cerrar {
-  float: right;
-  margin-top: 2vh;
-  max-width: 3%;
-  min-width: 1rem;
 
-  object-fit: cover;
-}
-.img_logoBlanco {
-  margin-top: 2vh;
-  max-width: 45%;
-  min-width: 10rem;
-
-  object-fit: cover;
-}
-.fila_pestañas {
-  background: #ff4b46;
-  min-width: 15rem;
-  font-weight: bold;
-  font-size: 1.6vh;
-  height: 4.6vh;
-}
-.pestaña_signIn,
-.pestaña_signUp {
-  height: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  background: #243241;
-}
 .pestaña_signUp {
   background: #ff4b46;
-}
-
-.block_inferior {
-  height: 33vh;
-  min-width: 15rem;
-  min-height: 10rem;
-}
-.content_sup {
-  padding: 1vh 5vh;
-  margin: 1vh;
-  font-size: 1.35vh;
-  line-height: 1.5vh;
-  text-transform: initial;
-  text-align: center;
-  font-weight: normal;
-}
-.cont_inferior {
-  min-height: 10rem;
-}
-.title {
-  margin: 2vh 0;
-  font-size: 1.125rem;
-  font-weight: bold;
 }
 </style>
