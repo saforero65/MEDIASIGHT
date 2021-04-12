@@ -10,7 +10,7 @@
         <h2 class="perfil_name">{{ nombre }}</h2>
         <h3 class="perfil_type">{{ tipo }}</h3>
       </div>
-      <template v-if="user.email == 'admin@unimilitar.edu.co'">
+      <template v-if="correo == 'admin@unimilitar.edu.co'">
         <div class="menu">
           <div>
             <h3 class="title_menu">MENÚ</h3>
@@ -90,8 +90,26 @@
     </div>
     <div class="perfil_content">
       <div class="head_content">
-        <h1 class="content_title">Vista General de la Cuenta</h1>
-        <h3 class="content_subtitle">Perfil</h3>
+        <div>
+          <h1 class="content_title">Vista General de la Cuenta</h1>
+          <h3 class="content_subtitle">Perfil</h3>
+        </div>
+
+        <template v-if="user">
+          <div class="dropdown">
+            <img
+              class="img_menu"
+              src="@/assets/img/icons/menu.svg"
+              alt="imagnen_perfil"
+            />
+            <div class="dropdown-content">
+              <router-link to="/"><a>Pagina Principal</a> </router-link>
+              <div @click.prevent="logout">
+                <router-link to="/"> Cerrar Sesion </router-link>
+              </div>
+            </div>
+          </div>
+        </template>
       </div>
       <div class="content_box">
         <div class="box1">
@@ -131,7 +149,15 @@ export default {
       tipo: null,
     };
   },
-
+  methods: {
+    logout() {
+      Firebase.auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({ name: "home" });
+        });
+    },
+  },
   created() {
     Firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -275,6 +301,7 @@ export default {
   margin: 15px 0 0 0;
 }
 .content {
+  height: 50%;
   margin: auto 0;
 }
 .perfil_content {
@@ -293,8 +320,9 @@ export default {
 }
 .head_content {
   display: flex;
-  flex-direction: column;
-  padding: 1.8rem 0 0.5rem 3.75rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem 0 1.8rem 3.75rem;
   border-bottom: 1.5px solid #a8abb750;
 }
 .boton_edit {
@@ -318,5 +346,29 @@ export default {
   align-items: center;
   width: 30%;
   margin: 0 3.5rem;
+}
+.img_menu {
+  width: 30px;
+  margin-right: 4rem;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  margin-left: -8rem;
 }
 </style>
