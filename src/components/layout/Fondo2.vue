@@ -87,7 +87,7 @@ export default {
       //añadiendo modelo .glb
       const loader = new GLTFLoader();
 
-      loader.load("/three-assets/RobotExpressive.glb", (gltf) => {
+      loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
         const model = gltf.scene;
         const animations = gltf.animations;
 
@@ -100,7 +100,7 @@ export default {
         this.scene.add(model);
         console.log(`modelo cargado`);
         model.position.set(0, 0, 0);
-        model.scale.set(0.7, 0.7, 0.7);
+        model.scale.set(5, 5, 5);
         model.needsUpdate = true;
       });
       this.render();
