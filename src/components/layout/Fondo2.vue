@@ -5,6 +5,7 @@
 <script>
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 export default {
   name: "fondo2",
@@ -26,31 +27,6 @@ export default {
       //elemento clock para animacion
       this.clock = new THREE.Clock();
 
-      // añade camaras
-
-      const camera = new THREE.PerspectiveCamera(
-        45,
-        this.container.clientWidth / this.container.clientHeight,
-        0.1,
-        100
-      );
-      camera.position.set(0, 5, 10);
-      this.camera = camera;
-
-      // cra la escena
-      this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color("skyblue");
-
-      // añade luces
-      const ambientLight = new THREE.HemisphereLight(
-        0xffffff, // color brillante
-        0x222222, // color fondo tenue
-        1 // intensity
-      );
-      const mainLight = new THREE.DirectionalLight(0xffffff, 4.0);
-      mainLight.position.set(10, 10, 10);
-      this.scene.add(ambientLight, mainLight);
-
       // crear render
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setSize(
@@ -62,6 +38,42 @@ export default {
       this.renderer.outputEncoding = THREE.sRGBEncoding;
       this.renderer.physicallyCorrectLights = true;
       this.container.appendChild(this.renderer.domElement);
+
+      // cra la escena
+      this.scene = new THREE.Scene();
+      this.scene.background = new THREE.Color("black");
+
+      // añade camaras
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        this.container.clientWidth / this.container.clientHeight,
+        0.1,
+        100
+      );
+      camera.position.set(0, 5.5, 10);
+      camera.rotation.set(-0.3, 0, 0);
+      this.camera = camera;
+
+      //Orbit controls
+      // this.controls = new OrbitControls(camera, this.renderer.domElement);
+      // this.controls.target.set(0, 0, 0); //Objetivo de la cámara
+
+      // this.controls.enablePan = true;
+      // this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
+      // this.controls.maxPolarAngle = Math.PI / 2;
+      // this.controls.minDistance = 5;
+      // this.controls.maxDistance = 20;
+      // this.controls.update();
+
+      // añade luces
+      const ambientLight = new THREE.HemisphereLight(
+        0xffffff, // color brillante
+        0x222222, // color fondo tenue
+        1 // intensity
+      );
+      const mainLight = new THREE.DirectionalLight(0xffffff, 3.0);
+      mainLight.position.set(6, 10, 0);
+      this.scene.add(ambientLight, mainLight);
 
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
@@ -75,7 +87,7 @@ export default {
       //añadiendo modelo .glb
       const loader = new GLTFLoader();
 
-      loader.load("/three-assets/RobotExpressive.glb", (gltf) => {
+      loader.load("/three-assets/r5.glb", (gltf) => {
         const model = gltf.scene;
         const animations = gltf.animations;
 
@@ -87,11 +99,27 @@ export default {
 
         this.scene.add(model);
         console.log(`modelo cargado`);
-        model.position.set(-5, 3, 0);
-        model.scale.set(0.7, 0.7, 0.7);
+        model.position.set(0.8, 0, 0);
+        model.rotation.set(-0.1, 2.79253, 0);
+        model.scale.set(50, 50, 50);
         model.needsUpdate = true;
       });
       this.render();
+    },
+    render() {
+      requestAnimationFrame(this.render);
+      const delta = this.clock.getDelta();
+
+      if (this.mixer.length != 0) {
+        for (let i = 0; i < 1; ++i) {
+          // console.log("entro al for");
+          this.mixer.update(delta);
+          console.log(`mixer update true en for`);
+          // this.mixer.update(0.000001 + 0.01);
+        }
+      }
+
+      this.renderer.render(this.scene, this.camera);
     },
     onWindowResize: function () {
       console.log("resize");
@@ -104,20 +132,10 @@ export default {
         this.container.clientHeight
       );
     },
-    render() {
-      requestAnimationFrame(this.render);
-      const delta = this.clock.getDelta();
-
-      if (this.mixer.length != 0) {
-        this.mixer.update(delta);
-        console.log(`mixer update true en for`);
-      }
-
-      this.renderer.render(this.scene, this.camera);
-    },
   },
   mounted() {
     this.init();
+    // this.render();
 
     window.addEventListener("resize", this.onWindowResize, false);
   },
