@@ -8,12 +8,12 @@
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
-            <router-link to="/">
+            <a href="/">
               <img
                 class="img_cerrar"
                 src="@/assets/img/icons/cerrar.svg"
                 alt="imagnen"
-            /></router-link>
+            /></a>
 
             <div class="img_sup">
               <img
@@ -30,12 +30,8 @@
           </div>
         </div>
         <div class="row justify-content-start fila_pestañas">
-          <router-link class="col-3 pestaña_signIn" to="#"
-            >Identificate
-          </router-link>
-          <router-link class="col-3 pestaña_signUp" to="/register"
-            >Registrate</router-link
-          >
+          <a class="col-3 pestaña_signIn" href="/#/login">Identificate </a>
+          <a class="col-3 pestaña_signUp" href="/#/register">Registrate</a>
         </div>
         <div class="row block_inferior">
           <div class="col">
@@ -67,9 +63,7 @@
               <button type="submit" class="boton">Iniciar</button>
               <span
                 >Aun no tienes cuenta?
-                <router-link class="link_Registro" to="/register"
-                  >Registrate</router-link
-                >
+                <a class="link_Registro" href="/#/register">Registrate</a>
               </span>
             </div>
           </div>
@@ -123,7 +117,8 @@ export default {
           .then(() => {
             console.log(this.email);
 
-            this.$router.push({ name: "dashboard" });
+            // this.$router.push({ name: "dashboard" });
+            window.location.href = "/#/dashboard";
           })
           .catch((err) => {
             this.error = err.message;

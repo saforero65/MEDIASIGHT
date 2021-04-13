@@ -1,13 +1,13 @@
 <template>
   <div>
     <header class="position-absolute">
-      <router-link to="/">
+      <a href="/">
         <img
           class="logo_main"
           src="@/assets/img/logo_main.png"
           alt="logo_principal"
         />
-      </router-link>
+      </a>
       <template v-if="user">
         <div class="sliding--menu__wrapper slide--right">
           <input type="checkbox" id="navigation" />
@@ -24,12 +24,10 @@
                 <a href="#">About us</a>
               </li>
               <li @click.prevent="logout">
-                <router-link to="/"> Cerrar Sesion </router-link>
+                <a href="/"> Cerrar Sesion </a>
               </li>
               <li>
-                <router-link to="/dashboard"
-                  >{{ user.displayName || user.email }}
-                </router-link>
+                <a href="#/dashboard">{{ user.displayName || user.email }} </a>
                 <!-- <select name="" id="">
                   <option value="">1</option>
                   <option value="">1</option>
@@ -55,7 +53,7 @@
                 <a href="#">About us</a>
               </li>
               <li>
-                <router-link to="/login"> Login </router-link>
+                <a href="/#/login"> Login </a>
               </li>
             </ul>
           </nav>
@@ -77,7 +75,8 @@ export default {
       Firebase.auth()
         .signOut()
         .then(() => {
-          this.$router.push({ name: "home" });
+          // this.$router.push({ name: "home" });
+          window.location.href = "/";
         });
     },
   },

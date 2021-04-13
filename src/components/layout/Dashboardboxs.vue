@@ -15,7 +15,7 @@
           <div>
             <h3 class="title_menu">MENÚ</h3>
             <ul class="list">
-              <router-link class="link" to="/dashboard">
+              <a class="link" href="/#/dashboard">
                 <li class="menu_item">
                   <img
                     class="img_item"
@@ -23,7 +23,7 @@
                     alt="imagnen_perfil"
                   />Perfil
                 </li>
-              </router-link>
+              </a>
               <router-link class="link" to="/dashboard">
                 <li class="menu_item">
                   <img
@@ -44,13 +44,13 @@
               </router-link>
             </ul>
           </div>
-          <router-link class="link" to="/">
+          <a class="link" href="/">
             <img
               class="img_footer"
               src="@/assets/img/logo_main.png"
               alt="imagen_perfil"
             />
-          </router-link>
+          </a>
         </div>
       </template>
       <template v-else>
@@ -78,13 +78,13 @@
               </router-link>
             </ul>
           </div>
-          <router-link class="link" to="/">
+          <a class="link" href="/">
             <img
               class="img_footer"
               src="@/assets/img/logo_main.png"
               alt="imagen_perfil"
             />
-          </router-link>
+          </a>
         </div>
       </template>
     </div>
@@ -103,9 +103,9 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <router-link to="/"><a>Pagina Principal</a> </router-link>
+              <a href="/">Pagina Principal</a>
               <div @click.prevent="logout">
-                <router-link to="/"> Cerrar Sesion </router-link>
+                <a href="/">Cerrar Sesion </a>
               </div>
             </div>
           </div>
@@ -154,7 +154,8 @@ export default {
       Firebase.auth()
         .signOut()
         .then(() => {
-          this.$router.push({ name: "home" });
+          // this.$router.push({ name: "home" });
+          window.location.href = "/";
         });
     },
   },

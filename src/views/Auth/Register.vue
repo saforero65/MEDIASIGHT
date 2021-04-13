@@ -8,12 +8,12 @@
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
-            <router-link to="/">
+            <a href="/">
               <img
                 class="img_cerrar"
                 src="@/assets/img/icons/cerrar.svg"
                 alt="imagnen"
-            /></router-link>
+            /></a>
 
             <div class="img_sup">
               <img
@@ -30,12 +30,8 @@
           </div>
         </div>
         <div class="row justify-content-start fila_pestañas">
-          <router-link class="col-3 pestaña_signIn" to="/login"
-            >Identificate
-          </router-link>
-          <router-link class="col-3 pestaña_signUp" to="#"
-            >Registrate</router-link
-          >
+          <a class="col-3 pestaña_signIn" href="/#/login">Identificate </a>
+          <a class="col-3 pestaña_signUp" href="/#/register">Registrate</a>
         </div>
         <div class="row block_inferior">
           <div class="col cont_inferior">
@@ -158,7 +154,8 @@ export default {
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(() => {
-              this.$router.push({ name: "dashboard" });
+              // this.$router.push({ name: "dashboard" });
+              window.location.href = "/#/dashboard";
               db.collection(this.email).add({
                 nombre: this.name,
                 correo: this.email,
