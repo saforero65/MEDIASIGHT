@@ -54,11 +54,11 @@ export default {
       this.camera = camera;
 
       //Orbit controls
-      this.controls = new OrbitControls( camera, this.renderer.domElement );
-			this.controls.target.set(0, 0, 0); //Objetivo de la cámara
+      this.controls = new OrbitControls(camera, this.renderer.domElement);
+      this.controls.target.set(0, 0, 0); //Objetivo de la cámara
 
-      this.controls. enablePan = false;
-      this.controls.maxAzimuthAngle = [-2*Math.PI, Math.PI/2];
+      this.controls.enablePan = true;
+      this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
       this.controls.maxPolarAngle = Math.PI / 2;
       this.controls.minDistance = 5;
       this.controls.maxDistance = 20;
@@ -73,7 +73,6 @@ export default {
       const mainLight = new THREE.DirectionalLight(0xffffff, 4.0);
       mainLight.position.set(10, 10, 10);
       this.scene.add(ambientLight, mainLight);
-
 
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
@@ -99,7 +98,7 @@ export default {
 
         this.scene.add(model);
         console.log(`modelo cargado`);
-        model.position.set(0, 0, 0);
+        model.position.set(-3, 0, 0);
         model.scale.set(5, 5, 5);
         model.needsUpdate = true;
       });
