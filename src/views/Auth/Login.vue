@@ -29,9 +29,13 @@
             </p>
           </div>
         </div>
-        <div class="row justify-content-start fila_pestañas">
-          <a class="col-3 pestaña_signIn" href="/#/login">Identificate </a>
-          <a class="col-3 pestaña_signUp" href="/#/register">Registrate</a>
+        <div v-show="true" class="row justify-content-start fila_pestañas">
+          <a class="col-3 pestaña_signIn" v-on:click="mostrar = false"
+            >Identificate
+          </a>
+          <a class="col-3 pestaña_signUp" v-on:click="mostrar = true"
+            >Registrate</a
+          >
         </div>
         <div class="row block_inferior">
           <div class="col">
@@ -63,7 +67,9 @@
               <button type="submit" class="boton">Iniciar</button>
               <span
                 >Aun no tienes cuenta?
-                <a class="link_Registro" href="/#/register">Registrate</a>
+                <router-link class="link_Registro" to="/register"
+                  >Registrate</router-link
+                >
               </span>
             </div>
           </div>
@@ -85,17 +91,17 @@
         </div>
       </div>
     </div>
-    <fondo2></fondo2>
+    <!-- <fondo2></fondo2> -->
   </div>
 </template>
 <script>
 import "@/firebase/init.js";
 import firebase from "firebase/app";
-import fondo2 from "@/components/layout/Fondo2";
+// import fondo2 from "@/components/layout/Fondo2";
 require("@/css/styles.css");
 export default {
   components: {
-    fondo2,
+    // fondo2,
   },
   data() {
     return {
@@ -117,8 +123,7 @@ export default {
           .then(() => {
             console.log(this.email);
 
-            // this.$router.push({ name: "dashboard" });
-            window.location.href = "/#/dashboard";
+            this.$router.push({ name: "dashboard" });
           })
           .catch((err) => {
             this.error = err.message;

@@ -29,7 +29,7 @@
             </p>
           </div>
         </div>
-        <div class="row justify-content-start fila_pestañas">
+        <div v-show="true" class="row justify-content-start fila_pestañas">
           <a class="col-3 pestaña_signIn" href="/#/login">Identificate </a>
           <a class="col-3 pestaña_signUp" href="/#/register">Registrate</a>
         </div>
@@ -109,14 +109,14 @@
         </div>
       </div>
     </div>
-    <fondo2></fondo2>
+    <!-- <fondo2></fondo2> -->
   </div>
 </template>
 <script>
 import "@/firebase/init";
 import firebase from "firebase";
 import { db } from "@/firebase/init";
-import fondo2 from "@/components/layout/Fondo2";
+// import fondo2 from "@/components/layout/Fondo2";
 // import { mapActions, mapState } from "vuex";
 require("@/css/styles.css");
 export default {
@@ -140,7 +140,7 @@ export default {
     };
   },
   components: {
-    fondo2,
+    // fondo2,
   },
   name: "Register",
   methods: {

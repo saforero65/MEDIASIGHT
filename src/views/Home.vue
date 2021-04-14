@@ -1,19 +1,27 @@
 <template>
   <div class="body">
+    <!-- <PreLoader /> -->
     <Navigation></Navigation>
-    <fondo2></fondo2>
+    <FondoMain></FondoMain>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+// import PreLoader from "@/components/PreLoader";
 import Navigation from "@/components/layout/Navigation";
-import fondo2 from "@/components/layout/Fondo2";
+import FondoMain from "@/components/layout/FondoMain";
 export default {
   name: "Home",
+  data() {
+    return {
+      empezemos: false,
+    };
+  },
   components: {
     Navigation,
-    fondo2,
+    FondoMain,
+    // PreLoader,
   },
 };
 </script>

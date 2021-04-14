@@ -11,6 +11,11 @@ Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
+        name: 'preloader',
+        component: () =>
+            import ('../components/PreLoader.vue')
+    }, {
+        path: '/home',
         name: 'home',
         component: () =>
             import ('../views/Home.vue')
@@ -19,7 +24,7 @@ const routes = [{
         path: '/login',
         name: 'login',
         component: () =>
-            import ('../views/Auth/Login.vue')
+            import ('../components/InicioSesion.vue')
     }, {
         path: '/register',
         name: 'register',
