@@ -50,18 +50,18 @@ export default {
         0.1,
         100
       );
-      camera.position.set(0, 5, 10);
+      camera.position.set(0, 2, 6);
       this.camera = camera;
 
       //Orbit controls
       this.controls = new OrbitControls(camera, this.renderer.domElement);
       this.controls.target.set(0, 0, 0); //Objetivo de la cámara
 
-      this.controls.enablePan = true;
-      this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
+      this.controls.enablePan = false;
+      // this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
       this.controls.maxPolarAngle = Math.PI / 2;
-      this.controls.minDistance = 5;
-      this.controls.maxDistance = 20;
+      this.controls.minDistance = 1;
+      this.controls.maxDistance = 7;
       this.controls.update();
 
       // añade luces
@@ -98,7 +98,7 @@ export default {
 
         this.scene.add(model);
         console.log(`modelo cargado`);
-        model.position.set(-3, 0, 0);
+        model.position.set(-3, -2, -2);
         model.scale.set(5, 5, 5);
         model.needsUpdate = true;
       });
@@ -139,6 +139,6 @@ export default {
 <style scoped>
 #scene-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 </style>
