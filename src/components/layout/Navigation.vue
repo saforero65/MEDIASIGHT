@@ -27,7 +27,7 @@
                 <a href="/"> Cerrar Sesion </a>
               </li>
               <li>
-                <a href="#/dashboard">{{ user.displayName || user.email }} </a>
+                <a href="/#/dashboard">{{ user.displayName || user.email }} </a>
                 <!-- <select name="" id="">
                   <option value="">1</option>
                   <option value="">1</option>

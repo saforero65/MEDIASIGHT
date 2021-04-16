@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container position-absolute">
       <form
         class="col-4 position-absolute form"
         action="#"

@@ -103,9 +103,9 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <a href="/">Pagina Principal</a>
+              <a href="/#/home">Pagina Principal</a>
               <div @click.prevent="logout">
-                <a href="/">Cerrar Sesion </a>
+                <a href="/#/home">Cerrar Sesion </a>
               </div>
             </div>
           </div>
@@ -149,13 +149,14 @@ export default {
       tipo: null,
     };
   },
+
   methods: {
     logout() {
       Firebase.auth()
         .signOut()
         .then(() => {
           // this.$router.push({ name: "home" });
-          window.location.href = "/";
+          window.location.href = "/#/home";
         });
     },
   },

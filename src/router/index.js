@@ -24,7 +24,7 @@ const routes = [{
         path: '/login',
         name: 'login',
         component: () =>
-            import ('../components/InicioSesion.vue')
+            import ('../views/Auth/Login.vue')
     }, {
         path: '/register',
         name: 'register',

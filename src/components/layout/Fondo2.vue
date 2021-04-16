@@ -111,12 +111,12 @@ export default {
       const delta = this.clock.getDelta();
 
       if (this.mixer.length != 0) {
-        for (let i = 0; i < 1; ++i) {
-          // console.log("entro al for");
-          this.mixer.update(delta);
-          console.log(`mixer update true en for`);
-          // this.mixer.update(0.000001 + 0.01);
-        }
+        // for (let i = 0; i < 1; ++i) {
+        // console.log("entro al for");
+        this.mixer.update(delta);
+        console.log(`mixer update fondo2`);
+        // this.mixer.update(0.000001 + 0.01);
+        // }
       }
 
       this.renderer.render(this.scene, this.camera);

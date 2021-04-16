@@ -95,7 +95,7 @@ export default {
       const delta = this.clock.getDelta();
       if (this.mixer.length != 0) {
         this.mixer.update(delta);
-        console.log(`mixer update true en for`);
+        console.log(`mixer update fondo main`);
       }
       this.renderer.render(this.scene, this.camera);
     },
