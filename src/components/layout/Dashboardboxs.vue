@@ -15,7 +15,7 @@
           <div>
             <h3 class="title_menu">MENÚ</h3>
             <ul class="list">
-              <a class="link" href="/#/dashboard">
+              <router-link class="link" to="/dashboard">
                 <li class="menu_item">
                   <img
                     class="img_item"
@@ -23,7 +23,7 @@
                     alt="imagnen_perfil"
                   />Perfil
                 </li>
-              </a>
+              </router-link>
               <router-link class="link" to="/dashboard">
                 <li class="menu_item">
                   <img
@@ -103,9 +103,9 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <a href="/#/home">Pagina Principal</a>
+              <router-link to="/home">Pagina Principal</router-link>
               <div @click.prevent="logout">
-                <a href="/#/home">Cerrar Sesion </a>
+                <router-link to="/home">Cerrar Sesion </router-link>
               </div>
             </div>
           </div>
@@ -155,8 +155,8 @@ export default {
       Firebase.auth()
         .signOut()
         .then(() => {
-          // this.$router.push({ name: "home" });
-          window.location.href = "/#/home";
+          this.$router.push({ name: "home" });
+          // window.location.href = "/#/home";
         });
     },
   },

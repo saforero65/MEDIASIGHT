@@ -86,7 +86,7 @@
 .block_inferior {
     display: flex;
     align-items: center;
-    height: 30vh;
+    /* height: 30vh; */
     min-width: 20rem;
     min-height: 10rem;
     background: #243241;

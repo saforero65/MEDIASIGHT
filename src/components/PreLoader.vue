@@ -23,9 +23,9 @@
       <div class="content">
         <div class="block">
           <img class="img_logo" src="@/assets/img/logo_main.png" alt="imagen" />
-          <a @click.prevent="mostrar" class="boton_personalizado"
-            >Soy un botón</a
-          >
+          <button @click.prevent="mostrar" class="boton_personalizado">
+            ¡EMPEZEMOS!
+          </button>
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@ export default {
   width: 100%;
   height: 100vh;
   background-color: #333;
-  z-index: 999;
+  z-index: 90;
 }
 
 .content {
@@ -134,19 +134,27 @@ export default {
   animation-fill-mode: forwards;
 }
 .boton_personalizado {
+  border-radius: 25px;
+  padding: 0.2rem 0;
+  height: 350px;
+  width: 15%;
+  background-color: #d01f22;
+  color: #0e031a;
+  display: inline-flex;
   text-decoration: none;
-  padding: 10px;
-  font-weight: 600;
-  font-size: 20px;
-  color: #ffffff;
-  background-color: #1883ba;
-  border-radius: 6px;
-  border: 2px solid #0016b0;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
   margin: 2rem auto;
+  z-index: 100;
 }
 .img_logo {
   margin-top: 2vh;
-  max-width: 25%;
+  max-width: 22%;
   min-width: 10rem;
   object-fit: cover;
 }

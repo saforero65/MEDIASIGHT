@@ -8,12 +8,12 @@
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
-            <a href="#/home">
+            <router-link to="/home">
               <img
                 class="img_cerrar"
                 src="@/assets/img/icons/cerrar.svg"
                 alt="imagnen"
-            /></a>
+            /></router-link>
 
             <div class="img_sup">
               <img
@@ -101,12 +101,12 @@
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
-            <a href="/#/home">
+            <router-link to="/home">
               <img
                 class="img_cerrar"
                 src="@/assets/img/icons/cerrar.svg"
                 alt="imagnen"
-            /></a>
+            /></router-link>
 
             <div class="img_sup">
               <img
@@ -123,10 +123,10 @@
           </div>
         </div>
         <div v-show="true" class="row justify-content-start fila_pestañas">
-          <a v-on:click="mostrar = true" class="col-3 pestaña_signIn"
+          <a v-on:click="mostrar = true" class="col-3 pestaña_signIn2"
             >Identificate
           </a>
-          <a v-on:click="mostrar = false" class="col-3 pestaña_signUp"
+          <a v-on:click="mostrar = false" class="col-3 pestaña_signUp2"
             >Registrate</a
           >
         </div>
@@ -272,8 +272,8 @@ export default {
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(() => {
-              // this.$router.push({ name: "dashboard" });
-              window.location.href = "/#/dashboard";
+              this.$router.push({ name: "dashboard" });
+              // window.location.href = "/#/dashboard";
               db.collection(this.email).add({
                 nombre: this.name,
                 correo: this.email,
@@ -319,5 +319,50 @@ export default {
 
 .pestaña_signUp {
   background: #ff4b46;
+}
+.form {
+  margin-top: 5vh;
+}
+.cont_inferior {
+  height: initial;
+}
+.block_inferior {
+  /* height: 70%; */
+  padding: 1rem;
+}
+.pestaña_signIn2,
+.pestaña_signUp2 {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  background: #243241;
+  color: white;
+}
+
+.pestaña_signIn2:hover,
+.pestaña_signUp2:hover {
+  text-decoration: none;
+}
+.pestaña_signIn2:hover {
+  background: white;
+  color: black;
+}
+.pestaña_signUp2:hover {
+  color: white;
+}
+.pestaña_signIn2 {
+  background: #ff4b46;
+}
+.custom-select {
+  appearance: revert;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .block_inferior {
+    height: 20rem;
+  }
 }
 </style>
