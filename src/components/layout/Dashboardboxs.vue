@@ -10,7 +10,7 @@
         <h2 class="perfil_name">{{ nombre }}</h2>
         <h3 class="perfil_type">{{ tipo }}</h3>
       </div>
-      <template v-if="correo == 'admin@unimilitar.edu.co'">
+      <template v-if="!mostrardep">
         <div class="menu">
           <div>
             <h3 class="title_menu">MENÚ</h3>
@@ -24,7 +24,7 @@
                   />Perfil
                 </li>
               </router-link>
-              <router-link class="link" to="/dashboard">
+              <router-link class="link" to="/AdministrarProyectos">
                 <li class="menu_item">
                   <img
                     class="img_item"
@@ -67,7 +67,7 @@
                   />Perfil
                 </li>
               </router-link>
-              <router-link class="link" to="/dashboard">
+              <router-link class="link" to="/AgregarProject">
                 <li class="menu_item">
                   <img
                     class="img_item"
@@ -118,7 +118,7 @@
             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
             alt="imagen perfil"
           />
-          <button v-if="!boton" class="boton_edit" @click="editar()">
+          <button v-if="mostrardep" class="boton_edit" @click="editar()">
             EDITAR PERFIL
           </button>
         </div>
@@ -184,7 +184,7 @@ export default {
       correo: null,
       tipo: null,
       edit: false,
-      boton: false,
+      mostrardep: false,
       passworda: null,
       passwordn: null,
 
@@ -210,6 +210,8 @@ export default {
         })
         .then(() => {
           console.log("Document successfully updated!");
+          location.reload();
+          this.$router.go(0);
         })
         .catch((error) => {
           // The document probably doesn't exist.
@@ -257,6 +259,13 @@ export default {
       if (user) {
         this.user = user;
         console.log(this.user);
+        if (user.email == "admin@unimilitar.edu.co") {
+          console.log(`estado de mostrar dep=${this.mostrardep}`);
+          this.mostrardep = false;
+          console.log(`estado de mostrar dep=${this.mostrardep}`);
+        } else {
+          this.mostrardep = true;
+        }
 
         db.collection(user.email)
           .get()
