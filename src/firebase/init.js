@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
+import 'firebase/storage'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,4 +18,5 @@ firebaseApp.firestore().settings({ timestampsInSnapshots: true })
 
 const db = firebase.firestore()
 const auth = firebase.auth()
-export { db, auth }
+const storage = firebase.storage()
+export { db, auth, storage }
