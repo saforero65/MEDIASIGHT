@@ -33,6 +33,22 @@ const routes = [{
         meta: {
             requiresAuth: true
         }
+    }, {
+        path: '/AgregarProject',
+        name: 'AgregarProject',
+        component: () =>
+            import ('../components/layout/AgregarProject.vue'),
+        meta: {
+            requiresAuth: true
+        }
+    }, {
+        path: '/AdministrarProyectos',
+        name: 'AdministrarProyectos',
+        component: () =>
+            import ('../components/layout/AdministrarProyectos.vue'),
+        meta: {
+            requiresAuth: true
+        }
     },
 
 ]
