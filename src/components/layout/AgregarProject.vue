@@ -69,8 +69,116 @@
           </div>
         </template>
       </div>
-      <div class="">
-        <table class="table">
+      <div class="overflow-auto projects" style="height: 80%">
+        <div class="cards_projects">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <b-btn v-b-modal.modal-lg variant="primary"
+                >AÑADIR PROYECTO</b-btn
+              >
+              <b-modal id="modal-lg" size="lg" title="Large Modal">
+                <form enctype="multipart/form-data">
+                  <input
+                    type="text"
+                    v-model="nombre_proyecto"
+                    placeholder="Nombre del proyecto"
+                  />
+                  <input type="text" v-model="materia" placeholder="Materia" />
+                  <input
+                    type="text"
+                    v-model="descripcion"
+                    placeholder="Descripcion"
+                  />
+                  <input
+                    @change="clickImagen($event)"
+                    type="file"
+                    accept="image/*"
+                  />
+                  <button
+                    @click.prevent="agregar_proyecto()"
+                    type="submit"
+                    class="boton"
+                  >
+                    Guardar
+                  </button>
+                </form></b-modal
+              >
+            </div>
+          </div>
+        </div>
+        <div v-for="item in proyectos" v-bind:key="item.id">
+          <div v-if="correo == item.data.correo" class="card cards_projects">
+            <!-- <b-img-lazy
+              v-bind="mainProps"
+              :src="getImageUrl(item.data.imagen)"
+            ></b-img-lazy> -->
+            <img
+              class="img_cards"
+              :src="getImageUrl(item.data.imagen)"
+              alt=""
+            />
+            <div class="card-body">
+              <div class="body_sup">
+                <h5 class="card-title">{{ item.data.nombre_proyecto }}</h5>
+                <h5 class="card-title">{{ item.data.materia }}</h5>
+              </div>
+              <div class="body_inf">
+                <p class="card-text">
+                  {{ item.data.descripcion }}
+                </p>
+                <button v-b-modal="modalId(item.id)">editar</button>
+                <b-modal
+                  centered
+                  :id="item.id"
+                  title="Revisión de Formulario de proyecto "
+                  hide-footer
+                >
+                  <div class="popup_ver">
+                    <div class="primerrow">
+                      <div>
+                        <h3 class="subtittle">Nombre del Proyecto</h3>
+                        <p>{{ item.data.nombre_proyecto }}</p>
+                      </div>
+                      <div>
+                        <h3 class="subtittle">Materia</h3>
+                        <p>{{ item.data.materia }}</p>
+                      </div>
+                    </div>
+                    <div class="secondrow">
+                      <h3 class="subtittle">Descripción</h3>
+                      <p>{{ item.data.descripcion }}</p>
+                    </div>
+                    <div class="tercerdrow">
+                      <h3 class="subtittle">Imagenes</h3>
+                      <img
+                        class="img_cards"
+                        :src="getImageUrl(item.data.imagen)"
+                        alt=""
+                      />
+                    </div>
+                    <div class="cuartodrow">
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        @click.prevent="updateStatusA(item.id)"
+                      >
+                        APROBAR
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        @click.prevent="updateStatusD(item.id)"
+                      >
+                        DENEGAR
+                      </button>
+                    </div>
+                  </div>
+                </b-modal>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <table class="table">
           <thead>
             <tr>
               <th scope="col">correo</th>
@@ -91,31 +199,9 @@
               <td v-if="correo == item.data.correo">{{ item.data.materia }}</td>
             </tr>
           </tbody>
-        </table>
-        <button @click.prevent="pop_form = true">Agregar Proyecto</button>
-        <div v-if="pop_form">
-          <form enctype="multipart/form-data">
-            <input
-              type="text"
-              v-model="nombre_proyecto"
-              placeholder="Nombre del proyecto"
-            />
-            <input type="text" v-model="materia" placeholder="Materia" />
-            <input
-              type="text"
-              v-model="descripcion"
-              placeholder="Descripcion"
-            />
-            <input @change="clickImagen($event)" type="file" accept="image/*" />
-            <button
-              @click.prevent="agregar_proyecto()"
-              type="submit"
-              class="boton"
-            >
-              Guardar
-            </button>
-          </form>
-        </div>
+        </table> -->
+
+        <div v-if="pop_form"></div>
       </div>
     </div>
   </div>
@@ -150,6 +236,12 @@ export default {
   },
 
   methods: {
+    modalId(i) {
+      return i;
+    },
+    getImageUrl(imageId) {
+      return `${imageId}`;
+    },
     logout() {
       Firebase.auth()
         .signOut()
@@ -247,4 +339,44 @@ export default {
   },
 };
 </script>
+<style scoped>
+.projects {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cards_projects {
+  display: flex;
+  width: 18rem;
+  height: 18rem;
+  margin: 1rem;
+}
+.img_cards {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  object-fit: cover;
+}
+.card-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+.body_inf {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  width: 100%;
+}
+.body_sup {
+  background: white;
+  width: 100%;
+}
+</style>
 

@@ -77,7 +77,7 @@
           </div>
         </template>
       </div>
-      <div class="content_box">
+      <div class="overflow-auto">
         <table class="table">
           <thead>
             <tr>
@@ -95,26 +95,58 @@
               <td>{{ item.data.nombre_proyecto }}</td>
               <td>{{ item.data.materia }}</td>
               <td>
-                <button @click.prevent="updateStatusA(item.id)">aprovar</button>
-                <button @click.prevent="updateStatusD(item.id)">denegar</button>
+                <b-btn v-b-modal="modalId(item.id)">ver</b-btn>
+                <b-modal
+                  centered
+                  :id="item.id"
+                  title="Revisión de Formulario de proyecto "
+                  hide-footer
+                >
+                  <div class="popup_ver">
+                    <div class="primerrow">
+                      <div>
+                        <h3 class="subtittle">Nombre del Proyecto</h3>
+                        <p>{{ item.data.nombre_proyecto }}</p>
+                      </div>
+                      <div>
+                        <h3 class="subtittle">Materia</h3>
+                        <p>{{ item.data.materia }}</p>
+                      </div>
+                    </div>
+                    <div class="secondrow">
+                      <h3 class="subtittle">Descripción</h3>
+                      <p>{{ item.data.descripcion }}</p>
+                    </div>
+                    <div class="tercerdrow">
+                      <h3 class="subtittle">Imagenes</h3>
+                      <b-img-lazy
+                        v-bind="mainProps"
+                        :src="getImageUrl(item.data.imagen)"
+                        alt="Image 1"
+                      ></b-img-lazy>
+                    </div>
+                    <div class="cuartodrow">
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        @click.prevent="updateStatusA(item.id)"
+                      >
+                        APROBAR
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        @click.prevent="updateStatusD(item.id)"
+                      >
+                        DENEGAR
+                      </button>
+                    </div>
+                  </div>
+                </b-modal>
               </td>
             </tr>
           </tbody>
         </table>
-        <!-- <div v-if="ver_form">
-          <input
-            @click.prevent="updateStatus()"
-            v-model="estado"
-            type="button"
-            value="aprovar"
-          />
-          <input
-            @click.prevent="updateStatus()"
-            type="button"
-            v-model="estado"
-            value="denegar"
-          />
-        </div> -->
       </div>
     </div>
   </div>
@@ -142,10 +174,28 @@ export default {
       estado: null,
       proyectos: [],
       ver_form: false,
+      showModal: false,
+      urlImg: null,
+      width: 600,
+      height: 400,
+      mainProps: {
+        center: true,
+        fluidGrow: true,
+        blank: true,
+        blankColor: "#bbb",
+        width: 600,
+        height: 400,
+      },
     };
   },
 
   methods: {
+    getImageUrl(imageId) {
+      return `${imageId}`;
+    },
+    modalId(i) {
+      return i;
+    },
     logout() {
       Firebase.auth()
         .signOut()
@@ -158,7 +208,7 @@ export default {
       db.collection("proyecto")
         .doc(id)
         .update({
-          estado: "aprovado",
+          estado: "aprobado",
         })
         .then(() => {
           console.log("Document successfully updated!");
@@ -233,4 +283,35 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.popup_ver {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto Mono", monospace;
+}
+.primerrow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6rem 0 1rem;
+}
+.secondrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1rem 0 1rem;
+}
+.tercerdrow {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+.cuartodrow {
+  display: flex;
+  justify-content: space-around;
+}
+.subtittle {
+  font-size: 18px;
+}
+</style>>
 
