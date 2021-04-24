@@ -69,7 +69,7 @@
           </div>
         </template>
       </div>
-      <div class="content_box">
+      <div class="">
         <table class="table">
           <thead>
             <tr>
@@ -145,6 +145,7 @@ export default {
       imagenes: [],
       imagen: null,
       coincide: false,
+      urlImg: "",
     };
   },
 
@@ -164,23 +165,34 @@ export default {
         this.nombre_proyecto &&
         this.estado
       ) {
-        db.collection("proyecto")
-          .add({
-            correo: this.correo,
-            descripcion: this.descripcion,
-            materia: this.materia,
-            nombre_proyecto: this.nombre_proyecto,
-            estado: this.estado,
-          })
-          .then((docRef) => {
-            console.log("Document written with ID: ", docRef.id);
-          })
-          .catch((error) => {
-            console.error("Error adding document: ", error);
-          });
         const refImg = storage.ref().child("imagenes/" + this.imagen.name);
         const metadata = { contentType: "img/jpeg" };
-        refImg.put(this.imagen, metadata).then((e) => console.log(e));
+        refImg.put(this.imagen, metadata).then((e) => {
+          console.log(e);
+          refImg.getDownloadURL().then((url) => {
+            console.log(url);
+            this.urlImg = url;
+            console.log(this.urlImg);
+            db.collection("proyecto")
+              .add({
+                correo: this.correo,
+                descripcion: this.descripcion,
+                materia: this.materia,
+                nombre_proyecto: this.nombre_proyecto,
+                estado: this.estado,
+                imagen: this.urlImg,
+              })
+              .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+                location.reload();
+                this.$router.go(0);
+              })
+              .catch((error) => {
+                console.error("Error adding document: ", error);
+              });
+          });
+        });
+
         this.pop_form = false;
       } else {
         console.log(`vacio no se agrega proyecto`);

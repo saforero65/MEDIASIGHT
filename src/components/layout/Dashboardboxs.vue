@@ -210,8 +210,6 @@ export default {
         })
         .then(() => {
           console.log("Document successfully updated!");
-          location.reload();
-          this.$router.go(0);
         })
         .catch((error) => {
           // The document probably doesn't exist.
