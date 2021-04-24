@@ -17,6 +17,7 @@ export default {
       renderer: null,
       clock: null,
       mixer: [],
+      model: null
     };
   },
   methods: {
@@ -87,20 +88,20 @@ export default {
       const loader = new GLTFLoader();
 
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
-        const model = gltf.scene;
+        this.model = gltf.scene;
         const animations = gltf.animations;
 
-        this.mixer = new THREE.AnimationMixer(model);
+        this.mixer = new THREE.AnimationMixer(this.model);
         console.log(animations);
 
         const action = this.mixer.clipAction(animations[0]);
         action.play();
 
-        this.scene.add(model);
+        this.scene.add(this.model);
         console.log(`modelo cargado`);
-        model.position.set(-3, -2, -2);
-        model.scale.set(5, 5, 5);
-        model.needsUpdate = true;
+        this.model.position.set(-3, -2, -2);
+        this.model.scale.set(5, 5, 5);
+        this.model.needsUpdate = true;
       });
       this.render();
     },
@@ -134,7 +135,6 @@ export default {
   },
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #scene-container {
