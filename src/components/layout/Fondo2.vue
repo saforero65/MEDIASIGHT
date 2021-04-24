@@ -57,12 +57,13 @@ export default {
       this.controls = new OrbitControls(camera, this.renderer.domElement);
       this.controls.target.set(0, 0, 0); //Objetivo de la cámara
 
-      this.controls.enablePan = false;
-      // this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
-      this.controls.maxPolarAngle = Math.PI / 2;
       this.controls.minDistance = 1;
       this.controls.maxDistance = 7;
-      this.controls.update();
+      //this.controls.enableRotate = false;
+      this.controls.maxPolarAngle = Math.PI/2;
+      //this.controls.minAzimuthAngle = [-2*Math.PI, 2*Math.PI];
+      this.controls.enablePan = false;
+      //this.controls.update();
 
       // añade luces
       const ambientLight = new THREE.HemisphereLight(
