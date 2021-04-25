@@ -77,7 +77,7 @@
           </div>
         </template>
       </div>
-      <div class="overflow-auto" style="height: 80%">
+      <div class="overflow-auto" style="height: 75%">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -95,7 +95,13 @@
               <td>{{ item.data.nombre_proyecto }}</td>
               <td>{{ item.data.materia }}</td>
               <td>
-                <b-btn v-b-modal="modalId(item.id)">ver</b-btn>
+                <img
+                  v-b-modal="modalId(item.id)"
+                  class="img_item botn"
+                  src="@/assets/img/icons/visibilidad.svg"
+                  alt="imagnen_perfil"
+                />
+                <!-- <b-btn v-b-modal="modalId(item.id)">ver</b-btn> -->
                 <b-modal
                   centered
                   :id="item.id"
@@ -214,7 +220,6 @@ export default {
         })
         .then(() => {
           console.log("Document successfully updated!");
-          location.reload();
           this.$router.go(0);
         })
         .catch((error) => {
@@ -243,7 +248,7 @@ export default {
         })
         .then(() => {
           console.log("Document successfully updated!");
-          location.reload();
+
           this.$router.go(0);
         })
         .catch((error) => {
@@ -259,9 +264,7 @@ export default {
         this.user = user;
         console.log(this.user);
         if (user.email == "admin@unimilitar.edu.co") {
-          console.log(`estado de mostrar dep=${this.mostrardep}`);
           this.mostrardep = false;
-          console.log(`estado de mostrar dep=${this.mostrardep}`);
         } else {
           this.mostrardep = true;
         }
@@ -269,7 +272,6 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              console.log(`${doc.id} => ${doc.data().nombre}`);
               this.id = `${doc.id}`;
               this.nombre = `${doc.data().nombre}`;
               this.correo = `${doc.data().correo}`;
@@ -281,9 +283,6 @@ export default {
           .get()
           .then((r) => {
             r.docs.map((item) => {
-              console.log("item.id");
-              console.log(item.id);
-
               this.proyectos.push({
                 id: item.id,
                 data: item.data(),
@@ -329,6 +328,12 @@ export default {
 }
 .descripcion {
   word-wrap: break-word;
+}
+.botn {
+  margin: 0rem;
+
+  max-width: 150px;
+  filter: brightness(0);
 }
 </style>>
 

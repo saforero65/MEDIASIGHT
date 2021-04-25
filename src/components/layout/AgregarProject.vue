@@ -69,7 +69,7 @@
           </div>
         </template>
       </div>
-      <div class="overflow-auto projects" style="height: 80%">
+      <div class="overflow-auto projects" style="height: 75%">
         <div class="cards_projects">
           <div
             class="card"
@@ -276,12 +276,10 @@ export default {
       ) {
         const refImg = storage.ref().child("imagenes/" + this.imagen.name);
         const metadata = { contentType: "img/jpeg" };
-        refImg.put(this.imagen, metadata).then((e) => {
-          console.log(e);
+        refImg.put(this.imagen, metadata).then(() => {
           refImg.getDownloadURL().then((url) => {
-            console.log(url);
             this.urlImg = url;
-            console.log(this.urlImg);
+
             db.collection("proyecto")
               .add({
                 correo: this.correo,
@@ -308,7 +306,7 @@ export default {
               })
               .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
-                location.reload();
+
                 this.$router.go(0);
               })
               .catch((error) => {
@@ -324,18 +322,15 @@ export default {
     },
     clickImagen(e) {
       this.imagen = e.target.files[0];
-      console.log(this.imagen);
     },
   },
   created() {
     Firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
-        console.log(this.user);
+
         if (user.email == "admin@unimilitar.edu.co") {
-          console.log(`estado de mostrar dep=${this.mostrardep}`);
           this.mostrardep = false;
-          console.log(`estado de mostrar dep=${this.mostrardep}`);
         } else {
           this.mostrardep = true;
         }
@@ -344,14 +339,12 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              console.log(`${doc.id} => ${doc.data().nombre}`);
               this.id = `${doc.id}`;
               this.nombre = `${doc.data().nombre}`;
               this.correo = `${doc.data().correo}`;
               this.tipo = `${doc.data().tipo}`;
             });
           });
-        console.log(db.collection(user.email));
 
         this.proyectos = [];
         db.collection("proyecto")
