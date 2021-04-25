@@ -71,47 +71,89 @@
       </div>
       <div class="overflow-auto projects" style="height: 80%">
         <div class="cards_projects">
-          <div class="card" style="width: 18rem">
+          <div
+            class="card"
+            style="width: 18rem; background: #243241; border-radius: 10px"
+          >
             <div class="card-body">
-              <b-btn v-b-modal.modal-lg variant="primary"
-                >AÑADIR PROYECTO</b-btn
+              <a v-b-modal.modal-1 class="añadir">
+                <img
+                  class="img_items"
+                  src="@/assets/img/icons/anadir-imagen.svg"
+                  alt="imagnen_perfil"
+                />
+                <p style="width: 50%; text-align: center">
+                  Añade un proyecto nuevo
+                </p>
+              </a>
+              <b-modal
+                id="modal-1"
+                title="Agregar un Proyecto"
+                centered
+                hide-footer
               >
-              <b-modal id="modal-lg" size="lg" title="Large Modal">
-                <form enctype="multipart/form-data">
-                  <input
-                    type="text"
-                    v-model="nombre_proyecto"
-                    placeholder="Nombre del proyecto"
-                  />
-                  <input type="text" v-model="materia" placeholder="Materia" />
-                  <input
-                    type="text"
-                    v-model="descripcion"
-                    placeholder="Descripcion"
-                  />
-                  <input
-                    @change="clickImagen($event)"
-                    type="file"
-                    accept="image/*"
-                  />
-                  <button
-                    @click.prevent="agregar_proyecto()"
-                    type="submit"
-                    class="boton"
-                  >
-                    Guardar
-                  </button>
-                </form></b-modal
-              >
+                <div class="popup_ver">
+                  <form enctype="multipart/form-data">
+                    <div class="primerrow">
+                      <div class="row">
+                        <div class="col">
+                          <h3 class="subtittle">Nombre del Proyecto</h3>
+                          <input
+                            class="form-control"
+                            type="text"
+                            v-model="nombre_proyecto"
+                            placeholder="Nombre del proyecto"
+                          />
+                        </div>
+                        <div class="col">
+                          <h3 class="subtittle">Materia</h3>
+
+                          <b-form-select
+                            v-model="materia"
+                            :options="materias"
+                          ></b-form-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="secondrow">
+                      <h3 class="subtittle">Descripcion</h3>
+
+                      <textarea
+                        class="form-control"
+                        type="text"
+                        v-model="descripcion"
+                        style="height: 10rem"
+                      ></textarea>
+                    </div>
+                    <div class="tercerdrow">
+                      <h3 class="subtittle">Añadir Imagen</h3>
+                      <input
+                        @change="clickImagen($event)"
+                        type="file"
+                        accept="image/*"
+                      />
+                    </div>
+                    <div class="cuartodrow">
+                      <button
+                        @click.prevent="agregar_proyecto()"
+                        type="button"
+                        class="btn btn-success"
+                      >
+                        Guardar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </b-modal>
             </div>
           </div>
         </div>
         <div v-for="item in proyectos" v-bind:key="item.id">
-          <div v-if="correo == item.data.correo" class="card cards_projects">
-            <!-- <b-img-lazy
-              v-bind="mainProps"
-              :src="getImageUrl(item.data.imagen)"
-            ></b-img-lazy> -->
+          <div
+            v-if="correo == item.data.correo"
+            class="card cards_projects"
+            style="border-radius: 10px"
+          >
             <img
               class="img_cards"
               :src="getImageUrl(item.data.imagen)"
@@ -120,21 +162,29 @@
             <div class="card-body">
               <div class="body_sup">
                 <h5 class="card-title">{{ item.data.nombre_proyecto }}</h5>
-                <h5 class="card-title">{{ item.data.materia }}</h5>
+                <h5 class="card-subtitle">{{ item.data.materia }}</h5>
               </div>
               <div class="body_inf">
-                <p class="card-text">
+                <p class="card-text descripcion-card">
                   {{ item.data.descripcion }}
                 </p>
-                <button v-b-modal="modalId(item.id)">editar</button>
+                <img
+                  v-b-modal="modalId(item.id)"
+                  class="img_item"
+                  src="@/assets/img/icons/visibilidad.svg"
+                  alt="imagnen_perfil"
+                />
+                <!-- <button class="btn btn-primary" v-b-modal="modalId(item.id)">
+                  ver
+                </button> -->
                 <b-modal
                   centered
                   :id="item.id"
                   title="Revisión de Formulario de proyecto "
-                  hide-footer
+                  ok-only
                 >
                   <div class="popup_ver">
-                    <div class="primerrow">
+                    <div class="primerrow1">
                       <div>
                         <h3 class="subtittle">Nombre del Proyecto</h3>
                         <p>{{ item.data.nombre_proyecto }}</p>
@@ -146,31 +196,15 @@
                     </div>
                     <div class="secondrow">
                       <h3 class="subtittle">Descripción</h3>
-                      <p>{{ item.data.descripcion }}</p>
+                      <p class="descripcion">{{ item.data.descripcion }}</p>
                     </div>
                     <div class="tercerdrow">
                       <h3 class="subtittle">Imagenes</h3>
                       <img
-                        class="img_cards"
+                        class="img_card"
                         :src="getImageUrl(item.data.imagen)"
                         alt=""
                       />
-                    </div>
-                    <div class="cuartodrow">
-                      <button
-                        type="button"
-                        class="btn btn-success"
-                        @click.prevent="updateStatusA(item.id)"
-                      >
-                        APROBAR
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-danger"
-                        @click.prevent="updateStatusD(item.id)"
-                      >
-                        DENEGAR
-                      </button>
                     </div>
                   </div>
                 </b-modal>
@@ -178,29 +212,6 @@
             </div>
           </div>
         </div>
-        <!-- <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">correo</th>
-              <th scope="col">estado</th>
-              <th scope="col">nombre_proyecto</th>
-              <th scope="col">materia</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in proyectos" v-bind:key="item.id">
-              <th v-if="correo == item.data.correo" scope="row">
-                {{ item.data.correo }}
-              </th>
-              <td v-if="correo == item.data.correo">{{ item.data.estado }}</td>
-              <td v-if="correo == item.data.correo">
-                {{ item.data.nombre_proyecto }}
-              </td>
-              <td v-if="correo == item.data.correo">{{ item.data.materia }}</td>
-            </tr>
-          </tbody>
-        </table> -->
-
         <div v-if="pop_form"></div>
       </div>
     </div>
@@ -222,6 +233,13 @@ export default {
       correo: null,
       descripcion: null,
       materia: null,
+      materias: [
+        { text: "materia", value: null },
+        "Ciencias Basicas",
+        "Humanistica",
+        "Ingenieria Aplicada",
+        "Ingenieria",
+      ],
       nombre_proyecto: null,
       mostrardep: false,
       pop_form: false,
@@ -247,7 +265,6 @@ export default {
         .signOut()
         .then(() => {
           this.$router.push({ name: "home" });
-          // window.location.href = "/#/home";
         });
     },
     agregar_proyecto() {
@@ -266,6 +283,21 @@ export default {
             this.urlImg = url;
             console.log(this.urlImg);
             db.collection("proyecto")
+              .add({
+                correo: this.correo,
+                descripcion: this.descripcion,
+                materia: this.materia,
+                nombre_proyecto: this.nombre_proyecto,
+                estado: this.estado,
+                imagen: this.urlImg,
+              })
+              .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+              })
+              .catch((error) => {
+                console.error("Error adding document: ", error);
+              });
+            db.collection("proyectos_admin")
               .add({
                 correo: this.correo,
                 descripcion: this.descripcion,
@@ -356,8 +388,14 @@ export default {
   position: absolute;
   height: 100%;
   width: 100%;
-
+  border-radius: 10px;
   object-fit: cover;
+}
+.img_card {
+  height: 80%;
+  width: 80%;
+  display: block;
+  margin: auto;
 }
 .card-body {
   position: absolute;
@@ -370,13 +408,82 @@ export default {
 }
 .body_inf {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: center;
   background: white;
   width: 100%;
+  background: rgb(36, 50, 65);
+  border-radius: 10px;
 }
 .body_sup {
-  background: white;
+  background: rgb(36, 50, 65);
   width: 100%;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 10px;
+}
+.descripcion {
+  word-wrap: break-word;
+}
+.descripcion-card {
+  width: 230px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  padding: 0.5rem;
+  color: white;
+}
+.subtittle {
+  font-size: 18px;
+}
+.primerrow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem 0 1rem;
+}
+.primerrow1 {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6rem 0 1rem;
+  margin-top: 1rem;
+}
+.secondrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1rem 0 1rem;
+  margin-top: 1rem;
+}
+.tercerdrow {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  margin-top: 1rem;
+}
+
+.row {
+  align-items: flex-end;
+}
+.añadir {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.cuartodrow {
+  display: flex;
+  justify-content: space-around;
+}
+.card-title {
+  font-size: 18px;
+  text-transform: capitalize;
+}
+.card-subtitle {
+  font-size: 12px;
 }
 </style>
 
