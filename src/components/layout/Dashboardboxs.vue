@@ -33,7 +33,7 @@
                   />Administrar Proyectos
                 </li>
               </router-link>
-              <router-link class="link" to="/dashboard">
+              <router-link class="link" to="/AdministrarContenido">
                 <li class="menu_item">
                   <img
                     class="img_item"
@@ -139,29 +139,51 @@
         <template v-else>
           <div>
             <form class="content" @submit.prevent="actualizar">
-              <h3 class="label">NOMBRE</h3>
-              <input class="label_content" type="text" v-model="nombre" />
-              <h3 class="label">contraseña actual</h3>
-              <input class="label_content" type="text" v-model="passworda" />
-              <h3 class="label">contraseña nueva</h3>
-              <input class="label_content" type="text" v-model="passwordn" />
-              <h3 class="label">E-MAIL</h3>
-              <p class="label_content">{{ correo }}</p>
-              <h3 class="label">ROL</h3>
-              <p class="label_content">Miembro</p>
-              <h3 class="label">TIPO</h3>
-              <p
-                v-if="correo == 'admin@unimilitar.edu.co'"
-                class="label_content"
-              >
-                {{ tipo }}
-              </p>
-              <b-form-select
-                v-else
-                v-model="tipo"
-                :options="types"
-              ></b-form-select>
-              <button>guardar</button>
+              <div class="row">
+                <div class="col">
+                  <h3 class="label">NOMBRE</h3>
+                  <input class="label_content" type="text" v-model="nombre" />
+                  <h3 class="label">E-MAIL</h3>
+                  <p class="label_content">{{ correo }}</p>
+
+                  <h3 class="label">TIPO</h3>
+                  <p
+                    v-if="correo == 'admin@unimilitar.edu.co'"
+                    class="label_content"
+                  >
+                    {{ tipo }}
+                  </p>
+                  <b-form-select
+                    v-else
+                    v-model="tipo"
+                    :options="types"
+                  ></b-form-select>
+                </div>
+                <div class="col">
+                  <h3 class="label">ROL</h3>
+                  <p class="label_content">Miembro</p>
+                  <h3 class="label">contraseña actual</h3>
+                  <input
+                    class="label_content"
+                    type="text"
+                    v-model="passworda"
+                  />
+                  <h3 class="label">contraseña nueva</h3>
+                  <input
+                    class="label_content"
+                    type="text"
+                    v-model="passwordn"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <input @click="edit = false" type="button" value="Cancelar" />
+                </div>
+                <div class="col">
+                  <input type="submit" value=" Guardar" />
+                </div>
+              </div>
             </form>
           </div>
         </template>
