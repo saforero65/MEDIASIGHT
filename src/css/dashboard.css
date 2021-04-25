@@ -107,6 +107,10 @@
     margin-right: 6px;
 }
 
+.img_items {
+    width: 50%;
+}
+
 .link {
     display: contents;
 }
