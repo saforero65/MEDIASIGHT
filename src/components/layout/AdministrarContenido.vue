@@ -57,8 +57,8 @@
     <div class="perfil_content">
       <div class="head_content">
         <div>
-          <h1 class="content_title">Administrar Proyectos</h1>
-          <h3 class="content_subtitle">Proyectos</h3>
+          <h1 class="content_title">Administrar Contenidos</h1>
+          <h3 class="content_subtitle">Contenido</h3>
         </div>
 
         <template v-if="user">
@@ -77,25 +77,34 @@
           </div>
         </template>
       </div>
-      <div class="overflow-auto" style="height: 80%">
+      <div class="overflow-auto" style="height: 75%; padding: 0 1rem">
         <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">titulo</th>
               <th scope="col">habitacion</th>
               <th scope="col">descripcion</th>
+              <th scope="col">ver</th>
+              <th scope="col">editar</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in contenidos" v-bind:key="item.id">
               <th scope="row">{{ item.data.titulo }}</th>
               <td>{{ item.data.habitacion }}</td>
-              <td style="width: 35%">
-                <p class="descripcion-card">{{ item.data.descripcion }}</p>
+              <td style="width: 300px">
+                <p class="initial descripcion-card">
+                  {{ item.data.descripcion }}
+                </p>
               </td>
 
               <td>
-                <b-btn class="botn" v-b-modal="modalId(item.id)">ver</b-btn>
+                <img
+                  v-b-modal="modalId(item.id)"
+                  class="img_item botn"
+                  src="@/assets/img/icons/visibilidad.svg"
+                  alt="imagnen_perfil"
+                />
                 <b-modal
                   centered
                   :id="item.id"
@@ -115,21 +124,28 @@
                     </div>
                     <div class="secondrow">
                       <h3 class="subtittle">Descripción</h3>
-                      <p class="descripcion">{{ item.data.descripcion }}</p>
+                      <p class="descripcion initial">
+                        {{ item.data.descripcion }}
+                      </p>
                     </div>
                   </div>
                 </b-modal>
               </td>
               <td>
-                <b-btn class="botn" v-b-modal="modalId2(item.id)">editar</b-btn>
+                <img
+                  v-b-modal="modalId2(item.id)"
+                  class="img_item botn"
+                  src="@/assets/img/icons/editar.svg"
+                  alt="imagnen_perfil"
+                />
                 <b-modal
                   :id="item.id + 1"
-                  title="Agregar un Proyecto"
+                  title="Editar Contenido"
                   centered
                   hide-footer
                 >
                   <div class="popup_ver">
-                    <form>
+                    <form @submit.prevent="actualizar_contenido(item.id)">
                       <div class="primerrow2">
                         <div class="row">
                           <div class="col">
@@ -144,7 +160,6 @@
                       </div>
                       <div class="secondrow">
                         <h3 class="subtittle">Descripcion</h3>
-
                         <textarea
                           class="form-control"
                           type="text"
@@ -153,13 +168,11 @@
                         ></textarea>
                       </div>
                       <div class="cuartodrow">
-                        <button
-                          @click.prevent="actualizar_contenido(item.id)"
-                          type="button"
+                        <input
+                          type="submit"
+                          value=" Guardar"
                           class="btn btn-success"
-                        >
-                          Guardar
-                        </button>
+                        />
                       </div>
                     </form>
                   </div>
@@ -173,11 +186,9 @@
   </div>
 </template>
 <script>
-// @ is an alias to /src
 import Firebase from "firebase";
 import { db } from "@/firebase/init";
 require("@/css/dashboard.css");
-
 export default {
   data() {
     return {
@@ -185,7 +196,7 @@ export default {
       id: null,
       nombre: null,
       correo: null,
-      descripcion: null,
+      descripcion: "",
       habitacion: null,
       habitaciones: [
         { text: "habitaciones", value: null },
@@ -229,7 +240,6 @@ export default {
         .signOut()
         .then(() => {
           this.$router.push({ name: "home" });
-          // window.location.href = "/#/home";
         });
     },
     actualizar_contenido(id) {
@@ -241,11 +251,9 @@ export default {
           })
           .then(() => {
             console.log("Document successfully updated!");
-            location.reload();
-            this.$router.go(0);
+            this.$router.go();
           })
           .catch((error) => {
-            // The document probably doesn't exist.
             console.error("Error updating document: ", error);
           });
         this.ver_form = false;
@@ -260,9 +268,7 @@ export default {
         this.user = user;
         console.log(this.user);
         if (user.email == "admin@unimilitar.edu.co") {
-          console.log(`estado de mostrar dep=${this.mostrardep}`);
           this.mostrardep = false;
-          console.log(`estado de mostrar dep=${this.mostrardep}`);
         } else {
           this.mostrardep = true;
         }
@@ -270,7 +276,6 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              console.log(`${doc.id} => ${doc.data().nombre}`);
               this.id = `${doc.id}`;
               this.nombre = `${doc.data().nombre}`;
               this.correo = `${doc.data().correo}`;
@@ -282,9 +287,6 @@ export default {
           .get()
           .then((r) => {
             r.docs.map((item) => {
-              console.log("item.id");
-              console.log(item.id);
-
               this.contenidos.push({
                 id: item.id,
                 data: item.data(),
@@ -337,11 +339,11 @@ export default {
   text-align: justify;
 }
 .descripcion-card {
-  width: 230px;
+  width: 200px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  /* padding: 0.5rem; */
+  padding: 5% 0 0 0;
 }
 .row {
   align-items: flex-end;
@@ -351,6 +353,24 @@ export default {
 }
 .botn {
   margin: 0rem;
+  object-fit: cover;
+  min-width: 25px;
+  filter: brightness(0);
+}
+.table th,
+.table td {
+  vertical-align: middle;
+  padding: 0.3rem;
+  border-top: 1px solid #dee2e6;
+  width: 28%;
+}
+p,
+td,
+th {
+  text-transform: capitalize;
+}
+.initial {
+  text-transform: initial;
 }
 </style>>
 
