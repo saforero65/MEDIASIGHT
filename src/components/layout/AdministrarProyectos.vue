@@ -33,7 +33,7 @@
                   />Administrar Proyectos
                 </li>
               </router-link>
-              <router-link class="link" to="/dashboard">
+              <router-link class="link" to="/AdministrarContenido">
                 <li class="menu_item">
                   <img
                     class="img_item"
@@ -57,7 +57,7 @@
     <div class="perfil_content">
       <div class="head_content">
         <div>
-          <h1 class="content_title">Agregar un Proyecto</h1>
+          <h1 class="content_title">Administrar Proyectos</h1>
           <h3 class="content_subtitle">Proyectos</h3>
         </div>
 
@@ -77,8 +77,8 @@
           </div>
         </template>
       </div>
-      <div class="overflow-auto">
-        <table class="table">
+      <div class="overflow-auto" style="height: 80%">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">correo</th>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="secondrow">
                       <h3 class="subtittle">Descripción</h3>
-                      <p>{{ item.data.descripcion }}</p>
+                      <p class="descripcion">{{ item.data.descripcion }}</p>
                     </div>
                     <div class="tercerdrow">
                       <h3 class="subtittle">Imagenes</h3>
@@ -127,6 +127,7 @@
                     </div>
                     <div class="cuartodrow">
                       <button
+                        v-if="item.data.estado != 'aprobado'"
                         type="button"
                         class="btn btn-success"
                         @click.prevent="updateStatusA(item.id)"
@@ -134,6 +135,7 @@
                         APROBAR
                       </button>
                       <button
+                        v-if="item.data.estado != 'denegado'"
                         type="button"
                         class="btn btn-danger"
                         @click.prevent="updateStatusD(item.id)"
@@ -205,7 +207,7 @@ export default {
         });
     },
     updateStatusA(id) {
-      db.collection("proyecto")
+      db.collection("proyectos_admin")
         .doc(id)
         .update({
           estado: "aprobado",
@@ -222,7 +224,19 @@ export default {
       this.ver_form = false;
     },
     updateStatusD(id) {
-      db.collection("proyecto")
+      db.collection("proyectos_admin")
+        .doc(id)
+        .update({
+          estado: "denegado",
+        })
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+      db.collection("proyectos_admin")
         .doc(id)
         .update({
           estado: "denegado",
@@ -263,7 +277,7 @@ export default {
             });
           });
         this.proyectos = [];
-        db.collection("proyecto")
+        db.collection("proyectos_admin")
           .get()
           .then((r) => {
             r.docs.map((item) => {
@@ -293,7 +307,7 @@ export default {
 .primerrow {
   display: flex;
   justify-content: space-between;
-  padding: 0 6rem 0 1rem;
+  padding: 0 1rem 0 1rem;
 }
 .secondrow {
   display: flex;
@@ -312,6 +326,9 @@ export default {
 }
 .subtittle {
   font-size: 18px;
+}
+.descripcion {
+  word-wrap: break-word;
 }
 </style>>
 
