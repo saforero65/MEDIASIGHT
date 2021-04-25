@@ -49,6 +49,14 @@ const routes = [{
         meta: {
             requiresAuth: true
         }
+    }, {
+        path: '/AdministrarContenido',
+        name: 'AdministrarContenido',
+        component: () =>
+            import ('../components/layout/AdministrarContenido.vue'),
+        meta: {
+            requiresAuth: true
+        }
     },
 
 ]
