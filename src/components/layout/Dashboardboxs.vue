@@ -172,7 +172,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   background: white;
   width: 15%;
   border-radius: 15px;

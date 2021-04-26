@@ -1,122 +1,121 @@
 <template>
-    <div id="scene-container">
-        <transition name="fade">
-            <div class="modal-overlay" v-if="showModal"></div>
-        </transition>
-        <div class="position-absolute">
-            <transition name="fade">
-                <div v-if="showModal" class="modal_proyectos">
-                    <h1>Contenido del modal</h1>                    
-                    <div class="carrusel">
-                        <b-carousel
-                            id="carousel-1"
-                            v-model="slide"
-                            controls
-                            indicators
-                            background="#fff"
-                            img-width="1024"
-                            img-height="480"
-                        >
-                        <b-carousel-slide>
-                            <template #img>
-                            <img
-                                class="d-block img-fluid w-100"
-                                width="1024"
-                                height="480"
-                                src="https://picsum.photos/1024/480/?image=52"
-                                alt="image slot"
-                            >
-                            <p> HOLA </p>
-                            </template>
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <template #img>
-                            <img
-                                class="d-block img-fluid w-100"
-                                width="1024"
-                                height="480"
-                                src="https://picsum.photos/1024/480/?image=54"
-                                alt="image slot"
-                            >
-                            <p> HOLA </p>
-                            </template>
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <template #img>
-                            <img
-                                class="d-block img-fluid w-100"
-                                width="1024"
-                                height="480"
-                                src="https://picsum.photos/1024/480/?image=58"
-                                alt="image slot"
-                            >
-                            <p> HOLA </p>
-                            </template>
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <template #img>
-                            <img
-                                class="d-block img-fluid w-100"
-                                width="1024"
-                                height="480"
-                                src="https://picsum.photos/1024/480/?image=55"
-                                alt="image slot"
-                            >
-                            <p> HOLA </p>
-                            </template>
-                        </b-carousel-slide>
-                        </b-carousel>
-                    </div>
-                    <button @click="showModal = false">Cerrar</button>
-                </div>
-            </transition>
-            <button class="posicion_boton" @click="showModal = true"> Open modal </button>
+  <div id="scene-container">
+    <transition name="fade">
+      <div class="modal-overlay" v-if="showModal"></div>
+    </transition>
+    <div class="position-absolute">
+      <transition name="fade">
+        <div v-if="showModal" class="modal_proyectos">
+          <h1>Contenido del modal</h1>
+
+          <b-carousel
+            id="carousel-1"
+            v-model="slide"
+            :interval="4000"
+            controls
+            indicators
+            background="#ababab"
+            img-width="1024"
+            img-height="480"
+            style="text-shadow: 1px 1px 2px #333"
+            @sliding-start="onSlideStart"
+            @sliding-end="onSlideEnd"
+          >
+            <div v-for="item in proyectos" v-bind:key="item.id">
+              <b-carousel-slide v-if="item.data.estado == 'aprobado'">
+                <template #img>
+                  <div>
+                    <img
+                      class="d-block img-fluid w-100"
+                      :src="getImageUrl(item.data.imagen)"
+                      alt="image slot"
+                    />
+                    <h2>{{ item.data.nombre_proyecto }}</h2>
+                    <h3>{{ item.data.materia }}</h3>
+                    <p>
+                      {{ item.data.descripcion }}
+                    </p>
+                  </div>
+                </template>
+              </b-carousel-slide>
+            </div>
+            <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+          </b-carousel>
+          <button @click="showModal = false">Cerrar</button>
         </div>
+      </transition>
+      <button class="posicion_boton" @click="showModal = true">
+        Open modal
+      </button>
     </div>
+  </div>
 </template>
 <script>
-// import Firebase from "firebase";
+import { db } from "@/firebase/init";
 
-export default {    
-    data() {
-        return {
-            showModal: false,
-            sliding: null
-        };
+export default {
+  data() {
+    return {
+      proyectos: [],
+      showModal: false,
+      slide: 0,
+      sliding: null,
+    };
+  },
+  methods: {
+    onSlideStart() {
+      this.sliding = true;
     },
-    methods: {
+    onSlideEnd() {
+      this.sliding = false;
     },
-
+    getImageUrl(imageId) {
+      return `${imageId}`;
+    },
+  },
+  created() {
+    this.proyectos = [];
+    db.collection("proyectos_admin")
+      .get()
+      .then((r) => {
+        r.docs.map((item) => {
+          this.proyectos.push({
+            id: item.id,
+            data: item.data(),
+          });
+        });
+      });
+  },
 };
 </script>
 <style >
-.posicion_boton{
-    position: fixed;
-    bottom: 0;
-    right: 0;
+.posicion_boton {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 .modal-overlay {
-    position:absolute;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    z-index: 100;
-    background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.4);
 }
-.modal_proyectos{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 3%;
-    border-radius: 10px;
-    z-index: 101;
+.modal_proyectos {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 3%;
+  border-radius: 10px;
+  z-index: 101;
 }
 .carrusel_p {
-    width:80rem;
-    height: 80rem;
+  width: 80rem;
+  height: 80rem;
 }
 /* img{
     width: 10%;
