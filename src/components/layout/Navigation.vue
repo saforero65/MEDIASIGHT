@@ -60,94 +60,105 @@
             <div class="info">
               <transition name="slide-fade">
                 <div v-if="showC">
-                  <div class="contactus">
+                  <div class="about">
+                    <h3>Nosotros</h3>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat nesciunt, beatae fugit quisquam, iste nihil soluta sapiente vitae, repudiandae quasi odio ea commodi animi pariatur. Velit iure quaerat corporis dicta.</p>
                   </div>
                   <div class="logos_info">
                     <ul>
                       <li>
-                        <img
-                          class= "info_controls"
-                          src="@/assets/img/logo_main.png"
-                          alt="logo_multimedia"
+                        <img class= "info_controls"
+                          src="@/assets/img/logo_main.png" alt="logo_multimedia"
                         />
                       </li>
                       <li>
-                        <img
-                          class= "info_controls"
-                          src="@/assets/img/logo_mul.png"
-                          alt="logo_multimedia"
+                        <img  class= "info_controls"
+                          src="@/assets/img/logo_mul.png" alt="logo_multimedia"
                         />
                       </li>
                       <li>
-                        <a 
-                          href = "https://www.umng.edu.co/inicio" target="_blank"><img
-                          class= "info_controls"
-                          src="@/assets/img/logo_umng.png"
-                          alt="logo_umng"
+                        <a href = "https://www.umng.edu.co/inicio" target="_blank">
+                        <img class= "info_controls"
+                          src="@/assets/img/logo_umng.png" alt="logo_umng"
                         /></a>
                       </li>
-                        <img
-                          class= "info_controls"
-                          src="@/assets/img/logo_20_años.png"
-                          alt="logo_20_años"
-                        />
                       <li>
+                        <img class= "info_controls"
+                          src="@/assets/img/logo_20_años.png" alt="logo_20_años"
+                        />
                       </li>
                     </ul>
                   </div>
                 </div>
                 <div v-if="showA">
-                  <div class= "about">
-                    <h3>Nosotros</h3>
+                  <div class= "contactus">
+                    <h3>Contáctanos</h3>
                     <p>HOLA Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat nesciunt, beatae fugit quisquam.</p>
-                    <div>
+                    <div class = "nombres">
                       <ul>
-                        <li> Nombre </li>
-                        <li> Nombre </li>
-                        <li> Nombre </li>
-                        <li> Nombre </li>
+                        <li>
+                          <img src="@/assets/img/foto.png" alt="foto1" />
+                          <p> Javier Santiago Bocagnegra </p>
+                        </li>
+                        <li>
+                          <img src="@/assets/img/foto.png" alt="foto2" />
+                          <p> Santiago Forero Zapata </p>
+                        </li>
+                        <li>
+                          <img src="@/assets/img/foto.png" alt="foto3" />
+                          <p> Natalia Gómez Malaver </p>
+                        </li>
+                        <li>
+                          <img src="@/assets/img/foto.png" alt="foto4" />
+                          <p> Vanessa Escobar Mora </p>
+                        </li>
                       </ul>
                     </div>
-                    <div>
+                    <div class = "paginas_url">
                       <ul>
-                        <li> <a href=# target="_blank"> Universidad Militar Nueva Granada</a>  </li>
-                        <li> <a href=# target="_blank"> @unimilitar</a> </li>
-                        <li> <a href=# target="_blank"> UMNG- @lamilitar</a> </li>
-                        <li> <a href = "https://www.umng.edu.co/inicio" target="_blank"> Universidad Militar Nueva Granada</a> </li>
+                        <li> 
+                          <img src="@/assets/img/icons/facebook.svg" alt="foto3" />
+                          <a href="https://www.facebook.com/lamilitar/" target="_blank"> Universidad Militar Nueva Granada</a>  
+                        </li>
+                        <li>
+                          <img src="@/assets/img/icons/instagram.svg" alt="foto3" />
+                          <a href="https://www.instagram.com/unimilitar/" target="_blank"> @unimilitar</a> 
+                        </li>
+                        <li>
+                          <img src="@/assets/img/icons/twitter.svg" alt="foto3" />
+                          <a href="https://twitter.com/lamilitar" target="_blank"> UMNG - @lamilitar</a>
+                        </li>
+                        <li>
+                          <img src="@/assets/img/icons/lupa.svg" alt="foto3" />
+                          <a href = "https://www.umng.edu.co/inicio" target="_blank"> Universidad Militar Nueva Granada</a>
+                        </li>
                       </ul>
                     </div>
                   </div>
                   <div class="logos_info">
                     <ul>
                       <li>
-                        <img
-                          class= "info_controls"
-                          src="@/assets/img/logo_main.png"
-                          alt="logo_multimedia"
+                        <img class= "info_controls"
+                          src="@/assets/img/logo_main.png" alt="logo_multimedia"
                         />
                       </li>
                       <li>
-                        <img
-                          class= "info_controls"
-                          src="@/assets/img/logo_mul.png"
-                          alt="logo_multimedia"
+                        <img class= "info_controls"
+                          src="@/assets/img/logo_mul.png" alt="logo_multimedia"
                         />
                       </li>
                       <li>
                         <a 
-                          href = "https://www.umng.edu.co/inicio" target="_blank"><img
-                          class= "info_controls"
-                          src="@/assets/img/logo_umng.png"
-                          alt="logo_umng"
-                        /></a>
+                          href = "https://www.umng.edu.co/inicio" target="_blank">
+                          <img class= "info_controls"
+                          src="@/assets/img/logo_umng.png" alt="logo_umng"
+                          />
+                        </a>
                       </li>
-                        <img
-                          class= "info_controls"
-                          src="@/assets/img/logo_20_años.png"
-                          alt="logo_20_años"
-                        />
                       <li>
+                        <img class= "info_controls"
+                          src="@/assets/img/logo_20_años.png" alt="logo_20_años"
+                        />
                       </li>
                     </ul>
                   </div>
@@ -157,6 +168,18 @@
           </nav>
         </div>
       </template>
+      <!-- <div class="point point-0">
+          <div class="label">1</div>
+          <div class="text">Front and top screen with HUD aggregating terrain and battle informations.</div>
+      </div>
+      <div class="point point-1">
+          <div class="label">2</div>
+          <div class="text">Ventilation with air purifier and detection of environment toxicity.</div>
+      </div>
+      <div class="point point-2">
+          <div class="label">3</div>
+          <div class="text">Cameras supporting night vision and heat vision with automatic adjustment.</div>
+      </div>   -->
   </div>
 </template>
 <script>
@@ -214,7 +237,7 @@ header {
 }
 .sliding--menu__wrapper.slide--right input[type="checkbox"]:checked ~ label {
   right: 51vh;
-  margin-top: 3vh;
+  margin-top: 1.8%;
 }
 .sliding--menu__wrapper.slide--right nav {
   position: fixed;
@@ -244,14 +267,15 @@ header {
 }
 .bm-burger-button {
   width: 2.5rem;
-  height: 1.4rem;
+  height: 2.2%;
   position: fixed;
   /* transition: all .5s 200ms ease-in; */
-  margin-top: 3vh;
+  margin: 1.8% 0 0 0;
   cursor: pointer;
 }
 .bm-burger-bars {
     background: #222;
+    margin: 0;
 }
 .line-style {
     height: 16%;
@@ -288,18 +312,39 @@ header {
 }
 
 .about, .contactus{
-  font-size: 20px;
   width: auto;
   height: auto;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   margin: 0;
   background-color: black;
   color:#fff;
 }
-.about ul {
-  display: flex;
-  justify-content: center;
+.about h3, .contactus h3{
+  margin-bottom: 1rem;
+}
+.contactus ul, .contactus a {
   list-style: none;
+  margin: 0;
+  padding: 0;
+  color:#fff;
+}
+.nombres li {
+  display: inline-grid;
+  justify-items: center;
+  width: 40%;
+  margin: 4%;
+}
+.nombres img {
+  width: 55%;
+}
+.nombres p {
+  text-align: center;
+  margin: 8% 0;
+  width: 80%;
+}
+.paginas_url img {
+  width: 1.2rem;
+  margin: 0.5rem;
 }
 
 footer {
@@ -317,5 +362,64 @@ footer ul {
   width: 1.7rem;
   cursor: pointer;
 }
+.point
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* pointer-events: none; */
+}
+
+.point .label
+{
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #00000077;
+    border: 1px solid #ffffff77;
+    color: #ffffff;
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+    line-height: 40px;
+    font-weight: 100;
+    font-size: 14px;
+    cursor: pointer;
+    transform: scale(0, 0);
+    transition: transform 0.3s;
+}
+
+.point .text
+{
+    position: absolute;
+    top: 30px;
+    left: -120px;
+    width: 200px;
+    padding: 20px;
+    border-radius: 4px;
+    background: #00000077;
+    border: 1px solid #ffffff77;
+    color: #ffffff;
+    line-height: 1.3em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.point:hover .text
+{
+    opacity: 1;
+}
+
+.point.visible .label
+{
+    transform: scale(1, 1);
+}
+
 
 </style>

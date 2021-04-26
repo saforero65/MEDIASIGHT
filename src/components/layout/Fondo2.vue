@@ -56,6 +56,7 @@ export default {
 
       //Orbit controls
       this.controls = new OrbitControls(camera, this.renderer.domElement);
+// this.controls.enableDamping = true
       this.controls.target.set(0, 0, 0); //Objetivo de la cámara
 
       this.controls.minDistance = 1;
@@ -85,7 +86,35 @@ export default {
         this.container.clientHeight
       );
 
+// /**
+//  * Overlay
+//  */
+// const overlayGeometry = new THREE.PlaneGeometry(0.2, 0.2, 1, 1)
+// const overlayMaterial = new THREE.ShaderMaterial({
+//     // wireframe: true,
+//     transparent: true,
+//     uniforms:
+//     {
+//         uAlpha: { value: 1 }
+//     },
+//     vertexShader: `
+//         void main()
+//         {
+//             gl_Position = vec4(position, 1.0);
+//         }
+//     `,
+//     fragmentShader: `
+//         uniform float uAlpha;
+
+//         void main()
+//         {
+//             gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha);
+//         }
+//     `
+// })
+// const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial)
       //añadiendo modelo .glb
+let sceneReady = false
       const loader = new GLTFLoader();
 
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
@@ -98,14 +127,102 @@ export default {
         const action = this.mixer.clipAction(animations[0]);
         action.play();
 
-        this.scene.add(this.model);
         console.log(`modelo cargado`);
         this.model.position.set(-3, -2, -2);
         this.model.scale.set(5, 5, 5);
+        this.scene.add(this.model);
         this.model.needsUpdate = true;
       });
-      this.render();
+
+// this.scene.add(overlay)
+
+/**
+ * Points of interest
+ */
+const raycaster = new THREE.Raycaster()
+const points = [
+    {
+        position: new THREE.Vector3(-3, 3, 2),
+        element: document.querySelector(".point-0")
     },
+    {
+        position: new THREE.Vector3(0.5, 0.8, - 1.6),
+        element: document.querySelector(".point-1")
+    },
+    {
+        position: new THREE.Vector3(1.6, - 1.3, - 0.7),
+        element: document.querySelector(".point-2")
+    }
+]
+/**
+ * Sizes
+ */
+const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+}
+
+const tick = () =>
+{
+    // Update controls
+    this.controls.update()
+
+    // Update points only when the scene is ready
+    if(sceneReady)
+    {
+        // Go through each point
+        for(const point of points)
+        {
+            // Get 2D screen position
+            const screenPosition = point.position.clone()
+            screenPosition.project(this.camera)
+    
+            // Set the raycaster
+            raycaster.setFromCamera(screenPosition, this.camera)
+            const intersects = raycaster.intersectObjects(this.scene.children, true)
+    
+            // No intersect found
+            if(intersects.length === 0)
+            {
+                // Show
+                point.element.classList.add('visible')
+            }
+
+            // Intersect found
+            else
+            {
+                // Get the distance of the intersection and the distance of the point
+                const intersectionDistance = intersects[0].distance
+                const pointDistance = point.position.distanceTo(this.camera.position)
+    
+                // Intersection is close than the point
+                if(intersectionDistance < pointDistance)
+                {
+                    // Hide
+                    point.element.classList.remove('visible')
+                }
+                // Intersection is further than the point
+                else
+                {
+                    // Show
+                    point.element.classList.add('visible')
+                }
+            }
+    
+            const translateX = screenPosition.x * sizes.width * 0.5
+            const translateY = - screenPosition.y * sizes.height * 0.5
+            point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
+        }
+    }
+
+
+    // Call tick again on the next frame
+    window.requestAnimationFrame(tick)
+}
+tick()
+    this.render();
+    },
+
     render() {
       requestAnimationFrame(this.render);
       const delta = this.clock.getDelta();
@@ -127,7 +244,11 @@ export default {
         this.container.clientWidth,
         this.container.clientHeight
       );
+      
+    // Update renderer
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     },
+
   },
   mounted() {
     this.init();
