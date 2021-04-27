@@ -110,6 +110,12 @@
                   :id="item.id"
                   title="Revisión de Formulario de proyecto "
                   ok-only
+                  :header-bg-variant="headerBgVariant"
+                  :header-text-variant="headerTextVariant"
+                  :body-bg-variant="bodyBgVariant"
+                  :body-text-variant="bodyTextVariant"
+                  :footer-bg-variant="footerBgVariant"
+                  :footer-text-variant="footerTextVariant"
                 >
                   <div class="popup_ver">
                     <div class="primerrow">
@@ -129,6 +135,9 @@
                       </p>
                     </div>
                   </div>
+                  <template #modal-footer="{ ok }">
+                    <b-button variant="success" @click="ok()"> Ok </b-button>
+                  </template>
                 </b-modal>
               </td>
               <td>
@@ -142,10 +151,15 @@
                   :id="item.id + 1"
                   title="Editar Contenido"
                   centered
-                  hide-footer
+                  :header-bg-variant="headerBgVariant"
+                  :header-text-variant="headerTextVariant"
+                  :body-bg-variant="bodyBgVariant"
+                  :body-text-variant="bodyTextVariant"
+                  :footer-bg-variant="footerBgVariant"
+                  :footer-text-variant="footerTextVariant"
                 >
                   <div class="popup_ver">
-                    <form @submit.prevent="actualizar_contenido(item.id)">
+                    <form>
                       <div class="primerrow2">
                         <div class="row">
                           <div class="col">
@@ -167,15 +181,17 @@
                           style="height: 10rem"
                         ></textarea>
                       </div>
-                      <div class="cuartodrow">
-                        <input
-                          type="submit"
-                          value=" Guardar"
-                          class="btn btn-success"
-                        />
-                      </div>
                     </form>
                   </div>
+                  <template #modal-footer="{}">
+                    <b-button
+                      variant="success"
+                      @click="actualizar_contenido(item.id)"
+                    >
+                      Guardar
+                    </b-button>
+                    <b-spinner v-if="cargando" label="Spinning"></b-spinner>
+                  </template>
                 </b-modal>
               </td>
             </tr>
@@ -192,6 +208,13 @@ require("@/css/dashboard.css");
 export default {
   data() {
     return {
+      headerBgVariant: "dark",
+      headerTextVariant: "light",
+      bodyBgVariant: "light",
+      bodyTextVariant: "dark",
+      footerBgVariant: "dark",
+      footerTextVariant: "light",
+      cargando: false,
       user: null,
       id: null,
       nombre: null,
@@ -243,6 +266,7 @@ export default {
         });
     },
     actualizar_contenido(id) {
+      this.cargando = true;
       if (this.descripcion) {
         db.collection("contenido")
           .doc(id)
@@ -251,7 +275,9 @@ export default {
           })
           .then(() => {
             console.log("Document successfully updated!");
+
             this.$router.go();
+            this.cargando = false;
           })
           .catch((error) => {
             console.error("Error updating document: ", error);

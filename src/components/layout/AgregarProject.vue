@@ -87,10 +87,15 @@
                 </p>
               </a>
               <b-modal
+                :header-bg-variant="headerBgVariant"
+                :header-text-variant="headerTextVariant"
+                :body-bg-variant="bodyBgVariant"
+                :body-text-variant="bodyTextVariant"
+                :footer-bg-variant="footerBgVariant"
+                :footer-text-variant="footerTextVariant"
                 id="modal-1"
                 title="Agregar un Proyecto"
                 centered
-                hide-footer
               >
                 <div class="popup_ver">
                   <form enctype="multipart/form-data">
@@ -133,17 +138,17 @@
                         accept="image/*"
                       />
                     </div>
-                    <div class="cuartodrow">
-                      <button
-                        @click.prevent="agregar_proyecto()"
-                        type="button"
-                        class="btn btn-success"
-                      >
-                        Guardar
-                      </button>
-                    </div>
                   </form>
                 </div>
+                <template #modal-footer="{ ok }">
+                  <b-button variant="success" @click="ok()">
+                    Cancelar
+                  </b-button>
+                  <b-button variant="danger" @click="agregar_proyecto()">
+                    Guardar
+                  </b-button>
+                  <b-spinner v-if="cargando" label="Spinning"></b-spinner>
+                </template>
               </b-modal>
             </div>
           </div>
@@ -172,28 +177,36 @@
                   v-b-modal="modalId(item.id)"
                   class="img_item"
                   src="@/assets/img/icons/visibilidad.svg"
-                  alt="imagnen_perfil"
+                  alt="ver"
                 />
-                <!-- <button class="btn btn-primary" v-b-modal="modalId(item.id)">
-                  ver
-                </button> -->
+
                 <b-modal
+                  :header-bg-variant="headerBgVariant"
+                  :header-text-variant="headerTextVariant"
+                  :body-bg-variant="bodyBgVariant"
+                  :body-text-variant="bodyTextVariant"
+                  :footer-bg-variant="footerBgVariant"
+                  :footer-text-variant="footerTextVariant"
                   centered
                   :id="item.id"
                   title="Revisión de Formulario de proyecto "
-                  ok-only
                 >
                   <div class="popup_ver">
                     <div class="primerrow1">
-                      <div>
+                      <div class="box">
                         <h3 class="subtittle">Nombre del Proyecto</h3>
                         <p>{{ item.data.nombre_proyecto }}</p>
                       </div>
-                      <div>
+                      <div class="box">
                         <h3 class="subtittle">Materia</h3>
                         <p>{{ item.data.materia }}</p>
                       </div>
+                      <div class="box">
+                        <h3 class="subtittle">Estado</h3>
+                        <p>{{ item.data.estado }}</p>
+                      </div>
                     </div>
+
                     <div class="secondrow">
                       <h3 class="subtittle">Descripción</h3>
                       <p class="descripcion">{{ item.data.descripcion }}</p>
@@ -206,7 +219,15 @@
                         alt=""
                       />
                     </div>
+                    <a></a>
                   </div>
+                  <template #modal-footer="{ ok }">
+                    <b-button variant="success" @click="ok()"> OK </b-button>
+                    <b-button variant="danger" @click="borrar(item.id)">
+                      Borrar
+                    </b-button>
+                    <b-spinner v-if="cargando" label="Spinning"></b-spinner>
+                  </template>
                 </b-modal>
               </div>
             </div>
@@ -227,6 +248,13 @@ require("@/css/dashboard.css");
 export default {
   data() {
     return {
+      headerBgVariant: "dark",
+      headerTextVariant: "light",
+      bodyBgVariant: "light",
+      bodyTextVariant: "dark",
+      footerBgVariant: "dark",
+      footerTextVariant: "light",
+      cargando: false,
       user: null,
       id: null,
       nombre: null,
@@ -254,6 +282,20 @@ export default {
   },
 
   methods: {
+    borrar(id) {
+      this.cargando = true;
+      db.collection("proyecto")
+        .doc(id)
+        .delete()
+        .then(() => {
+          console.log("Document successfully deleted!");
+          this.cargando = false;
+          this.$router.go(0);
+        })
+        .catch((error) => {
+          console.error("Error removing document: ", error);
+        });
+    },
     modalId(i) {
       return i;
     },
@@ -268,6 +310,7 @@ export default {
         });
     },
     agregar_proyecto() {
+      this.cargando = true;
       if (
         this.descripcion &&
         this.materia &&
@@ -291,23 +334,24 @@ export default {
               })
               .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
-              })
-              .catch((error) => {
-                console.error("Error adding document: ", error);
-              });
-            db.collection("proyectos_admin")
-              .add({
-                correo: this.correo,
-                descripcion: this.descripcion,
-                materia: this.materia,
-                nombre_proyecto: this.nombre_proyecto,
-                estado: this.estado,
-                imagen: this.urlImg,
-              })
-              .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
-
-                this.$router.go(0);
+                db.collection("proyectos_admin")
+                  .add({
+                    correo: this.correo,
+                    descripcion: this.descripcion,
+                    materia: this.materia,
+                    nombre_proyecto: this.nombre_proyecto,
+                    estado: this.estado,
+                    imagen: this.urlImg,
+                    id: docRef.id,
+                  })
+                  .then((docRef) => {
+                    console.log("Document written with ID: ", docRef.id);
+                    this.cargando = true;
+                    this.$router.go(0);
+                  })
+                  .catch((error) => {
+                    console.error("Error adding document: ", error);
+                  });
               })
               .catch((error) => {
                 console.error("Error adding document: ", error);
@@ -438,7 +482,7 @@ export default {
 .primerrow1 {
   display: flex;
   justify-content: space-between;
-  padding: 0 6rem 0 1rem;
+
   margin-top: 1rem;
 }
 .secondrow {
@@ -477,6 +521,10 @@ export default {
 }
 .card-subtitle {
   font-size: 12px;
+}
+.box {
+  width: 30%;
+  margin: 1rem;
 }
 </style>
 

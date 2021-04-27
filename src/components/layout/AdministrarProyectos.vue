@@ -103,10 +103,15 @@
                 />
                 <!-- <b-btn v-b-modal="modalId(item.id)">ver</b-btn> -->
                 <b-modal
+                  :header-bg-variant="headerBgVariant"
+                  :header-text-variant="headerTextVariant"
+                  :body-bg-variant="bodyBgVariant"
+                  :body-text-variant="bodyTextVariant"
+                  :footer-bg-variant="footerBgVariant"
+                  :footer-text-variant="footerTextVariant"
                   centered
                   :id="item.id"
                   title="Revisión de Formulario de proyecto "
-                  hide-footer
                 >
                   <div class="popup_ver">
                     <div class="primerrow">
@@ -131,12 +136,12 @@
                         alt="Image 1"
                       ></b-img-lazy>
                     </div>
-                    <div class="cuartodrow">
+                    <!-- <div class="cuartodrow">
                       <button
                         v-if="item.data.estado != 'aprobado'"
                         type="button"
                         class="btn btn-success"
-                        @click.prevent="updateStatusA(item.id)"
+                        @click.prevent="updateStatusA(item.id, item.data.id)"
                       >
                         APROBAR
                       </button>
@@ -144,12 +149,28 @@
                         v-if="item.data.estado != 'denegado'"
                         type="button"
                         class="btn btn-danger"
-                        @click.prevent="updateStatusD(item.id)"
+                        @click.prevent="updateStatusD(item.id, item.data.id)"
                       >
                         DENEGAR
                       </button>
-                    </div>
+                    </div> -->
                   </div>
+                  <template #modal-footer="{}">
+                    <b-button
+                      variant="danger"
+                      @click.prevent="updateStatusD(item.id, item.data.id)"
+                    >
+                      Denegar
+                    </b-button>
+                    <b-spinner v-if="cargando" label="Spinning"></b-spinner>
+                    <b-button
+                      variant="success"
+                      @click="updateStatusA(item.id, item.data.id)"
+                    >
+                      Aprobar
+                    </b-button>
+                    <b-spinner v-if="cargando2" label="Spinning"></b-spinner>
+                  </template>
                 </b-modal>
               </td>
             </tr>
@@ -168,6 +189,14 @@ require("@/css/dashboard.css");
 export default {
   data() {
     return {
+      headerBgVariant: "dark",
+      headerTextVariant: "light",
+      bodyBgVariant: "light",
+      bodyTextVariant: "dark",
+      footerBgVariant: "dark",
+      footerTextVariant: "light",
+      cargando: false,
+      cargando2: false,
       user: null,
       id: null,
       nombre: null,
@@ -181,6 +210,7 @@ export default {
       correom: null,
       estado: null,
       proyectos: [],
+      proyectosadmin: [],
       ver_form: false,
       showModal: false,
       urlImg: null,
@@ -212,7 +242,8 @@ export default {
           // window.location.href = "/#/home";
         });
     },
-    updateStatusA(id) {
+    updateStatusA(id, id2) {
+      this.cargando2 = true;
       db.collection("proyectos_admin")
         .doc(id)
         .update({
@@ -226,9 +257,24 @@ export default {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error);
         });
+      db.collection("proyecto")
+        .doc(id2)
+        .update({
+          estado: "aprobado",
+        })
+        .then(() => {
+          console.log("Document successfully updated!");
+          this.cargando2 = false;
+          this.$router.go(0);
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
       this.ver_form = false;
     },
-    updateStatusD(id) {
+    updateStatusD(id, id2) {
+      this.cargando = true;
       db.collection("proyectos_admin")
         .doc(id)
         .update({
@@ -241,14 +287,15 @@ export default {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error);
         });
-      db.collection("proyectos_admin")
-        .doc(id)
+
+      db.collection("proyecto")
+        .doc(id2)
         .update({
           estado: "denegado",
         })
         .then(() => {
           console.log("Document successfully updated!");
-
+          this.cargando = false;
           this.$router.go(0);
         })
         .catch((error) => {
@@ -279,11 +326,22 @@ export default {
             });
           });
         this.proyectos = [];
+        this.proyectosadmin = [];
         db.collection("proyectos_admin")
           .get()
           .then((r) => {
             r.docs.map((item) => {
               this.proyectos.push({
+                id: item.id,
+                data: item.data(),
+              });
+            });
+          });
+        db.collection("proyecto")
+          .get()
+          .then((r) => {
+            r.docs.map((item) => {
+              this.proyectosadmin.push({
                 id: item.id,
                 data: item.data(),
               });
