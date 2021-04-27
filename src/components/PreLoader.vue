@@ -43,7 +43,7 @@ export default {
   methods: {
     mostrar() {
       this.empezemos = false;
-      this.$router.push({ name: "home" });
+      // this.$router.push({ name: "home" });
       //   window.location.href = "/#/home";
     },
   },

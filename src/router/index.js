@@ -13,7 +13,7 @@ const routes = [{
         path: '/',
         name: 'preloader',
         component: () =>
-            import ('../components/PreLoader.vue')
+            import ('../views/Home.vue')
     }, {
         path: '/home',
         name: 'home',

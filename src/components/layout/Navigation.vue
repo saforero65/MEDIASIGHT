@@ -56,61 +56,18 @@
         </div>
       </template>
     </header>
-    <div>
-      <template>
-        <div>
-          <b-carousel
-            id="carousel-1"
-            v-model="slide"
-            :interval="4000"
-            controls
-            indicators
-            background="#ababab"
-            img-width="1024"
-            img-height="480"
-            style="text-shadow: 1px 1px 2px #333"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-          >
-            <div v-for="item in proyectos" v-bind:key="item.id">
-              <b-carousel-slide v-if="item.data.estado == 'aprobado'">
-                <template #img>
-                  <div>
-                    <img
-                      class="d-block img-fluid w-100"
-                      :src="getImageUrl(item.data.imagen)"
-                      alt="image slot"
-                    />
-                    <h2>{{ item.data.nombre_proyecto }}</h2>
-                    <h3>{{ item.data.materia }}</h3>
-                    <p>
-                      {{ item.data.descripcion }}
-                    </p>
-                  </div>
-                </template>
-              </b-carousel-slide>
-            </div>
-            <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-          </b-carousel>
-
-          <p class="mt-4">
-            Slide #: {{ slide }}<br />
-            Sliding: {{ sliding }}
-          </p>
-        </div>
-      </template>
-    </div>
+    <div></div>
   </div>
 </template>
     
 <script>
 import Firebase from "firebase";
-import { db } from "@/firebase/init";
+
 export default {
   data() {
     return {
       user: null,
-      proyectos: [],
+
       slide: 0,
       sliding: null,
     };
@@ -142,17 +99,6 @@ export default {
         this.user = null;
       }
     });
-    this.proyectos = [];
-    db.collection("proyectos_admin")
-      .get()
-      .then((r) => {
-        r.docs.map((item) => {
-          this.proyectos.push({
-            id: item.id,
-            data: item.data(),
-          });
-        });
-      });
   },
 };
 </script>

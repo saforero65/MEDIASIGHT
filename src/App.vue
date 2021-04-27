@@ -2,7 +2,7 @@
   <div id="app">
     <router-view />
     <!-- <PreLoader></PreLoader> -->
-    <!-- <Home></Home> -->
+    <!-- <Home /> -->
   </div>
 </template>
 
