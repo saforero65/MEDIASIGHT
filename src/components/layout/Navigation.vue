@@ -168,21 +168,6 @@
           </nav>
         </div>
       </template>
-<<<<<<< HEAD
-      <div class="point point-0">
-          <div class="label">1</div>
-          <div class="text">Front and top screen with HUD aggregating terrain and battle informations.</div>
-      </div>
-      <div class="point point-1">
-          <div class="label">2</div>
-          <div class="text">Ventilation with air purifier and detection of environment toxicity.</div>
-      </div>
-      <div class="point point-2">
-          <div class="label">3</div>
-          <div class="text">Cameras supporting night vision and heat vision with automatic adjustment.</div>
-      </div>  
-=======
->>>>>>> 0b3961bfcc996143f8f4ce0f3708631e180c5a6a
   </div>
 </template>
 <script>
@@ -421,7 +406,7 @@ footer ul {
 
 .point.visible .label
 {
-    transform: scale(2, 2);
+    transform: scale(1, 1);
 }
 
 

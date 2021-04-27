@@ -98,22 +98,12 @@ export default {
 // // this.controls.enableDamping = true
 //       this.controls.target.set(0, 0, 0); //Objetivo de la cámara
 
-<<<<<<< HEAD
-      this.controls.minDistance = 1;
-      this.controls.maxDistance = 7;
-      //this.controls.enableRotate = false;
-      this.controls.maxPolarAngle = Math.PI/2;
-      //this.controls.minAzimuthAngle = [-2*Math.PI, 2*Math.PI];
-      //this.controls.enablePan = false;
-      //this.controls.update();
-=======
 //       //this.controls.enablePan = false;
 //       // this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
 //       this.controls.maxPolarAngle = Math.PI / 2;
 //       this.controls.minDistance = 1;
 //       this.controls.maxDistance = 7;
 this.controls.update();
->>>>>>> 0b3961bfcc996143f8f4ce0f3708631e180c5a6a
 
       // añade luces
       const ambientLight = new THREE.HemisphereLight(
@@ -134,37 +124,6 @@ this.controls.update();
         this.container.clientHeight
       );
 
-<<<<<<< HEAD
-// /**
-//  * Overlay
-//  */
-// const overlayGeometry = new THREE.PlaneGeometry(0.2, 0.2, 1, 1)
-// const overlayMaterial = new THREE.ShaderMaterial({
-//     // wireframe: true,
-//     transparent: true,
-//     uniforms:
-//     {
-//         uAlpha: { value: 1 }
-//     },
-//     vertexShader: `
-//         void main()
-//         {
-//             gl_Position = vec4(position, 1.0);
-//         }
-//     `,
-//     fragmentShader: `
-//         uniform float uAlpha;
-
-//         void main()
-//         {
-//             gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha);
-//         }
-//     `
-// })
-// const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial)
-
-=======
->>>>>>> 0b3961bfcc996143f8f4ce0f3708631e180c5a6a
       //añadiendo modelo .glb
 let sceneReady = false
       const loader = new GLTFLoader();
@@ -194,19 +153,18 @@ let sceneReady = false
 const raycaster = new THREE.Raycaster()
 const points = [
     {
-        position: new THREE.Vector3(1.55, 0.3, - 0.6),
-        element: document.querySelector('.point-0')
+        position: new THREE.Vector3(-3, 3, 2),
+        element: document.querySelector(".point-0")
     },
     {
-        position: new THREE.SphereGeometry( 0.5, 32, 32),
+        position: new THREE.Vector3(0.5, 0.8, - 1.6),
         element: document.querySelector(".point-1")
     },
     {
-        position: new THREE.SphereGeometry( 0.5, 32, 32),
+        position: new THREE.Vector3(1.6, - 1.3, - 0.7),
         element: document.querySelector(".point-2")
     }
 ]
-
 /**
  * Sizes
  */
