@@ -1,5 +1,21 @@
 <template>
-  <div id="scene-container" ref="sceneContainer"></div>
+  <div id="scene-container" ref="sceneContainer">
+    <div  class="position-absolute">
+      <div class="point point-0">
+          <div class="label">1</div>
+          <div class="text">Front and top screen with HUD aggregating terrain and battle informations.</div>
+      </div>
+      <div class="point point-1">
+          <div class="label">2</div>
+          <div class="text">Ventilation with air purifier and detection of environment toxicity.</div>
+      </div>
+      <div class="point point-2">
+          <div class="label">3</div>
+          <div class="text">Cameras supporting night vision and heat vision with automatic adjustment.</div>
+      </div>
+      <button @click="Mover">CLIC</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -17,10 +33,23 @@ export default {
       renderer: null,
       clock: null,
       mixer: [],
-      model: null
+      model: null,
+      Mover_Camara: false
     };
   },
   methods: {
+    Mover() {     
+      if(this.Mover_Camara)
+      {
+        this.camera.position.set(0, 2, 6);
+      this.Mover_Camara = false;
+      }
+      else
+      {
+      this.camera.position.set(0, 0, 0);
+      this.Mover_Camara = true;
+      }
+    },
     init() {
       // estabcer el container
       this.container = this.$refs.sceneContainer;
@@ -53,12 +82,23 @@ export default {
       );
       camera.position.set(0, 2, 6);
       this.camera = camera;
+      // this.Mover();
+      // if(this.Mover_Camara)
+      // {
+      //   this.camera.position.set(0,5,6);
+      // }
+      // else
+      // {
+      // this.camera.position.set(0, 0, 0);
+      // }
+      // this.camera = camera;
 
       //Orbit controls
-      this.controls = new OrbitControls(camera, this.renderer.domElement);
-// this.controls.enableDamping = true
-      this.controls.target.set(0, 0, 0); //Objetivo de la cámara
+      this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+// // this.controls.enableDamping = true
+//       this.controls.target.set(0, 0, 0); //Objetivo de la cámara
 
+<<<<<<< HEAD
       this.controls.minDistance = 1;
       this.controls.maxDistance = 7;
       //this.controls.enableRotate = false;
@@ -66,6 +106,14 @@ export default {
       //this.controls.minAzimuthAngle = [-2*Math.PI, 2*Math.PI];
       //this.controls.enablePan = false;
       //this.controls.update();
+=======
+//       //this.controls.enablePan = false;
+//       // this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
+//       this.controls.maxPolarAngle = Math.PI / 2;
+//       this.controls.minDistance = 1;
+//       this.controls.maxDistance = 7;
+this.controls.update();
+>>>>>>> 0b3961bfcc996143f8f4ce0f3708631e180c5a6a
 
       // añade luces
       const ambientLight = new THREE.HemisphereLight(
@@ -86,6 +134,7 @@ export default {
         this.container.clientHeight
       );
 
+<<<<<<< HEAD
 // /**
 //  * Overlay
 //  */
@@ -114,6 +163,8 @@ export default {
 // })
 // const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial)
 
+=======
+>>>>>>> 0b3961bfcc996143f8f4ce0f3708631e180c5a6a
       //añadiendo modelo .glb
 let sceneReady = false
       const loader = new GLTFLoader();
