@@ -168,7 +168,7 @@
           </nav>
         </div>
       </template>
-      <!-- <div class="point point-0">
+      <div class="point point-0">
           <div class="label">1</div>
           <div class="text">Front and top screen with HUD aggregating terrain and battle informations.</div>
       </div>
@@ -179,7 +179,7 @@
       <div class="point point-2">
           <div class="label">3</div>
           <div class="text">Cameras supporting night vision and heat vision with automatic adjustment.</div>
-      </div>   -->
+      </div>  
   </div>
 </template>
 <script>
@@ -418,7 +418,7 @@ footer ul {
 
 .point.visible .label
 {
-    transform: scale(1, 1);
+    transform: scale(2, 2);
 }
 
 

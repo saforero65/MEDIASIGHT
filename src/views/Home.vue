@@ -2,6 +2,7 @@
   <div class="body">
     <Navigation></Navigation>
     <Projects></Projects>
+    <Profesores></Profesores>
     <fondo2></fondo2>
   </div>
 </template>
@@ -11,12 +12,14 @@
 import Navigation from "@/components/layout/Navigation";
 import fondo2 from "@/components/layout/Fondo2";
 import Projects from "@/components/layout/Projects"
+import Profesores from "@/components/layout/Profesores";
 export default {
   name: "Home",
   components: {
     Navigation,
     Projects,
-    fondo2,
+    Profesores,
+    fondo2
   },
 };
 </script>

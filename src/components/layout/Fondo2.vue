@@ -64,7 +64,7 @@ export default {
       //this.controls.enableRotate = false;
       this.controls.maxPolarAngle = Math.PI/2;
       //this.controls.minAzimuthAngle = [-2*Math.PI, 2*Math.PI];
-      this.controls.enablePan = false;
+      //this.controls.enablePan = false;
       //this.controls.update();
 
       // añade luces
@@ -113,6 +113,7 @@ export default {
 //     `
 // })
 // const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial)
+
       //añadiendo modelo .glb
 let sceneReady = false
       const loader = new GLTFLoader();
@@ -142,18 +143,19 @@ let sceneReady = false
 const raycaster = new THREE.Raycaster()
 const points = [
     {
-        position: new THREE.Vector3(-3, 3, 2),
-        element: document.querySelector(".point-0")
+        position: new THREE.Vector3(1.55, 0.3, - 0.6),
+        element: document.querySelector('.point-0')
     },
     {
-        position: new THREE.Vector3(0.5, 0.8, - 1.6),
+        position: new THREE.SphereGeometry( 0.5, 32, 32),
         element: document.querySelector(".point-1")
     },
     {
-        position: new THREE.Vector3(1.6, - 1.3, - 0.7),
+        position: new THREE.SphereGeometry( 0.5, 32, 32),
         element: document.querySelector(".point-2")
     }
 ]
+
 /**
  * Sizes
  */
