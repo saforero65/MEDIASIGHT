@@ -212,46 +212,46 @@ export default {
           position: new THREE.Vector3(-0.8, 0.0, 1),
           element: document.querySelector(".point-4"),
         },
-        // {
-        //   position: new THREE.Vector3(0, 0, 0.5),
-        //   element: document.querySelector(".point-5"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0.5, 1),
-        //   element: document.querySelector(".point-6"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.8, 0.3, 2),
-        //   element: document.querySelector(".point-7"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.8, 0.8, 0),
-        //   element: document.querySelector(".point-8"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0.8, 1),
-        //   element: document.querySelector(".point-9"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.5, 0.83, 2),
-        //   element: document.querySelector(".point-10"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.2, 0.8, 0),
-        //   element: document.querySelector(".point-11"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0.6, 1),
-        //   element: document.querySelector(".point-12"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.5, 0.83, 2),
-        //   element: document.querySelector(".point-13"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0.9, 1),
-        //   element: document.querySelector(".point-14"),
-        // },
+        {
+          position: new THREE.Vector3(0, 0, 0.5),
+          element: document.querySelector(".point-5"),
+        },
+        {
+          position: new THREE.Vector3(0, 0.5, 1),
+          element: document.querySelector(".point-6"),
+        },
+        {
+          position: new THREE.Vector3(-0.8, 0.3, 2),
+          element: document.querySelector(".point-7"),
+        },
+        {
+          position: new THREE.Vector3(0.8, 0.8, 0),
+          element: document.querySelector(".point-8"),
+        },
+        {
+          position: new THREE.Vector3(0, 0.8, 1),
+          element: document.querySelector(".point-9"),
+        },
+        {
+          position: new THREE.Vector3(-0.5, 0.83, 2),
+          element: document.querySelector(".point-10"),
+        },
+        {
+          position: new THREE.Vector3(0.2, 0.8, 0),
+          element: document.querySelector(".point-11"),
+        },
+        {
+          position: new THREE.Vector3(0, 0.6, 1),
+          element: document.querySelector(".point-12"),
+        },
+        {
+          position: new THREE.Vector3(-0.5, 0.83, 2),
+          element: document.querySelector(".point-13"),
+        },
+        {
+          position: new THREE.Vector3(0, 0.9, 1),
+          element: document.querySelector(".point-14"),
+        },
       ];
       this.render();
     },
@@ -261,55 +261,58 @@ export default {
       this.controls.update();
       // this.scene.update();
       if (this.mixer.length != 0) {
+        this.content();
         this.mixer.update(delta);
-        for (this.point of this.points) {
-          // Get 2D screen position
-          // this.mixer.update(delta);
-          const screenPosition = this.point.position.clone();
-          screenPosition.project(this.camera);
 
-          // Set the raycaster
-          this.raycaster.setFromCamera(screenPosition, this.camera);
-          this.intersects = this.raycaster.intersectObjects(
-            this.scene.children,
-            true
-          );
-
-          // No intersect found
-          if (this.intersects.length === 0) {
-            // Show
-            this.point.element.classList.add("visible");
-          }
-
-          // Intersect found
-          else {
-            // Get the distance of the intersection and the distance of the point
-            const intersectionDistance = this.intersects[0].distance;
-            const pointDistance = this.point.position.distanceTo(
-              this.camera.position
-            );
-
-            // Intersection is close than the point
-            if (intersectionDistance < pointDistance) {
-              // Hide
-              this.point.element.classList.remove("visible");
-            }
-            // Intersection is further than the point
-            else {
-              // Show
-              this.point.element.classList.add("visible");
-            }
-          }
-
-          const translateX =
-            screenPosition.x * this.container.clientWidth * 0.5;
-          const translateY =
-            -screenPosition.y * this.container.clientHeight * 0.5;
-          this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
-        }
         console.log(`mixer update fondo main`);
       }
       this.renderer.render(this.scene, this.camera);
+    },
+    content() {
+      for (this.point of this.points) {
+        // Get 2D screen position
+        // this.mixer.update(delta);
+        const screenPosition = this.point.position.clone();
+        screenPosition.project(this.camera);
+
+        // Set the raycaster
+        this.raycaster.setFromCamera(screenPosition, this.camera);
+        this.intersects = this.raycaster.intersectObjects(
+          this.scene.children,
+          true
+        );
+
+        // No intersect found
+        if (this.intersects.length === 0) {
+          // Show
+          this.point.element.classList.add("visible");
+        }
+
+        // Intersect found
+        else {
+          // Get the distance of the intersection and the distance of the point
+          const intersectionDistance = this.intersects[0].distance;
+          const pointDistance = this.point.position.distanceTo(
+            this.camera.position
+          );
+
+          // Intersection is close than the point
+          if (intersectionDistance < pointDistance) {
+            // Hide
+            this.point.element.classList.remove("visible");
+          }
+          // Intersection is further than the point
+          else {
+            // Show
+            this.point.element.classList.add("visible");
+          }
+        }
+
+        const translateX = screenPosition.x * this.container.clientWidth * 0.5;
+        const translateY =
+          -screenPosition.y * this.container.clientHeight * 0.5;
+        this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+      }
     },
     onWindowResize: function () {
       console.log("resize");
@@ -366,71 +369,71 @@ export default {
       .onSnapshot((doc) => {
         this.contenidos = `${doc.data().descripcion}`;
       });
-    // db.collection("contenido")
-    //   .doc("0.02")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos2 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.03")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos3 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.04")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos4 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.05")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos5 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.06")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos6 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.07")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos7 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.08")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos8 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.09")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos9 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.1")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos10 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.11")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos11 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.12")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos12 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.13")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos13 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.14")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos14 = `${doc.data().descripcion}`;
-    //   });
+    db.collection("contenido")
+      .doc("0.02")
+      .onSnapshot((doc) => {
+        this.contenidos2 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.03")
+      .onSnapshot((doc) => {
+        this.contenidos3 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.04")
+      .onSnapshot((doc) => {
+        this.contenidos4 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.05")
+      .onSnapshot((doc) => {
+        this.contenidos5 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.06")
+      .onSnapshot((doc) => {
+        this.contenidos6 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.07")
+      .onSnapshot((doc) => {
+        this.contenidos7 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.08")
+      .onSnapshot((doc) => {
+        this.contenidos8 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.09")
+      .onSnapshot((doc) => {
+        this.contenidos9 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.1")
+      .onSnapshot((doc) => {
+        this.contenidos10 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.11")
+      .onSnapshot((doc) => {
+        this.contenidos11 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.12")
+      .onSnapshot((doc) => {
+        this.contenidos12 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.13")
+      .onSnapshot((doc) => {
+        this.contenidos13 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.14")
+      .onSnapshot((doc) => {
+        this.contenidos14 = `${doc.data().descripcion}`;
+      });
   },
 };
 </script>
