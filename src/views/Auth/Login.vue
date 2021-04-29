@@ -206,7 +206,7 @@
         </div>
       </div>
     </div>
-    <fondo2></fondo2>
+    <fondo2 />
   </div>
 </template>
 <script>

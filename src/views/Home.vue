@@ -1,14 +1,14 @@
 <template>
   <div class="body">
-    <PreLoader />
+    <!-- <PreLoader /> -->
     <Navigation></Navigation>
-    <FondoMain></FondoMain>
+    <FondoMain />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import PreLoader from "@/components/PreLoader";
+// import PreLoader from "@/components/PreLoader";
 import Navigation from "@/components/layout/Navigation";
 import FondoMain from "@/components/layout/FondoMain";
 export default {
@@ -21,7 +21,7 @@ export default {
   components: {
     Navigation,
     FondoMain,
-    PreLoader,
+    // PreLoader,
   },
 };
 </script>

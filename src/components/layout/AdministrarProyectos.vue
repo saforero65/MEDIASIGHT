@@ -136,24 +136,6 @@
                         alt="Image 1"
                       ></b-img-lazy>
                     </div>
-                    <!-- <div class="cuartodrow">
-                      <button
-                        v-if="item.data.estado != 'aprobado'"
-                        type="button"
-                        class="btn btn-success"
-                        @click.prevent="updateStatusA(item.id, item.data.id)"
-                      >
-                        APROBAR
-                      </button>
-                      <button
-                        v-if="item.data.estado != 'denegado'"
-                        type="button"
-                        class="btn btn-danger"
-                        @click.prevent="updateStatusD(item.id, item.data.id)"
-                      >
-                        DENEGAR
-                      </button>
-                    </div> -->
                   </div>
                   <template #modal-footer="{}">
                     <b-button

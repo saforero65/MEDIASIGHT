@@ -1,5 +1,7 @@
 <template>
-  <div id="scene-container" ref="sceneContainer"></div>
+  <div>
+    <div id="scene-container" ref="sceneContainer"></div>
+  </div>
 </template>
 
 <script>
@@ -104,6 +106,7 @@ export default {
         model.scale.set(50, 50, 50);
         model.needsUpdate = true;
       });
+
       this.render();
     },
     render() {
@@ -113,8 +116,10 @@ export default {
       if (this.mixer.length != 0) {
         // for (let i = 0; i < 1; ++i) {
         // console.log("entro al for");
+
         this.mixer.update(delta);
         console.log(`mixer update fondo2`);
+
         // this.mixer.update(0.000001 + 0.01);
         // }
       }
