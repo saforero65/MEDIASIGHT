@@ -43,7 +43,7 @@
           <nav>
             <ul class="menu_nav">
               <li>
-                <a href="#" @click="showA = false, showC = !showC">Nosotros</a>
+                <a href="#" @click="showA = false, showC = !showC">Perfiles</a>
               </li>
               <li>
                 <a href="#" @click="showC = false, showA = !showA">Contáctanos</a>
@@ -61,8 +61,10 @@
               <transition name="slide-fade">
                 <div v-if="showC">
                   <div class="about">
-                    <h3>Nosotros</h3>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat nesciunt, beatae fugit quisquam, iste nihil soluta sapiente vitae, repudiandae quasi odio ea commodi animi pariatur. Velit iure quaerat corporis dicta.</p>
+                    <h3>Perfil del aspirante</h3>
+                    <p>Debe tener pensamiento lógico y crítico, y fuerte inclinación por la tecnología, con habilidad para las matemáticas, la física, la informática, la comunicación y la expresión gráfica. Además, debe tener capacidad de análisis, aprendizaje autónomo, creatividad, responsabilidad, compromiso y liderazgo, que le permitan asumir nuevos retos en su formación profesional.</p>
+                    <h3>Perfil del egresado</h3>
+                    <p>El ingeniero en multimedia de la Universidad Militar Nueva Ganada está en capacidad de utilizar los estándares de ingeniería computacionales y de multimedia, para desarrollar productos innovadores en términos de diseño, interactividad, uso, realismo e inteligencia, como cualidades de la calidad de la experiencia para el usuario final. Además, cuenta con la idoneidad para analizar, evaluar e investigar situaciones reales de su campo profesional, de manera crítica y reflexiva, y con compromiso social y ético, con el fin de establecer oportunidades de avance tecnológico y científico en la ingeniería en multimedia, así como con habilidades administrativas y gerenciales, que le posibilitan su integración en el entorno laboral y la creación de empresa.</p>
                   </div>
                   <div class="logos_info">
                     <ul>

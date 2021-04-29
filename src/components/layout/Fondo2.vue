@@ -60,8 +60,8 @@ export default {
       // crear render
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setSize(
-        this.container.clientWidth,
-        this.container.clientHeight
+      this.container.clientWidth,
+      this.container.clientHeight
       );
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.gammaFactor = 2.2;
@@ -69,7 +69,7 @@ export default {
       this.renderer.physicallyCorrectLights = true;
       this.container.appendChild(this.renderer.domElement);
 
-      // cra la escena
+      // crea la escena
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color("skyblue");
 
@@ -108,15 +108,15 @@ this.controls.update();
 
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
-        this.container.clientWidth / this.container.clientHeight;
+      this.container.clientWidth / this.container.clientHeight;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(
-        this.container.clientWidth,
-        this.container.clientHeight
+      this.container.clientWidth,
+      this.container.clientHeight
       );
 
       //añadiendo modelo .glb
-// let sceneReady = false
+      // let sceneReady = false
       const loader = new GLTFLoader();
 
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
