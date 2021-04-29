@@ -93,12 +93,12 @@
                 <div v-if="showA">
                   <div class= "contactus">
                     <h3>Contáctanos</h3>
-                    <p>HOLA Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat nesciunt, beatae fugit quisquam.</p>
+                    <p>HOLA Lorem ipsum dolor, sit amet consectetur adipi sicing elit. Repellat nesciunt, beatae fugit quisquam.</p>
                     <div class = "nombres">
                       <ul>
                         <li>
                           <img src="@/assets/img/foto.png" alt="foto1" />
-                          <p> Javier Santiago Bocagnegra </p>
+                          <p> Javier Santiago Bocanegra </p>
                         </li>
                         <li>
                           <img src="@/assets/img/foto.png" alt="foto2" />
@@ -138,25 +138,25 @@
                   <div class="logos_info">
                     <ul>
                       <li>
-                        <img class= "info_controls"
+                        <img
                           src="@/assets/img/logo_main.png" alt="logo_multimedia"
                         />
                       </li>
                       <li>
-                        <img class= "info_controls"
+                        <img
                           src="@/assets/img/logo_mul.png" alt="logo_multimedia"
                         />
                       </li>
                       <li>
                         <a 
                           href = "https://www.umng.edu.co/inicio" target="_blank">
-                          <img class= "info_controls"
+                          <img
                           src="@/assets/img/logo_umng.png" alt="logo_umng"
                           />
                         </a>
                       </li>
                       <li>
-                        <img class= "info_controls"
+                        <img
                           src="@/assets/img/logo_20_años.png" alt="logo_20_años"
                         />
                       </li>
@@ -205,8 +205,8 @@ header {
   display: flex;
 }
 .logo_main {
-  max-width: 10%;
-  min-width: 7rem;
+  max-width: 50%;
+  min-width: 15%;
   object-fit: contain;
   margin: 1rem 0 0 1rem;
   width: 115px;
@@ -229,36 +229,40 @@ header {
 }
 .sliding--menu__wrapper.slide--right nav {
   position: fixed;
-  width: 50vh;
+  width: 25%;
   height: 100%;
   transition: all 200ms ease-in;
   right: 0;
-  margin: 0 -50vh 0 0;
+  margin: 0 -25% 0 0;
 }
 .menu_nav {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   list-style: none;
   background: #222;
-  width: 50vh;
+  width: 100%;
   height: auto;
-  margin: 2vh 0 0 0;
+  margin: 4% 0 0 0;
   padding: 0;
+  font-size: 90%;
 }
 .menu_nav a {
   color: #fff;
   display: inline-flex;
-  padding: 15px;
+  padding: 15% 0;
 }
 .menu_nav a:hover {
   background: #111;
 }
 .bm-burger-button {
+  min-width: 2rem;
   width: 2.5rem;
-  height: 2.2%;
+  min-height: 2.4%;
+  height: 1.5rem;
   position: fixed;
   /* transition: all .5s 200ms ease-in; */
-  margin: 1.8% 0 0 0;
+  margin: 1.8% 1% 0 0;
   cursor: pointer;
 }
 .bm-burger-bars {
@@ -270,7 +274,7 @@ header {
     left: 0;
     position: absolute;
     right: 0;
-    width: 2.5rem;
+    width: 100%;
 }
 
 .slide-fade-enter-active {
@@ -284,31 +288,44 @@ header {
   transform: translateY(-2vh);
   opacity: 0;
 }
+.logos_info{
+  background-color: white;
+  height: auto;
+}
 .logos_info ul {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
   list-style: none;
-  background-color: white;
+  width: auto;
+  height: auto;
   margin: 0;
-  padding: 0;
+  padding: 5% 5%;
+}
+.logos_info li{
+  width: 16%;
   height: auto;
 }
 .logos_info img {
-  min-width: 3.5rem;
-  min-height: 3.5rem;
-  margin: 1rem;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 .about, .contactus{
   width: auto;
   height: auto;
-  padding: 1.5rem 2rem;
+  max-height: 75vh;
+  padding: 4% 6%;
   margin: 0;
   background-color: black;
   color:#fff;
+  font-size: 80%;
 }
 .about h3, .contactus h3{
-  margin-bottom: 1rem;
+  margin-bottom: 5%;
+  /* font-size: 200%; */
 }
 .contactus ul, .contactus a {
   list-style: none;
@@ -316,25 +333,32 @@ header {
   padding: 0;
   color:#fff;
 }
+.nombres, .contactus p{
+  margin: 0 0 5% 0;
+}
 .nombres li {
   display: inline-grid;
   justify-items: center;
-  width: 40%;
-  margin: 4%;
+  max-width: 38%;
+  min-height: 7rem;
+  margin: 1% 4%;
 }
 .nombres img {
-  width: 55%;
+  width: 55%; 
 }
 .nombres p {
   text-align: center;
   margin: 8% 0;
-  width: 80%;
+  min-width: 100%;
+  max-width: 80%;
 }
 .paginas_url img {
-  width: 1.2rem;
-  margin: 0.5rem;
+  width: 5%;
+  margin: 2%;
 }
-
+.paginas_url li a{
+  margin-left: 8%;
+}
 footer {
   bottom: 0;
 }
@@ -347,7 +371,7 @@ footer ul {
 .info_controls {
   object-fit: contain;
   margin: 0 1rem;
-  width: 1.7rem;
+  min-width: 1.5rem;
   cursor: pointer;
 }
 .point

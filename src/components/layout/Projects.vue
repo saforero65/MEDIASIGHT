@@ -43,9 +43,7 @@
                 </a>
             </div>
         </transition>
-        <button class="posicion_boton" @click="showModal = true">
-        Open modal
-        </button>
+        <button class="posicion_boton" @click="showModal = true"> Proyectos </button>
     </div>
     </div>
 </template>

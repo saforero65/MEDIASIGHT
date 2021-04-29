@@ -13,7 +13,7 @@
           <div class="label">3</div>
           <div class="text">Cameras supporting night vision and heat vision with automatic adjustment.</div>
       </div>
-      <button @click="Mover">CLIC</button>
+      <button class="MoverCamara" @click="Mover">Cámara</button>
     </div>
   </div>
 </template>
@@ -80,18 +80,9 @@ export default {
         0.1,
         100
       );
-      camera.position.set(0, 2, 6);
+      camera.position.set(0, 10, 3);
+      camera.translateY(-10);
       this.camera = camera;
-      // this.Mover();
-      // if(this.Mover_Camara)
-      // {
-      //   this.camera.position.set(0,5,6);
-      // }
-      // else
-      // {
-      // this.camera.position.set(0, 0, 0);
-      // }
-      // this.camera = camera;
 
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -125,7 +116,7 @@ this.controls.update();
       );
 
       //añadiendo modelo .glb
-let sceneReady = false
+// let sceneReady = false
       const loader = new GLTFLoader();
 
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
@@ -150,87 +141,87 @@ let sceneReady = false
 /**
  * Points of interest
  */
-const raycaster = new THREE.Raycaster()
-const points = [
-    {
-        position: new THREE.Vector3(-3, 3, 2),
-        element: document.querySelector(".point-0")
-    },
-    {
-        position: new THREE.Vector3(0.5, 0.8, - 1.6),
-        element: document.querySelector(".point-1")
-    },
-    {
-        position: new THREE.Vector3(1.6, - 1.3, - 0.7),
-        element: document.querySelector(".point-2")
-    }
-]
-/**
- * Sizes
- */
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
+// const raycaster = new THREE.Raycaster()
+// const points = [
+//     {
+//         position: new THREE.Vector3(-3, 3, 2),
+//         element: document.querySelector(".point-0")
+//     },
+//     {
+//         position: new THREE.Vector3(0.5, 0.8, - 1.6),
+//         element: document.querySelector(".point-1")
+//     },
+//     {
+//         position: new THREE.Vector3(1.6, - 1.3, - 0.7),
+//         element: document.querySelector(".point-2")
+//     }
+// ]
+// /**
+//  * Sizes
+//  */
+// const sizes = {
+//     width: window.innerWidth,
+//     height: window.innerHeight
+// }
 
-const tick = () =>
-{
-    // Update controls
-    this.controls.update()
+// const tick = () =>
+// {
+//     // Update controls
+//     this.controls.update()
 
-    // Update points only when the scene is ready
-    if(sceneReady)
-    {
-        // Go through each point
-        for(const point of points)
-        {
-            // Get 2D screen position
-            const screenPosition = point.position.clone()
-            screenPosition.project(this.camera)
+//     // Update points only when the scene is ready
+//     if(sceneReady)
+//     {
+//         // Go through each point
+//         for(const point of points)
+//         {
+//             // Get 2D screen position
+//             const screenPosition = point.position.clone()
+//             screenPosition.project(this.camera)
     
-            // Set the raycaster
-            raycaster.setFromCamera(screenPosition, this.camera)
-            const intersects = raycaster.intersectObjects(this.scene.children, true)
+//             // Set the raycaster
+//             raycaster.setFromCamera(screenPosition, this.camera)
+//             const intersects = raycaster.intersectObjects(this.scene.children, true)
     
-            // No intersect found
-            if(intersects.length === 0)
-            {
-                // Show
-                point.element.classList.add('visible')
-            }
+//             // No intersect found
+//             if(intersects.length === 0)
+//             {
+//                 // Show
+//                 point.element.classList.add('visible')
+//             }
 
-            // Intersect found
-            else
-            {
-                // Get the distance of the intersection and the distance of the point
-                const intersectionDistance = intersects[0].distance
-                const pointDistance = point.position.distanceTo(this.camera.position)
+//             // Intersect found
+//             else
+//             {
+//                 // Get the distance of the intersection and the distance of the point
+//                 const intersectionDistance = intersects[0].distance
+//                 const pointDistance = point.position.distanceTo(this.camera.position)
     
-                // Intersection is close than the point
-                if(intersectionDistance < pointDistance)
-                {
-                    // Hide
-                    point.element.classList.remove('visible')
-                }
-                // Intersection is further than the point
-                else
-                {
-                    // Show
-                    point.element.classList.add('visible')
-                }
-            }
+//                 // Intersection is close than the point
+//                 if(intersectionDistance < pointDistance)
+//                 {
+//                     // Hide
+//                     point.element.classList.remove('visible')
+//                 }
+//                 // Intersection is further than the point
+//                 else
+//                 {
+//                     // Show
+//                     point.element.classList.add('visible')
+//                 }
+//             }
     
-            const translateX = screenPosition.x * sizes.width * 0.5
-            const translateY = - screenPosition.y * sizes.height * 0.5
-            point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
-        }
-    }
+//             const translateX = screenPosition.x * sizes.width * 0.5
+//             const translateY = - screenPosition.y * sizes.height * 0.5
+//             point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
+//         }
+//     }
 
 
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
-}
-tick()
+//     // Call tick again on the next frame
+//     window.requestAnimationFrame(tick)
+// }
+// tick()
     this.render();
     },
 
@@ -273,5 +264,10 @@ tick()
 #scene-container {
   width: 100%;
   height: 100%;
+}
+.MoverCamara {
+  position: fixed;
+  bottom: 5%;
+  right: 0;
 }
 </style>
