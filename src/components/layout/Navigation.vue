@@ -239,7 +239,7 @@ header {
 }
 .menu_nav {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   list-style: none;
   background: #222;
