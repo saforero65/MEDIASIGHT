@@ -128,6 +128,8 @@
                         type="text"
                         v-model="descripcion"
                         style="height: 10rem"
+                        placeholder =  "Máximo de caraceres 250"
+                        maxlength = "250"
                       ></textarea>
                     </div>
                     <div class="tercerdrow">
@@ -141,10 +143,10 @@
                   </form>
                 </div>
                 <template #modal-footer="{ ok }">
-                  <b-button variant="success" @click="ok()">
+                  <b-button variant="danger" @click="ok()">
                     Cancelar
                   </b-button>
-                  <b-button variant="danger" @click="agregar_proyecto()">
+                  <b-button variant="success" @click="agregar_proyecto()">
                     Guardar
                   </b-button>
                   <b-spinner v-if="cargando" label="Spinning"></b-spinner>
