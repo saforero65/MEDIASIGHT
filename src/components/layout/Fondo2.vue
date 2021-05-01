@@ -246,7 +246,7 @@
         <b> P4</b>
       </div>
     </div>
-    <!-- <div class="point point-1">
+    <div class="point point-1">
       <div class="label">1</div>
       <div class="text">
         {{ contenidos }}
@@ -330,7 +330,7 @@
       <div class="text">
         {{ contenidos14 }}
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -380,7 +380,7 @@ export default {
   methods: {
     Mover() {
       if (this.Mover_Camara) {
-        this.camera.position.set(0, 2, 6);
+        this.camera.position.set(-0.29, 0.78, 2.39);
         this.Mover_Camara = false;
       } else {
         this.camera.position.set(0, 0, 0);
@@ -399,7 +399,7 @@ export default {
     init() {
       console.log(this.contenidos);
       // console.log(Object.values(this.contenidos));
-      // estabcer el container
+      // establecer el container
       this.container = this.$refs.sceneContainer;
       //elemento clock para animacion
       this.clock = new THREE.Clock();
@@ -426,21 +426,21 @@ export default {
         100
       );
       // this.camera.rotation.set(Math.PI/2);
-      this.camera.position.set(3.49, 1.0125, 2);
-      this.camera.translateX(-3.6);
+      // this.camera.position.set(3.49, 1.0125, 2);
+      // this.camera.translateX(-3.6);
       // this.camera.translateY(1.0125);
       // this.camera.rotateX(-0.82);
       // this.camera.rotateY(17.71);
 
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-      // this.controls.target.set(0, 0, 0); //Objetivo de la cámara
-      this.controls.enablePan = false;
-      // this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
-      // this.controls.maxPolarAngle = Math.PI / 2;
-      // this.controls.minDistance = 1;
-      // this.controls.maxDistance = 10;
-      // this.controls.enableDamping = true;
+      this.controls.target.set(0, 0, 0); //Objetivo de la cámara
+      this.controls.enablePan = true;
+      //this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
+      this.controls.maxPolarAngle = Math.PI / 2;
+      this.controls.minDistance = 1;
+      this.controls.maxDistance = 7;
+      //this.controls.enableDamping = true;
       this.controls.update();
 
       // añade luces
@@ -488,78 +488,77 @@ export default {
       this.raycaster = new THREE.Raycaster();
       this.points = [
         {
-          position: new THREE.Vector3(-1.5, 0.535, 0.4),
+          position: new THREE.Vector3(-1.6789, 0.44965, 0.10555),
           element: document.querySelector(".pointProject_1"),
         },
         {
-          position: new THREE.Vector3(-0.25, 1.535, 1.23),
+          position: new THREE.Vector3(1.65975, 1.4345, 0.03925),
           element: document.querySelector(".pointProject_2"),
         },
         {
-          position: new THREE.Vector3(-0.25, 2.535, 1.23),
+          position: new THREE.Vector3(-0.244, 2.3842, -0.24985),
           element: document.querySelector(".pointProject_3"),
         },
         {
-          position: new THREE.Vector3(-0.25, 3.535, 1.23),
+          position: new THREE.Vector3(1.6473, 3.35865, 0.03885),
           element: document.querySelector(".pointProject_4"),
         },
-        // {
-        //   position: new THREE.Vector3(-1.68, 0.4, 0.0149),
-        //   element: document.querySelector(".point-1"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0, 0),
-        //   element: document.querySelector(".point-2"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0, 1),
-        //   element: document.querySelector(".point-3"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0, 1),
-        //   element: document.querySelector(".point-4"),
-        // },
-
-        // {
-        //   position: new THREE.Vector3(0, 0, 0.5),
-        //   element: document.querySelector(".point-5"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0.5, 1),
-        //   element: document.querySelector(".point-6"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.8, 0.3, 2),
-        //   element: document.querySelector(".point-7"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.8, 0.8, 0),
-        //   element: document.querySelector(".point-8"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0.8, 1),
-        //   element: document.querySelector(".point-9"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.5, 0.83, 2),
-        //   element: document.querySelector(".point-10"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.2, 0.8, 0),
-        //   element: document.querySelector(".point-11"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0.6, 1),
-        //   element: document.querySelector(".point-12"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.5, 0.83, 2),
-        //   element: document.querySelector(".point-13"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0.9, 1),
-        //   element: document.querySelector(".point-14"),
-        // },
+        {
+          position: new THREE.Vector3(-1.6811, 0.5912 ,0.00745),
+          element: document.querySelector(".point-1"),
+        },
+        {
+          position: new THREE.Vector3(-0.6839, 0.3635, -0.0836),
+          element: document.querySelector(".point-2"),
+        },
+        {
+          position: new THREE.Vector3(-0.84935, 0.3072, 0.55295),
+          element: document.querySelector(".point-3"),
+        },
+        {
+          position: new THREE.Vector3(1.63735, 1.56235, -0.045),
+          element: document.querySelector(".point-4"),
+        },
+        {
+          position: new THREE.Vector3(0.6827, 1.19975, 0.0751),
+          element: document.querySelector(".point-5"),
+        },
+        {
+          position: new THREE.Vector3(0.24735, 1.6617, -0.46475),
+          element: document.querySelector(".point-6"),
+        },
+        {
+          position: new THREE.Vector3(1.615, 3.4663, -0.04465),
+          element: document.querySelector(".point-7"),
+        },
+        {
+          position: new THREE.Vector3(0.8487, 3.3736, 0.23075),
+          element: document.querySelector(".point-8"),
+        },
+        {
+          position: new THREE.Vector3(0.57445, 3.45325, -0.0522),
+          element: document.querySelector(".point-9"),
+        },
+        {
+          position: new THREE.Vector3(0.60245, 3.3337, -0.7051),
+          element: document.querySelector(".point-10"),
+        },
+        {
+          position: new THREE.Vector3(-0.26745, 2.50965, -0.3352),
+          element: document.querySelector(".point-11"),
+        },
+        {
+          position: new THREE.Vector3(-0.72475, 2.5461, -0.4612),
+          element: document.querySelector(".point-12"),
+        },
+        {
+          position: new THREE.Vector3(-0.49355, 2.1686, 0.5836),
+          element: document.querySelector(".point-13"),
+        },
+        {
+          position: new THREE.Vector3(0.55145, 3.5849, -0.76405),
+          element: document.querySelector(".point-14"),
+        },
       ];
       this.render();
     },
@@ -675,76 +674,76 @@ export default {
     //   console.log(this.contenidos);
     // }
 
-    // db.collection("contenido")
-    //   .doc("0.01")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.02")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos2 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.03")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos3 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.04")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos4 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.05")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos5 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.06")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos6 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.07")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos7 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.08")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos8 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.09")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos9 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.1")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos10 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.11")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos11 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.12")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos12 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.13")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos13 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.14")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos14 = `${doc.data().descripcion}`;
-    //   });
+    db.collection("contenido")
+      .doc("0.01")
+      .onSnapshot((doc) => {
+        this.contenidos = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.02")
+      .onSnapshot((doc) => {
+        this.contenidos2 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.03")
+      .onSnapshot((doc) => {
+        this.contenidos3 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.04")
+      .onSnapshot((doc) => {
+        this.contenidos4 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.05")
+      .onSnapshot((doc) => {
+        this.contenidos5 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.06")
+      .onSnapshot((doc) => {
+        this.contenidos6 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.07")
+      .onSnapshot((doc) => {
+        this.contenidos7 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.08")
+      .onSnapshot((doc) => {
+        this.contenidos8 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.09")
+      .onSnapshot((doc) => {
+        this.contenidos9 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.1")
+      .onSnapshot((doc) => {
+        this.contenidos10 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.11")
+      .onSnapshot((doc) => {
+        this.contenidos11 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.12")
+      .onSnapshot((doc) => {
+        this.contenidos12 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.13")
+      .onSnapshot((doc) => {
+        this.contenidos13 = `${doc.data().descripcion}`;
+      });
+    db.collection("contenido")
+      .doc("0.14")
+      .onSnapshot((doc) => {
+        this.contenidos14 = `${doc.data().descripcion}`;
+      });
   },
 };
 </script>
