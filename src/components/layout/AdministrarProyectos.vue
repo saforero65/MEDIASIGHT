@@ -69,10 +69,8 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <router-link to="/home">Pagina Principal</router-link>
-              <div @click.prevent="logout">
-                <router-link to="/home">Cerrar Sesion </router-link>
-              </div>
+              <router-link to="/">Pagina Principal</router-link>
+              <div @click.prevent="logout">Cerrar Sesion</div>
             </div>
           </div>
         </template>
@@ -220,9 +218,10 @@ export default {
       Firebase.auth()
         .signOut()
         .then(() => {
-          this.$router.push({ name: "home" });
+          // this.$router.push({ name: "/" });
           // window.location.href = "/#/home";
         });
+      window.location.href = "/";
     },
     updateStatusA(id, id2) {
       this.cargando2 = true;

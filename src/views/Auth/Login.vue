@@ -8,12 +8,13 @@
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
-            <router-link to="/home">
+            <router-link to="/">
               <img
                 class="img_cerrar"
                 src="@/assets/img/icons/cerrar.svg"
                 alt="imagnen"
-            /></router-link>
+              />
+            </router-link>
 
             <div class="img_sup">
               <img
@@ -101,12 +102,13 @@
       >
         <div class="row block_superior">
           <div class="col contenedor_img">
-            <router-link to="/home">
+            <router-link to="/">
               <img
                 class="img_cerrar"
                 src="@/assets/img/icons/cerrar.svg"
                 alt="imagnen"
-            /></router-link>
+              />
+            </router-link>
 
             <div class="img_sup">
               <img
@@ -206,22 +208,31 @@
         </div>
       </div>
     </div>
-    <fondo2 />
+    <video
+      src="/fondologin/fondologin.mp4"
+      type="video/mp4"
+      autoplay="autoplay"
+      loop="loop"
+      id="video_background"
+    ></video>
+    <!-- <fondo2 :statuspadre2="status2" :statuspadre3="statusdash" /> -->
   </div>
 </template>
 <script>
 import "@/firebase/init.js";
 import firebase from "firebase/app";
 import { db } from "@/firebase/init";
-import fondo2 from "@/components/layout/Fondo2";
+// import fondo2 from "@/components/layout/Fondo2";
 // import fondo2 from "@/components/layout/Fondo2";
 require("@/css/styles.css");
 export default {
   components: {
-    fondo2,
+    // fondo2,
   },
   data() {
     return {
+      // status2: true,
+      // statusdash: true,
       name: "",
       email: "",
       password: "",
@@ -242,6 +253,16 @@ export default {
   },
   name: "Login",
   methods: {
+    // cambiar_estado2() {
+    //   this.status2 = false;
+
+    //   console.log(`estado pagina login${this.status2}`);
+    // },
+    // cambiar_estado3() {
+    //   this.statusdash = false;
+    //   console.log(`estado pagina login${this.status2}`);
+    // },
+
     login() {
       this.error = "";
       if (this.email && this.password) {
@@ -273,6 +294,7 @@ export default {
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(() => {
               this.$router.push({ name: "dashboard" });
+
               // window.location.href = "/#/dashboard";
               db.collection(this.email).add({
                 nombre: this.name,
@@ -308,6 +330,17 @@ export default {
 };
 </script>
 <style scoped>
+#video_background {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  /* min-width: 80%;
+  min-height: 80%; */
+  width: 100%;
+  /* height: auto; */
+  z-index: -1000;
+  overflow: hidden;
+}
 .pestaña_signUp:hover {
   background: white;
   color: black;

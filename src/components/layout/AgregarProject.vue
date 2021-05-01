@@ -61,10 +61,8 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <router-link to="/home">Pagina Principal</router-link>
-              <div @click.prevent="logout">
-                <router-link to="/home">Cerrar Sesion </router-link>
-              </div>
+              <router-link to="/">Pagina Principal</router-link>
+              <div @click.prevent="logout">Cerrar Sesion</div>
             </div>
           </div>
         </template>
@@ -128,8 +126,8 @@
                         type="text"
                         v-model="descripcion"
                         style="height: 10rem"
-                        placeholder =  "Máximo de caraceres 250"
-                        maxlength = "250"
+                        placeholder="Máximo de caraceres 250"
+                        maxlength="250"
                       ></textarea>
                     </div>
                     <div class="tercerdrow">
@@ -143,9 +141,7 @@
                   </form>
                 </div>
                 <template #modal-footer="{ ok }">
-                  <b-button variant="danger" @click="ok()">
-                    Cancelar
-                  </b-button>
+                  <b-button variant="danger" @click="ok()"> Cancelar </b-button>
                   <b-button variant="success" @click="agregar_proyecto()">
                     Guardar
                   </b-button>
@@ -308,8 +304,9 @@ export default {
       Firebase.auth()
         .signOut()
         .then(() => {
-          this.$router.push({ name: "home" });
+          // this.$router.push({ name: "/" });
         });
+         window.location.href = "/";
     },
     agregar_proyecto() {
       this.cargando = true;

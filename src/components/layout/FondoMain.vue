@@ -1,252 +1,268 @@
 <template>
-  <div id="scene-container" ref="sceneContainer">
-    <button class="MoverCamara" @click="Mover">Cámara</button>
-    <div>
-      <transition name="fade">
-        <div class="modal-overlay" v-if="showModal"></div>
-      </transition>
-      <transition name="fade">
-        <div class="modal-overlay" v-if="showModal2"></div>
-      </transition>
-      <transition name="fade">
-        <div class="modal-overlay" v-if="showModal3"></div>
-      </transition>
-      <transition name="fade">
-        <div class="modal-overlay" v-if="showModal4"></div>
-      </transition>
+  <div>
+    <button
+      v-if="saltar && ocultar == true"
+      @click.prevent="ocultar = false"
+      class="btn_Saltar"
+    >
+      SALTAR
+    </button>
+    <button
+      v-if="saltar && ocultar == true"
+      @click.prevent="ocultar = false"
+      class="btn_iniciar"
+    >
+      empecemos
+    </button>
+    <PreLoader v-if="ocultar" />
+    <div id="scene-container" ref="sceneContainer">
+      <button class="MoverCamara" @click="Mover">Cámara</button>
+      <div>
+        <transition name="fade">
+          <div class="modal-overlay" v-if="showModal"></div>
+        </transition>
+        <transition name="fade">
+          <div class="modal-overlay" v-if="showModal2"></div>
+        </transition>
+        <transition name="fade">
+          <div class="modal-overlay" v-if="showModal3"></div>
+        </transition>
+        <transition name="fade">
+          <div class="modal-overlay" v-if="showModal4"></div>
+        </transition>
 
-      <transition name="fade">
-        <div v-if="showModal" class="modal_proyectos">
-          <!-- <h1>Proyectos</h1> -->
-          <div class="carrusel">
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              controls
-              no-animation
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <div v-for="item in proyectos" v-bind:key="item.id">
-                <b-carousel-slide
-                  v-if="
-                    item.data.estado == 'aprobado' &&
-                    item.data.materia == 'Ciencias Basicas'
-                  "
-                >
-                  <template #img>
-                    <div class="contenedor_carrusel">
-                      <img
-                        :src="getImageUrl(item.data.imagen)"
-                        alt="image slot"
-                      />
-                      <div class="titulos">
-                        <h2 class="nombre_proyecto">
-                          {{ item.data.nombre_proyecto }}
-                        </h2>
-                        <h3 class="materia_proyecto">
-                          -
-                          {{ item.data.materia }}
-                        </h3>
+        <transition name="fade">
+          <div v-if="showModal" class="modal_proyectos">
+            <!-- <h1>Proyectos</h1> -->
+            <div class="carrusel">
+              <b-carousel
+                id="carousel-1"
+                v-model="slide"
+                controls
+                no-animation
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+              >
+                <div v-for="item in proyectos" v-bind:key="item.id">
+                  <b-carousel-slide
+                    v-if="
+                      item.data.estado == 'aprobado' &&
+                      item.data.materia == 'Ciencias Basicas'
+                    "
+                  >
+                    <template #img>
+                      <div class="contenedor_carrusel">
+                        <img
+                          :src="getImageUrl(item.data.imagen)"
+                          alt="image slot"
+                        />
+                        <div class="titulos">
+                          <h2 class="nombre_proyecto">
+                            {{ item.data.nombre_proyecto }}
+                          </h2>
+                          <h3 class="materia_proyecto">
+                            -
+                            {{ item.data.materia }}
+                          </h3>
+                        </div>
+                        <p class="descripcion_proyecto">
+                          {{ item.data.descripcion }}
+                        </p>
                       </div>
-                      <p class="descripcion_proyecto">
-                        {{ item.data.descripcion }}
-                      </p>
-                    </div>
-                  </template>
-                </b-carousel-slide>
-              </div>
-            </b-carousel>
+                    </template>
+                  </b-carousel-slide>
+                </div>
+              </b-carousel>
+            </div>
+            <a class="posicion_boton_cerrar" @click="showModal = false">
+              <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
+            </a>
           </div>
-          <a class="posicion_boton_cerrar" @click="showModal = false">
-            <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
-          </a>
-        </div>
-      </transition>
-    </div>
-    <div>
-      <transition name="fade">
-        <div class="modal-overlay" v-if="showModal"></div>
-      </transition>
+        </transition>
+      </div>
+      <div>
+        <transition name="fade">
+          <div class="modal-overlay" v-if="showModal"></div>
+        </transition>
 
-      <transition name="fade">
-        <div v-if="showModal2" class="modal_proyectos">
-          <!-- <h1>Proyectos</h1> -->
-          <div class="carrusel">
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              controls
-              no-animation
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <div v-for="item in proyectos" v-bind:key="item.id">
-                <b-carousel-slide
-                  v-if="
-                    item.data.estado == 'aprobado' &&
-                    item.data.materia == 'Humanistica'
-                  "
-                >
-                  <template #img>
-                    <div class="contenedor_carrusel">
-                      <img
-                        :src="getImageUrl(item.data.imagen)"
-                        alt="image slot"
-                      />
-                      <div class="titulos">
-                        <h2 class="nombre_proyecto">
-                          {{ item.data.nombre_proyecto }}
-                        </h2>
-                        <h3 class="materia_proyecto">
-                          -
-                          {{ item.data.materia }}
-                        </h3>
+        <transition name="fade">
+          <div v-if="showModal2" class="modal_proyectos">
+            <!-- <h1>Proyectos</h1> -->
+            <div class="carrusel">
+              <b-carousel
+                id="carousel-1"
+                v-model="slide"
+                controls
+                no-animation
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+              >
+                <div v-for="item in proyectos" v-bind:key="item.id">
+                  <b-carousel-slide
+                    v-if="
+                      item.data.estado == 'aprobado' &&
+                      item.data.materia == 'Humanistica'
+                    "
+                  >
+                    <template #img>
+                      <div class="contenedor_carrusel">
+                        <img
+                          :src="getImageUrl(item.data.imagen)"
+                          alt="image slot"
+                        />
+                        <div class="titulos">
+                          <h2 class="nombre_proyecto">
+                            {{ item.data.nombre_proyecto }}
+                          </h2>
+                          <h3 class="materia_proyecto">
+                            -
+                            {{ item.data.materia }}
+                          </h3>
+                        </div>
+                        <p class="descripcion_proyecto">
+                          {{ item.data.descripcion }}
+                        </p>
                       </div>
-                      <p class="descripcion_proyecto">
-                        {{ item.data.descripcion }}
-                      </p>
-                    </div>
-                  </template>
-                </b-carousel-slide>
-              </div>
-            </b-carousel>
+                    </template>
+                  </b-carousel-slide>
+                </div>
+              </b-carousel>
+            </div>
+            <a class="posicion_boton_cerrar" @click="showModal2 = false">
+              <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
+            </a>
           </div>
-          <a class="posicion_boton_cerrar" @click="showModal2 = false">
-            <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
-          </a>
-        </div>
-      </transition>
-    </div>
-    <div>
-      <transition name="fade">
-        <div class="modal-overlay" v-if="showModal2"></div>
-      </transition>
+        </transition>
+      </div>
+      <div>
+        <transition name="fade">
+          <div class="modal-overlay" v-if="showModal2"></div>
+        </transition>
 
-      <transition name="fade">
-        <div v-if="showModal3" class="modal_proyectos">
-          <!-- <h1>Proyectos</h1> -->
-          <div class="carrusel">
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              controls
-              no-animation
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <div v-for="item in proyectos" v-bind:key="item.id">
-                <b-carousel-slide
-                  v-if="
-                    item.data.estado == 'aprobado' &&
-                    item.data.materia == 'Ingenieria'
-                  "
-                >
-                  <template #img>
-                    <div class="contenedor_carrusel">
-                      <img
-                        :src="getImageUrl(item.data.imagen)"
-                        alt="image slot"
-                      />
-                      <div class="titulos">
-                        <h2 class="nombre_proyecto">
-                          {{ item.data.nombre_proyecto }}
-                        </h2>
-                        <h3 class="materia_proyecto">
-                          -
-                          {{ item.data.materia }}
-                        </h3>
+        <transition name="fade">
+          <div v-if="showModal3" class="modal_proyectos">
+            <!-- <h1>Proyectos</h1> -->
+            <div class="carrusel">
+              <b-carousel
+                id="carousel-1"
+                v-model="slide"
+                controls
+                no-animation
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+              >
+                <div v-for="item in proyectos" v-bind:key="item.id">
+                  <b-carousel-slide
+                    v-if="
+                      item.data.estado == 'aprobado' &&
+                      item.data.materia == 'Ingenieria'
+                    "
+                  >
+                    <template #img>
+                      <div class="contenedor_carrusel">
+                        <img
+                          :src="getImageUrl(item.data.imagen)"
+                          alt="image slot"
+                        />
+                        <div class="titulos">
+                          <h2 class="nombre_proyecto">
+                            {{ item.data.nombre_proyecto }}
+                          </h2>
+                          <h3 class="materia_proyecto">
+                            -
+                            {{ item.data.materia }}
+                          </h3>
+                        </div>
+                        <p class="descripcion_proyecto">
+                          {{ item.data.descripcion }}
+                        </p>
                       </div>
-                      <p class="descripcion_proyecto">
-                        {{ item.data.descripcion }}
-                      </p>
-                    </div>
-                  </template>
-                </b-carousel-slide>
-              </div>
-            </b-carousel>
+                    </template>
+                  </b-carousel-slide>
+                </div>
+              </b-carousel>
+            </div>
+            <a class="posicion_boton_cerrar" @click="showModal3 = false">
+              <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
+            </a>
           </div>
-          <a class="posicion_boton_cerrar" @click="showModal3 = false">
-            <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
-          </a>
-        </div>
-      </transition>
-    </div>
-    <div>
-      <transition name="fade">
-        <div class="modal-overlay" v-if="showModal3"></div>
-      </transition>
+        </transition>
+      </div>
+      <div>
+        <transition name="fade">
+          <div class="modal-overlay" v-if="showModal3"></div>
+        </transition>
 
-      <transition name="fade">
-        <div v-if="showModal4" class="modal_proyectos">
-          <!-- <h1>Proyectos</h1> -->
-          <div class="carrusel">
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              controls
-              no-animation
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <div v-for="item in proyectos" v-bind:key="item.id">
-                <b-carousel-slide
-                  v-if="
-                    item.data.estado == 'aprobado' &&
-                    item.data.materia == 'Ingenieria Aplicada'
-                  "
-                >
-                  <template #img>
-                    <div class="contenedor_carrusel">
-                      <img
-                        :src="getImageUrl(item.data.imagen)"
-                        alt="image slot"
-                      />
-                      <div class="titulos">
-                        <h2 class="nombre_proyecto">
-                          {{ item.data.nombre_proyecto }}
-                        </h2>
-                        <h3 class="materia_proyecto">
-                          -
-                          {{ item.data.materia }}
-                        </h3>
+        <transition name="fade">
+          <div v-if="showModal4" class="modal_proyectos">
+            <!-- <h1>Proyectos</h1> -->
+            <div class="carrusel">
+              <b-carousel
+                id="carousel-1"
+                v-model="slide"
+                controls
+                no-animation
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+              >
+                <div v-for="item in proyectos" v-bind:key="item.id">
+                  <b-carousel-slide
+                    v-if="
+                      item.data.estado == 'aprobado' &&
+                      item.data.materia == 'Ingenieria Aplicada'
+                    "
+                  >
+                    <template #img>
+                      <div class="contenedor_carrusel">
+                        <img
+                          :src="getImageUrl(item.data.imagen)"
+                          alt="image slot"
+                        />
+                        <div class="titulos">
+                          <h2 class="nombre_proyecto">
+                            {{ item.data.nombre_proyecto }}
+                          </h2>
+                          <h3 class="materia_proyecto">
+                            -
+                            {{ item.data.materia }}
+                          </h3>
+                        </div>
+                        <p class="descripcion_proyecto">
+                          {{ item.data.descripcion }}
+                        </p>
                       </div>
-                      <p class="descripcion_proyecto">
-                        {{ item.data.descripcion }}
-                      </p>
-                    </div>
-                  </template>
-                </b-carousel-slide>
-              </div>
-            </b-carousel>
+                    </template>
+                  </b-carousel-slide>
+                </div>
+              </b-carousel>
+            </div>
+            <a class="posicion_boton_cerrar" @click="showModal4 = false">
+              <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
+            </a>
           </div>
-          <a class="posicion_boton_cerrar" @click="showModal4 = false">
-            <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
-          </a>
+        </transition>
+      </div>
+      <div class="point pointProject_1">
+        <div class="label point_project" @click="showModal = true">
+          <b> P1</b>
         </div>
-      </transition>
-    </div>
-    <div class="point pointProject_1">
-      <div class="label point_project" @click="showModal = true">
-        <b> P1</b>
       </div>
-    </div>
-    <div class="point pointProject_2">
-      <div class="label point_project" @click="showModal2 = true">
-        <b> P2</b>
+      <div class="point pointProject_2">
+        <div class="label point_project" @click="showModal2 = true">
+          <b> P2</b>
+        </div>
       </div>
-    </div>
-    <div class="point pointProject_3">
-      <div class="label point_project" @click="showModal3 = true">
-        <b> P3</b>
+      <div class="point pointProject_3">
+        <div class="label point_project" @click="showModal3 = true">
+          <b> P3</b>
+        </div>
       </div>
-    </div>
-    <div class="point pointProject_4">
-      <div class="label point_project" @click="showModal4 = true">
-        <b> P4</b>
+      <div class="point pointProject_4">
+        <div class="label point_project" @click="showModal4 = true">
+          <b> P4</b>
+        </div>
       </div>
-    </div>
-    <div class="point point-1">
+      <!-- <div class="point point-1">
       <div class="label">1</div>
       <div class="text">
         {{ contenidos }}
@@ -330,19 +346,27 @@
       <div class="text">
         {{ contenidos14 }}
       </div>
+    </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import PreLoader from "@/components/PreLoader";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { db } from "@/firebase/init";
 export default {
   name: "FondoMain",
+  props: ["statuspadre", "statuspadre4"],
+  components: {
+    PreLoader,
+  },
   data() {
     return {
+      ocultar: true,
+      saltar: false,
       Mover_Camara: false,
       proyectos: [],
       showModal: false,
@@ -375,6 +399,9 @@ export default {
       contenidos13: null,
       contenidos14: null,
       point: null,
+      particulas: null,
+      particulas2: null,
+      aux2: 0,
     };
   },
   methods: {
@@ -416,7 +443,7 @@ export default {
       this.container.appendChild(this.renderer.domElement);
       // cra la escena
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color("black");
+      this.scene.background = new THREE.Color("#141414");
       // añade camaras
       this.camera = new THREE.PerspectiveCamera(
         45,
@@ -441,9 +468,11 @@ export default {
         0x222222, // color fondo tenue
         1 // intensity
       );
+
       const mainLight = new THREE.DirectionalLight(0xffffff, 4.0);
       mainLight.position.set(10, 10, 10);
       this.scene.add(ambientLight, mainLight);
+
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
         this.container.clientWidth / this.container.clientHeight;
@@ -461,12 +490,65 @@ export default {
       const axesHelper = new THREE.AxesHelper(5);
       axesHelper.translateY(-1);
       this.scene.add(axesHelper);
-      const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-      const cube = new THREE.Mesh(geometry, material);
-      cube.position.set(-1.8, 0, -0.6);
-      this.scene.add(cube);
+
+      //FONDO
+      // var geometry2 = new THREE.BufferGeometry();
+      // var sphere = new THREE.SphereGeometry(0.4, 15);
+      // var plano = new THREE.CircleGeometry(1, 10);
+
+      // var textureLoader = new THREE.TextureLoader();
+
+      // var sprite1 = textureLoader.load("@/assets/logo.png");
+      // var sprite2 = textureLoader.load('textures/snowflake2.png');
+      // var Material1 = new THREE.MeshStandardMaterial({
+      //   color: 0xffffff,
+      //   // map: sprite1,
+      //   transparent: true,
+      // });
+      const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+      const geometry2 = new THREE.TorusGeometry(0.3, 0.1, 3, 3);
+      // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      var material3 = new THREE.MeshPhongMaterial({
+        color: 0x424242,
+        side: THREE.DoubleSide,
+        wireframe: true,
+        shininess: 70,
+      });
+      // const material = new THREE.WireframeGeometry(geometry);
+      // const material2 = new THREE.WireframeGeometry(geometry2);
+
+      var range = 20;
+      this.particulas = new THREE.Object3D();
+      this.scene.add(this.particulas);
+      this.particulas2 = new THREE.Object3D();
+      this.scene.add(this.particulas2);
+
+      for (var i = 0; i < 100; i++) {
+        var cube = new THREE.Mesh(geometry, material3);
+
+        cube.position.x = range * (0.5 - Math.random());
+        cube.position.y = range * (0.5 - Math.random());
+        cube.position.z = range * (0.5 - Math.random());
+        this.particulas.add(cube);
+
+        var cube2 = new THREE.Mesh(geometry2, material3);
+
+        cube2.position.x = range * (0.5 - Math.random());
+        cube2.position.y = range * (0.5 - Math.random());
+        cube2.position.z = range * (0.5 - Math.random());
+        this.particulas2.add(cube2);
+      }
+      this.particulas2.translateX(-10);
+      this.particulas.translateX(-10);
       const loader = new GLTFLoader();
+
+      // var fondo1 = new THREE.CubeTextureLoader()
+      //   .setPath("/fondobox/")
+      //   .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
+      // // fondo1.format = THREE.RGBFormat;
+      // console.log(fondo1);
+      // this.scene.background = fondo1;
+
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
         const model = gltf.scene;
         const animations = gltf.animations;
@@ -476,6 +558,7 @@ export default {
         action.play();
         this.scene.add(model);
         console.log(`modelo cargado`);
+        this.saltar = true;
         model.position.set(0, 0, 0);
         model.scale.set(5, 5, 5);
         // model.needsUpdate = true;
@@ -498,115 +581,136 @@ export default {
           position: new THREE.Vector3(-0.25, 3.535, 1.23),
           element: document.querySelector(".pointProject_4"),
         },
-        {
-          position: new THREE.Vector3(-0.5, 0.3, 2),
-          element: document.querySelector(".point-1"),
-        },
-        {
-          position: new THREE.Vector3(0, 0, 0),
-          element: document.querySelector(".point-2"),
-        },
-        {
-          position: new THREE.Vector3(0, 0, 1),
-          element: document.querySelector(".point-3"),
-        },
-        {
-          position: new THREE.Vector3(0, 0, 1),
-          element: document.querySelector(".point-4"),
-        },
-        {
-          position: new THREE.Vector3(0, 0, 0.5),
-          element: document.querySelector(".point-5"),
-        },
-        {
-          position: new THREE.Vector3(0, 0.5, 1),
-          element: document.querySelector(".point-6"),
-        },
-        {
-          position: new THREE.Vector3(-0.8, 0.3, 2),
-          element: document.querySelector(".point-7"),
-        },
-        {
-          position: new THREE.Vector3(0.8, 0.8, 0),
-          element: document.querySelector(".point-8"),
-        },
-        {
-          position: new THREE.Vector3(0, 0.8, 1),
-          element: document.querySelector(".point-9"),
-        },
-        {
-          position: new THREE.Vector3(-0.5, 0.83, 2),
-          element: document.querySelector(".point-10"),
-        },
-        {
-          position: new THREE.Vector3(0.2, 0.8, 0),
-          element: document.querySelector(".point-11"),
-        },
-        {
-          position: new THREE.Vector3(0, 0.6, 1),
-          element: document.querySelector(".point-12"),
-        },
-        {
-          position: new THREE.Vector3(-0.5, 0.83, 2),
-          element: document.querySelector(".point-13"),
-        },
-        {
-          position: new THREE.Vector3(0, 0.9, 1),
-          element: document.querySelector(".point-14"),
-        },
+        // {
+        //   position: new THREE.Vector3(-0.5, 0.3, 2),
+        //   element: document.querySelector(".point-1"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0, 0, 0),
+        //   element: document.querySelector(".point-2"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0, 0, 1),
+        //   element: document.querySelector(".point-3"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0, 0, 1),
+        //   element: document.querySelector(".point-4"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0, 0, 0.5),
+        //   element: document.querySelector(".point-5"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0, 0.5, 1),
+        //   element: document.querySelector(".point-6"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.8, 0.3, 2),
+        //   element: document.querySelector(".point-7"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0.8, 0.8, 0),
+        //   element: document.querySelector(".point-8"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0, 0.8, 1),
+        //   element: document.querySelector(".point-9"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.5, 0.83, 2),
+        //   element: document.querySelector(".point-10"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0.2, 0.8, 0),
+        //   element: document.querySelector(".point-11"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0, 0.6, 1),
+        //   element: document.querySelector(".point-12"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.5, 0.83, 2),
+        //   element: document.querySelector(".point-13"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0, 0.9, 1),
+        //   element: document.querySelector(".point-14"),
+        // },
       ];
       this.render();
     },
     render() {
-      requestAnimationFrame(this.render);
-      const delta = this.clock.getDelta();
-      this.controls.update();
-      // this.scene.update();
-      if (this.mixer.length != 0) {
-        this.mixer.update(delta);
-        for (this.point of this.points) {
-          // Get 2D screen position
-          // this.mixer.update(delta);
-          const screenPosition = this.point.position.clone();
-          screenPosition.project(this.camera);
-          // Set the raycaster
-          this.raycaster.setFromCamera(screenPosition, this.camera);
-          this.intersects = this.raycaster.intersectObjects(
-            this.scene.children,
-            true
-          );
-          // No intersect found
-          if (this.intersects.length === 0) {
-            // Show
-            this.point.element.classList.add("visible");
-          }
-          // Intersect found
-          else {
-            // Get the distance of the intersection and the distance of the point
-            const intersectionDistance = this.intersects[0].distance;
-            const pointDistance = this.point.position.distanceTo(
-              this.camera.position
+      if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
+        requestAnimationFrame(this.render);
+        var time = Date.now() * 0.008;
+        const delta = this.clock.getDelta();
+        this.particulas.position.x = Math.cos(time * 0.005) * -5;
+        this.particulas.position.y = Math.cos(time * 0.005) * 5;
+        this.particulas2.position.x = Math.cos(time * 0.005) * 5;
+        this.particulas2.position.y = Math.cos(time * 0.005) * -5;
+        this.controls.update();
+        // this.scene.update();
+        if (this.mixer.length != 0) {
+          this.mixer.update(delta);
+          for (this.point of this.points) {
+            // Get 2D screen position
+            // this.mixer.update(delta);
+            const screenPosition = this.point.position.clone();
+            screenPosition.project(this.camera);
+            // Set the raycaster
+            this.raycaster.setFromCamera(screenPosition, this.camera);
+            this.intersects = this.raycaster.intersectObjects(
+              this.scene.children,
+              true
             );
-            // Intersection is close than the point
-            if (intersectionDistance < pointDistance) {
-              // Hide
-              this.point.element.classList.remove("visible");
-            }
-            // Intersection is further than the point
-            else {
+            // No intersect found
+            if (this.intersects.length === 0) {
               // Show
               this.point.element.classList.add("visible");
             }
+            // Intersect found
+            else {
+              // Get the distance of the intersection and the distance of the point
+              const intersectionDistance = this.intersects[0].distance;
+              const pointDistance = this.point.position.distanceTo(
+                this.camera.position
+              );
+              // Intersection is close than the point
+              if (intersectionDistance < pointDistance) {
+                // Hide
+                this.point.element.classList.remove("visible");
+              }
+              // Intersection is further than the point
+              else {
+                // Show
+                this.point.element.classList.add("visible");
+              }
+            }
+            const translateX =
+              screenPosition.x * this.container.clientWidth * 0.5;
+            const translateY =
+              -screenPosition.y * this.container.clientHeight * 0.5;
+            this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
           }
-          const translateX =
-            screenPosition.x * this.container.clientWidth * 0.5;
-          const translateY =
-            -screenPosition.y * this.container.clientHeight * 0.5;
-          this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+          console.log(`mixer update fondo main`);
         }
-        console.log(`mixer update fondo main`);
+        this.renderer.render(this.scene, this.camera);
+      } else {
+        this.mixer = 0;
+        this.aux2 = 1;
       }
-      this.renderer.render(this.scene, this.camera);
+      if (this.statuspadre == false && this.aux2 == 1 && this.mixer == 0) {
+        this.mixer = 0;
+        console.log(`PARO DE RENDERIZAR mixer update fondoMain`);
+        this.$router.push({ name: "login" });
+      }
+
+      if (this.statuspadre4 == false && this.aux2 == 1 && this.mixer == 0) {
+        this.mixer = 0;
+        console.log(`PARO DE RENDERIZAR mixer update fondo2`);
+        this.$router.push({ name: "dashboard" });
+      }
     },
     onWindowResize: function () {
       console.log("resize");
@@ -933,5 +1037,64 @@ export default {
   position: fixed;
   bottom: 5%;
   right: 0;
+}
+.btn_Saltar {
+  position: absolute;
+  border-radius: 25px;
+  padding: 0.2rem 0;
+  height: 50px;
+  width: 15%;
+  background-color: #d01f22;
+  color: #0e031a;
+  display: inline-flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
+  margin: auto;
+  z-index: 500;
+  right: 25px;
+  bottom: 40px;
+}
+.btn_iniciar {
+  position: absolute;
+  border-radius: 25px;
+  padding: 0.2rem 0;
+  height: 50px;
+  width: 15%;
+  background-color: #d01f22;
+  color: #0e031a;
+  display: inline-flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
+  margin: auto;
+  z-index: 500;
+  top: 150px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0%;
+  animation: cambiar 3s;
+  animation-delay: 13s;
+  animation-fill-mode: forwards;
+}
+@keyframes cambiar {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 </style>

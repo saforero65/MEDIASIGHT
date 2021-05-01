@@ -15,24 +15,26 @@
           <div>
             <h3 class="title_menu">MENÚ</h3>
             <ul class="list">
-              <router-link class="link" to="/dashboard">
-                <li class="menu_item">
+              <li class="menu_item">
+                <router-link class="link" to="/dashboard">
                   <img
                     class="img_item"
                     src="@/assets/img/icons/usuario.svg"
                     alt="imagnen_perfil"
-                  />Perfil
-                </li>
-              </router-link>
-              <router-link class="link" to="/AdministrarProyectos">
-                <li class="menu_item">
+                  />Perfil</router-link
+                >
+              </li>
+
+              <li class="menu_item">
+                <router-link class="link" to="/AdministrarProyectos">
                   <img
                     class="img_item"
                     src="@/assets/img/icons/boton-agregar.svg"
                     alt="imagnen_perfil"
-                  />Administrar Proyectos
-                </li>
-              </router-link>
+                  />Administrar Proyectos</router-link
+                >
+              </li>
+
               <router-link class="link" to="/AdministrarContenido">
                 <li class="menu_item">
                   <img
@@ -58,24 +60,25 @@
           <div>
             <h3 class="title_menu">MENÚ</h3>
             <ul class="list">
-              <router-link class="link" to="/dashboard">
-                <li class="menu_item">
+              <li class="menu_item">
+                <router-link class="link" to="/dashboard">
                   <img
                     class="img_item"
                     src="@/assets/img/icons/usuario.svg"
                     alt="imagnen_perfil"
-                  />Perfil
-                </li>
-              </router-link>
-              <router-link class="link" to="/AgregarProject">
-                <li class="menu_item">
+                  />Perfil</router-link
+                >
+              </li>
+
+              <li class="menu_item">
+                <router-link class="link" to="/AgregarProject">
                   <img
                     class="img_item"
                     src="@/assets/img/icons/boton-agregar.svg"
                     alt="imagnen_perfil"
-                  />Agregar un Proyecto
-                </li>
-              </router-link>
+                  />Agregar un Proyecto</router-link
+                >
+              </li>
             </ul>
           </div>
           <a class="link" href="/">
@@ -103,10 +106,9 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <router-link to="/home">Pagina Principal</router-link>
-              <div @click.prevent="logout">
-                <router-link to="/home">Cerrar Sesion </router-link>
-              </div>
+              <a href="/">Pagina Principal</a>
+
+              <div @click.prevent="logout">Cerrar Sesion</div>
             </div>
           </div>
         </template>
@@ -200,6 +202,7 @@ require("@/css/dashboard.css");
 export default {
   data() {
     return {
+      statuslogin: 1,
       user: null,
       id: null,
       nombre: null,
@@ -265,10 +268,8 @@ export default {
     logout() {
       Firebase.auth()
         .signOut()
-        .then(() => {
-          this.$router.push({ name: "home" });
-          // window.location.href = "/#/home";
-        });
+        .then(() => {});
+      window.location.href = "/";
     },
     editar() {
       this.edit = true;

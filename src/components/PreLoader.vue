@@ -23,9 +23,9 @@
       <div class="content">
         <div class="block">
           <img class="img_logo" src="@/assets/img/logo_main.png" alt="imagen" />
-          <button @click.prevent="mostrar" class="boton_personalizado">
+          <!-- <button @click.prevent="mostrar" class="boton_personalizado">
             ¡EMPEZEMOS!
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
@@ -106,7 +106,7 @@ export default {
   font-size: 50px;
   font-weight: bold;
   animation: cambiarpagina 2s;
-  animation-delay: 17s;
+  animation-delay: 13s;
   animation-fill-mode: forwards;
 }
 .content1,
@@ -123,35 +123,17 @@ export default {
 }
 .content2 {
   opacity: 0%;
-  animation: cambiar 9s;
-  animation-delay: 10s;
+  animation: cambiar 7s;
+  animation-delay: 8s;
   animation-fill-mode: forwards;
 }
 .content1 {
   opacity: 0%;
-  animation: cambiar 9s;
+  animation: cambiar 7s;
   /* animation-delay: 10s; */
   animation-fill-mode: forwards;
 }
-.boton_personalizado {
-  border-radius: 25px;
-  padding: 0.2rem 0;
-  height: 350px;
-  width: 15%;
-  background-color: #d01f22;
-  color: #0e031a;
-  display: inline-flex;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
-  margin: 2rem auto;
-  z-index: 100;
-}
+
 .img_logo {
   margin-top: 2vh;
   max-width: 22%;
@@ -165,7 +147,7 @@ export default {
   flex-direction: column;
   align-items: center;
   animation: mostrarlogo 3s;
-  animation-delay: 19s;
+  animation-delay: 15.5s;
   animation-fill-mode: forwards;
 }
 

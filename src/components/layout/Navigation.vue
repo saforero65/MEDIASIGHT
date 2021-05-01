@@ -53,10 +53,13 @@
             </li>
             <li>
               <div v-if="user == null">
-                <router-link to="/login"> Iniciar sesión </router-link>
+                <!-- <router-link to="/login"> Iniciar sesión </router-link> -->
+                <a @click="cambiar_estado()">Login</a>
               </div>
               <div v-else>
-                <router-link to="/logout"> Cerrar sesión </router-link>
+                <a @click="showP = true">
+                  {{ user.displayName || user.email }}
+                </a>
               </div>
             </li>
           </ul>
@@ -224,30 +227,62 @@
                   </ul>
                 </div>
               </div>
+              <div v-if="showP">
+                <div class="perfil">
+                  <ul>
+                    <li>
+                      <a @click="cambiar_estado4()"> Dashboard </a>
+                    </li>
+                    <li @click.prevent="logout">
+                      <a> Cerrar Sesion </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </transition>
           </div>
         </nav>
       </div>
     </template>
+    <FondoMain :statuspadre="status" :statuspadre4="status2" />
   </div>
 </template>
 <script>
 import Firebase from "firebase";
+import FondoMain from "@/components/layout/FondoMain";
 export default {
   data() {
     return {
+      status: true,
+      status2: true,
+      status3: true,
       user: null,
       showC: false,
       showA: false,
+      showP: false,
     };
   },
+  components: {
+    FondoMain,
+  },
   methods: {
+    cambiar_estado() {
+      this.status = false;
+      console.log(`estado pagina principal${this.status}`);
+    },
+    cambiar_estado4() {
+      this.status2 = false;
+      console.log(`estado pagina principal${this.status}`);
+    },
     logout() {
       Firebase.auth()
         .signOut()
         .then(() => {
-          this.$router.push({ name: "home" });
+          // this.status3 = false;
+          // console.log(`estado pagina principal${this.status}`);
+          // // this.$router.push({ name: "/" });
         });
+      window.location.href = "/";
     },
   },
   created() {
@@ -261,7 +296,7 @@ export default {
   },
 };
 </script>
-<style >
+<style scoped >
 header {
   display: flex;
 }
@@ -307,6 +342,7 @@ header {
   margin: 4% 0 0 0;
   padding: 0;
   font-size: 90%;
+  color: #fff;
 }
 .menu_nav a {
   color: #fff;
@@ -373,7 +409,8 @@ header {
   margin: 0;
 }
 .about,
-.contactus {
+.contactus,
+.perfil {
   width: auto;
   height: auto;
   max-height: 75vh;

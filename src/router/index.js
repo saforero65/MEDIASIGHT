@@ -11,15 +11,16 @@ Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
-        name: 'preloader',
-        component: () =>
-            import ('../views/Home.vue')
-    }, {
-        path: '/home',
-        name: 'home',
+        name: '/',
         component: () =>
             import ('../views/Home.vue')
     },
+    // {
+    //     path: '/home',
+    //     name: 'home',
+    //     component: () =>
+    //         import ('../views/Home.vue')
+    // },
     {
         path: '/login',
         name: 'login',
