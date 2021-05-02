@@ -275,91 +275,94 @@
           <b> P4</b>
         </div>
       </div>
-      <!-- <div class="point point-1">
-      <div class="label">1</div>
-      <div class="text">
-        {{ contenidos }}
+      <div class="point point-1">
+        <div class="label"><b>1</b></div>
+        <div class="text">
+          <b>MATERIAS:</b> <br />
+          {{ contenidos }}
+        </div>
       </div>
-    </div>
-    <div class="point point-2">
-      <div class="label">2</div>
-      <div class="text">
-        {{ contenidos2 }}
+      <div class="point point-2">
+        <div class="label"><b>2</b></div>
+        <div class="text">
+          <b>PROFESORES:</b> <br />
+          {{ contenidos2 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-3">
-      <div class="label">3</div>
-      <div class="text">
-        {{ contenidos3 }}
+      <div class="point point-3">
+        <div class="label"><b>3</b></div>
+        <div class="text">
+          <b>MOTIVACIÓN:</b> <br />
+          {{ contenidos3 }}
+        </div>
       </div>
-    </div>
 
-    <div class="point point-4">
-      <div class="label">4</div>
-      <div class="text">
-        {{ contenidos4 }}
+      <div class="point point-4">
+        <div class="label">4</div>
+        <div class="text">
+          {{ contenidos4 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-5">
-      <div class="label">5</div>
-      <div class="text">
-        {{ contenidos5 }}
+      <div class="point point-5">
+        <div class="label">5</div>
+        <div class="text">
+          {{ contenidos5 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-6">
-      <div class="label">6</div>
-      <div class="text">
-        {{ contenidos6 }}
+      <div class="point point-6">
+        <div class="label">6</div>
+        <div class="text">
+          {{ contenidos6 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-7">
-      <div class="label">7</div>
-      <div class="text">
-        {{ contenidos7 }}
+      <div class="point point-7">
+        <div class="label">7</div>
+        <div class="text">
+          {{ contenidos7 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-8">
-      <div class="label">8</div>
-      <div class="text">
-        {{ contenidos8 }}
+      <div class="point point-8">
+        <div class="label">8</div>
+        <div class="text">
+          {{ contenidos8 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-9">
-      <div class="label">9</div>
-      <div class="text">
-        {{ contenidos9 }}
+      <div class="point point-9">
+        <div class="label">9</div>
+        <div class="text">
+          {{ contenidos9 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-10">
-      <div class="label">10</div>
-      <div class="text">
-        {{ contenidos10 }}
+      <div class="point point-10">
+        <div class="label">10</div>
+        <div class="text">
+          {{ contenidos10 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-11">
-      <div class="label">11</div>
-      <div class="text">
-        {{ contenidos11 }}
+      <div class="point point-11">
+        <div class="label">11</div>
+        <div class="text">
+          {{ contenidos11 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-12">
-      <div class="label">12</div>
-      <div class="text">
-        {{ contenidos12 }}
+      <div class="point point-12">
+        <div class="label">12</div>
+        <div class="text">
+          {{ contenidos12 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-13">
-      <div class="label">13</div>
-      <div class="text">
-        {{ contenidos13 }}
+      <div class="point point-13">
+        <div class="label">13</div>
+        <div class="text">
+          {{ contenidos13 }}
+        </div>
       </div>
-    </div>
-    <div class="point point-14">
-      <div class="label">14</div>
-      <div class="text">
-        {{ contenidos14 }}
+      <div class="point point-14">
+        <div class="label">14</div>
+        <div class="text">
+          {{ contenidos14 }}
+        </div>
       </div>
-    </div> -->
     </div>
   </div>
 </template>
@@ -369,7 +372,8 @@ import PreLoader from "@/components/PreLoader";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-
+// import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper";
+require("@/css/fondomain.css");
 import { db } from "@/firebase/init";
 export default {
   name: "FondoMain",
@@ -482,19 +486,20 @@ export default {
       // this.controls.autoRotateSpeed = 0.2;
 
       this.controls.enableDamping = true;
-      this.controls.dampingFactor = 0.2;
+      this.controls.dampingFactor = 0.1;
 
       this.controls.update();
       // añade luces
-      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x94c9ff, 2);
       hemiLight.position.set(0, 3, 0);
 
       this.scene.add(hemiLight);
       // const helper1 = new THREE.HemisphereLightHelper(hemiLight, 2);
       // this.scene.add(helper1);
 
-      const dirLight = new THREE.DirectionalLight(0xffffff, 2);
+      const dirLight = new THREE.DirectionalLight(0xffc300, 2);
       dirLight.position.set(0, 5, 5);
+
       dirLight.castShadow = true;
       dirLight.shadow.camera.top = 5;
       dirLight.shadow.camera.bottom = -5;
@@ -503,10 +508,10 @@ export default {
       dirLight.shadow.camera.near = 0.1;
       dirLight.shadow.camera.far = 40;
       this.scene.add(dirLight);
-      // const helper = new THREE.DirectionalLightHelper(dirLight, 1);
-      // this.scene.add(helper);
+      const helper = new THREE.DirectionalLightHelper(dirLight, 1);
+      this.scene.add(helper);
 
-      const dirLight2 = new THREE.DirectionalLight(0xffffff, 2);
+      const dirLight2 = new THREE.DirectionalLight(0x94c9ff, 2);
       dirLight2.position.set(5, 5, 5);
       dirLight2.castShadow = true;
       dirLight2.shadow.camera.top = 5;
@@ -516,8 +521,56 @@ export default {
       dirLight2.shadow.camera.near = 0.1;
       dirLight2.shadow.camera.far = 40;
       this.scene.add(dirLight2);
-      // const helper2 = new THREE.DirectionalLightHelper(dirLight2, 1);
-      // this.scene.add(helper2);
+      const helper2 = new THREE.DirectionalLightHelper(dirLight2, 1);
+      this.scene.add(helper2);
+
+      // const dirLight3 = new THREE.DirectionalLight(0xffffff, 2);
+      // dirLight3.position.set(1, 0.5, 1);
+      // dirLight3.castShadow = true;
+      // dirLight3.shadow.camera.top = 1;
+      // dirLight3.shadow.camera.bottom = -1;
+      // dirLight3.shadow.camera.left = -1;
+      // dirLight3.shadow.camera.right = 1;
+      // dirLight3.shadow.camera.near = 0.1;
+      // dirLight3.shadow.camera.far = 4;
+      // this.scene.add(dirLight3);
+      // const helper3 = new THREE.DirectionalLightHelper(dirLight3, 1);
+      // this.scene.add(helper3);
+
+      // const pointLight = new THREE.PointLight(0x94c9ff, 1, 2);
+      // pointLight.position.set(-1, 0.7, 0);
+      // this.scene.add(pointLight);
+      const sphereSize = 0.3;
+      // const pointLightHelper = new THREE.PointLightHelper(
+      //   pointLight,
+      //   sphereSize
+      // );
+      // this.scene.add(pointLightHelper);
+
+      const pointLight2 = new THREE.PointLight(0xc70039, 1, 2);
+      pointLight2.position.set(1, 1.7, 0);
+      this.scene.add(pointLight2);
+
+      const pointLightHelper2 = new THREE.PointLightHelper(
+        pointLight2,
+        sphereSize
+      );
+      this.scene.add(pointLightHelper2);
+
+      const width = 1;
+      const height = 1;
+      const intensity = 15;
+      const rectLight = new THREE.RectAreaLight(
+        0xff0000,
+        intensity,
+        width,
+        height
+      );
+      rectLight.position.set(0, 0.5, 1);
+      rectLight.lookAt(-1, 0, 0);
+      this.scene.add(rectLight);
+      // this.scene.add(new RectAreaLightHelper(rectLight));
+
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
         this.container.clientWidth / this.container.clientHeight;
@@ -619,79 +672,120 @@ export default {
       this.raycaster = new THREE.Raycaster();
       this.points = [
         {
-          position: new THREE.Vector3(-0.25, 0.535, 1.23),
+          position: new THREE.Vector3(-1.6789, 0.44965, 0.10555),
           element: document.querySelector(".pointProject_1"),
         },
         {
-          position: new THREE.Vector3(-0.25, 1.535, 1.23),
+          position: new THREE.Vector3(1.65975, 1.4345, 0.03925),
           element: document.querySelector(".pointProject_2"),
         },
         {
-          position: new THREE.Vector3(-0.25, 2.535, 1.23),
+          position: new THREE.Vector3(-0.244, 2.3842, -0.24985),
           element: document.querySelector(".pointProject_3"),
         },
         {
-          position: new THREE.Vector3(-0.25, 3.535, 1.23),
+          position: new THREE.Vector3(1.6473, 3.35865, 0.03885),
           element: document.querySelector(".pointProject_4"),
         },
+        {
+          position: new THREE.Vector3(-1.6811, 0.5912, 0.00745),
+          element: document.querySelector(".point-1"),
+        },
+        {
+          position: new THREE.Vector3(-0.6839, 0.3635, -0.0836),
+          element: document.querySelector(".point-2"),
+        },
+        {
+          position: new THREE.Vector3(-0.84935, 0.3072, 0.55295),
+          element: document.querySelector(".point-3"),
+        },
         // {
-        //   position: new THREE.Vector3(-0.5, 0.3, 2),
-        //   element: document.querySelector(".point-1"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0, 0),
-        //   element: document.querySelector(".point-2"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0, 1),
-        //   element: document.querySelector(".point-3"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0, 0, 1),
+        //   position: new THREE.Vector3(1.63735, 1.56235, -0.045),
         //   element: document.querySelector(".point-4"),
         // },
         // {
-        //   position: new THREE.Vector3(0, 0, 0.5),
+        //   position: new THREE.Vector3(0.6827, 1.19975, 0.0751),
         //   element: document.querySelector(".point-5"),
         // },
         // {
-        //   position: new THREE.Vector3(0, 0.5, 1),
+        //   position: new THREE.Vector3(0.24735, 1.6617, -0.46475),
         //   element: document.querySelector(".point-6"),
         // },
         // {
-        //   position: new THREE.Vector3(-0.8, 0.3, 2),
+        //   position: new THREE.Vector3(1.615, 3.4663, -0.04465),
         //   element: document.querySelector(".point-7"),
         // },
         // {
-        //   position: new THREE.Vector3(0.8, 0.8, 0),
+        //   position: new THREE.Vector3(0.8487, 3.3736, 0.23075),
         //   element: document.querySelector(".point-8"),
         // },
         // {
-        //   position: new THREE.Vector3(0, 0.8, 1),
+        //   position: new THREE.Vector3(0.57445, 3.45325, -0.0522),
         //   element: document.querySelector(".point-9"),
         // },
         // {
-        //   position: new THREE.Vector3(-0.5, 0.83, 2),
+        //   position: new THREE.Vector3(0.60245, 3.3337, -0.7051),
         //   element: document.querySelector(".point-10"),
         // },
         // {
-        //   position: new THREE.Vector3(0.2, 0.8, 0),
+        //   position: new THREE.Vector3(-0.26745, 2.50965, -0.3352),
         //   element: document.querySelector(".point-11"),
         // },
         // {
-        //   position: new THREE.Vector3(0, 0.6, 1),
+        //   position: new THREE.Vector3(-0.72475, 2.5461, -0.4612),
         //   element: document.querySelector(".point-12"),
         // },
         // {
-        //   position: new THREE.Vector3(-0.5, 0.83, 2),
+        //   position: new THREE.Vector3(-0.49355, 2.1686, 0.5836),
         //   element: document.querySelector(".point-13"),
         // },
         // {
-        //   position: new THREE.Vector3(0, 0.9, 1),
+        //   position: new THREE.Vector3(0.55145, 3.5849, -0.76405),
         //   element: document.querySelector(".point-14"),
         // },
       ];
       this.render();
+    },
+    content_ponits() {
+      for (this.point of this.points) {
+        // Get 2D screen position
+        // this.mixer.update(delta);
+        const screenPosition = this.point.position.clone();
+        screenPosition.project(this.camera);
+        // Set the raycaster
+        this.raycaster.setFromCamera(screenPosition, this.camera);
+        this.intersects = this.raycaster.intersectObjects(
+          this.scene.children,
+          true
+        );
+        // No intersect found
+        if (this.intersects.length === 0) {
+          // Show
+          this.point.element.classList.add("visible");
+        }
+        // Intersect found
+        else {
+          // Get the distance of the intersection and the distance of the point
+          const intersectionDistance = this.intersects[0].distance;
+          const pointDistance = this.point.position.distanceTo(
+            this.camera.position
+          );
+          // Intersection is close than the point
+          if (intersectionDistance < pointDistance) {
+            // Hide
+            this.point.element.classList.remove("visible");
+          }
+          // Intersection is further than the point
+          else {
+            // Show
+            this.point.element.classList.add("visible");
+          }
+        }
+        const translateX = screenPosition.x * this.container.clientWidth * 0.5;
+        const translateY =
+          -screenPosition.y * this.container.clientHeight * 0.5;
+        this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+      }
     },
     render() {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
@@ -710,46 +804,7 @@ export default {
         // this.scene.update();
         if (this.mixer.length != 0) {
           this.mixer.update(delta);
-          for (this.point of this.points) {
-            // Get 2D screen position
-            // this.mixer.update(delta);
-            const screenPosition = this.point.position.clone();
-            screenPosition.project(this.camera);
-            // Set the raycaster
-            this.raycaster.setFromCamera(screenPosition, this.camera);
-            this.intersects = this.raycaster.intersectObjects(
-              this.scene.children,
-              true
-            );
-            // No intersect found
-            if (this.intersects.length === 0) {
-              // Show
-              this.point.element.classList.add("visible");
-            }
-            // Intersect found
-            else {
-              // Get the distance of the intersection and the distance of the point
-              const intersectionDistance = this.intersects[0].distance;
-              const pointDistance = this.point.position.distanceTo(
-                this.camera.position
-              );
-              // Intersection is close than the point
-              if (intersectionDistance < pointDistance) {
-                // Hide
-                this.point.element.classList.remove("visible");
-              }
-              // Intersection is further than the point
-              else {
-                // Show
-                this.point.element.classList.add("visible");
-              }
-            }
-            const translateX =
-              screenPosition.x * this.container.clientWidth * 0.5;
-            const translateY =
-              -screenPosition.y * this.container.clientHeight * 0.5;
-            this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
-          }
+          this.content_ponits();
           console.log(`mixer update fondo main`);
         }
         this.renderer.render(this.scene, this.camera);
@@ -796,39 +851,7 @@ export default {
           });
         });
       });
-    this.contenidos = [];
-    // db.collection("contenido")
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //       this.id = `${doc.id}`;
-    //       this.contenidos[doc.id] = doc.data().descripcion;
-    //     });
-    //   });
-    // let iterable = [
-    //   0.01,
-    //   0.02,
-    //   0.03,
-    //   0.04,
-    //   0.05,
-    //   0.06,
-    //   0.07,
-    //   0.08,
-    //   0.09,
-    //   0.1,
-    //   0.11,
-    //   0.12,
-    //   0.13,
-    //   0.14,
-    // ];
-    // for (let value of iterable) {
-    //   db.collection("contenido")
-    //     .doc(`${value}`)
-    //     .onSnapshot((doc) => {
-    //       this.contenidos[value] = `${doc.data().descripcion}`;
-    //     });
-    //   console.log(this.contenidos);
-    // }
+
     db.collection("contenido")
       .doc("0.01")
       .onSnapshot((doc) => {
@@ -902,259 +925,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-#scene-container {
-  width: 100%;
-  height: 100vh;
-}
-.point {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* pointer-events: none; */
-}
-.point .label {
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: fuchsia;
-  border: 1px solid #ffffff77;
-  color: #ffffff;
-  font-family: Helvetica, Arial, sans-serif;
-  text-align: center;
-  line-height: 40px;
-  font-weight: 100;
-  font-size: 14px;
-  cursor: help;
-  transform: scale(0, 0);
-  transition: transform 0.3s;
-}
-.point .point_project {
-  cursor: pointer;
-}
-.point .text {
-  position: absolute;
-  top: 30px;
-  left: -120px;
-  width: 200px;
-  padding: 20px;
-  border-radius: 4px;
-  background: #00000077;
-  border: 1px solid #ffffff77;
-  color: #ffffff;
-  line-height: 1.3em;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-.point:hover .text {
-  opacity: 1;
-}
-.point.visible .label {
-  transform: scale(0.5, 0.5);
-}
-.posicion_boton_cerrar img {
-  width: 3%;
-}
-.posicion_boton_cerrar {
-  position: fixed;
-  top: 2%;
-  right: 2%;
-  transform: translate(98%, -2%);
-  cursor: pointer;
-  z-index: 200;
-}
-.modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.2);
-}
-.modal_proyectos {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 80vh;
-  transform: translate(-50%, -50%);
-  background: rgba(28, 28, 28, 0.4);
-  background: -moz-radial-gradient(
-    center,
-    ellipse cover,
-    rgba(28, 28, 28, 0.4) 0%,
-    rgba(28, 28, 28, 0.46) 8%,
-    rgba(19, 19, 19, 0.71) 43%,
-    rgba(19, 19, 19, 1) 83%
-  );
-  background: -webkit-gradient(
-    radial,
-    center center,
-    0px,
-    center center,
-    100%,
-    color-stop(0%, rgba(28, 28, 28, 0.4)),
-    color-stop(8%, rgba(28, 28, 28, 0.46)),
-    color-stop(43%, rgba(19, 19, 19, 0.71)),
-    color-stop(83%, rgba(19, 19, 19, 1))
-  );
-  background: -webkit-radial-gradient(
-    center,
-    ellipse cover,
-    rgba(28, 28, 28, 0.4) 0%,
-    rgba(28, 28, 28, 0.46) 8%,
-    rgba(19, 19, 19, 0.71) 43%,
-    rgba(19, 19, 19, 1) 83%
-  );
-  background: -o-radial-gradient(
-    center,
-    ellipse cover,
-    rgba(28, 28, 28, 0.4) 0%,
-    rgba(28, 28, 28, 0.46) 8%,
-    rgba(19, 19, 19, 0.71) 43%,
-    rgba(19, 19, 19, 1) 83%
-  );
-  background: -ms-radial-gradient(
-    center,
-    ellipse cover,
-    rgba(28, 28, 28, 0.4) 0%,
-    rgba(28, 28, 28, 0.46) 8%,
-    rgba(19, 19, 19, 0.71) 43%,
-    rgba(19, 19, 19, 1) 83%
-  );
-  background: radial-gradient(
-    ellipse at center,
-    rgba(28, 28, 28, 0.4) 0%,
-    rgba(28, 28, 28, 0.46) 8%,
-    rgba(19, 19, 19, 0.71) 43%,
-    rgba(19, 19, 19, 1) 83%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c1c1c', endColorstr='#131313', GradientType=1 );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313', GradientType=1 );
-  color: white;
-  padding: 0;
-  /* border-radius: 10px; */
-  z-index: 101;
-  font-family: "Roboto Mono", monospace;
-}
-.modal_proyectos h1 {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2.5%;
-}
-.contenedor_carrusel {
-  background: rgba(0, 0, 0, 0);
-  margin: 0 15%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.carousel {
-  position: inherit;
-}
-.carousel-control-prev,
-.carousel-control-next {
-  top: 15%;
-  height: 60%;
-}
-.contenedor_carrusel img {
-  width: 50%;
-  height: 60vh;
-  object-fit: cover;
-  object-position: center center;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.titulos {
-  margin-top: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-}
-.nombre_proyecto,
-.materia_proyecto {
-  font-size: 18px;
-  display: inline;
-}
-.descripcion_proyecto {
-  font-size: 13px;
-  text-align: center;
-  margin: 0;
-}
-.MoverCamara {
-  position: fixed;
-  bottom: 5%;
-  right: 0;
-}
-.btn_Saltar {
-  position: absolute;
-  border-radius: 25px;
-  padding: 0.2rem 0;
-  height: 50px;
-  width: 15%;
-  background-color: #d01f22;
-  color: #0e031a;
-  display: inline-flex;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
-  margin: auto;
-  z-index: 500;
-  right: 25px;
-  bottom: 40px;
-}
-.btn_iniciar {
-  position: absolute;
-  border-radius: 25px;
-  padding: 0.2rem 0;
-  height: 50px;
-  width: 15%;
-  background-color: #d01f22;
-  color: #0e031a;
-  display: inline-flex;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
-  margin: auto;
-  z-index: 500;
-  top: 150px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  opacity: 0%;
-  animation: cambiar 3s;
-  animation-delay: 13s;
-  animation-fill-mode: forwards;
-}
-@keyframes cambiar {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-</style>
