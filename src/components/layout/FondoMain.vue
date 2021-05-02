@@ -369,6 +369,7 @@ import PreLoader from "@/components/PreLoader";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
 import { db } from "@/firebase/init";
 export default {
   name: "FondoMain",
@@ -441,6 +442,7 @@ export default {
       // console.log(Object.values(this.contenidos));
       // estabcer el container
       this.container = this.$refs.sceneContainer;
+
       //elemento clock para animacion
       this.clock = new THREE.Clock();
       // crear render
@@ -454,6 +456,8 @@ export default {
       this.renderer.outputEncoding = THREE.sRGBEncoding;
       this.renderer.physicallyCorrectLights = true;
       this.container.appendChild(this.renderer.domElement);
+      this.renderer.shadowMap.enabled = true;
+      this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       // cra la escena
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color("#141414");
@@ -464,28 +468,56 @@ export default {
         0.1,
         100
       );
-      this.camera.position.set(1, 0.5, 3);
+      this.camera.position.set(1, 1, 3);
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.target.set(0, 0, 0); //Objetivo de la cámara
       this.controls.enablePan = true;
-      this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
+      this.controls.maxAzimuthAngle = Math.PI / 2;
+      this.controls.minAzimuthAngle = -Math.PI / 2;
       this.controls.maxPolarAngle = Math.PI / 2;
       this.controls.minDistance = 1;
-      this.controls.maxDistance = 10;
-      // this.controls.enableDamping = true;
+      // this.controls.maxDistance = 3;
+      // this.controls.autoRotate = true;
+      // this.controls.autoRotateSpeed = 0.2;
+
+      this.controls.enableDamping = true;
+      this.controls.dampingFactor = 0.2;
+
       this.controls.update();
       // añade luces
-      const ambientLight = new THREE.HemisphereLight(
-        0xffffff, // color brillante
-        0x222222, // color fondo tenue
-        1 // intensity
-      );
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+      hemiLight.position.set(0, 3, 0);
 
-      const mainLight = new THREE.DirectionalLight(0xffffff, 4.0);
-      mainLight.position.set(10, 10, 10);
-      this.scene.add(ambientLight, mainLight);
+      this.scene.add(hemiLight);
+      // const helper1 = new THREE.HemisphereLightHelper(hemiLight, 2);
+      // this.scene.add(helper1);
 
+      const dirLight = new THREE.DirectionalLight(0xffffff, 2);
+      dirLight.position.set(0, 5, 5);
+      dirLight.castShadow = true;
+      dirLight.shadow.camera.top = 5;
+      dirLight.shadow.camera.bottom = -5;
+      dirLight.shadow.camera.left = -5;
+      dirLight.shadow.camera.right = 5;
+      dirLight.shadow.camera.near = 0.1;
+      dirLight.shadow.camera.far = 40;
+      this.scene.add(dirLight);
+      // const helper = new THREE.DirectionalLightHelper(dirLight, 1);
+      // this.scene.add(helper);
+
+      const dirLight2 = new THREE.DirectionalLight(0xffffff, 2);
+      dirLight2.position.set(5, 5, 5);
+      dirLight2.castShadow = true;
+      dirLight2.shadow.camera.top = 5;
+      dirLight2.shadow.camera.bottom = -5;
+      dirLight2.shadow.camera.left = -5;
+      dirLight2.shadow.camera.right = 5;
+      dirLight2.shadow.camera.near = 0.1;
+      dirLight2.shadow.camera.far = 40;
+      this.scene.add(dirLight2);
+      // const helper2 = new THREE.DirectionalLightHelper(dirLight2, 1);
+      // this.scene.add(helper2);
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
         this.container.clientWidth / this.container.clientHeight;
@@ -518,41 +550,43 @@ export default {
       //   // map: sprite1,
       //   transparent: true,
       // });
-      const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-      const geometry2 = new THREE.TorusGeometry(0.3, 0.1, 3, 3);
-      // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-      var material3 = new THREE.MeshPhongMaterial({
-        color: 0x424242,
-        side: THREE.DoubleSide,
-        wireframe: true,
-        shininess: 70,
-      });
-      // const material = new THREE.WireframeGeometry(geometry);
-      // const material2 = new THREE.WireframeGeometry(geometry2);
+      // const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+      // const geometry2 = new THREE.TorusGeometry(0.3, 0.1, 3, 3);
+      // // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      // var material3 = new THREE.MeshPhongMaterial({
+      //   color: 0x424242,
+      //   side: THREE.DoubleSide,
+      //   wireframe: true,
+      //   shininess: 70,
+      // });
+      // // const material = new THREE.WireframeGeometry(geometry);
+      // // const material2 = new THREE.WireframeGeometry(geometry2);
 
-      var range = 20;
-      this.particulas = new THREE.Object3D();
-      this.scene.add(this.particulas);
-      this.particulas2 = new THREE.Object3D();
-      this.scene.add(this.particulas2);
+      // var range = 5;
+      // this.particulas = new THREE.Object3D();
+      // this.scene.add(this.particulas);
+      // this.particulas2 = new THREE.Object3D();
+      // this.scene.add(this.particulas2);
 
-      for (var i = 0; i < 100; i++) {
-        var cube = new THREE.Mesh(geometry, material3);
+      // for (var i = 0; i < 10; i++) {
+      //   var cube = new THREE.Mesh(geometry, material3);
 
-        cube.position.x = range * (0.5 - Math.random());
-        cube.position.y = range * (0.5 - Math.random());
-        cube.position.z = range * (0.5 - Math.random());
-        this.particulas.add(cube);
+      //   cube.position.x = range * (0.5 - Math.random());
+      //   cube.position.y = range * (0.5 - Math.random());
+      //   cube.position.z = range * (0.5 - Math.random());
+      //   cube.rotation.x = range * (0.5 - Math.random());
+      //   this.particulas.add(cube);
 
-        var cube2 = new THREE.Mesh(geometry2, material3);
+      //   var cube2 = new THREE.Mesh(geometry2, material3);
 
-        cube2.position.x = range * (0.5 - Math.random());
-        cube2.position.y = range * (0.5 - Math.random());
-        cube2.position.z = range * (0.5 - Math.random());
-        this.particulas2.add(cube2);
-      }
-      this.particulas2.translateX(-10);
-      this.particulas.translateX(-10);
+      //   cube2.position.x = range * (0.5 - Math.random());
+      //   cube2.position.y = range * (0.5 - Math.random());
+      //   cube2.rotation.y = range * (0.5 - Math.random());
+      //   cube2.position.z = range * (0.5 - Math.random());
+      //   this.particulas2.add(cube2);
+      // }
+      // this.particulas2.translateX(-10);
+      // this.particulas.translateX(-10);
       const loader = new GLTFLoader();
 
       // var fondo1 = new THREE.CubeTextureLoader()
@@ -565,6 +599,12 @@ export default {
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
         const model = gltf.scene;
         const animations = gltf.animations;
+
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
+
         this.mixer = new THREE.AnimationMixer(model);
         console.log(animations);
         const action = this.mixer.clipAction(animations[0]);
@@ -656,12 +696,16 @@ export default {
     render() {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
         requestAnimationFrame(this.render);
-        var time = Date.now() * 0.008;
+
         const delta = this.clock.getDelta();
-        this.particulas.position.x = Math.cos(time * 0.005) * -5;
-        this.particulas.position.y = Math.cos(time * 0.005) * 5;
-        this.particulas2.position.x = Math.cos(time * 0.005) * 5;
-        this.particulas2.position.y = Math.cos(time * 0.005) * -5;
+
+        // var time = Date.now() * 0.008;
+        // this.particulas.position.x = Math.cos(time * 0.005) * -1;
+        // this.particulas.position.y = Math.cos(time * 0.005) * 1;
+        // this.particulas.rotation.y = Math.cos(time * 0.005) * 1;
+        // this.particulas2.position.x = Math.cos(time * 0.005) * 1;
+        // this.particulas2.position.y = Math.cos(time * 0.005) * -1;
+        // this.particulas2.rotation.x = Math.cos(time * 0.005) * 1;
         this.controls.update();
         // this.scene.update();
         if (this.mixer.length != 0) {
