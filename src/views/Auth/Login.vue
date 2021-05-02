@@ -24,18 +24,17 @@
               />
             </div>
             <p class="content_sup">
-              Al ingresar podrás enviarnos los proyectos que quieras que la
-              comunidad de Ingenieros Multimedia de la UMNG podrían ser
-              publicados en la Pagina Principal.
+              Al ingresar podrás publicar los proyectos que quieras que la
+              comunidad de Ingenieros Multimedia de la UMNG vean.
             </p>
           </div>
         </div>
         <div class="row justify-content-start fila_pestañas">
           <a v-on:click="mostrar = true" class="col-3 pestaña_signIn">
-            Identificate
+            Identifícate
           </a>
           <a v-on:click="mostrar = false" class="col-3 pestaña_signUp">
-            Registrate</a
+            Regístrate</a
           >
         </div>
         <div class="row block_inferior">
@@ -51,7 +50,7 @@
                   class="input icon_email"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  placeholder="CORREO ELECTRONICO"
+                  placeholder="CORREO ELECTRÓNICO"
                   v-model="email"
                 />
               </div>
@@ -67,9 +66,9 @@
 
               <button type="submit" class="boton">Iniciar</button>
               <span
-                >Aun no tienes cuenta?
+                >¿Aún no tienes cuenta?
                 <router-link class="link_Registro" to="/register"
-                  >Registrate</router-link
+                  >Regístrate</router-link
                 >
               </span>
             </div>
@@ -88,7 +87,7 @@
             &times;
           </button>
 
-          <strong>Hey! </strong>{{ error }}
+          <strong>¡Hey!</strong>{{ error }}
         </div>
       </div>
     </div>
@@ -119,17 +118,17 @@
             </div>
             <p class="content_sup">
               Este proyecto tiene como Grupo Objetivo solo la comunidad de
-              Ingenieros Multimedia de la UMNG por ende solo podrás registrarte
-              con el Correo Institucional (_________@unimilitar.edu.co)
+              Ingenieros Multimedia de la UMNG, por ende solo podrás registrarte
+              con el Correo Institucional.
             </p>
           </div>
         </div>
         <div v-show="true" class="row justify-content-start fila_pestañas">
           <a v-on:click="mostrar = true" class="col-3 pestaña_signIn2"
-            >Identificate
+            >Identifícate
           </a>
           <a v-on:click="mostrar = false" class="col-3 pestaña_signUp2"
-            >Registrate</a
+            >Regístrate</a
           >
         </div>
         <div class="row block_inferior">
@@ -204,7 +203,7 @@
             &times;
           </button>
           <!-- <h4 class="alert-heading">Hey!</h4> -->
-          <strong>Hey! </strong>{{ error }}
+          <strong>¡Hey!</strong>{{ error }}
         </div>
       </div>
     </div>
@@ -215,24 +214,17 @@
       loop="loop"
       id="video_background"
     ></video>
-    <!-- <fondo2 :statuspadre2="status2" :statuspadre3="statusdash" /> -->
   </div>
 </template>
 <script>
 import "@/firebase/init.js";
 import firebase from "firebase/app";
 import { db } from "@/firebase/init";
-// import fondo2 from "@/components/layout/Fondo2";
-// import fondo2 from "@/components/layout/Fondo2";
+
 require("@/css/styles.css");
 export default {
-  components: {
-    // fondo2,
-  },
   data() {
     return {
-      // status2: true,
-      // statusdash: true,
       name: "",
       email: "",
       password: "",
@@ -245,24 +237,14 @@ export default {
       mostrar: true,
       types: [
         { text: "TIPO", value: null },
-        "docente",
-        "egresado",
-        "estudiante",
+        "Docente",
+        "Egresado",
+        "Estudiante",
       ],
     };
   },
   name: "Login",
   methods: {
-    // cambiar_estado2() {
-    //   this.status2 = false;
-
-    //   console.log(`estado pagina login${this.status2}`);
-    // },
-    // cambiar_estado3() {
-    //   this.statusdash = false;
-    //   console.log(`estado pagina login${this.status2}`);
-    // },
-
     login() {
       this.error = "";
       if (this.email && this.password) {

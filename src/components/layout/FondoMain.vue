@@ -12,7 +12,7 @@
       @click.prevent="ocultar = false"
       class="btn_iniciar"
     >
-      empecemos
+      ¡EMPECEMOS!
     </button>
     <PreLoader v-if="ocultar" />
     <div id="scene-container" ref="sceneContainer">
@@ -47,7 +47,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.materia == 'Ciencias Basicas'
+                      item.data.materia == 'Ciencias Básicas'
                     "
                   >
                     <template #img>
@@ -62,7 +62,10 @@
                           </h2>
                           <h3 class="materia_proyecto">
                             -
-                            {{ item.data.materia }}
+                            {{ item.data.tipo }}:
+                          </h3>
+                          <h3 class="materia_proyecto">
+                            {{ item.data.nombre }}
                           </h3>
                         </div>
                         <p class="descripcion_proyecto">
@@ -101,7 +104,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.materia == 'Humanistica'
+                      item.data.materia == 'Humanística'
                     "
                   >
                     <template #img>
@@ -116,7 +119,10 @@
                           </h2>
                           <h3 class="materia_proyecto">
                             -
-                            {{ item.data.materia }}
+                            {{ item.data.tipo }}:
+                          </h3>
+                          <h3 class="materia_proyecto">
+                            {{ item.data.nombre }}
                           </h3>
                         </div>
                         <p class="descripcion_proyecto">
@@ -155,7 +161,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.materia == 'Ingenieria'
+                      item.data.materia == 'Ingeniería'
                     "
                   >
                     <template #img>
@@ -170,7 +176,10 @@
                           </h2>
                           <h3 class="materia_proyecto">
                             -
-                            {{ item.data.materia }}
+                            {{ item.data.tipo }}:
+                          </h3>
+                          <h3 class="materia_proyecto">
+                            {{ item.data.nombre }}
                           </h3>
                         </div>
                         <p class="descripcion_proyecto">
@@ -209,7 +218,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.materia == 'Ingenieria Aplicada'
+                      item.data.materia == 'Ingeniería Aplicada'
                     "
                   >
                     <template #img>
@@ -222,9 +231,13 @@
                           <h2 class="nombre_proyecto">
                             {{ item.data.nombre_proyecto }}
                           </h2>
+
                           <h3 class="materia_proyecto">
                             -
-                            {{ item.data.materia }}
+                            {{ item.data.tipo }}:
+                          </h3>
+                          <h3 class="materia_proyecto">
+                            {{ item.data.nombre }}
                           </h3>
                         </div>
                         <p class="descripcion_proyecto">
@@ -1001,6 +1014,9 @@ export default {
 .contenedor_carrusel {
   background: rgba(0, 0, 0, 0);
   margin: 0 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .carousel {
   position: inherit;
@@ -1011,7 +1027,7 @@ export default {
   height: 60%;
 }
 .contenedor_carrusel img {
-  width: 100%;
+  width: 50%;
   height: 60vh;
   object-fit: cover;
   object-position: center center;

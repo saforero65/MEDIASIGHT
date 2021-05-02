@@ -69,8 +69,10 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <router-link to="/">Pagina Principal</router-link>
-              <div @click.prevent="logout">Cerrar Sesion</div>
+              <router-link to="/">Página Principal</router-link>
+              <div @click.prevent="logout">
+                <a class="logout">Cerrar Sesión</a>
+              </div>
             </div>
           </div>
         </template>
@@ -79,9 +81,9 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">titulo</th>
-              <th scope="col">habitacion</th>
-              <th scope="col">descripcion</th>
+              <th scope="col">título</th>
+              <th scope="col">habitación</th>
+              <th scope="col">descripción</th>
               <th scope="col">ver</th>
               <th scope="col">editar</th>
             </tr>
@@ -118,11 +120,11 @@
                   <div class="popup_ver">
                     <div class="primerrow">
                       <div>
-                        <h3 class="subtittle">Titulo</h3>
+                        <h3 class="subtittle">Título</h3>
                         <p>{{ item.data.titulo }}</p>
                       </div>
                       <div>
-                        <h3 class="subtittle">Habitacion</h3>
+                        <h3 class="subtittle">Habitación</h3>
                         <p>{{ item.data.habitacion }}</p>
                       </div>
                     </div>
@@ -138,7 +140,7 @@
                   </template>
                 </b-modal>
               </td>
-              <td>
+              <td @click="descripcion = item.data.descripcion">
                 <img
                   v-b-modal="modalId2(item.id)"
                   class="img_item botn"
@@ -161,23 +163,23 @@
                       <div class="primerrow2">
                         <div class="row">
                           <div class="col">
-                            <h3 class="subtittle">Titulo</h3>
+                            <h3 class="subtittle">Título</h3>
                             <p>{{ item.data.titulo }}</p>
                           </div>
                           <div class="col">
-                            <h3 class="subtittle">habitacion</h3>
+                            <h3 class="subtittle">Habitación</h3>
                             <p>{{ item.data.habitacion }}</p>
                           </div>
                         </div>
                       </div>
                       <div class="secondrow">
-                        <h3 class="subtittle">Descripcion</h3>
+                        <h3 class="subtittle">Descripción</h3>
+
                         <textarea
-                          class="form-control"
+                          style="height: 12rem"
                           type="text"
                           v-model="descripcion"
-                          style="height: 10rem"
-                        ></textarea>
+                        />
                       </div>
                     </form>
                   </div>
@@ -217,7 +219,7 @@ export default {
       id: null,
       nombre: null,
       correo: null,
-      descripcion: "",
+      descripcion: null,
       habitacion: null,
       habitaciones: [
         { text: "habitaciones", value: null },

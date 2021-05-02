@@ -61,8 +61,10 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <router-link to="/">Pagina Principal</router-link>
-              <div @click.prevent="logout">Cerrar Sesion</div>
+              <router-link to="/">Página Principal</router-link>
+              <div @click.prevent="logout">
+                <a class="logout">Cerrar Sesión</a>
+              </div>
             </div>
           </div>
         </template>
@@ -109,7 +111,7 @@
                           />
                         </div>
                         <div class="col">
-                          <h3 class="subtittle">Materia</h3>
+                          <h3 class="subtittle">Habitación</h3>
 
                           <b-form-select
                             v-model="materia"
@@ -119,7 +121,7 @@
                       </div>
                     </div>
                     <div class="secondrow">
-                      <h3 class="subtittle">Descripcion</h3>
+                      <h3 class="subtittle">Descripción</h3>
 
                       <textarea
                         class="form-control"
@@ -196,12 +198,20 @@
                         <p>{{ item.data.nombre_proyecto }}</p>
                       </div>
                       <div class="box">
-                        <h3 class="subtittle">Materia</h3>
+                        <h3 class="subtittle">Habitación</h3>
                         <p>{{ item.data.materia }}</p>
                       </div>
-                      <div class="box">
+                      <div class="box" v-if="item.data.estado == 'aprobado'">
                         <h3 class="subtittle">Estado</h3>
-                        <p>{{ item.data.estado }}</p>
+                        <b class="aprobado">{{ item.data.estado }}</b>
+                      </div>
+                      <div class="box" v-if="item.data.estado == 'denegado'">
+                        <h3 class="subtittle">Estado</h3>
+                        <b class="denegado">{{ item.data.estado }}</b>
+                      </div>
+                      <div class="box" v-if="item.data.estado == 'pendiente'">
+                        <h3 class="subtittle">Estado</h3>
+                        <b class="pendiente">{{ item.data.estado }}</b>
                       </div>
                     </div>
 
@@ -210,7 +220,7 @@
                       <p class="descripcion">{{ item.data.descripcion }}</p>
                     </div>
                     <div class="tercerdrow">
-                      <h3 class="subtittle">Imagenes</h3>
+                      <h3 class="subtittle">Imágenes</h3>
                       <img
                         class="img_card"
                         :src="getImageUrl(item.data.imagen)"
@@ -260,11 +270,11 @@ export default {
       descripcion: null,
       materia: null,
       materias: [
-        { text: "materia", value: null },
-        "Ciencias Basicas",
-        "Humanistica",
-        "Ingenieria Aplicada",
-        "Ingenieria",
+        { text: "Habitación", value: null },
+        "Ciencias Básicas",
+        "Humanística",
+        "Ingeniería Aplicada",
+        "Ingeniería",
       ],
       nombre_proyecto: null,
       mostrardep: false,
@@ -306,7 +316,7 @@ export default {
         .then(() => {
           // this.$router.push({ name: "/" });
         });
-         window.location.href = "/";
+      window.location.href = "/";
     },
     agregar_proyecto() {
       this.cargando = true;
@@ -325,23 +335,27 @@ export default {
             db.collection("proyecto")
               .add({
                 correo: this.correo,
+                nombre: this.nombre,
                 descripcion: this.descripcion,
                 materia: this.materia,
                 nombre_proyecto: this.nombre_proyecto,
                 estado: this.estado,
                 imagen: this.urlImg,
+                tipo: this.tipo,
               })
               .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
                 db.collection("proyectos_admin")
                   .add({
                     correo: this.correo,
+                    nombre: this.nombre,
                     descripcion: this.descripcion,
                     materia: this.materia,
                     nombre_proyecto: this.nombre_proyecto,
                     estado: this.estado,
                     imagen: this.urlImg,
                     id: docRef.id,
+                    tipo: this.tipo,
                   })
                   .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);

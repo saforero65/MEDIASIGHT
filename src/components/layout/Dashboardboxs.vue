@@ -106,9 +106,11 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <a href="/">Pagina Principal</a>
+              <a href="/">Página Principal</a>
 
-              <div @click.prevent="logout">Cerrar Sesion</div>
+              <div @click.prevent="logout">
+                <a class="logout">Cerrar Sesión</a>
+              </div>
             </div>
           </div>
         </template>
@@ -164,13 +166,13 @@
                 <div class="col">
                   <h3 class="label">ROL</h3>
                   <p class="label_content">Miembro</p>
-                  <h3 class="label">contraseña actual</h3>
+                  <h3 class="label">CONTRASEÑA ACTUAL</h3>
                   <input
                     class="label_content"
                     type="text"
                     v-model="passworda"
                   />
-                  <h3 class="label">contraseña nueva</h3>
+                  <h3 class="label">CONTRASEÑA NUEVA</h3>
                   <input
                     class="label_content"
                     type="text"
@@ -180,10 +182,19 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <input @click="edit = false" type="button" value="Cancelar" />
+                  <input
+                    @click="edit = false"
+                    type="button"
+                    value="Cancelar"
+                    class="btn btn-dark"
+                  />
                 </div>
                 <div class="col">
-                  <input type="submit" value=" Guardar" />
+                  <input
+                    type="submit"
+                    value=" Guardar"
+                    class="btn btn-success"
+                  />
                 </div>
               </div>
             </form>

@@ -215,3 +215,33 @@
     display: block;
     margin-left: -8rem;
 }
+
+a {
+    color: black;
+}
+
+.logout:hover {
+    cursor: pointer;
+}
+
+.aprobado {
+    padding: 0.35rem;
+    border-radius: 0.7rem;
+    background: green;
+    color: white;
+    font-weight: normal;
+}
+
+.denegado {
+    font-weight: normal;
+    padding: 0.35rem;
+    border-radius: 0.7rem;
+    background: rgb(255, 21, 21);
+    color: white;
+}
+
+.pendiente {
+    padding: 0.35rem;
+    border-radius: 0.7rem;
+    background: rgb(255, 230, 0);
+}

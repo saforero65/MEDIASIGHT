@@ -69,8 +69,10 @@
               alt="imagnen_perfil"
             />
             <div class="dropdown-content">
-              <router-link to="/">Pagina Principal</router-link>
-              <div @click.prevent="logout">Cerrar Sesion</div>
+              <router-link to="/">Página Principal</router-link>
+              <div @click.prevent="logout">
+                <a class="logout">Cerrar Sesión</a>
+              </div>
             </div>
           </div>
         </template>
@@ -79,20 +81,33 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">correo</th>
-              <th scope="col">estado</th>
-              <th scope="col">nombre_proyecto</th>
-              <th scope="col">materia</th>
-              <th scope="col">ver</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Nombre del Proyecto</th>
+              <th scope="col">Materia</th>
+              <th scope="col">Ver</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in proyectos" v-bind:key="item.id">
               <th scope="row">{{ item.data.correo }}</th>
-              <td>{{ item.data.estado }}</td>
+              <td v-if="item.data.estado == 'aprobado'">
+                <b class="aprobado">{{ item.data.estado }}</b>
+              </td>
+              <td v-if="item.data.estado == 'denegado'">
+                <b class="denegado">{{ item.data.estado }}</b>
+              </td>
+              <td v-if="item.data.estado == 'pendiente'">
+                <b class="pendiente">{{ item.data.estado }}</b>
+              </td>
               <td>{{ item.data.nombre_proyecto }}</td>
               <td>{{ item.data.materia }}</td>
-              <td>
+              <td
+                @click="
+                  (descripcion = item.data.descripcion),
+                    (nombre_proyecto = item.data.nombre_proyecto)
+                "
+              >
                 <img
                   v-b-modal="modalId(item.id)"
                   class="img_item botn"
@@ -115,7 +130,8 @@
                     <div class="primerrow">
                       <div>
                         <h3 class="subtittle">Nombre del Proyecto</h3>
-                        <p>{{ item.data.nombre_proyecto }}</p>
+                        <!-- <p>{{ item.data.nombre_proyecto }}</p> -->
+                        <input type="text" v-model="nombre_proyecto" />
                       </div>
                       <div>
                         <h3 class="subtittle">Materia</h3>
@@ -124,10 +140,15 @@
                     </div>
                     <div class="secondrow">
                       <h3 class="subtittle">Descripción</h3>
-                      <p class="descripcion">{{ item.data.descripcion }}</p>
+                      <!-- <p class="descripcion">{{ item.data.descripcion }}</p> -->
+                      <textarea
+                        style="height: 12rem"
+                        type="text"
+                        v-model="descripcion"
+                      />
                     </div>
                     <div class="tercerdrow">
-                      <h3 class="subtittle">Imagenes</h3>
+                      <h3 class="subtittle">Imágenes</h3>
                       <b-img-lazy
                         v-bind="mainProps"
                         :src="getImageUrl(item.data.imagen)"
@@ -229,6 +250,8 @@ export default {
         .doc(id)
         .update({
           estado: "aprobado",
+          descripcion: this.descripcion,
+          nombre_proyecto: this.nombre_proyecto,
         })
         .then(() => {
           console.log("Document successfully updated!");
@@ -242,6 +265,8 @@ export default {
         .doc(id2)
         .update({
           estado: "aprobado",
+          descripcion: this.descripcion,
+          nombre_proyecto: this.nombre_proyecto,
         })
         .then(() => {
           console.log("Document successfully updated!");
