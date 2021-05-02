@@ -57,7 +57,7 @@
                 <a @click="cambiar_estado()">Login</a>
               </div>
               <div v-else>
-                <a @click="showP = true">
+                <a @click="(showA = false), (showC = false), (showP = !showP)" class="perfil">
                   {{ user.displayName || user.email }}
                 </a>
               </div>
@@ -231,10 +231,51 @@
                 <div class="perfil">
                   <ul>
                     <li>
-                      <a @click="cambiar_estado4()"> Dashboard </a>
+                      <img
+                        src="@/assets/img/icons/usuariob.svg"
+                        alt="logo_20_años"
+                      />
+                      <a @click="cambiar_estado4()"> Perfil </a>
                     </li>
                     <li @click.prevent="logout">
+                      <img
+                        src="@/assets/img/icons/cerrar-sesion.svg"
+                        alt="logo_20_años"
+                      />
                       <a> Cerrar Sesion </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="logos_info">
+                  <ul>
+                    <li>
+                      <img
+                        class="info_controls"
+                        src="@/assets/img/logo_main.png"
+                        alt="logo_multimedia"
+                      />
+                    </li>
+                    <li>
+                      <img
+                        class="info_controls"
+                        src="@/assets/img/logo_mul.png"
+                        alt="logo_multimedia"
+                      />
+                    </li>
+                    <li>
+                      <a href="https://www.umng.edu.co/inicio" target="_blank">
+                        <img
+                          class="info_controls"
+                          src="@/assets/img/logo_umng.png"
+                          alt="logo_umng"
+                      /></a>
+                    </li>
+                    <li>
+                      <img
+                        class="info_controls"
+                        src="@/assets/img/logo_20_años.png"
+                        alt="logo_20_años"
+                      />
                     </li>
                   </ul>
                 </div>
@@ -522,5 +563,26 @@ footer ul {
 }
 .point.visible .label {
   transform: scale(1, 1);
+}
+.perfil {
+  cursor: pointer;
+}
+.perfil li, .perfil ul{
+  display: flex;
+  list-style: none;
+  margin: 2%;
+  padding: 0;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 110%;
+  cursor: pointer;
+}
+.perfil img {
+  min-width: 4%;
+  max-width: 7%;
+  margin: 2% 5%;
+}
+.perfil li:hover {
+  font-size: 118%;
 }
 </style>
