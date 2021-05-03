@@ -372,7 +372,7 @@ import PreLoader from "@/components/PreLoader";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-// import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper";
+import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper";
 require("@/css/fondomain.css");
 import { db } from "@/firebase/init";
 export default {
@@ -486,7 +486,7 @@ export default {
       // this.controls.autoRotateSpeed = 0.2;
 
       this.controls.enableDamping = true;
-      this.controls.dampingFactor = 0.1;
+      this.controls.dampingFactor = 0.5;
 
       this.controls.update();
       // añade luces
@@ -540,22 +540,6 @@ export default {
       // const pointLight = new THREE.PointLight(0x94c9ff, 1, 2);
       // pointLight.position.set(-1, 0.7, 0);
       // this.scene.add(pointLight);
-      const sphereSize = 0.3;
-      // const pointLightHelper = new THREE.PointLightHelper(
-      //   pointLight,
-      //   sphereSize
-      // );
-      // this.scene.add(pointLightHelper);
-
-      const pointLight2 = new THREE.PointLight(0xc70039, 1, 2);
-      pointLight2.position.set(1, 1.7, 0);
-      this.scene.add(pointLight2);
-
-      const pointLightHelper2 = new THREE.PointLightHelper(
-        pointLight2,
-        sphereSize
-      );
-      this.scene.add(pointLightHelper2);
 
       const width = 1;
       const height = 1;
@@ -569,7 +553,18 @@ export default {
       rectLight.position.set(0, 0.5, 1);
       rectLight.lookAt(-1, 0, 0);
       this.scene.add(rectLight);
-      // this.scene.add(new RectAreaLightHelper(rectLight));
+      this.scene.add(new RectAreaLightHelper(rectLight));
+
+      const rectLight2 = new THREE.RectAreaLight(
+        0xff0000,
+        intensity,
+        width,
+        height
+      );
+      rectLight2.position.set(1, 1.5, -1);
+      rectLight2.lookAt(-1, 1.5, 0);
+      this.scene.add(rectLight2);
+      this.scene.add(new RectAreaLightHelper(rectLight2));
 
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
