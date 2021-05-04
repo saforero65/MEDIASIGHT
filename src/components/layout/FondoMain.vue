@@ -372,7 +372,7 @@ import PreLoader from "@/components/PreLoader";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper";
+// import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper";
 require("@/css/fondomain.css");
 import { db } from "@/firebase/init";
 export default {
@@ -464,7 +464,7 @@ export default {
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       // cra la escena
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color("#141414");
+      this.scene.background = new THREE.Color("#000");
       // añade camaras
       this.camera = new THREE.PerspectiveCamera(
         45,
@@ -490,81 +490,82 @@ export default {
 
       this.controls.update();
       // añade luces
-      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x94c9ff, 2);
-      hemiLight.position.set(0, 3, 0);
+      // const hemiLight = new THREE.HemisphereLight(0xffffff, 0x94c9ff, 2);
+      // hemiLight.position.set(0, 3, 0);
 
-      this.scene.add(hemiLight);
+      // this.scene.add(hemiLight);
       // const helper1 = new THREE.HemisphereLightHelper(hemiLight, 2);
       // this.scene.add(helper1);
 
-      const dirLight = new THREE.DirectionalLight(0xffc300, 2);
-      dirLight.position.set(0, 5, 5);
+      // const dirLight3 = new THREE.DirectionalLight(0xffffff, 1);
+      // dirLight3.position.set(0, 10, 5);
+      // // dirLight3.target.position.set(0, 1, 0);
+      // // dirLight3.target.updateMatrixWorld();
+      // dirLight3.castShadow = true;
+      // dirLight3.shadow.camera.top = 5;
+      // dirLight3.shadow.camera.bottom = -5;
+      // dirLight3.shadow.camera.left = -5;
+      // dirLight3.shadow.camera.right = 5;
+      // dirLight3.shadow.camera.near = 0.1;
+      // dirLight3.shadow.camera.far = 40;
+      // this.scene.add(dirLight3);
 
+      const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+      dirLight.position.set(0, 3, 5);
+      dirLight.target.position.set(0, 1, 0);
+      dirLight.target.updateMatrixWorld();
       dirLight.castShadow = true;
-      dirLight.shadow.camera.top = 5;
-      dirLight.shadow.camera.bottom = -5;
-      dirLight.shadow.camera.left = -5;
-      dirLight.shadow.camera.right = 5;
+      dirLight.shadow.camera.top = 2;
+      dirLight.shadow.camera.bottom = -2;
+      dirLight.shadow.camera.left = -2;
+      dirLight.shadow.camera.right = 2;
       dirLight.shadow.camera.near = 0.1;
       dirLight.shadow.camera.far = 40;
       this.scene.add(dirLight);
-      const helper = new THREE.DirectionalLightHelper(dirLight, 1);
-      this.scene.add(helper);
+      // const helper = new THREE.DirectionalLightHelper(dirLight, 1);
+      // this.scene.add(helper);
 
-      const dirLight2 = new THREE.DirectionalLight(0x94c9ff, 2);
-      dirLight2.position.set(5, 5, 5);
+      const dirLight2 = new THREE.DirectionalLight(0xffffff, 1);
+      dirLight2.position.set(0, 6, 5);
+      dirLight2.target.position.set(0, 3, 0);
+      dirLight2.target.updateMatrixWorld();
       dirLight2.castShadow = true;
-      dirLight2.shadow.camera.top = 5;
-      dirLight2.shadow.camera.bottom = -5;
-      dirLight2.shadow.camera.left = -5;
-      dirLight2.shadow.camera.right = 5;
+      dirLight2.shadow.camera.top = 2;
+      dirLight2.shadow.camera.bottom = -2;
+      dirLight2.shadow.camera.left = -2;
+      dirLight2.shadow.camera.right = 2;
       dirLight2.shadow.camera.near = 0.1;
       dirLight2.shadow.camera.far = 40;
       this.scene.add(dirLight2);
-      const helper2 = new THREE.DirectionalLightHelper(dirLight2, 1);
-      this.scene.add(helper2);
-
-      // const dirLight3 = new THREE.DirectionalLight(0xffffff, 2);
-      // dirLight3.position.set(1, 0.5, 1);
-      // dirLight3.castShadow = true;
-      // dirLight3.shadow.camera.top = 1;
-      // dirLight3.shadow.camera.bottom = -1;
-      // dirLight3.shadow.camera.left = -1;
-      // dirLight3.shadow.camera.right = 1;
-      // dirLight3.shadow.camera.near = 0.1;
-      // dirLight3.shadow.camera.far = 4;
-      // this.scene.add(dirLight3);
-      // const helper3 = new THREE.DirectionalLightHelper(dirLight3, 1);
-      // this.scene.add(helper3);
-
-      // const pointLight = new THREE.PointLight(0x94c9ff, 1, 2);
-      // pointLight.position.set(-1, 0.7, 0);
-      // this.scene.add(pointLight);
+      // const helper2 = new THREE.DirectionalLightHelper(dirLight2, 1);
+      // this.scene.add(helper2);
 
       const width = 1;
       const height = 1;
-      const intensity = 15;
-      const rectLight = new THREE.RectAreaLight(
-        0xff0000,
-        intensity,
-        width,
-        height
-      );
-      rectLight.position.set(0, 0.5, 1);
-      rectLight.lookAt(-1, 0, 0);
-      this.scene.add(rectLight);
-      this.scene.add(new RectAreaLightHelper(rectLight));
 
-      const rectLight2 = new THREE.RectAreaLight(
-        0xff0000,
-        intensity,
-        width,
-        height
-      );
-      rectLight2.position.set(1, 1.5, -1);
-      rectLight2.lookAt(-1, 1.5, 0);
+      const rectLight = new THREE.RectAreaLight(0xade8f4, 7, width, height);
+      rectLight.position.set(-0.3, 1.5, 1.3);
+      rectLight.lookAt(-1, 0.5, -0.5);
+      this.scene.add(rectLight);
+      // this.scene.add(new RectAreaLightHelper(rectLight));
+
+      const rectLight2 = new THREE.RectAreaLight(0xffd000, 4, width, height);
+      rectLight2.position.set(0.5, 2.5, 0.7);
+      rectLight2.lookAt(1, 1.5, 0);
       this.scene.add(rectLight2);
-      this.scene.add(new RectAreaLightHelper(rectLight2));
+      // this.scene.add(new RectAreaLightHelper(rectLight2));
+
+      const rectLight3 = new THREE.RectAreaLight(0xffdd33, 7, width, height);
+      rectLight3.position.set(-1, 3.5, 1);
+      rectLight3.lookAt(-1, 2.5, -0.5);
+      this.scene.add(rectLight3);
+      // this.scene.add(new RectAreaLightHelper(rectLight3));
+
+      const rectLight4 = new THREE.RectAreaLight(0x240046, 7, width, height);
+      rectLight4.position.set(1, 3.8, 0.6);
+      rectLight4.lookAt(1, 3.5, 0);
+      this.scene.add(rectLight4);
+      // this.scene.add(new RectAreaLightHelper(rectLight4));
 
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
