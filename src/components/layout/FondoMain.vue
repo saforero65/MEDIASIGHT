@@ -8,7 +8,7 @@
       SALTAR
     </button>
     <button
-      v-if="saltar && ocultar == true"
+      v-show="saltar && ocultar == true"
       @click.prevent="ocultar = false"
       class="btn_iniciar"
     >
