@@ -139,6 +139,14 @@
                         type="file"
                         accept="image/*"
                       />
+
+                      <img
+                        v-if="urlTemp"
+                        class="img_card"
+                        :src="urlTemp"
+                        alt="imagen para subir"
+                      />
+                      <!-- <v-img :src="urlTemp"></v-img> -->
                     </div>
                   </form>
                 </div>
@@ -149,6 +157,23 @@
                   </b-button>
                   <b-spinner v-if="cargando" label="Spinning"></b-spinner>
                 </template>
+                <div v-if="error">
+                  <div
+                    v-show="ver"
+                    class="alert alert-danger position-absolute"
+                  >
+                    <button
+                      v-on:click="ver = !ver"
+                      type="button"
+                      class="close"
+                      data-dismiss="alert"
+                    >
+                      &times;
+                    </button>
+
+                    <strong>¡Hey!</strong>{{ error }}
+                  </div>
+                </div>
               </b-modal>
             </div>
           </div>
@@ -256,6 +281,7 @@ require("@/css/dashboard.css");
 export default {
   data() {
     return {
+      error: "",
       headerBgVariant: "dark",
       headerTextVariant: "light",
       bodyBgVariant: "light",
@@ -283,9 +309,11 @@ export default {
       estado: "pendiente",
       proyectos: [],
       imagenes: [],
-      imagen: null,
+      imagen: [],
       coincide: false,
       urlImg: "",
+      ver: true,
+      urlTemp: "",
     };
   },
 
@@ -319,6 +347,7 @@ export default {
       window.location.href = "/";
     },
     agregar_proyecto() {
+      this.error = "";
       this.cargando = true;
       if (
         this.descripcion &&
@@ -326,59 +355,83 @@ export default {
         this.nombre_proyecto &&
         this.estado
       ) {
-        const refImg = storage.ref().child("imagenes/" + this.imagen.name);
-        const metadata = { contentType: "img/jpeg" };
-        refImg.put(this.imagen, metadata).then(() => {
-          refImg.getDownloadURL().then((url) => {
-            this.urlImg = url;
+        if (
+          this.imagen.name.includes(".jpg") ||
+          this.imagen.name.includes(".png")
+        ) {
+          console.log(this.imagen.name);
+          const refImg = storage.ref().child("imagenes/" + this.imagen.name);
+          const metadata = { contentType: "img/jpeg" };
+          refImg.put(this.imagen, metadata).then(() => {
+            refImg.getDownloadURL().then((url) => {
+              this.urlImg = url;
 
-            db.collection("proyecto")
-              .add({
-                correo: this.correo,
-                nombre: this.nombre,
-                descripcion: this.descripcion,
-                materia: this.materia,
-                nombre_proyecto: this.nombre_proyecto,
-                estado: this.estado,
-                imagen: this.urlImg,
-                tipo: this.tipo,
-              })
-              .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
-                db.collection("proyectos_admin")
-                  .add({
-                    correo: this.correo,
-                    nombre: this.nombre,
-                    descripcion: this.descripcion,
-                    materia: this.materia,
-                    nombre_proyecto: this.nombre_proyecto,
-                    estado: this.estado,
-                    imagen: this.urlImg,
-                    id: docRef.id,
-                    tipo: this.tipo,
-                  })
-                  .then((docRef) => {
-                    console.log("Document written with ID: ", docRef.id);
-                    this.cargando = true;
-                    this.$router.go(0);
-                  })
-                  .catch((error) => {
-                    console.error("Error adding document: ", error);
-                  });
-              })
-              .catch((error) => {
-                console.error("Error adding document: ", error);
-              });
+              console.log(metadata);
+              db.collection("proyecto")
+                .add({
+                  correo: this.correo,
+                  nombre: this.nombre,
+                  descripcion: this.descripcion,
+                  materia: this.materia,
+                  nombre_proyecto: this.nombre_proyecto,
+                  estado: this.estado,
+                  imagen: this.urlImg,
+                  tipo: this.tipo,
+                })
+                .then((docRef) => {
+                  console.log("Document written with ID: ", docRef.id);
+                  db.collection("proyectos_admin")
+                    .add({
+                      correo: this.correo,
+                      nombre: this.nombre,
+                      descripcion: this.descripcion,
+                      materia: this.materia,
+                      nombre_proyecto: this.nombre_proyecto,
+                      estado: this.estado,
+                      imagen: this.urlImg,
+                      id: docRef.id,
+                      tipo: this.tipo,
+                    })
+                    .then((docRef) => {
+                      console.log("Document written with ID: ", docRef.id);
+                      this.cargando = false;
+                      this.$router.go(0);
+                    })
+                    .catch((error) => {
+                      this.error = error.message;
+                      console.error("Error adding document: ", error);
+                    });
+                })
+                .catch((error) => {
+                  this.error = error.message;
+                  console.error("Error adding document: ", error);
+                });
+            });
           });
-        });
+        } else {
+          this.cargando = false;
+          this.error = "El formato de la imagen debe ser .jpg o .png";
+          this.ver = true;
+          console.log(`vacio no se agrega proyecto`);
+        }
 
         this.pop_form = false;
       } else {
+        this.cargando = false;
+        this.error = "Los campos estan vacios";
+        this.ver = true;
         console.log(`vacio no se agrega proyecto`);
       }
     },
     clickImagen(e) {
       this.imagen = e.target.files[0];
+
+      const reader = new FileReader();
+      reader.readAsDataURL(this.imagen);
+      reader.onload = (e) => {
+        // console.log(e.target.result);
+        this.urlTemp = e.target.result;
+      };
     },
   },
   created() {

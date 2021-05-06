@@ -1,4 +1,4 @@
-.background {
+    .background {
     font-family: "Roboto Mono", monospace;
     display: flex;
     align-items: center;
@@ -55,6 +55,7 @@
     font-weight: 300;
     text-transform: capitalize;
     margin: 2vh 0;
+    text-align: center;
 }
 
 .perfil_type {
@@ -251,7 +252,11 @@ a {
     background: rgb(255, 230, 0);
 }
 
+.modal-backdrop {
+    /* opacity: 1; */
+    filter: blur(10px);
+}
+
 .cards_projects {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
     border-radius: 10px;
-}
