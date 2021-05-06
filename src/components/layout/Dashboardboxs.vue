@@ -4,7 +4,7 @@
       <div class="perfil">
         <img
           class="img_perfil"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          src="@/assets/avatares/1.jpg"
           alt="imagen perfil"
         />
         <h2 class="perfil_name">{{ nombre }}</h2>
@@ -119,7 +119,7 @@
         <div class="box1">
           <img
             class="img_perfil2"
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            src="@/assets/avatares/1.jpg"
             alt="imagen perfil"
           />
           <button v-if="mostrardep" class="boton_edit" @click="editar()">

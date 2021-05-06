@@ -55,6 +55,7 @@
 
 .point:hover .text {
     opacity: 1;
+    overflow: hidden;
 }
 
 .point.visible .label {
