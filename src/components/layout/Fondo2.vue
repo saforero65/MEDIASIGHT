@@ -24,7 +24,7 @@
               id="carousel-1"
               v-model="slide"
               controls
-              no-animation
+              no-animatio
               @sliding-start="onSlideStart"
               @sliding-end="onSlideEnd"
             >
@@ -357,6 +357,7 @@ export default {
       container: null,
       scene: null,
       camera: null,
+      ascensor: null,
       renderer: null,
       clock: null,
       mixer: [],
@@ -392,100 +393,146 @@ export default {
         if(this.camera.position.y == 0.8)
         {
           const coords = { x: this.camera.position.x, y: this.camera.position.y };
+          const coordsA = {y: this.ascensor.position.y };
           this.camera.position.z = 1.8;
-          this.camera.position.y = 2;
+          this.camera.position.y = 1.85;
           this.camera.position.x = 0.75;
-          this.camera.rotation.set(-0.3,0,0);   
-          new TWEEN.Tween(coords)
-          .to({ x: this.camera.position.x, y: this.camera.position.y })
+          this.camera.rotation.set(-0.3,0,0);
+          this.ascensor.position.y = 1;
+          this.ascensor.rotation.set(0,2,0);
+          const camara = new TWEEN.Tween(coords)
+          .to({ x: this.camera.position.x, y: this.camera.position.y})
           .onUpdate(() =>
-            this.camera.position.set(coords.x, coords.y, this.camera.position.z),
+          this.camera.position.set(coords.x, coords.y, this.camera.position.z),
           )
-         .start();
+          camara.start();
+          const ascensor = new TWEEN.Tween2(coordsA)
+          .to({y: this.ascensor.position.y})
+          .onUpdate(() =>
+          this.ascensor.position.set(coordsA.y),
+          )
+          ascensor.start();
         }
-        else if (this.camera.position.y == 2)
+
+        else if (this.camera.position.y == 1.85)
         {
           const coords = { x: this.camera.position.x, y: this.camera.position.y };
+          const coordsA = {y: this.ascensor.position.y };         
           this.camera.position.z = 1.8;
           this.camera.position.y = 2.75;
           this.camera.position.x = -0.8;
-          this.camera.rotation.set(-0.3,0,0);   
-          new TWEEN.Tween(coords)
+          this.camera.rotation.set(-0.3,0,0);
+          this.ascensor.position.y = 1.95;
+          this.ascensor.rotation.set(0,2,0); 
+          const camara = new TWEEN.Tween(coords)
           .to({ x: this.camera.position.x, y: this.camera.position.y })
           .onUpdate(() =>
             this.camera.position.set(coords.x, coords.y, this.camera.position.z),
           )
-         .start();
+        camara.start();
+          const ascensor = new TWEEN.Tween2(coordsA)
+          .to({y: this.ascensor.position.y})
+          .onUpdate(() =>
+          this.ascensor.position.set(coordsA.y),
+          )
+          ascensor.start();
         }
+
         else if (this.camera.position.y == 2.75)
         {
           const coords = { x: this.camera.position.x, y: this.camera.position.y };
+          const coordsA = {y: this.ascensor.position.y };         
           this.camera.position.z = 1.8;
           this.camera.position.y = 3.75;
           this.camera.position.x = 0.75;
           this.camera.rotation.set(-0.3,0,0);   
-          new TWEEN.Tween(coords)
-          .to({ x: this.camera.position.x, y: this.camera.position.y })
+          this.ascensor.position.y = 2.88;
+          this.ascensor.rotation.set(0,2,0); 
+          const camara = new TWEEN.Tween(coords)
+          .to({x: this.camera.position.x, y: this.camera.position.y})
           .onUpdate(() =>
             this.camera.position.set(coords.x, coords.y, this.camera.position.z),
           )
-         .start();
+          camara.start();
+          const ascensor = new TWEEN.Tween2(coordsA)
+          .to({y: this.ascensor.position.y})
+          .onUpdate(() =>
+          this.ascensor.position.set(coordsA.y),         
+          )
+          ascensor.start();
         }
-
-      this.animate(() => {
-      this.renderer.render(this.scene, this.camera);
-      TWEEN.update(this.time);
-      });
     },
 
     MoverAbajo() {
-        if (this.camera.position.y == 2)
+        if (this.camera.position.y == 1.85)
         {
           const coords = { x: this.camera.position.x, y: this.camera.position.y };
+          const coordsA = {y: this.ascensor.position.y };         
           this.camera.position.z = 1.8;
           this.camera.position.y = 0.8;
           this.camera.position.x = -0.8;
-          this.camera.rotation.set(-0.3,0,0);   
-          new TWEEN.Tween(coords)
-          .to({ x: this.camera.position.x, y: this.camera.position.y })
+          this.camera.rotation.set(-0.3,0,0);  
+          this.ascensor.position.y = 0.015;
+          this.ascensor.rotation.set(0,2,0);
+          const camara = new TWEEN.Tween(coords)
+          .to({x: this.camera.position.x, y: this.camera.position.y})
           .onUpdate(() =>
             this.camera.position.set(coords.x, coords.y, this.camera.position.z),
           )
-         .start();
+         camara.start();
+          const ascensor = new TWEEN.Tween2(coordsA)
+          .to({y: this.ascensor.position.y})
+          .onUpdate(() =>
+          this.ascensor.position.set(coordsA.y),         
+          )
+          ascensor.start();
         }
         else if (this.camera.position.y == 2.75)
         {
           const coords = { x: this.camera.position.x, y: this.camera.position.y };
+          const coordsA = {y: this.ascensor.position.y };           
           this.camera.position.z = 1.8;
-          this.camera.position.y = 2;
+          this.camera.position.y = 1.85;
           this.camera.position.x = 0.8;
-          this.camera.rotation.set(-0.3,0,0);   
-          new TWEEN.Tween(coords)
-          .to({ x: this.camera.position.x, y: this.camera.position.y })
+          this.camera.rotation.set(-0.3,0,0);
+          this.ascensor.position.y = 1;
+          this.ascensor.rotation.set(0,2,0);
+          const camara = new TWEEN.Tween(coords)
+          .to({x: this.camera.position.x, y: this.camera.position.y})
           .onUpdate(() =>
             this.camera.position.set(coords.x, coords.y, this.camera.position.z),
           )
-         .start();
+         camara.start();
+          const ascensor = new TWEEN.Tween2(coordsA)
+          .to({y: this.ascensor.position.y})
+          .onUpdate(() =>
+          this.ascensor.position.set(coordsA.y),         
+          )
+          ascensor.start();
         }
         else if (this.camera.position.y == 3.75)
         {
           const coords = { x: this.camera.position.x, y: this.camera.position.y };
+          const coordsA = {y: this.ascensor.position.y };           
           this.camera.position.z = 1.8;
           this.camera.position.y = 2.75;
           this.camera.position.x = -0.8;
-          this.camera.rotation.set(-0.3,0,0);   
-          new TWEEN.Tween(coords)
+          this.camera.rotation.set(-0.3,0,0);
+          this.ascensor.position.y = 1.95;
+          this.ascensor.rotation.set(0,2,0); 
+          const camara = new TWEEN.Tween(coords)
           .to({ x: this.camera.position.x, y: this.camera.position.y })
           .onUpdate(() =>
             this.camera.position.set(coords.x, coords.y, this.camera.position.z),
           )
-         .start();
+         camara.start();
+          const ascensor = new TWEEN.Tween2(coordsA)
+          .to({y: this.ascensor.position.y})
+          .onUpdate(() =>
+          this.ascensor.position.set(coordsA.y),         
+          )
+          ascensor.start();
         }
-
-      this.animate(() => {
-      this.renderer.render(this.scene, this.camera);
-      TWEEN.update(this.time);
-      });
     },
 
     // createCube: function({ color, x, y }) {
@@ -564,11 +611,13 @@ export default {
   //   interactionManager.add(object);
   //   this.scene.add(object);
   // }
-  //   this.animate(() => {
-  //   this.renderer.render(this.scene, this.camera);
-  //   interactionManager.update();
-  //   TWEEN.update(this.time);
-  //   });
+
+    this.animate(() => {
+    this.renderer.render(this.scene, this.camera);
+    // interactionManager.update();
+    TWEEN.update(this.time);
+    });
+
       //Orbit controls
       //this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       // this.controls.target.set(0, 0, 0); //Objetivo de la cámara
@@ -586,6 +635,7 @@ export default {
         0x222222, // color fondo tenue
         1 // intensity
       );
+
       const mainLight = new THREE.DirectionalLight(0xffffff, 4.0);
       mainLight.position.set(10, 10, 10);
       this.scene.add(ambientLight, mainLight);
@@ -597,6 +647,7 @@ export default {
       this.container.clientWidth,
       this.container.clientHeight
       );
+
       const size = 10;
       const divisions = 10;
       const gridHelper = new THREE.GridHelper(size, divisions);
@@ -608,19 +659,52 @@ export default {
       this.scene.add(axesHelper);
 
       const loader = new GLTFLoader();
-      loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
-        const model = gltf.scene;
-        const animations = gltf.animations;
-        this.mixer = new THREE.AnimationMixer(model);
-        console.log(animations);
-        const action = this.mixer.clipAction(animations[0]);
-        action.play();
-        this.scene.add(model);
-        console.log(`modelo cargado`);
-        model.position.set(0, 0, 0);
-        model.scale.set(5, 5, 5);
-        // model.needsUpdate = true;
+      loader.load("/three-assets/Habitaciones.glb", (gltf) => {
+      const model = gltf.scene;
+      const animations = gltf.animations;
+      this.mixer = new THREE.AnimationMixer(model);
+      console.log(animations);
+      const action = this.mixer.clipAction(animations[0]);
+      action.play();
+      this.scene.add(model);
+      console.log(`modelo cargado`);
+      model.position.set(0, 0, 0);
+      model.scale.set(5, 5, 5);
+      // model.needsUpdate = true;
       });
+
+        const loader1 = new GLTFLoader();
+        loader1.load("/three-assets/Lampara_ciencias_basicas.glb", (gltf) => {
+        const lampara = gltf.scene;
+        console.log(`modelo cargado`);
+        lampara.position.set(0, 0, 0);
+        lampara.scale.set(5, 5, 5);
+        // lampara.traverse( ( object ) => {
+        // if ( object.isMesh ) 
+        // {
+        // object.material.color.set( 0x000000);
+        // }});
+        this.scene.add(lampara);
+      });
+
+        const loader2 = new GLTFLoader();
+        loader2.load("/three-assets/Avion_humanistica.glb", (gltf) => {
+        const model2 = gltf.scene;
+        this.scene.add(model2);
+        console.log(`modelo cargado`);
+        model2.position.set(0, 0, 0);
+        model2.scale.set(5, 5, 5);
+      });
+
+        const loader3 = new GLTFLoader();
+        loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
+        this.ascensor = gltf.scene;
+        this.scene.add(this.ascensor);
+        console.log(`modelo cargado`);
+        this.ascensor.position.set(0, 0.015, 0);
+        this.ascensor.scale.set(5, 5, 5);
+      });
+
       this.raycaster = new THREE.Raycaster();
       // this.points = [
       //   {
@@ -698,6 +782,7 @@ export default {
       // ];
       this.render();
     },
+
     render() {
       requestAnimationFrame(this.render);
       const delta = this.clock.getDelta();
@@ -749,6 +834,7 @@ export default {
       }
       this.renderer.render(this.scene, this.camera);
     },
+
     onWindowResize: function () {
       console.log("resize");
       this.camera.aspect =
@@ -760,10 +846,12 @@ export default {
       );
     },
   },
+
   mounted() {
     this.init();
     window.addEventListener("resize", this.onWindowResize, false);
   },
+
   created() {
     this.proyectos = [];
     db.collection("proyectos_admin")
@@ -776,6 +864,7 @@ export default {
           });
         });
       });
+
     this.contenidos = [];
     // db.collection("contenido")
     //   .get()
