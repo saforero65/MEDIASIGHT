@@ -286,7 +286,19 @@
         <div class="label"><b>2</b></div>
         <div class="text">
           <b>PROFESORES:</b> <br />
-          {{ contenidos2 }}
+          <b>MATEMATICA BASICAS:</b> <br />
+          {{ contenidos2 }}<br />
+          <b>CALCULO DIFERENCIAL:</b> <br />
+          <b>CALCULO INTEGRAL:</b> <br />
+          <b>CALCULO VECTORIAL:</b> <br />
+          <b>ECUACIONES DIFERENCIALES:</b> <br />
+          <b>FISICA MECANICA:</b> <br />
+          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b> <br />
+          <b>FISICA OPTICA Y ACUSTICA:</b> <br />
+          <b>ALGEBRA LINEAL:</b> <br />
+          <b>PROBABILIDAD Y ESTADISTICA:</b> <br />
+          <b>METODOS NUMERICOS:</b> <br />
+          <b>QUIMICA:</b> <br />
         </div>
       </div>
       <div class="point point-3">
@@ -804,6 +816,7 @@ export default {
           console.log(`mixer update fondo main`);
         }
         this.renderer.render(this.scene, this.camera);
+        console.log(this.camera.position);
       } else {
         this.mixer = 0;
         this.aux2 = 1;

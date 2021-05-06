@@ -4,7 +4,7 @@
       <div class="perfil">
         <img
           class="img_perfil"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          src="@/assets/avatares/avatar-07.svg"
           alt="imagen perfil"
         />
         <h2 class="perfil_name">{{ nombre }}</h2>
@@ -119,7 +119,7 @@
         <div class="box1">
           <img
             class="img_perfil2"
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            src="@/assets/avatares/avatar-07.svg"
             alt="imagen perfil"
           />
           <button v-if="mostrardep" class="boton_edit" @click="editar()">
@@ -169,13 +169,13 @@
                   <h3 class="label">CONTRASEÑA ACTUAL</h3>
                   <input
                     class="label_content"
-                    type="text"
+                    type="password"
                     v-model="passworda"
                   />
                   <h3 class="label">CONTRASEÑA NUEVA</h3>
                   <input
                     class="label_content"
-                    type="text"
+                    type="password"
                     v-model="passwordn"
                   />
                 </div>
@@ -251,30 +251,34 @@ export default {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error);
         });
-      var user = Firebase.auth().currentUser;
-      var newPassword = this.passwordn;
+      if (this.passworda && this.passwordn) {
+        var user = Firebase.auth().currentUser;
+        var newPassword = this.passwordn;
 
-      const credential = Firebase.auth.EmailAuthProvider.credential(
-        user.email,
-        this.passworda
-      );
-      // Now you can use that to reauthenticate
-      user
-        .reauthenticateWithCredential(credential)
-        .then(function () {
-          user
-            .updatePassword(newPassword)
-            .then(function () {
-              // Update successful.
-            })
-            .catch(function (error) {
-              console.error("Error updating document: ", error);
-              // An error happened.
-            }); // User re-authenticated.
-        })
-        .catch(function (error) {
-          console.error("Error updating document: ", error);
-        });
+        const credential = Firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          this.passworda
+        );
+        // Now you can use that to reauthenticate
+        user
+          .reauthenticateWithCredential(credential)
+          .then(function () {
+            user
+              .updatePassword(newPassword)
+              .then(function () {
+                // Update successful.
+              })
+              .catch(function (error) {
+                console.error("Error updating document: ", error);
+                // An error happened.
+              }); // User re-authenticated.
+          })
+          .catch(function (error) {
+            console.error("Error updating document: ", error);
+          });
+      } else {
+        console.log("campo de contraseña en blanco");
+      }
     },
     logout() {
       Firebase.auth()

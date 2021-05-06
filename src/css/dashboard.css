@@ -52,6 +52,7 @@
     font-weight: 300;
     text-transform: capitalize;
     margin: 2vh 0;
+    text-align: center;
 }
 
 .perfil_type {
@@ -244,4 +245,9 @@ a {
     padding: 0.35rem;
     border-radius: 0.7rem;
     background: rgb(255, 230, 0);
+}
+
+.modal-backdrop {
+    /* opacity: 1; */
+    filter: blur(10px);
 }
