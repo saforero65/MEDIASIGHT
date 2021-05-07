@@ -1,7 +1,14 @@
 <template>
   <div id="scene-container" ref="sceneContainer">
-    <button class="MoverCamaraArriba" @click="MoverArriba">Subir</button>
-    <button class="MoverCamaraAbajo" @click="MoverAbajo">Bajar</button>
+<div class="Caja_Ascensor">
+      <a class="MoverCamaraAbajo" @click="MoverAbajo">
+        <img src="@/assets/img/icons/boton-abajo.svg" alt="abajo"/>
+      </a>
+      <p>Ciencias básicas</p>
+      <a class="MoverCamaraArriba" @click="MoverArriba">
+        <img src="@/assets/img/icons/boton-arriba.svg" alt="arriba"/>
+      </a>
+    </div>
     <div>
       <transition name="fade">
         <div class="modal-overlay" v-if="showModal"></div>
@@ -341,6 +348,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // import { InteractionManager } from "three.interactive";
 import { TWEEN } from "three/examples/jsm/libs/tween.module.min";
+//import { GUI } from '/jsm/libs/dat.gui.module';
 
 import { db } from "@/firebase/init";
 export default {
@@ -361,6 +369,7 @@ export default {
       renderer: null,
       clock: null,
       mixer: [],
+      mixer1: [],
       raycaster: null,
       points: [],
       intersects: [],
@@ -399,7 +408,7 @@ export default {
           this.camera.position.x = 0.75;
           this.camera.rotation.set(-0.3,0,0);
           this.ascensor.position.y = 1;
-          this.ascensor.rotation.set(0,2,0);
+          this.ascensor.rotation.set(0,((Math.PI/2)+20),0);
           const camara = new TWEEN.Tween(coords)
           .to({ x: this.camera.position.x, y: this.camera.position.y})
           .onUpdate(() =>
@@ -413,6 +422,7 @@ export default {
           )
           ascensor.start();
         }
+        
 
         else if (this.camera.position.y == 1.85)
         {
@@ -423,7 +433,7 @@ export default {
           this.camera.position.x = -0.8;
           this.camera.rotation.set(-0.3,0,0);
           this.ascensor.position.y = 1.95;
-          this.ascensor.rotation.set(0,2,0); 
+          this.ascensor.rotation.set(0,0,0);
           const camara = new TWEEN.Tween(coords)
           .to({ x: this.camera.position.x, y: this.camera.position.y })
           .onUpdate(() =>
@@ -447,7 +457,7 @@ export default {
           this.camera.position.x = 0.75;
           this.camera.rotation.set(-0.3,0,0);   
           this.ascensor.position.y = 2.88;
-          this.ascensor.rotation.set(0,2,0); 
+          this.ascensor.rotation.set(0,((Math.PI/2)+20),0);
           const camara = new TWEEN.Tween(coords)
           .to({x: this.camera.position.x, y: this.camera.position.y})
           .onUpdate(() =>
@@ -473,7 +483,7 @@ export default {
           this.camera.position.x = -0.8;
           this.camera.rotation.set(-0.3,0,0);  
           this.ascensor.position.y = 0.015;
-          this.ascensor.rotation.set(0,2,0);
+          this.ascensor.rotation.set(0,0,0);
           const camara = new TWEEN.Tween(coords)
           .to({x: this.camera.position.x, y: this.camera.position.y})
           .onUpdate(() =>
@@ -496,7 +506,7 @@ export default {
           this.camera.position.x = 0.8;
           this.camera.rotation.set(-0.3,0,0);
           this.ascensor.position.y = 1;
-          this.ascensor.rotation.set(0,2,0);
+          this.ascensor.rotation.set(0,((Math.PI/2)+20),0);
           const camara = new TWEEN.Tween(coords)
           .to({x: this.camera.position.x, y: this.camera.position.y})
           .onUpdate(() =>
@@ -519,7 +529,7 @@ export default {
           this.camera.position.x = -0.8;
           this.camera.rotation.set(-0.3,0,0);
           this.ascensor.position.y = 1.95;
-          this.ascensor.rotation.set(0,2,0); 
+          this.ascensor.rotation.set(0,0,0);
           const camara = new TWEEN.Tween(coords)
           .to({ x: this.camera.position.x, y: this.camera.position.y })
           .onUpdate(() =>
@@ -622,7 +632,7 @@ export default {
       //this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       // this.controls.target.set(0, 0, 0); //Objetivo de la cámara
       // this.controls.enablePan = true;
-      // //this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
+      //this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
       // this.controls.maxPolarAngle = Math.PI / 2;
       // this.controls.minDistance = 1;
       // this.controls.maxDistance = 7;
@@ -670,6 +680,20 @@ export default {
       console.log(`modelo cargado`);
       model.position.set(0, 0, 0);
       model.scale.set(5, 5, 5);
+      });
+
+      const loader8 = new GLTFLoader();
+      loader8.load("/three-assets/VentanaIA.glb", (gltf1) => {
+      const VentanaIA = gltf1.scene;
+      const animations1 = gltf1.animations;
+      this.mixer = new THREE.AnimationMixer(VentanaIA);
+      console.log(animations1);
+      const action1 = this.mixer1.clipAction(animations1[0]);
+      action1.play();
+      this.scene.add(VentanaIA);
+      console.log(`modelo cargado`);
+      VentanaIA.position.set(0, 0, 0);
+      VentanaIA.scale.set(5, 5, 5);
       // model.needsUpdate = true;
       });
 
@@ -686,7 +710,6 @@ export default {
         // }});
         this.scene.add(lampara);
       });
-
         const loader2 = new GLTFLoader();
         loader2.load("/three-assets/Avion_humanistica.glb", (gltf) => {
         const model2 = gltf.scene;
@@ -695,7 +718,6 @@ export default {
         model2.position.set(0, 0, 0);
         model2.scale.set(5, 5, 5);
       });
-
         const loader3 = new GLTFLoader();
         loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
         this.ascensor = gltf.scene;
@@ -703,6 +725,42 @@ export default {
         console.log(`modelo cargado`);
         this.ascensor.position.set(0, 0.015, 0);
         this.ascensor.scale.set(5, 5, 5);
+      });
+        const loader4 = new GLTFLoader();
+        loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
+        this.PuertaCB = gltf.scene;
+        this.scene.add(this.PuertaCB);
+        console.log(`modelo cargado`);
+        this.PuertaCB.position.set(0, 0, 0);
+        this.PuertaCB.scale.set(5, 5, 5);
+        this.PuertaCB.rotation.set(0,2,0);
+      });
+        const loader5 = new GLTFLoader();
+        loader5.load("/three-assets/PuertaH.glb", (gltf) => {
+        this.PuertaH = gltf.scene;
+        this.scene.add(this.PuertaH);
+        console.log(`modelo cargado`);
+        this.PuertaH.position.set(0, 0, 0);
+        this.PuertaH.scale.set(5, 5, 5);
+        this.PuertaH.rotation.set(0,2,0);
+      });
+        const loader6 = new GLTFLoader();
+        loader6.load("/three-assets/PuertaD.glb", (gltf) => {
+        this.PuertaD = gltf.scene;
+        this.scene.add(this.PuertaD);
+        console.log(`modelo cargado`);
+        this.PuertaD.position.set(0, 0, 0);
+        this.PuertaD.scale.set(5, 5, 5);
+        this.PuertaD.rotation.set(0,2,0);
+      });
+        const loader7 = new GLTFLoader();
+        loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
+        this.PuertaIA = gltf.scene;
+        this.scene.add(this.PuertaIA);
+        console.log(`modelo cargado`);
+        this.PuertaIA.position.set(0, 0, 0);
+        this.PuertaIA.scale.set(5, 5, 5);
+        this.PuertaIA.rotation.set(0,2,0);
       });
 
       this.raycaster = new THREE.Raycaster();
@@ -1165,14 +1223,40 @@ export default {
 .Fondo{
   overflow: hidden;
 }
-.MoverCamaraArriba {
+.Caja_Ascensor {
   position: fixed;
-  bottom: 5%;
-  right: 50%;
+  bottom: 2%;
+  right: 40%;
+  min-width: 10vh;
+  width: 30vh;
+  max-width: 30vh;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Caja_Ascensor p {
+  margin: 0;
+}
+.MoverCamaraArriba {
+  padding: 1.5vh;
+  border-radius: 50%;
+  background-color: rgb(214, 214, 214);
+  cursor: pointer;
+}
+.MoverCamaraArriba img, .MoverCamaraAbajo img {
+  min-width: 0.5vh;
+  max-width: 2.5vh;
 }
 .MoverCamaraAbajo {
-  position: fixed;
-  bottom: 0;
-  right: 50%;
+  padding: 1.5vh;
+  border-radius: 50%;
+  background-color: rgb(214, 214, 214);
+  cursor: pointer;
 }
+.MoverCamaraArriba:hover, .MoverCamaraAbajo:hover {
+  background-color: yellow;  
+  /* border: 2px solid yellow; */
+}
+
 </style>
