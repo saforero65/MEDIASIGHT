@@ -16,7 +16,6 @@
     </button>
     <PreLoader v-if="ocultar" />
     <div id="scene-container" ref="sceneContainer">
-      <button class="MoverCamara" @click="Mover">Cámara</button>
       <div>
         <transition name="fade">
           <div class="modal-overlay" v-if="showModal"></div>
@@ -413,7 +412,7 @@ export default {
     return {
       ocultar: true,
       saltar: false,
-      Mover_Camara: false,
+
       proyectos: [],
       showModal: false,
       showModal2: false,
@@ -451,15 +450,6 @@ export default {
     };
   },
   methods: {
-    Mover() {
-      if (this.Mover_Camara) {
-        this.camera.position.set(0, 2, 6);
-        this.Mover_Camara = false;
-      } else {
-        this.camera.position.set(0, 0, 0);
-        this.Mover_Camara = true;
-      }
-    },
     onSlideStart() {
       this.sliding = true;
     },
