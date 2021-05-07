@@ -2,9 +2,13 @@
   <div class="background">
     <div class="menu_box">
       <div class="perfil">
-        <img class="img_perfil" <<<<<<< HEAD src="@/assets/avatares/1.jpg"
-        ======= src="@/assets/avatares/avatar-07.svg" >>>>>>>
-        47411e3b6db930ac83e3a059d7d389cfc680acfe alt="imagen perfil" />
+        <div class="img_perfils">
+          <img
+            class="img_perfil"
+            :src="getImageUrl(avatar)"
+            alt="imagen perfil"
+          />
+        </div>
         <h2 class="perfil_name">{{ nombre }}</h2>
         <h3 class="perfil_type">{{ tipo }}</h3>
       </div>
@@ -45,11 +49,7 @@
             </ul>
           </div>
           <a class="link" href="/">
-            <img
-              class="img_footer"
-              src="@/assets/img/logo_main.png"
-              alt="imagen_perfil"
-            />
+            <img class="img_footer" src="@/assets/img/logo_main.png" />
           </a>
         </div>
       </template>
@@ -80,11 +80,7 @@
             </ul>
           </div>
           <a class="link" href="/">
-            <img
-              class="img_footer"
-              src="@/assets/img/logo_main.png"
-              alt="imagen_perfil"
-            />
+            <img class="img_footer" src="@/assets/img/logo_main.png" />
           </a>
         </div>
       </template>
@@ -115,11 +111,7 @@
       </div>
       <div class="content_box">
         <div class="box1">
-          <img
-            class="img_perfil2"
-            src="@/assets/avatares/1.jpg"
-            alt="imagen perfil"
-          />
+          <img class="img_perfil2" :src="getImageUrl(avatar)" />
           <button v-if="mostrardep" class="boton_edit" @click="editar()">
             EDITAR PERFIL
           </button>
@@ -181,7 +173,7 @@
               <div class="row">
                 <div class="col">
                   <input
-                    @click="edit = false"
+                    @click="cancelar()"
                     type="button"
                     value="Cancelar"
                     class="btn btn-dark"
@@ -193,6 +185,18 @@
                     value=" Guardar"
                     class="btn btn-success"
                   />
+                </div>
+              </div>
+              <div class="row">
+                <div v-for="imagen in avatares" v-bind:key="imagen.id">
+                  <label @click="avatar = imagen.data.imagen">
+                    <input type="radio" name="test" value="small" />
+                    <img
+                      class="img_perfil_selector"
+                      :src="getImageUrl(imagen.data.imagen)"
+                      alt="imagen perfil"
+                    />
+                  </label>
                 </div>
               </div>
             </form>
@@ -221,6 +225,7 @@ export default {
       mostrardep: false,
       passworda: null,
       passwordn: null,
+      avatares: [],
 
       types: [
         { text: "TIPO", value: null },
@@ -228,10 +233,18 @@ export default {
         "egresado",
         "estudiante",
       ],
+      avatar: null,
     };
   },
 
   methods: {
+    cancelar() {
+      this.edit = false;
+      this.$router.go(0);
+    },
+    getImageUrl(imageId) {
+      return `${imageId}`;
+    },
     actualizar() {
       this.edit = false;
       console.log(this.nombre);
@@ -241,6 +254,7 @@ export default {
         .update({
           nombre: this.nombre,
           tipo: this.tipo,
+          avatar: this.avatar,
         })
         .then(() => {
           console.log("Document successfully updated!");
@@ -310,9 +324,20 @@ export default {
               this.nombre = `${doc.data().nombre}`;
               this.correo = `${doc.data().correo}`;
               this.tipo = `${doc.data().tipo}`;
+              this.avatar = `${doc.data().avatar}`;
             });
           });
-        console.log(db.collection(user.email));
+        this.avatares = [];
+        db.collection("avatares")
+          .get()
+          .then((r) => {
+            r.docs.map((imagen) => {
+              this.avatares.push({
+                id: imagen.id,
+                data: imagen.data(),
+              });
+            });
+          });
       } else {
         this.user = null;
       }
@@ -321,3 +346,21 @@ export default {
 };
 </script>
 
+<style scoped>
+[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type="radio"] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type="radio"]:checked + img {
+  outline: 2px solid #f00;
+}
+</style>

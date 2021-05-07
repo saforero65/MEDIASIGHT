@@ -47,7 +47,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.materia == 'Ciencias Básicas'
+                      item.data.habitacion == 'Ciencias Básicas'
                     "
                   >
                     <template #img>
@@ -60,6 +60,10 @@
                           <h2 class="nombre_proyecto">
                             {{ item.data.nombre_proyecto }}
                           </h2>
+                          <h3 class="materia_proyecto">
+                            de
+                            {{ item.data.materia }}:
+                          </h3>
                           <h3 class="materia_proyecto">
                             -
                             {{ item.data.tipo }}:
@@ -104,7 +108,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.materia == 'Humanística'
+                      item.data.habitacion == 'Humanística'
                     "
                   >
                     <template #img>
@@ -117,6 +121,10 @@
                           <h2 class="nombre_proyecto">
                             {{ item.data.nombre_proyecto }}
                           </h2>
+                          <h3 class="materia_proyecto">
+                            de
+                            {{ item.data.materia }}:
+                          </h3>
                           <h3 class="materia_proyecto">
                             -
                             {{ item.data.tipo }}:
@@ -161,7 +169,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.materia == 'Ingeniería'
+                      item.data.habitacion == 'Ingeniería'
                     "
                   >
                     <template #img>
@@ -174,6 +182,10 @@
                           <h2 class="nombre_proyecto">
                             {{ item.data.nombre_proyecto }}
                           </h2>
+                          <h3 class="materia_proyecto">
+                            de
+                            {{ item.data.materia }}:
+                          </h3>
                           <h3 class="materia_proyecto">
                             -
                             {{ item.data.tipo }}:
@@ -218,7 +230,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.materia == 'Ingeniería Aplicada'
+                      item.data.habitacion == 'Ingeniería Aplicada'
                     "
                   >
                     <template #img>
@@ -232,6 +244,10 @@
                             {{ item.data.nombre_proyecto }}
                           </h2>
 
+                          <h3 class="materia_proyecto">
+                            de
+                            {{ item.data.materia }}:
+                          </h3>
                           <h3 class="materia_proyecto">
                             -
                             {{ item.data.tipo }}:
@@ -816,7 +832,7 @@ export default {
           console.log(`mixer update fondo main`);
         }
         this.renderer.render(this.scene, this.camera);
-        console.log(this.camera.position);
+        // console.log(this.camera.position);
       } else {
         this.mixer = 0;
         this.aux2 = 1;

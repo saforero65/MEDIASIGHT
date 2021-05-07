@@ -101,7 +101,7 @@
                 <b class="pendiente">{{ item.data.estado }}</b>
               </td>
               <td>{{ item.data.nombre_proyecto }}</td>
-              <td>{{ item.data.materia }}</td>
+              <td>{{ item.data.habitacion }}</td>
               <td
                 @click="
                   (descripcion = item.data.descripcion),
@@ -135,7 +135,7 @@
                       </div>
                       <div>
                         <h3 class="subtittle">Materia</h3>
-                        <p>{{ item.data.materia }}</p>
+                        <p>{{ item.data.habitacion }}</p>
                       </div>
                     </div>
                     <div class="secondrow">
