@@ -2,11 +2,13 @@
   <div class="background">
     <div class="menu_box">
       <div class="perfil">
-        <img
-          class="img_perfil"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-          alt="imagen perfil"
-        />
+        <div class="img_perfils">
+          <img
+            class="img_perfil"
+            :src="getImageUrl(avatar)"
+            alt="imagen perfil"
+          />
+        </div>
         <h2 class="perfil_name">{{ nombre }}</h2>
         <h3 class="perfil_type">{{ tipo }}</h3>
       </div>
@@ -110,12 +112,38 @@
                             placeholder="Nombre del proyecto"
                           />
                         </div>
+                      </div>
+                      <div class="primerrow row">
                         <div class="col">
                           <h3 class="subtittle">Habitación</h3>
 
                           <b-form-select
+                            v-model="habitacion"
+                            :options="habitaciones"
+                          ></b-form-select>
+                        </div>
+                        <div class="col">
+                          <h3 class="subtittle">Materia</h3>
+
+                          <b-form-select
+                            v-if="habitacion == 'Ciencias Básicas'"
                             v-model="materia"
-                            :options="materias"
+                            :options="materiasCB"
+                          ></b-form-select>
+                          <b-form-select
+                            v-if="habitacion == 'Humanística'"
+                            v-model="materia"
+                            :options="materiasH"
+                          ></b-form-select>
+                          <b-form-select
+                            v-if="habitacion == 'Ingeniería Aplicada'"
+                            v-model="materia"
+                            :options="materiasIA"
+                          ></b-form-select>
+                          <b-form-select
+                            v-if="habitacion == 'Ingeniería'"
+                            v-model="materia"
+                            :options="materiasI"
                           ></b-form-select>
                         </div>
                       </div>
@@ -139,6 +167,14 @@
                         type="file"
                         accept="image/*"
                       />
+
+                      <img
+                        v-if="urlTemp"
+                        class="img_card"
+                        :src="urlTemp"
+                        alt="imagen para subir"
+                      />
+                      <!-- <v-img :src="urlTemp"></v-img> -->
                     </div>
                   </form>
                 </div>
@@ -149,6 +185,23 @@
                   </b-button>
                   <b-spinner v-if="cargando" label="Spinning"></b-spinner>
                 </template>
+                <div v-if="error">
+                  <div
+                    v-show="ver"
+                    class="alert alert-danger position-absolute"
+                  >
+                    <button
+                      v-on:click="ver = !ver"
+                      type="button"
+                      class="close"
+                      data-dismiss="alert"
+                    >
+                      &times;
+                    </button>
+
+                    <strong>¡Hey!</strong>{{ error }}
+                  </div>
+                </div>
               </b-modal>
             </div>
           </div>
@@ -167,7 +220,9 @@
             <div class="card-body">
               <div class="body_sup">
                 <h5 class="card-title">{{ item.data.nombre_proyecto }}</h5>
-                <h5 class="card-subtitle">{{ item.data.materia }}</h5>
+                <h5 class="card-subtitle">
+                  {{ item.data.habitacion }}
+                </h5>
               </div>
               <div class="body_inf">
                 <p class="card-text descripcion-card">
@@ -198,7 +253,8 @@
                         <p>{{ item.data.nombre_proyecto }}</p>
                       </div>
                       <div class="box">
-                        <h3 class="subtittle">Habitación</h3>
+                        <h3 class="subtittle">Materia</h3>
+                        <!-- <p>{{ item.data.habitacion }}</p> -->
                         <p>{{ item.data.materia }}</p>
                       </div>
                       <div class="box" v-if="item.data.estado == 'aprobado'">
@@ -256,6 +312,7 @@ require("@/css/dashboard.css");
 export default {
   data() {
     return {
+      error: "",
       headerBgVariant: "dark",
       headerTextVariant: "light",
       bodyBgVariant: "light",
@@ -268,13 +325,72 @@ export default {
       nombre: null,
       correo: null,
       descripcion: null,
-      materia: null,
-      materias: [
+      habitacion: null,
+      habitaciones: [
         { text: "Habitación", value: null },
         "Ciencias Básicas",
         "Humanística",
         "Ingeniería Aplicada",
         "Ingeniería",
+      ],
+      materia: null,
+      materiasCB: [
+        { text: "Materias", value: null },
+        "Matemáticas básicas",
+        "Cáculo diferencial ",
+        "Cáculo integral",
+        "Cálculo vectorial",
+        "Ecuaciones dieferenciales ",
+        "Física mecánica",
+        "Física electricidad y magnetismo ",
+        "Física óptica y acústica",
+        "Algebra lineal ",
+        "Química",
+      ],
+      materiasH: [
+        { text: "Materias", value: null },
+        "Cátedra neogranadina ",
+        "Historia del arte ",
+        "Guiones",
+        "Ética",
+        "Principios constitucionales",
+        "Economía y finanzas ",
+        "Gestión empresarial",
+        "Gestión integral de proyectos",
+      ],
+      materiasIA: [
+        { text: "Materias", value: null },
+        "Taller digital de diseño",
+        "Animación 2D",
+        "Modelado 3D",
+        "Render",
+        "Introducción a la computación gráfica ",
+        "Computación gráfica ",
+        "Simulación",
+        "Inteligencia artificial",
+        "Diseño I",
+        "Diseño II",
+        "Diseño III",
+        "Procesamiento de señales",
+        "Procesamiento de imágenes",
+        "Electiva ",
+        "Ingeniería de software",
+        "Tecnologías de internet",
+        "Audio y vídeo ",
+        "Electiva de enfásis ",
+        "Electiva de enfásis ",
+      ],
+      materiasI: [
+        { text: "Materias", value: null },
+        "Programación I",
+        "Pogramación II",
+        "Programación III",
+        "Expresión gráfica ",
+        "Introducción a la ingeniería ",
+        "Metodologías de la investigación",
+        "Dibujo",
+        "Seminario de investigación",
+        "Electiva de énfasis ",
       ],
       nombre_proyecto: null,
       mostrardep: false,
@@ -283,9 +399,12 @@ export default {
       estado: "pendiente",
       proyectos: [],
       imagenes: [],
-      imagen: null,
+      imagen: [],
       coincide: false,
       urlImg: "",
+      ver: true,
+      urlTemp: "",
+      avatar: null,
     };
   },
 
@@ -319,66 +438,95 @@ export default {
       window.location.href = "/";
     },
     agregar_proyecto() {
+      this.error = "";
       this.cargando = true;
       if (
         this.descripcion &&
-        this.materia &&
+        this.habitacion &&
         this.nombre_proyecto &&
-        this.estado
+        this.estado &&
+        this.materia &&
+        this.imagen
       ) {
-        const refImg = storage.ref().child("imagenes/" + this.imagen.name);
-        const metadata = { contentType: "img/jpeg" };
-        refImg.put(this.imagen, metadata).then(() => {
-          refImg.getDownloadURL().then((url) => {
-            this.urlImg = url;
+        if (
+          this.imagen.name.includes(".jpg") ||
+          this.imagen.name.includes(".png")
+        ) {
+          console.log(this.imagen.name);
+          const refImg = storage.ref().child("imagenes/" + this.imagen.name);
+          const metadata = { contentType: "img/jpeg" };
+          refImg.put(this.imagen, metadata).then(() => {
+            refImg.getDownloadURL().then((url) => {
+              this.urlImg = url;
 
-            db.collection("proyecto")
-              .add({
-                correo: this.correo,
-                nombre: this.nombre,
-                descripcion: this.descripcion,
-                materia: this.materia,
-                nombre_proyecto: this.nombre_proyecto,
-                estado: this.estado,
-                imagen: this.urlImg,
-                tipo: this.tipo,
-              })
-              .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
-                db.collection("proyectos_admin")
-                  .add({
-                    correo: this.correo,
-                    nombre: this.nombre,
-                    descripcion: this.descripcion,
-                    materia: this.materia,
-                    nombre_proyecto: this.nombre_proyecto,
-                    estado: this.estado,
-                    imagen: this.urlImg,
-                    id: docRef.id,
-                    tipo: this.tipo,
-                  })
-                  .then((docRef) => {
-                    console.log("Document written with ID: ", docRef.id);
-                    this.cargando = true;
-                    this.$router.go(0);
-                  })
-                  .catch((error) => {
-                    console.error("Error adding document: ", error);
-                  });
-              })
-              .catch((error) => {
-                console.error("Error adding document: ", error);
-              });
+              console.log(metadata);
+              db.collection("proyecto")
+                .add({
+                  correo: this.correo,
+                  nombre: this.nombre,
+                  descripcion: this.descripcion,
+                  habitacion: this.habitacion,
+                  materia: this.materia,
+                  nombre_proyecto: this.nombre_proyecto,
+                  estado: this.estado,
+                  imagen: this.urlImg,
+                  tipo: this.tipo,
+                })
+                .then((docRef) => {
+                  console.log("Document written with ID: ", docRef.id);
+                  db.collection("proyectos_admin")
+                    .add({
+                      correo: this.correo,
+                      nombre: this.nombre,
+                      descripcion: this.descripcion,
+                      habitacion: this.habitacion,
+                      materia: this.materia,
+                      nombre_proyecto: this.nombre_proyecto,
+                      estado: this.estado,
+                      imagen: this.urlImg,
+                      id: docRef.id,
+                      tipo: this.tipo,
+                    })
+                    .then((docRef) => {
+                      console.log("Document written with ID: ", docRef.id);
+                      this.cargando = false;
+                      this.$router.go(0);
+                    })
+                    .catch((error) => {
+                      this.error = error.message;
+                      console.error("Error adding document: ", error);
+                    });
+                })
+                .catch((error) => {
+                  this.error = error.message;
+                  console.error("Error adding document: ", error);
+                });
+            });
           });
-        });
+        } else {
+          this.cargando = false;
+          this.error = "El formato de la imagen debe ser .jpg o .png";
+          this.ver = true;
+          console.log(`vacio no se agrega proyecto`);
+        }
 
         this.pop_form = false;
       } else {
+        this.cargando = false;
+        this.error = "Los campos estan vacios";
+        this.ver = true;
         console.log(`vacio no se agrega proyecto`);
       }
     },
     clickImagen(e) {
       this.imagen = e.target.files[0];
+
+      const reader = new FileReader();
+      reader.readAsDataURL(this.imagen);
+      reader.onload = (e) => {
+        // console.log(e.target.result);
+        this.urlTemp = e.target.result;
+      };
     },
   },
   created() {
@@ -400,6 +548,7 @@ export default {
               this.nombre = `${doc.data().nombre}`;
               this.correo = `${doc.data().correo}`;
               this.tipo = `${doc.data().tipo}`;
+              this.avatar = `${doc.data().avatar}`;
             });
           });
 

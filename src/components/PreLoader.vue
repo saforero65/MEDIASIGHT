@@ -10,14 +10,16 @@
           <p class="content1">
             Estas a punto de entrar a MEDIASIGHT un proyecto en el que podrás
             ver el entorno de estudio de un estudiante de Ingeniería Multimedia
-            de la UMNG
+            de la UMNG donde podrás ver la información del programa, proyectos y
+            las capacidades que un estudiante desarrolla en el transcurso de la
+            carrera.
           </p>
 
-          <p class="content2">
+          <!-- <p class="content2">
             donde podrás ver la información del programa, proyectos y las
             capacidades que un estudiante desarrolla en el transcurso de la
             carrera.
-          </p>
+          </p> -->
         </div>
       </div>
       <div class="content">
@@ -106,7 +108,7 @@ export default {
   font-size: 50px;
   font-weight: bold;
   animation: cambiarpagina 2s;
-  animation-delay: 13s;
+  animation-delay: 10s;
   animation-fill-mode: forwards;
 }
 .content1,
@@ -121,16 +123,15 @@ export default {
   /* letter-spacing: 10px; */
   /* margin: auto 15rem; */
 }
-.content2 {
+/* .content2 {
   opacity: 0%;
   animation: cambiar 7s;
   animation-delay: 8s;
   animation-fill-mode: forwards;
-}
+} */
 .content1 {
   opacity: 0%;
-  animation: cambiar 7s;
-  /* animation-delay: 10s; */
+  animation: cambiar 10s;
   animation-fill-mode: forwards;
 }
 
@@ -147,7 +148,7 @@ export default {
   flex-direction: column;
   align-items: center;
   animation: mostrarlogo 3s;
-  animation-delay: 15.5s;
+  animation-delay: 11s;
   animation-fill-mode: forwards;
 }
 

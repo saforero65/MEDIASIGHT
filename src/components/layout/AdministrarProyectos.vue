@@ -2,11 +2,13 @@
   <div class="background">
     <div class="menu_box">
       <div class="perfil">
-        <img
-          class="img_perfil"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-          alt="imagen perfil"
-        />
+        <div class="img_perfils">
+          <img
+            class="img_perfil"
+            :src="getImageUrl(avatar)"
+            alt="imagen perfil"
+          />
+        </div>
         <h2 class="perfil_name">{{ nombre }}</h2>
         <h3 class="perfil_type">{{ tipo }}</h3>
       </div>
@@ -77,6 +79,70 @@
           </div>
         </template>
       </div>
+      <div>
+        <div class="materias">
+          <div>
+            <a @click="verCB()">
+              <b-card
+                overlay
+                text-variant="white"
+                title="Ciencias Basicas"
+                sub-title="Subtitle"
+                style="max-width: 500px"
+              >
+                <b-card-text>
+                  Some quick example text to build on the card and make up the
+                  bulk of the card's content.
+                </b-card-text>
+              </b-card>
+            </a>
+          </div>
+          <div>
+            <b-card
+              overlay
+              text-variant="white"
+              title="Humanistica"
+              sub-title="Subtitle"
+              style="max-width: 500px"
+            >
+              <b-card-text>
+                Some quick example text to build on the card and make up the
+                bulk of the card's content.
+              </b-card-text>
+            </b-card>
+          </div>
+        </div>
+        <div class="materias">
+          <div>
+            <b-card
+              overlay
+              text-variant="white"
+              title="Ingenieria Aplicada"
+              sub-title="Subtitle"
+              style="max-width: 500px"
+            >
+              <b-card-text>
+                Some quick example text to build on the card and make up the
+                bulk of the card's content.
+              </b-card-text>
+            </b-card>
+          </div>
+          <div>
+            <b-card
+              overlay
+              text-variant="white"
+              title="Ingenieria"
+              sub-title="Subtitle"
+              style="max-width: 500px; min-heigth=100px"
+            >
+              <b-card-text>
+                Some quick example text to build on the card and make up the
+                bulk of the card's content.
+              </b-card-text>
+            </b-card>
+          </div>
+        </div>
+      </div>
       <div class="overflow-auto" style="height: 75%">
         <table class="table table-striped">
           <thead>
@@ -90,7 +156,7 @@
           </thead>
           <tbody>
             <tr v-for="item in proyectos" v-bind:key="item.id">
-              <th scope="row">{{ item.data.correo }}</th>
+              <th scope="row">{{ item.data.nombre }}</th>
               <td v-if="item.data.estado == 'aprobado'">
                 <b class="aprobado">{{ item.data.estado }}</b>
               </td>
@@ -101,7 +167,7 @@
                 <b class="pendiente">{{ item.data.estado }}</b>
               </td>
               <td>{{ item.data.nombre_proyecto }}</td>
-              <td>{{ item.data.materia }}</td>
+              <td>{{ item.data.habitacion }}</td>
               <td
                 @click="
                   (descripcion = item.data.descripcion),
@@ -135,7 +201,7 @@
                       </div>
                       <div>
                         <h3 class="subtittle">Materia</h3>
-                        <p>{{ item.data.materia }}</p>
+                        <p>{{ item.data.habitacion }}</p>
                       </div>
                     </div>
                     <div class="secondrow">
@@ -210,6 +276,7 @@ export default {
       tipo: null,
       correom: null,
       estado: null,
+      avatar: null,
       proyectos: [],
       proyectosadmin: [],
       ver_form: false,
@@ -229,6 +296,9 @@ export default {
   },
 
   methods: {
+    verCB() {
+      console.log("ver ciencias basicas");
+    },
     getImageUrl(imageId) {
       return `${imageId}`;
     },
@@ -329,6 +399,7 @@ export default {
               this.nombre = `${doc.data().nombre}`;
               this.correo = `${doc.data().correo}`;
               this.tipo = `${doc.data().tipo}`;
+              this.avatar = `${doc.data().avatar}`;
             });
           });
         this.proyectos = [];

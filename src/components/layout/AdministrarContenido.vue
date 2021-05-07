@@ -2,11 +2,13 @@
   <div class="background">
     <div class="menu_box">
       <div class="perfil">
-        <img
-          class="img_perfil"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-          alt="imagen perfil"
-        />
+        <div class="img_perfils">
+          <img
+            class="img_perfil"
+            :src="getImageUrl(avatar)"
+            alt="imagen perfil"
+          />
+        </div>
         <h2 class="perfil_name">{{ nombre }}</h2>
         <h3 class="perfil_type">{{ tipo }}</h3>
       </div>
@@ -228,6 +230,7 @@ export default {
         "Ingenieria Aplicada",
         "Ingenieria",
       ],
+      avatar: null,
       titulo: null,
       mostrardep: false,
       pop_form: false,
@@ -252,6 +255,9 @@ export default {
   },
 
   methods: {
+    getImageUrl(imageId) {
+      return `${imageId}`;
+    },
     modalId(i) {
       return i;
     },
@@ -307,6 +313,7 @@ export default {
               this.nombre = `${doc.data().nombre}`;
               this.correo = `${doc.data().correo}`;
               this.tipo = `${doc.data().tipo}`;
+              this.avatar = `${doc.data().avatar}`;
             });
           });
         this.contenidos = [];
