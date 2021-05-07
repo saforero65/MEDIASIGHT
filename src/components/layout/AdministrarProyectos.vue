@@ -79,7 +79,7 @@
           </div>
         </template>
       </div>
-      <div>
+      <div v-if="mostrarMaterias">
         <div class="materias">
           <div>
             <a @click="verCB()">
@@ -98,52 +98,58 @@
             </a>
           </div>
           <div>
-            <b-card
-              overlay
-              text-variant="white"
-              title="Humanistica"
-              sub-title="Subtitle"
-              style="max-width: 500px"
-            >
-              <b-card-text>
-                Some quick example text to build on the card and make up the
-                bulk of the card's content.
-              </b-card-text>
-            </b-card>
+            <a @click="verH()">
+              <b-card
+                overlay
+                text-variant="white"
+                title="Humanistica"
+                sub-title="Subtitle"
+                style="max-width: 500px"
+              >
+                <b-card-text>
+                  Some quick example text to build on the card and make up the
+                  bulk of the card's content.
+                </b-card-text>
+              </b-card>
+            </a>
           </div>
         </div>
         <div class="materias">
           <div>
-            <b-card
-              overlay
-              text-variant="white"
-              title="Ingenieria Aplicada"
-              sub-title="Subtitle"
-              style="max-width: 500px"
-            >
-              <b-card-text>
-                Some quick example text to build on the card and make up the
-                bulk of the card's content.
-              </b-card-text>
-            </b-card>
+            <a @click="verIA()">
+              <b-card
+                overlay
+                text-variant="white"
+                title="Ingenieria Aplicada"
+                sub-title="Subtitle"
+                style="max-width: 500px"
+              >
+                <b-card-text>
+                  Some quick example text to build on the card and make up the
+                  bulk of the card's content.
+                </b-card-text>
+              </b-card>
+            </a>
           </div>
           <div>
-            <b-card
-              overlay
-              text-variant="white"
-              title="Ingenieria"
-              sub-title="Subtitle"
-              style="max-width: 500px; min-heigth=100px"
-            >
-              <b-card-text>
-                Some quick example text to build on the card and make up the
-                bulk of the card's content.
-              </b-card-text>
-            </b-card>
+            <a @click="verI()">
+              <b-card
+                overlay
+                text-variant="white"
+                title="Ingenieria"
+                sub-title="Subtitle"
+                style="max-width: 500px; min-heigth=100px"
+              >
+                <b-card-text>
+                  Some quick example text to build on the card and make up the
+                  bulk of the card's content.
+                </b-card-text>
+              </b-card>
+            </a>
           </div>
         </div>
       </div>
-      <div class="overflow-auto" style="height: 75%">
+      <div class="overflow-auto" style="height: 75%" v-if="mostrarCB">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -156,19 +162,413 @@
           </thead>
           <tbody>
             <tr v-for="item in proyectos" v-bind:key="item.id">
-              <th scope="row">{{ item.data.nombre }}</th>
-              <td v-if="item.data.estado == 'aprobado'">
+              <th v-if="item.data.habitacion == 'Ciencias Básicas'" scope="row">
+                {{ item.data.nombre }}
+              </th>
+              <td
+                v-if="
+                  item.data.estado == 'aprobado' &&
+                  item.data.habitacion == 'Ciencias Básicas'
+                "
+              >
                 <b class="aprobado">{{ item.data.estado }}</b>
               </td>
-              <td v-if="item.data.estado == 'denegado'">
+              <td
+                v-if="
+                  item.data.estado == 'denegado' &&
+                  item.data.habitacion == 'Ciencias Básicas'
+                "
+              >
                 <b class="denegado">{{ item.data.estado }}</b>
               </td>
-              <td v-if="item.data.estado == 'pendiente'">
+              <td
+                v-if="
+                  item.data.estado == 'pendiente' &&
+                  item.data.habitacion == 'Ciencias Básicas'
+                "
+              >
                 <b class="pendiente">{{ item.data.estado }}</b>
               </td>
-              <td>{{ item.data.nombre_proyecto }}</td>
-              <td>{{ item.data.habitacion }}</td>
+              <td v-if="item.data.habitacion == 'Ciencias Básicas'">
+                {{ item.data.nombre_proyecto }}
+              </td>
+              <td v-if="item.data.habitacion == 'Ciencias Básicas'">
+                {{ item.data.habitacion }}
+              </td>
               <td
+                v-if="item.data.habitacion == 'Ciencias Básicas'"
+                @click="
+                  (descripcion = item.data.descripcion),
+                    (nombre_proyecto = item.data.nombre_proyecto)
+                "
+              >
+                <img
+                  v-b-modal="modalId(item.id)"
+                  class="img_item botn"
+                  src="@/assets/img/icons/visibilidad.svg"
+                  alt="imagnen_perfil"
+                />
+                <!-- <b-btn v-b-modal="modalId(item.id)">ver</b-btn> -->
+                <b-modal
+                  :header-bg-variant="headerBgVariant"
+                  :header-text-variant="headerTextVariant"
+                  :body-bg-variant="bodyBgVariant"
+                  :body-text-variant="bodyTextVariant"
+                  :footer-bg-variant="footerBgVariant"
+                  :footer-text-variant="footerTextVariant"
+                  centered
+                  :id="item.id"
+                  title="Revisión de Formulario de proyecto "
+                >
+                  <div class="popup_ver">
+                    <div class="primerrow">
+                      <div>
+                        <h3 class="subtittle">Nombre del Proyecto</h3>
+                        <!-- <p>{{ item.data.nombre_proyecto }}</p> -->
+                        <input type="text" v-model="nombre_proyecto" />
+                      </div>
+                      <div>
+                        <h3 class="subtittle">Materia</h3>
+                        <p>{{ item.data.habitacion }}</p>
+                      </div>
+                    </div>
+                    <div class="secondrow">
+                      <h3 class="subtittle">Descripción</h3>
+                      <!-- <p class="descripcion">{{ item.data.descripcion }}</p> -->
+                      <textarea
+                        style="height: 12rem"
+                        type="text"
+                        v-model="descripcion"
+                      />
+                    </div>
+                    <div class="tercerdrow">
+                      <h3 class="subtittle">Imágenes</h3>
+                      <b-img-lazy
+                        v-bind="mainProps"
+                        :src="getImageUrl(item.data.imagen)"
+                        alt="Image 1"
+                      ></b-img-lazy>
+                    </div>
+                  </div>
+                  <template #modal-footer="{}">
+                    <b-button
+                      variant="danger"
+                      @click.prevent="updateStatusD(item.id, item.data.id)"
+                    >
+                      Denegar
+                    </b-button>
+                    <b-spinner v-if="cargando" label="Spinning"></b-spinner>
+                    <b-button
+                      variant="success"
+                      @click="updateStatusA(item.id, item.data.id)"
+                    >
+                      Aprobar
+                    </b-button>
+                    <b-spinner v-if="cargando2" label="Spinning"></b-spinner>
+                  </template>
+                </b-modal>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="overflow-auto" style="height: 75%" v-if="mostrarH">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Correo</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Nombre del Proyecto</th>
+              <th scope="col">Materia</th>
+              <th scope="col">Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in proyectos" v-bind:key="item.id">
+              <th v-if="item.data.habitacion == 'Humanística'" scope="row">
+                {{ item.data.nombre }}
+              </th>
+              <td
+                v-if="
+                  item.data.estado == 'aprobado' &&
+                  item.data.habitacion == 'Humanística'
+                "
+              >
+                <b class="aprobado">{{ item.data.estado }}</b>
+              </td>
+              <td
+                v-if="
+                  item.data.estado == 'denegado' &&
+                  item.data.habitacion == 'Humanística'
+                "
+              >
+                <b class="denegado">{{ item.data.estado }}</b>
+              </td>
+              <td
+                v-if="
+                  item.data.estado == 'pendiente' &&
+                  item.data.habitacion == 'Humanística'
+                "
+              >
+                <b class="pendiente">{{ item.data.estado }}</b>
+              </td>
+              <td v-if="item.data.habitacion == 'Humanística'">
+                {{ item.data.nombre_proyecto }}
+              </td>
+              <td v-if="item.data.habitacion == 'Humanística'">
+                {{ item.data.habitacion }}
+              </td>
+              <td
+                v-if="item.data.habitacion == 'Humanística'"
+                @click="
+                  (descripcion = item.data.descripcion),
+                    (nombre_proyecto = item.data.nombre_proyecto)
+                "
+              >
+                <img
+                  v-b-modal="modalId(item.id)"
+                  class="img_item botn"
+                  src="@/assets/img/icons/visibilidad.svg"
+                  alt="imagnen_perfil"
+                />
+                <!-- <b-btn v-b-modal="modalId(item.id)">ver</b-btn> -->
+                <b-modal
+                  :header-bg-variant="headerBgVariant"
+                  :header-text-variant="headerTextVariant"
+                  :body-bg-variant="bodyBgVariant"
+                  :body-text-variant="bodyTextVariant"
+                  :footer-bg-variant="footerBgVariant"
+                  :footer-text-variant="footerTextVariant"
+                  centered
+                  :id="item.id"
+                  title="Revisión de Formulario de proyecto "
+                >
+                  <div class="popup_ver">
+                    <div class="primerrow">
+                      <div>
+                        <h3 class="subtittle">Nombre del Proyecto</h3>
+                        <!-- <p>{{ item.data.nombre_proyecto }}</p> -->
+                        <input type="text" v-model="nombre_proyecto" />
+                      </div>
+                      <div>
+                        <h3 class="subtittle">Materia</h3>
+                        <p>{{ item.data.habitacion }}</p>
+                      </div>
+                    </div>
+                    <div class="secondrow">
+                      <h3 class="subtittle">Descripción</h3>
+                      <!-- <p class="descripcion">{{ item.data.descripcion }}</p> -->
+                      <textarea
+                        style="height: 12rem"
+                        type="text"
+                        v-model="descripcion"
+                      />
+                    </div>
+                    <div class="tercerdrow">
+                      <h3 class="subtittle">Imágenes</h3>
+                      <b-img-lazy
+                        v-bind="mainProps"
+                        :src="getImageUrl(item.data.imagen)"
+                        alt="Image 1"
+                      ></b-img-lazy>
+                    </div>
+                  </div>
+                  <template #modal-footer="{}">
+                    <b-button
+                      variant="danger"
+                      @click.prevent="updateStatusD(item.id, item.data.id)"
+                    >
+                      Denegar
+                    </b-button>
+                    <b-spinner v-if="cargando" label="Spinning"></b-spinner>
+                    <b-button
+                      variant="success"
+                      @click="updateStatusA(item.id, item.data.id)"
+                    >
+                      Aprobar
+                    </b-button>
+                    <b-spinner v-if="cargando2" label="Spinning"></b-spinner>
+                  </template>
+                </b-modal>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="overflow-auto" style="height: 75%" v-if="mostrarIA">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Correo</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Nombre del Proyecto</th>
+              <th scope="col">Materia</th>
+              <th scope="col">Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in proyectos" v-bind:key="item.id">
+              <th
+                v-if="item.data.habitacion == 'Ingeniería Aplicada'"
+                scope="row"
+              >
+                {{ item.data.nombre }}
+              </th>
+              <td
+                v-if="
+                  item.data.estado == 'aprobado' &&
+                  item.data.habitacion == 'Ingeniería Aplicada'
+                "
+              >
+                <b class="aprobado">{{ item.data.estado }}</b>
+              </td>
+              <td
+                v-if="
+                  item.data.estado == 'denegado' &&
+                  item.data.habitacion == 'Ingeniería Aplicada'
+                "
+              >
+                <b class="denegado">{{ item.data.estado }}</b>
+              </td>
+              <td
+                v-if="
+                  item.data.estado == 'pendiente' &&
+                  item.data.habitacion == 'Ingeniería Aplicada'
+                "
+              >
+                <b class="pendiente">{{ item.data.estado }}</b>
+              </td>
+              <td v-if="item.data.habitacion == 'Ingeniería Aplicada'">
+                {{ item.data.nombre_proyecto }}
+              </td>
+              <td v-if="item.data.habitacion == 'Ingeniería Aplicada'">
+                {{ item.data.habitacion }}
+              </td>
+              <td
+                v-if="item.data.habitacion == 'Ingeniería Aplicada'"
+                @click="
+                  (descripcion = item.data.descripcion),
+                    (nombre_proyecto = item.data.nombre_proyecto)
+                "
+              >
+                <img
+                  v-b-modal="modalId(item.id)"
+                  class="img_item botn"
+                  src="@/assets/img/icons/visibilidad.svg"
+                  alt="imagnen_perfil"
+                />
+                <!-- <b-btn v-b-modal="modalId(item.id)">ver</b-btn> -->
+                <b-modal
+                  :header-bg-variant="headerBgVariant"
+                  :header-text-variant="headerTextVariant"
+                  :body-bg-variant="bodyBgVariant"
+                  :body-text-variant="bodyTextVariant"
+                  :footer-bg-variant="footerBgVariant"
+                  :footer-text-variant="footerTextVariant"
+                  centered
+                  :id="item.id"
+                  title="Revisión de Formulario de proyecto "
+                >
+                  <div class="popup_ver">
+                    <div class="primerrow">
+                      <div>
+                        <h3 class="subtittle">Nombre del Proyecto</h3>
+                        <!-- <p>{{ item.data.nombre_proyecto }}</p> -->
+                        <input type="text" v-model="nombre_proyecto" />
+                      </div>
+                      <div>
+                        <h3 class="subtittle">Materia</h3>
+                        <p>{{ item.data.habitacion }}</p>
+                      </div>
+                    </div>
+                    <div class="secondrow">
+                      <h3 class="subtittle">Descripción</h3>
+                      <!-- <p class="descripcion">{{ item.data.descripcion }}</p> -->
+                      <textarea
+                        style="height: 12rem"
+                        type="text"
+                        v-model="descripcion"
+                      />
+                    </div>
+                    <div class="tercerdrow">
+                      <h3 class="subtittle">Imágenes</h3>
+                      <b-img-lazy
+                        v-bind="mainProps"
+                        :src="getImageUrl(item.data.imagen)"
+                        alt="Image 1"
+                      ></b-img-lazy>
+                    </div>
+                  </div>
+                  <template #modal-footer="{}">
+                    <b-button
+                      variant="danger"
+                      @click.prevent="updateStatusD(item.id, item.data.id)"
+                    >
+                      Denegar
+                    </b-button>
+                    <b-spinner v-if="cargando" label="Spinning"></b-spinner>
+                    <b-button
+                      variant="success"
+                      @click="updateStatusA(item.id, item.data.id)"
+                    >
+                      Aprobar
+                    </b-button>
+                    <b-spinner v-if="cargando2" label="Spinning"></b-spinner>
+                  </template>
+                </b-modal>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="overflow-auto" style="height: 75%" v-if="mostrarI">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Correo</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Nombre del Proyecto</th>
+              <th scope="col">Materia</th>
+              <th scope="col">Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in proyectos" v-bind:key="item.id">
+              <th v-if="item.data.habitacion == 'Ingeniería'" scope="row">
+                {{ item.data.nombre }}
+              </th>
+              <td
+                v-if="
+                  item.data.estado == 'aprobado' &&
+                  item.data.habitacion == 'Ingeniería'
+                "
+              >
+                <b class="aprobado">{{ item.data.estado }}</b>
+              </td>
+              <td
+                v-if="
+                  item.data.estado == 'denegado' &&
+                  item.data.habitacion == 'Ingeniería'
+                "
+              >
+                <b class="denegado">{{ item.data.estado }}</b>
+              </td>
+              <td
+                v-if="
+                  item.data.estado == 'pendiente' &&
+                  item.data.habitacion == 'Ingeniería'
+                "
+              >
+                <b class="pendiente">{{ item.data.estado }}</b>
+              </td>
+              <td v-if="item.data.habitacion == 'Ingeniería'">
+                {{ item.data.nombre_proyecto }}
+              </td>
+              <td v-if="item.data.habitacion == 'Ingeniería'">
+                {{ item.data.habitacion }}
+              </td>
+              <td
+                v-if="item.data.habitacion == 'Ingeniería'"
                 @click="
                   (descripcion = item.data.descripcion),
                     (nombre_proyecto = item.data.nombre_proyecto)
@@ -269,6 +669,10 @@ export default {
       nombre: null,
       correo: null,
       descripcion: null,
+      mostrarCB: null,
+      mostrarH: null,
+      mostrarIA: null,
+      mostrarI: null,
       materia: null,
       nombre_proyecto: null,
       mostrardep: false,
@@ -292,11 +696,29 @@ export default {
         width: 600,
         height: 400,
       },
+      mostrarMaterias: true,
     };
   },
 
   methods: {
     verCB() {
+      this.mostrarCB = true;
+      this.mostrarMaterias = false;
+      console.log("ver ciencias basicas");
+    },
+    verH() {
+      this.mostrarH = true;
+      this.mostrarMaterias = false;
+      console.log("ver ciencias basicas");
+    },
+    verIA() {
+      this.mostrarIA = true;
+      this.mostrarMaterias = false;
+      console.log("ver ciencias basicas");
+    },
+    verI() {
+      this.mostrarI = true;
+      this.mostrarMaterias = false;
       console.log("ver ciencias basicas");
     },
     getImageUrl(imageId) {
@@ -469,6 +891,19 @@ export default {
 
   max-width: 150px;
   filter: brightness(0);
+}
+.materias {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  background: black;
+  height: 200px;
+  width: 500px;
+  margin: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
 }
 </style>>
 
