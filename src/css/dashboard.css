@@ -70,7 +70,6 @@
     font-weight: 500;
     text-transform: capitalize;
     border-bottom: 1.5px solid #a8abb750;
-    width: 70%;
 }
 
 .menu {
@@ -272,4 +271,18 @@ a {
     width: 3rem;
     height: 3rem;
     object-fit: contain;
+}
+
+.materias {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    background: black;
+    height: 200px;
+    width: 500px;
+    margin: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
 }

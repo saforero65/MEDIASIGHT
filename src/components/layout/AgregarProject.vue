@@ -2,11 +2,13 @@
   <div class="background">
     <div class="menu_box">
       <div class="perfil">
-        <img
-          class="img_perfil"
-          :src="getImageUrl(avatar)"
-          alt="imagen perfil"
-        />
+        <div class="img_perfils">
+          <img
+            class="img_perfil"
+            :src="getImageUrl(avatar)"
+            alt="imagen perfil"
+          />
+        </div>
         <h2 class="perfil_name">{{ nombre }}</h2>
         <h3 class="perfil_type">{{ tipo }}</h3>
       </div>
