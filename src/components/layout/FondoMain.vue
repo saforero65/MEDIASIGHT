@@ -748,21 +748,31 @@ export default {
       // calculate objects intersecting the picking ray
       this.intersects = this.raycaster.intersectObjects(this.grupo1.children);
       // const intersects = this.raycaster.intersectObjects(this.scene.children);
-      if (this.intersects.length > 0) {
+      if (this.intersects.length > 0 && this.mixer.length != 0) {
         console.log("intersecto un objeto");
+        let aux = 0;
         let action = this.mixer.clipAction(this.animations[0]);
         let action1 = this.mixer.clipAction(this.animations[1]);
-        // action.paused = false;
-        action1.play();
-        action1.crossFadeFrom(action, 1, true);
+        // action1.paused = false;
+        if (aux == 0) {
+          aux == 1;
+          action.stop();
+          action1.play();
+        }
+
+        // action1.crossFadeFrom(action, 1, true);
       }
-      if (this.intersects.length == 0) {
-        console.log("intersectando FONDO");
+      if (this.intersects.length == 0 && this.mixer.length != 0) {
+        console.log("intersecto FONDO");
+        let aux = 0;
         let action = this.mixer.clipAction(this.animations[0]);
         let action1 = this.mixer.clipAction(this.animations[1]);
-        // action.paused = false;
-        action.play();
-        action.crossFadeFrom(action1, 1, true);
+        // action1.paused = true;
+        if (aux == 0) {
+          aux == 1;
+          action1.stop();
+          action.play();
+        }
       }
     },
     content_ponits() {
