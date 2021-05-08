@@ -453,7 +453,7 @@ export default {
       renderer: null,
       clock: null,
       mixer: [],
-      raycaster: null,
+      grupo1: null,
       points: [],
       intersects: [],
       contenidos: null,
@@ -474,6 +474,9 @@ export default {
       particulas: null,
       particulas2: null,
       aux2: 0,
+      raycaster: null,
+      mouse: new THREE.Vector2(),
+      animations: [],
     };
   },
   methods: {
@@ -701,7 +704,7 @@ export default {
 
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
         const model = gltf.scene;
-        const animations = gltf.animations;
+        this.animations = gltf.animations;
 
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
@@ -709,8 +712,9 @@ export default {
         });
 
         this.mixer = new THREE.AnimationMixer(model);
-        console.log(animations);
-        const action = this.mixer.clipAction(animations[0]);
+        console.log(this.animations);
+
+        let action = this.mixer.clipAction(this.animations[0]);
         action.play();
         this.scene.add(model);
         console.log(`modelo cargado`);
@@ -719,82 +723,47 @@ export default {
         model.scale.set(5, 5, 5);
         // model.needsUpdate = true;
       });
-      this.raycaster = new THREE.Raycaster();
-      this.points = [
-        {
-          position: new THREE.Vector3(-1.6789, 0.44965, 0.10555),
-          element: document.querySelector(".pointProject_1"),
-        },
-        {
-          position: new THREE.Vector3(1.65975, 1.4345, 0.03925),
-          element: document.querySelector(".pointProject_2"),
-        },
-        {
-          position: new THREE.Vector3(-0.244, 2.3842, -0.24985),
-          element: document.querySelector(".pointProject_3"),
-        },
-        {
-          position: new THREE.Vector3(1.6473, 3.35865, 0.03885),
-          element: document.querySelector(".pointProject_4"),
-        },
-        {
-          position: new THREE.Vector3(-1.6811, 0.5912, 0.00745),
-          element: document.querySelector(".point-1"),
-        },
-        {
-          position: new THREE.Vector3(-0.6839, 0.3635, -0.0836),
-          element: document.querySelector(".point-2"),
-        },
-        {
-          position: new THREE.Vector3(-0.84935, 0.3072, 0.55295),
-          element: document.querySelector(".point-3"),
-        },
-        // {
-        //   position: new THREE.Vector3(1.63735, 1.56235, -0.045),
-        //   element: document.querySelector(".point-4"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.6827, 1.19975, 0.0751),
-        //   element: document.querySelector(".point-5"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.24735, 1.6617, -0.46475),
-        //   element: document.querySelector(".point-6"),
-        // },
-        // {
-        //   position: new THREE.Vector3(1.615, 3.4663, -0.04465),
-        //   element: document.querySelector(".point-7"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.8487, 3.3736, 0.23075),
-        //   element: document.querySelector(".point-8"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.57445, 3.45325, -0.0522),
-        //   element: document.querySelector(".point-9"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.60245, 3.3337, -0.7051),
-        //   element: document.querySelector(".point-10"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.26745, 2.50965, -0.3352),
-        //   element: document.querySelector(".point-11"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.72475, 2.5461, -0.4612),
-        //   element: document.querySelector(".point-12"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.49355, 2.1686, 0.5836),
-        //   element: document.querySelector(".point-13"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.55145, 3.5849, -0.76405),
-        //   element: document.querySelector(".point-14"),
-        // },
-      ];
+      // ------------------------------------------------------
+      this.grupo1 = new THREE.Object3D();
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      const cube = new THREE.Mesh(geometry, material);
+      // this.scene.add(cube);
+      this.grupo1.add(cube);
+      // ------------------
+
       this.render();
+    },
+    onMouseMove(event) {
+      // calculate mouse position in normalized device coordinates
+      // (-1 to +1) for both components
+
+      event.preventDefault();
+      this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      this.raycaster = new THREE.Raycaster();
+      this.raycaster.setFromCamera(this.mouse, this.camera);
+
+      this.scene.add(this.grupo1);
+      // calculate objects intersecting the picking ray
+      this.intersects = this.raycaster.intersectObjects(this.grupo1.children);
+      // const intersects = this.raycaster.intersectObjects(this.scene.children);
+      if (this.intersects.length > 0) {
+        console.log("intersecto un objeto");
+        let action = this.mixer.clipAction(this.animations[0]);
+        let action1 = this.mixer.clipAction(this.animations[1]);
+        // action.paused = false;
+        action1.play();
+        action1.crossFadeFrom(action, 1, true);
+      }
+      if (this.intersects.length == 0) {
+        console.log("intersectando FONDO");
+        let action = this.mixer.clipAction(this.animations[0]);
+        let action1 = this.mixer.clipAction(this.animations[1]);
+        // action.paused = false;
+        action.play();
+        action.crossFadeFrom(action1, 1, true);
+      }
     },
     content_ponits() {
       for (this.point of this.points) {
@@ -845,11 +814,13 @@ export default {
 
         this.controls.update();
         // this.scene.update();
+
         if (this.mixer.length != 0) {
           this.mixer.update(delta);
           // this.content_ponits();
-          console.log(`mixer update fondo main`);
+          // console.log(`mixer update fondo main`);
         }
+        window.addEventListener("mousemove", this.onMouseMove, false);
         this.renderer.render(this.scene, this.camera);
         // console.log(this.camera.position);
       } else {
