@@ -653,6 +653,7 @@
 import Firebase from "firebase";
 import { db } from "@/firebase/init";
 require("@/css/dashboard.css");
+
 export default {
   data() {
     return {
@@ -699,6 +700,7 @@ export default {
       mostrarMaterias: true,
     };
   },
+
   methods: {
     volver() {
       this.mostrarCB = false;
@@ -791,6 +793,7 @@ export default {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error);
         });
+
       db.collection("proyecto")
         .doc(id2)
         .update({
@@ -893,9 +896,11 @@ export default {
 }
 .botn {
   margin: 0rem;
+
   max-width: 150px;
   filter: brightness(0);
 }
+
 .materias {
   display: flex;
   justify-content: center;
@@ -919,9 +924,15 @@ export default {
   text-align: center;
   align-items: center;
 }
+
 @media screen and (max-width: 1440px) {
   .card {
-    background: black;
+    background: radial-gradient(
+      circle,
+      rgba(36, 50, 65, 1) 0%,
+      rgba(40, 153, 158, 1) 0%,
+      rgba(36, 50, 65, 1) 100%
+    );
     height: 25vh;
     width: 35vh;
     margin: 1rem;
@@ -930,3 +941,4 @@ export default {
   }
 }
 </style>>
+
