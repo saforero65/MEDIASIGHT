@@ -843,18 +843,11 @@ export default {
 
         const delta = this.clock.getDelta();
 
-        // var time = Date.now() * 0.008;
-        // this.particulas.position.x = Math.cos(time * 0.005) * -1;
-        // this.particulas.position.y = Math.cos(time * 0.005) * 1;
-        // this.particulas.rotation.y = Math.cos(time * 0.005) * 1;
-        // this.particulas2.position.x = Math.cos(time * 0.005) * 1;
-        // this.particulas2.position.y = Math.cos(time * 0.005) * -1;
-        // this.particulas2.rotation.x = Math.cos(time * 0.005) * 1;
         this.controls.update();
         // this.scene.update();
         if (this.mixer.length != 0) {
           this.mixer.update(delta);
-          this.content_ponits();
+          // this.content_ponits();
           console.log(`mixer update fondo main`);
         }
         this.renderer.render(this.scene, this.camera);
