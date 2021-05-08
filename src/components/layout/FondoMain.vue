@@ -1,12 +1,38 @@
 <template>
   <div>
-    <button
-      v-if="saltar && ocultar == true"
-      @click.prevent="ocultar = false"
-      class="btn_Saltar"
-    >
-      SALTAR
-    </button>
+    <div>
+      <button
+        v-if="saltar && ocultar == true"
+        @click.prevent="ocultar = false"
+        class="arrow right"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="60px"
+          height="80px"
+          viewBox="0 0 50 80"
+          xml:space="preserve"
+        >
+          <polyline
+            fill="none"
+            stroke="#FFFFFF"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            points="
+	0.375,0.375 45.63,38.087 0.375,75.8 "
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="lds-ellipsis saltar" v-if="saltar == false">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     <button
       v-show="saltar && ocultar == true"
       @click.prevent="ocultar = false"
@@ -16,6 +42,7 @@
     </button>
     <PreLoader v-if="ocultar" />
     <div id="scene-container" ref="sceneContainer">
+      <button class="MoverCamara" @click="Mover">Cámara</button>
       <div>
         <transition name="fade">
           <div class="modal-overlay" v-if="showModal"></div>
@@ -412,7 +439,7 @@ export default {
     return {
       ocultar: true,
       saltar: false,
-
+      Mover_Camara: false,
       proyectos: [],
       showModal: false,
       showModal2: false,
@@ -450,6 +477,15 @@ export default {
     };
   },
   methods: {
+    Mover() {
+      if (this.Mover_Camara) {
+        this.camera.position.set(0, 2, 6);
+        this.Mover_Camara = false;
+      } else {
+        this.camera.position.set(0, 0, 0);
+        this.Mover_Camara = true;
+      }
+    },
     onSlideStart() {
       this.sliding = true;
     },
@@ -464,7 +500,6 @@ export default {
       // console.log(Object.values(this.contenidos));
       // estabcer el container
       this.container = this.$refs.sceneContainer;
-
       //elemento clock para animacion
       this.clock = new THREE.Clock();
       // crear render
@@ -502,19 +537,15 @@ export default {
       // this.controls.maxDistance = 3;
       // this.controls.autoRotate = true;
       // this.controls.autoRotateSpeed = 0.2;
-
       this.controls.enableDamping = true;
       this.controls.dampingFactor = 0.5;
-
       this.controls.update();
       // añade luces
       // const hemiLight = new THREE.HemisphereLight(0xffffff, 0x94c9ff, 2);
       // hemiLight.position.set(0, 3, 0);
-
       // this.scene.add(hemiLight);
       // const helper1 = new THREE.HemisphereLightHelper(hemiLight, 2);
       // this.scene.add(helper1);
-
       // const dirLight3 = new THREE.DirectionalLight(0xffffff, 1);
       // dirLight3.position.set(0, 10, 5);
       // // dirLight3.target.position.set(0, 1, 0);
@@ -527,7 +558,6 @@ export default {
       // dirLight3.shadow.camera.near = 0.1;
       // dirLight3.shadow.camera.far = 40;
       // this.scene.add(dirLight3);
-
       const dirLight = new THREE.DirectionalLight(0xffffff, 1);
       dirLight.position.set(0, 3, 5);
       dirLight.target.position.set(0, 1, 0);
@@ -542,7 +572,6 @@ export default {
       this.scene.add(dirLight);
       // const helper = new THREE.DirectionalLightHelper(dirLight, 1);
       // this.scene.add(helper);
-
       const dirLight2 = new THREE.DirectionalLight(0xffffff, 1);
       dirLight2.position.set(0, 6, 5);
       dirLight2.target.position.set(0, 3, 0);
@@ -557,34 +586,28 @@ export default {
       this.scene.add(dirLight2);
       // const helper2 = new THREE.DirectionalLightHelper(dirLight2, 1);
       // this.scene.add(helper2);
-
       const width = 1;
       const height = 1;
-
       const rectLight = new THREE.RectAreaLight(0xade8f4, 7, width, height);
       rectLight.position.set(-0.3, 1.5, 1.3);
       rectLight.lookAt(-1, 0.5, -0.5);
       this.scene.add(rectLight);
       // this.scene.add(new RectAreaLightHelper(rectLight));
-
       const rectLight2 = new THREE.RectAreaLight(0xffd000, 4, width, height);
       rectLight2.position.set(0.5, 2.5, 0.7);
       rectLight2.lookAt(1, 1.5, 0);
       this.scene.add(rectLight2);
       // this.scene.add(new RectAreaLightHelper(rectLight2));
-
       const rectLight3 = new THREE.RectAreaLight(0xffdd33, 7, width, height);
       rectLight3.position.set(-1, 3.5, 1);
       rectLight3.lookAt(-1, 2.5, -0.5);
       this.scene.add(rectLight3);
       // this.scene.add(new RectAreaLightHelper(rectLight3));
-
       const rectLight4 = new THREE.RectAreaLight(0x240046, 7, width, height);
       rectLight4.position.set(1, 3.8, 0.6);
       rectLight4.lookAt(1, 3.5, 0);
       this.scene.add(rectLight4);
       // this.scene.add(new RectAreaLightHelper(rectLight4));
-
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
         this.container.clientWidth / this.container.clientHeight;
@@ -602,14 +625,11 @@ export default {
       const axesHelper = new THREE.AxesHelper(5);
       axesHelper.translateY(-1);
       this.scene.add(axesHelper);
-
       //FONDO
       // var geometry2 = new THREE.BufferGeometry();
       // var sphere = new THREE.SphereGeometry(0.4, 15);
       // var plano = new THREE.CircleGeometry(1, 10);
-
       // var textureLoader = new THREE.TextureLoader();
-
       // var sprite1 = textureLoader.load("@/assets/logo.png");
       // var sprite2 = textureLoader.load('textures/snowflake2.png');
       // var Material1 = new THREE.MeshStandardMaterial({
@@ -628,24 +648,19 @@ export default {
       // });
       // // const material = new THREE.WireframeGeometry(geometry);
       // // const material2 = new THREE.WireframeGeometry(geometry2);
-
       // var range = 5;
       // this.particulas = new THREE.Object3D();
       // this.scene.add(this.particulas);
       // this.particulas2 = new THREE.Object3D();
       // this.scene.add(this.particulas2);
-
       // for (var i = 0; i < 10; i++) {
       //   var cube = new THREE.Mesh(geometry, material3);
-
       //   cube.position.x = range * (0.5 - Math.random());
       //   cube.position.y = range * (0.5 - Math.random());
       //   cube.position.z = range * (0.5 - Math.random());
       //   cube.rotation.x = range * (0.5 - Math.random());
       //   this.particulas.add(cube);
-
       //   var cube2 = new THREE.Mesh(geometry2, material3);
-
       //   cube2.position.x = range * (0.5 - Math.random());
       //   cube2.position.y = range * (0.5 - Math.random());
       //   cube2.rotation.y = range * (0.5 - Math.random());
@@ -655,23 +670,19 @@ export default {
       // this.particulas2.translateX(-10);
       // this.particulas.translateX(-10);
       const loader = new GLTFLoader();
-
       // var fondo1 = new THREE.CubeTextureLoader()
       //   .setPath("/fondobox/")
       //   .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
       // // fondo1.format = THREE.RGBFormat;
       // console.log(fondo1);
       // this.scene.background = fondo1;
-
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
         const model = gltf.scene;
         const animations = gltf.animations;
-
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
         });
-
         this.mixer = new THREE.AnimationMixer(model);
         console.log(animations);
         const action = this.mixer.clipAction(animations[0]);
@@ -804,9 +815,7 @@ export default {
     render() {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
         requestAnimationFrame(this.render);
-
         const delta = this.clock.getDelta();
-
         // var time = Date.now() * 0.008;
         // this.particulas.position.x = Math.cos(time * 0.005) * -1;
         // this.particulas.position.y = Math.cos(time * 0.005) * 1;
@@ -832,7 +841,6 @@ export default {
         console.log(`PARO DE RENDERIZAR mixer update fondoMain`);
         this.$router.push({ name: "login" });
       }
-
       if (this.statuspadre4 == false && this.aux2 == 1 && this.mixer == 0) {
         this.mixer = 0;
         console.log(`PARO DE RENDERIZAR mixer update fondo2`);
@@ -866,7 +874,6 @@ export default {
           });
         });
       });
-
     db.collection("contenido")
       .doc("0.01")
       .onSnapshot((doc) => {
@@ -940,3 +947,160 @@ export default {
   },
 };
 </script>
+<style scoped>
+.lds-ellipsis {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+button {
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+svg {
+  padding: 5px;
+  width: 2rem;
+}
+.arrow {
+  cursor: pointer;
+  position: absolute;
+  /* top: 50%; */
+  margin-top: -45px;
+  margin-left: -35px;
+  width: 70px;
+  height: 90px;
+  z-index: 500;
+  right: 6rem;
+  bottom: 1.5rem;
+  color: white;
+}
+.right:hover polyline,
+.right:focus polyline {
+  stroke-width: 10;
+}
+.right:active polyline {
+  stroke-width: 15;
+  transition: all 100ms ease-in-out;
+}
+polyline {
+  transition: all 250ms ease-in-out;
+  stroke-width: 5;
+}
+.btn_iniciar {
+  position: absolute;
+  border-radius: 25px;
+  padding: 0.2rem 0;
+  height: 50px;
+  width: 15%;
+  background-color: #d01f22;
+  color: #0e031a;
+  display: inline-flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
+  margin: auto;
+  z-index: 500;
+  top: 150px;
+  bottom: -3rem;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  animation: cambiar 2s;
+  animation-delay: 9s;
+  animation-fill-mode: forwards;
+}
+@keyframes cambiar {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media screen and (max-width: 1340px) {
+  .btn_iniciar {
+    position: absolute;
+    border-radius: 25px;
+    padding: 0.2rem 0;
+    height: 50px;
+    width: 15%;
+    background-color: #d01f22;
+    color: #0e031a;
+    display: inline-flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
+    margin: auto;
+    z-index: 500;
+    top: 150px;
+    bottom: 4rem;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    animation: cambiar 2s;
+    animation-delay: 9s;
+    animation-fill-mode: forwards;
+  }
+}
+</style>

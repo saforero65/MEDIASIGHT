@@ -93,7 +93,6 @@ export default {
   background-color: #333;
   z-index: 90;
 }
-
 .content {
   position: absolute;
   width: 100%;
@@ -108,15 +107,15 @@ export default {
   font-size: 50px;
   font-weight: bold;
   animation: cambiarpagina 2s;
-  animation-delay: 10s;
+  animation-delay: 8s;
   animation-fill-mode: forwards;
 }
 .content1,
 .content2 {
   position: absolute;
   font-weight: 200;
-  font-size: 30px;
-  line-height: 0.9;
+  font-size: 25px;
+  line-height: 1;
   left: 0;
   margin: auto 15rem;
   /* right: 0; */
@@ -134,7 +133,6 @@ export default {
   animation: cambiar 10s;
   animation-fill-mode: forwards;
 }
-
 .img_logo {
   margin-top: 2vh;
   max-width: 22%;
@@ -148,15 +146,13 @@ export default {
   flex-direction: column;
   align-items: center;
   animation: mostrarlogo 3s;
-  animation-delay: 11s;
+  animation-delay: 10s;
   animation-fill-mode: forwards;
 }
-
 @keyframes cambiar {
   0% {
     opacity: 0;
   }
-
   25% {
     opacity: 1;
   }
@@ -171,7 +167,6 @@ export default {
   0% {
     opacity: 1;
   }
-
   100% {
     opacity: 0;
   }
@@ -180,12 +175,10 @@ export default {
   0% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }
 }
-
 #stars {
   content: "e";
   background: transparent;
@@ -551,7 +544,6 @@ export default {
     797px 1480px #fff, 1516px 684px #fff, 559px 1733px #fff, 1265px 718px #fff,
     1263px 54px #fff, 693px 113px #fff, 1456px 1459px #fff, 1527px 1324px #fff;
 }
-
 #stars2 {
   width: 2px;
   height: 2px;
@@ -668,7 +660,6 @@ export default {
     367px 42px #fff, 100px 690px #fff, 1831px 458px #fff, 1884px 1878px #fff,
     814px 1013px #fff;
 }
-
 #stars3 {
   width: 1px;
   height: 1px;
@@ -760,7 +751,6 @@ export default {
     222px 571px #fff, 1908px 1401px #fff, 1856px 1204px #fff, 338px 1645px #fff,
     1528px 1050px #fff;
 }
-
 @keyframes animStar {
   from {
     transform: translateY(0px);

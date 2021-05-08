@@ -273,16 +273,8 @@ a {
     object-fit: contain;
 }
 
-.materias {
-    display: flex;
-    justify-content: center;
-}
-
-.card {
-    background: black;
-    height: 200px;
-    width: 500px;
-    margin: 1rem;
-    border-radius: 10px;
-    cursor: pointer;
+.volver {
+    position: absolute;
+    bottom: 3rem;
+    right: 5rem;
 }
