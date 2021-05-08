@@ -927,7 +927,12 @@ export default {
 
 @media screen and (max-width: 1440px) {
   .card {
-    background: black;
+    background: radial-gradient(
+      circle,
+      rgba(36, 50, 65, 1) 0%,
+      rgba(40, 153, 158, 1) 0%,
+      rgba(36, 50, 65, 1) 100%
+    );
     height: 25vh;
     width: 35vh;
     margin: 1rem;
