@@ -1,12 +1,38 @@
 <template>
   <div>
-    <button
-      v-if="saltar && ocultar == true"
-      @click.prevent="ocultar = false"
-      class="btn_Saltar"
-    >
-      SALTAR
-    </button>
+    <div>
+      <button
+        v-if="saltar && ocultar == true"
+        @click.prevent="ocultar = false"
+        class="arrow right"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="60px"
+          height="80px"
+          viewBox="0 0 50 80"
+          xml:space="preserve"
+        >
+          <polyline
+            fill="none"
+            stroke="#FFFFFF"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            points="
+	0.375,0.375 45.63,38.087 0.375,75.8 "
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="lds-ellipsis saltar" v-if="saltar == false">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     <button
       v-show="saltar && ocultar == true"
       @click.prevent="ocultar = false"
@@ -950,3 +976,167 @@ export default {
   },
 };
 </script>
+<style scoped>
+.lds-ellipsis {
+  display: inline-block;
+
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+button {
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+svg {
+  padding: 5px;
+  width: 2rem;
+}
+
+.arrow {
+  cursor: pointer;
+  position: absolute;
+  /* top: 50%; */
+  margin-top: -45px;
+  margin-left: -35px;
+  width: 70px;
+  height: 90px;
+  z-index: 500;
+  right: 6rem;
+  bottom: 1.5rem;
+  color: white;
+}
+
+.right:hover polyline,
+.right:focus polyline {
+  stroke-width: 10;
+}
+
+.right:active polyline {
+  stroke-width: 15;
+  transition: all 100ms ease-in-out;
+}
+
+polyline {
+  transition: all 250ms ease-in-out;
+  stroke-width: 5;
+}
+.btn_iniciar {
+  position: absolute;
+  border-radius: 25px;
+  padding: 0.2rem 0;
+  height: 50px;
+  width: 15%;
+  background-color: #d01f22;
+  color: #0e031a;
+  display: inline-flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
+  margin: auto;
+  z-index: 500;
+  top: 150px;
+  bottom: -3rem;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  animation: cambiar 2s;
+  animation-delay: 9s;
+  animation-fill-mode: forwards;
+}
+@keyframes cambiar {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media screen and (max-width: 1340px) {
+  .btn_iniciar {
+    position: absolute;
+    border-radius: 25px;
+    padding: 0.2rem 0;
+    height: 50px;
+    width: 15%;
+    background-color: #d01f22;
+    color: #0e031a;
+    display: inline-flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
+    margin: auto;
+    z-index: 500;
+    top: 150px;
+    bottom: 4rem;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    animation: cambiar 2s;
+    animation-delay: 9s;
+    animation-fill-mode: forwards;
+  }
+}
+</style>

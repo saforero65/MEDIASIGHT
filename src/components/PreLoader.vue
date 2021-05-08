@@ -108,15 +108,15 @@ export default {
   font-size: 50px;
   font-weight: bold;
   animation: cambiarpagina 2s;
-  animation-delay: 10s;
+  animation-delay: 8s;
   animation-fill-mode: forwards;
 }
 .content1,
 .content2 {
   position: absolute;
   font-weight: 200;
-  font-size: 30px;
-  line-height: 0.9;
+  font-size: 25px;
+  line-height: 1;
   left: 0;
   margin: auto 15rem;
   /* right: 0; */
@@ -148,7 +148,7 @@ export default {
   flex-direction: column;
   align-items: center;
   animation: mostrarlogo 3s;
-  animation-delay: 11s;
+  animation-delay: 10s;
   animation-fill-mode: forwards;
 }
 

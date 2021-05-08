@@ -272,3 +272,9 @@ a {
     height: 3rem;
     object-fit: contain;
 }
+
+.volver {
+    position: absolute;
+    bottom: 3rem;
+    right: 5rem;
+}

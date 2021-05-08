@@ -79,7 +79,15 @@
           </div>
         </template>
       </div>
-      <div v-if="mostrarMaterias">
+      <div
+        v-if="mostrarMaterias"
+        style="
+          height: 75%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
         <div class="materias">
           <div>
             <a @click="verCB()">
@@ -87,13 +95,8 @@
                 overlay
                 text-variant="white"
                 title="Ciencias Basicas"
-                sub-title="Subtitle"
                 style="max-width: 500px"
               >
-                <b-card-text>
-                  Some quick example text to build on the card and make up the
-                  bulk of the card's content.
-                </b-card-text>
               </b-card>
             </a>
           </div>
@@ -103,13 +106,8 @@
                 overlay
                 text-variant="white"
                 title="Humanistica"
-                sub-title="Subtitle"
                 style="max-width: 500px"
               >
-                <b-card-text>
-                  Some quick example text to build on the card and make up the
-                  bulk of the card's content.
-                </b-card-text>
               </b-card>
             </a>
           </div>
@@ -121,13 +119,8 @@
                 overlay
                 text-variant="white"
                 title="Ingenieria Aplicada"
-                sub-title="Subtitle"
                 style="max-width: 500px"
               >
-                <b-card-text>
-                  Some quick example text to build on the card and make up the
-                  bulk of the card's content.
-                </b-card-text>
               </b-card>
             </a>
           </div>
@@ -137,20 +130,19 @@
                 overlay
                 text-variant="white"
                 title="Ingenieria"
-                sub-title="Subtitle"
                 style="max-width: 500px; min-heigth=100px"
               >
-                <b-card-text>
-                  Some quick example text to build on the card and make up the
-                  bulk of the card's content.
-                </b-card-text>
               </b-card>
             </a>
           </div>
         </div>
       </div>
       <div class="overflow-auto" style="height: 75%" v-if="mostrarCB">
-        <table class="table table-striped">
+        <b-button pill variant="primary" class="volver" @click="volver()"
+          >Volver</b-button
+        >
+
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">Correo</th>
@@ -273,7 +265,10 @@
         </table>
       </div>
       <div class="overflow-auto" style="height: 75%" v-if="mostrarH">
-        <table class="table table-striped">
+        <b-button pill variant="primary" class="volver" @click="volver()"
+          >Volver</b-button
+        >
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">Correo</th>
@@ -396,7 +391,10 @@
         </table>
       </div>
       <div class="overflow-auto" style="height: 75%" v-if="mostrarIA">
-        <table class="table table-striped">
+        <b-button pill variant="primary" class="volver" @click="volver()"
+          >Volver</b-button
+        >
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">Correo</th>
@@ -522,7 +520,10 @@
         </table>
       </div>
       <div class="overflow-auto" style="height: 75%" v-if="mostrarI">
-        <table class="table table-striped">
+        <b-button pill variant="primary" class="volver" @click="volver()"
+          >Volver</b-button
+        >
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">Correo</th>
@@ -701,6 +702,13 @@ export default {
   },
 
   methods: {
+    volver() {
+      this.mostrarCB = false;
+      this.mostrarH = false;
+      this.mostrarIA = false;
+      this.mostrarI = false;
+      this.mostrarMaterias = true;
+    },
     verCB() {
       this.mostrarCB = true;
       this.mostrarMaterias = false;
@@ -892,18 +900,40 @@ export default {
   max-width: 150px;
   filter: brightness(0);
 }
+
 .materias {
   display: flex;
   justify-content: center;
 }
-
 .card {
-  background: black;
-  height: 200px;
-  width: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(36, 50, 65, 1) 0%,
+    rgba(40, 153, 158, 1) 0%,
+    rgba(36, 50, 65, 1) 100%
+  );
+  height: 25vh;
+  width: 55vh;
   margin: 1rem;
   border-radius: 10px;
   cursor: pointer;
+}
+.card-img-overlay {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 1440px) {
+  .card {
+    background: black;
+    height: 25vh;
+    width: 35vh;
+    margin: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 }
 </style>>
 
