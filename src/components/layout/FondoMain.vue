@@ -774,7 +774,7 @@ export default {
     content_ponits() {
       for (this.point of this.points) {
         // Get 2D screen position
-        // this.mixer.update(delta);
+
         const screenPosition = this.point.position.clone();
         screenPosition.project(this.camera);
         // Set the raycaster
@@ -816,13 +816,7 @@ export default {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
         requestAnimationFrame(this.render);
         const delta = this.clock.getDelta();
-        // var time = Date.now() * 0.008;
-        // this.particulas.position.x = Math.cos(time * 0.005) * -1;
-        // this.particulas.position.y = Math.cos(time * 0.005) * 1;
-        // this.particulas.rotation.y = Math.cos(time * 0.005) * 1;
-        // this.particulas2.position.x = Math.cos(time * 0.005) * 1;
-        // this.particulas2.position.y = Math.cos(time * 0.005) * -1;
-        // this.particulas2.rotation.x = Math.cos(time * 0.005) * 1;
+
         this.controls.update();
         // this.scene.update();
         if (this.mixer.length != 0) {
