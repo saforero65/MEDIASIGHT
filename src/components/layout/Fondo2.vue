@@ -1,11 +1,20 @@
 <template>
   <div id="scene-container" ref="sceneContainer">
 <div class="Caja_Ascensor">
-      <a class="MoverCamaraAbajo" @click="MoverAbajo">
+      <a v-if="aux1 == false" class="MoverCamaraAbajo" @click="MoverAbajo">
         <img src="@/assets/img/icons/boton-abajo.svg" alt="abajo"/>
       </a>
-      <p>Ciencias básicas</p>
-      <a class="MoverCamaraArriba" @click="MoverArriba">
+      <a v-if="aux1" class="MoverCamaraAbajo Off" @click="MoverAbajo">
+        <img src="@/assets/img/icons/boton-abajo.svg" alt="abajo"/>
+      </a>
+      <div v-if="habitacion == 1"><p>Ciencias básicas</p></div>
+      <div v-if="habitacion == 2"><p>Humanística</p></div>
+      <div v-if="habitacion == 3"><p>Diseño</p></div>
+      <div v-if="habitacion == 4"><p>Ingeniería aplicada</p></div>
+      <a v-if="aux == false" class="MoverCamaraArriba" @click="MoverArriba">
+        <img src="@/assets/img/icons/boton-arriba.svg" alt="arriba"/>
+      </a>
+      <a v-if="aux" class="MoverCamaraArriba Off" @click="MoverArriba">
         <img src="@/assets/img/icons/boton-arriba.svg" alt="arriba"/>
       </a>
     </div>
@@ -345,7 +354,7 @@
 <script>
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // import { InteractionManager } from "three.interactive";
 import { TWEEN } from "three/examples/jsm/libs/tween.module.min";
 //import { GUI } from '/jsm/libs/dat.gui.module';
@@ -388,170 +397,138 @@ export default {
       contenidos13: null,
       contenidos14: null,
       point: null,
+      sphereMesh: null,
+      aux: false,
+      aux1: true,
+      habitacion: 1,
     };
   },
   
   methods: {
-    animate: function (callback) {
-    function loop(time) {
-    callback(time);
-    requestAnimationFrame(loop);}
-    requestAnimationFrame(loop);},
-
+    HabitacionArriba(){
+      if(this.camera.position.y <= 1.5)
+      {
+        this.aux = false;
+        this.aux1 = false;
+        this.habitacion = 2;
+      }
+      else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
+      {
+        this.aux = false;
+        this.aux1 = false;
+        this.habitacion = 3;
+      }
+      else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
+      {
+        this.aux = true;
+        this.aux1 = false;
+        this.habitacion = 4;
+      }
+    },
+    HabitacionAbajo(){
+        if (this.camera.position.y >= 3.5)
+        {
+          this.aux = false;
+          this.aux1 = false;
+          this.habitacion = 3;
+        }
+        else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
+        {
+          this.aux = false;
+          this.aux1 = false;
+          this.habitacion = 2;
+        }
+        else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
+        {
+          this.aux = false;
+          this.aux1 = true;
+          this.habitacion = 1;
+        }
+    },
     MoverArriba() {
-        if(this.camera.position.y == 0.8)
+        this.HabitacionArriba();
+        if(this.camera.position.y <= 1.5)
         {
-          const coords = { x: this.camera.position.x, y: this.camera.position.y };
-          const coordsA = {y: this.ascensor.position.y };
-          this.camera.position.z = 1.8;
-          this.camera.position.y = 1.85;
-          this.camera.position.x = 0.75;
-          this.camera.rotation.set(-0.3,0,0);
-          this.ascensor.position.y = 1;
-          this.ascensor.rotation.set(0,((Math.PI/2)+20),0);
-          const camara = new TWEEN.Tween(coords)
-          .to({ x: this.camera.position.x, y: this.camera.position.y})
-          .onUpdate(() =>
-          this.camera.position.set(coords.x, coords.y, this.camera.position.z),
-          )
+          this.sphereMesh.position.x = 0.8;
+          this.sphereMesh.position.y = 1.2;
+          this.sphereMesh.position.z = -0.5;
+          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+          this.controls.update();
+          let position1 = new THREE.Vector3(0.8,1.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
           camara.start();
-          const ascensor = new TWEEN.Tween2(coordsA)
-          .to({y: this.ascensor.position.y})
-          .onUpdate(() =>
-          this.ascensor.position.set(coordsA.y),
-          )
-          ascensor.start();
+          this.camera.rotation.set(-0.3,0,0); 
         }
-        
-
-        else if (this.camera.position.y == 1.85)
+        else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
         {
-          const coords = { x: this.camera.position.x, y: this.camera.position.y };
-          const coordsA = {y: this.ascensor.position.y };         
-          this.camera.position.z = 1.8;
-          this.camera.position.y = 2.75;
-          this.camera.position.x = -0.8;
-          this.camera.rotation.set(-0.3,0,0);
-          this.ascensor.position.y = 1.95;
-          this.ascensor.rotation.set(0,0,0);
-          const camara = new TWEEN.Tween(coords)
-          .to({ x: this.camera.position.x, y: this.camera.position.y })
-          .onUpdate(() =>
-            this.camera.position.set(coords.x, coords.y, this.camera.position.z),
-          )
-        camara.start();
-          const ascensor = new TWEEN.Tween2(coordsA)
-          .to({y: this.ascensor.position.y})
-          .onUpdate(() =>
-          this.ascensor.position.set(coordsA.y),
-          )
-          ascensor.start();
-        }
-
-        else if (this.camera.position.y == 2.75)
-        {
-          const coords = { x: this.camera.position.x, y: this.camera.position.y };
-          const coordsA = {y: this.ascensor.position.y };         
-          this.camera.position.z = 1.8;
-          this.camera.position.y = 3.75;
-          this.camera.position.x = 0.75;
-          this.camera.rotation.set(-0.3,0,0);   
-          this.ascensor.position.y = 2.88;
-          this.ascensor.rotation.set(0,((Math.PI/2)+20),0);
-          const camara = new TWEEN.Tween(coords)
-          .to({x: this.camera.position.x, y: this.camera.position.y})
-          .onUpdate(() =>
-            this.camera.position.set(coords.x, coords.y, this.camera.position.z),
-          )
+          this.sphereMesh.position.x = -0.8;
+          this.sphereMesh.position.y = 2.2;
+          this.sphereMesh.position.z = -0.5;
+          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+          this.controls.update();
+          let position1 = new THREE.Vector3(-0.8,2.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
           camara.start();
-          const ascensor = new TWEEN.Tween2(coordsA)
-          .to({y: this.ascensor.position.y})
-          .onUpdate(() =>
-          this.ascensor.position.set(coordsA.y),         
-          )
-          ascensor.start();
+          this.camera.rotation.set(-0.3,0,0);
+        }
+        else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
+        {
+          this.sphereMesh.position.x = 0.8;
+          this.sphereMesh.position.y = 3;
+          this.sphereMesh.position.z = -0.5;
+          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+          this.controls.update();
+          let position1 = new THREE.Vector3(0.8,3.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          camara.start();
+          this.camera.rotation.set(-0.3,0,0);
         }
     },
-
     MoverAbajo() {
-        if (this.camera.position.y == 1.85)
+        this.HabitacionAbajo();
+        if (this.camera.position.y >= 3.5)
         {
-          const coords = { x: this.camera.position.x, y: this.camera.position.y };
-          const coordsA = {y: this.ascensor.position.y };         
-          this.camera.position.z = 1.8;
-          this.camera.position.y = 0.8;
-          this.camera.position.x = -0.8;
-          this.camera.rotation.set(-0.3,0,0);  
-          this.ascensor.position.y = 0.015;
-          this.ascensor.rotation.set(0,0,0);
-          const camara = new TWEEN.Tween(coords)
-          .to({x: this.camera.position.x, y: this.camera.position.y})
-          .onUpdate(() =>
-            this.camera.position.set(coords.x, coords.y, this.camera.position.z),
-          )
-         camara.start();
-          const ascensor = new TWEEN.Tween2(coordsA)
-          .to({y: this.ascensor.position.y})
-          .onUpdate(() =>
-          this.ascensor.position.set(coordsA.y),         
-          )
-          ascensor.start();
-        }
-        else if (this.camera.position.y == 2.75)
-        {
-          const coords = { x: this.camera.position.x, y: this.camera.position.y };
-          const coordsA = {y: this.ascensor.position.y };           
-          this.camera.position.z = 1.8;
-          this.camera.position.y = 1.85;
-          this.camera.position.x = 0.8;
+          this.sphereMesh.position.x = -0.8;
+          this.sphereMesh.position.y = 2.2;
+          this.sphereMesh.position.z = -0.5;
+          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+          this.controls.update();
+          let position1 = new THREE.Vector3(-0.8,2.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          camara.start();
           this.camera.rotation.set(-0.3,0,0);
-          this.ascensor.position.y = 1;
-          this.ascensor.rotation.set(0,((Math.PI/2)+20),0);
-          const camara = new TWEEN.Tween(coords)
-          .to({x: this.camera.position.x, y: this.camera.position.y})
-          .onUpdate(() =>
-            this.camera.position.set(coords.x, coords.y, this.camera.position.z),
-          )
-         camara.start();
-          const ascensor = new TWEEN.Tween2(coordsA)
-          .to({y: this.ascensor.position.y})
-          .onUpdate(() =>
-          this.ascensor.position.set(coordsA.y),         
-          )
-          ascensor.start();
         }
-        else if (this.camera.position.y == 3.75)
+        else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
         {
-          const coords = { x: this.camera.position.x, y: this.camera.position.y };
-          const coordsA = {y: this.ascensor.position.y };           
-          this.camera.position.z = 1.8;
-          this.camera.position.y = 2.75;
-          this.camera.position.x = -0.8;
+          this.sphereMesh.position.x = 0.8;
+          this.sphereMesh.position.y = 1.2;
+          this.sphereMesh.position.z = -0.5;
+          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+          this.controls.update();
+          let position1 = new THREE.Vector3(0.8,1.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          camara.start();
           this.camera.rotation.set(-0.3,0,0);
-          this.ascensor.position.y = 1.95;
-          this.ascensor.rotation.set(0,0,0);
-          const camara = new TWEEN.Tween(coords)
-          .to({ x: this.camera.position.x, y: this.camera.position.y })
-          .onUpdate(() =>
-            this.camera.position.set(coords.x, coords.y, this.camera.position.z),
-          )
-         camara.start();
-          const ascensor = new TWEEN.Tween2(coordsA)
-          .to({y: this.ascensor.position.y})
-          .onUpdate(() =>
-          this.ascensor.position.set(coordsA.y),         
-          )
-          ascensor.start();
         }
-    },
-
-    // createCube: function({ color, x, y }) {
-    // const geometry = new THREE.BoxGeometry(1,1,1);
-    // const material = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.2});
-    // const cube = new THREE.Mesh(geometry, material);
-    // cube.position.set(x, y, 0);
-    // return cube;},
-  
+        else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
+        {
+          this.sphereMesh.position.x = -0.8;
+          this.sphereMesh.position.y = 0;
+          this.sphereMesh.position.z = -0.5;
+          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+          this.controls.update();
+          let position1 = new THREE.Vector3(-0.8,0.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          camara.start();
+          this.camera.rotation.set(-0.3,0,0);
+        }
+      },
     onSlideStart() {
       this.sliding = true;
     },
@@ -586,58 +563,31 @@ export default {
       
       // añade camaras
       this.camera = new THREE.PerspectiveCamera(45,this.container.clientWidth / this.container.clientHeight,0.1,100);
-     
-    //  const interactionManager = new InteractionManager(
-    //   this.renderer,
-    //   this.camera,
-    //   this.renderer.domElement
-    //   );
 
-    this.camera.position.z = 1.8;
-    this.camera.position.y = 0.8;
+var sphere=new THREE.SphereGeometry(2,2,2);
+var sphereMaterial=new THREE.MeshLambertMaterial({color:0xff0000});
+this.sphereMesh = new THREE.Mesh(sphere,sphereMaterial);
+this.sphereMesh.position.x = -0.8;
+this.sphereMesh.position.y = 0;
+this.sphereMesh.position.z = -0.5;
+// this.scene.add(this.sphereMesh);
     this.camera.position.x = -0.8;
+    this.camera.position.y = 0.85;
+    this.camera.position.z = 1.8;
     this.camera.rotation.set(-0.3,0,0);
 
-  //   const cubes = {
-  //    pink: this.createCube({ color: 0xff00ce, x: -0.8, y: 0.8 }),
-  //    purple: this.createCube({ color: 0x9300fb, x: 1, y: 2 }),
-  //    blue: this.createCube({ color: 0x0065d9, x: 1, y: 2 }),
-  //    cyan: this.createCube({ color: 0x00d7d0, x: -1, y: 2 })};
-
-  //    for (const [name, object] of Object.entries(cubes)) {
-  //     object.addEventListener("click", (event) => {
-  //     event.stopPropagation();
-  //     console.log(`${name} cube was clicked`);
-  //     const cube = event.target;
-  //     const coords = { x: this.camera.position.x, y: this.camera.position.y };
-  //     new TWEEN.Tween(coords)
-  //     .to({ x: cube.position.x, y: cube.position.y })
-  //     .onUpdate(() =>
-  //       this.camera.position.set(coords.x, coords.y, this.camera.position.z),
-  //       this.camera.rotation.set(-0.3,0,0)
-  //     )
-  //     .start();
-  // });
-  //   interactionManager.add(object);
-  //   this.scene.add(object);
-  // }
-
-    this.animate(() => {
-    this.renderer.render(this.scene, this.camera);
-    // interactionManager.update();
-    TWEEN.update(this.time);
-    });
-
       //Orbit controls
-      //this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-      // this.controls.target.set(0, 0, 0); //Objetivo de la cámara
-      // this.controls.enablePan = true;
-      //this.controls.maxAzimuthAngle = [-2 * Math.PI, Math.PI / 2];
-      // this.controls.maxPolarAngle = Math.PI / 2;
-      // this.controls.minDistance = 1;
-      // this.controls.maxDistance = 7;
-      //this.controls.enableDamping = true;
-      //this.controls.update();
+      this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+      this.controls.enablePan = false;
+      this.controls.minAzimuthAngle = [7*Math.PI/4];
+      this.controls.maxAzimuthAngle = [Math.PI/4];
+      this.controls.minPolarAngle = Math.PI / 4;
+      this.controls.maxPolarAngle = 5*Math.PI / 12;
+      this.controls.minDistance = 1;
+      this.controls.maxDistance = 2.34;
+      // this.controls.enableDamping = true;      
+      this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+      this.controls.update();
 
       // añade luces
       const ambientLight = new THREE.HemisphereLight(
@@ -688,7 +638,7 @@ export default {
       const animations1 = gltf1.animations;
       this.mixer = new THREE.AnimationMixer(VentanaIA);
       console.log(animations1);
-      const action1 = this.mixer1.clipAction(animations1[0]);
+      const action1 = this.mixer.clipAction(animations1[0]);
       action1.play();
       this.scene.add(VentanaIA);
       console.log(`modelo cargado`);
@@ -703,11 +653,7 @@ export default {
         console.log(`modelo cargado`);
         lampara.position.set(0, 0, 0);
         lampara.scale.set(5, 5, 5);
-        // lampara.traverse( ( object ) => {
-        // if ( object.isMesh ) 
-        // {
-        // object.material.color.set( 0x000000);
-        // }});
+
         this.scene.add(lampara);
       });
         const loader2 = new GLTFLoader();
@@ -762,82 +708,6 @@ export default {
         this.PuertaIA.scale.set(5, 5, 5);
         this.PuertaIA.rotation.set(0,2,0);
       });
-
-      this.raycaster = new THREE.Raycaster();
-      // this.points = [
-      //   {
-      //     position: new THREE.Vector3(-1.6789, 0.44965, 0.10555),
-      //     element: document.querySelector(".pointProject_1"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(1.65975, 1.4345, 0.03925),
-      //     element: document.querySelector(".pointProject_2"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(-0.244, 2.3842, -0.24985),
-      //     element: document.querySelector(".pointProject_3"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(1.6473, 3.35865, 0.03885),
-      //     element: document.querySelector(".pointProject_4"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(-1.6811, 0.5912 ,0.00745),
-      //     element: document.querySelector(".point-1"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(-0.6839, 0.3635, -0.0836),
-      //     element: document.querySelector(".point-2"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(-0.84935, 0.3072, 0.55295),
-      //     element: document.querySelector(".point-3"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(1.63735, 1.56235, -0.045),
-      //     element: document.querySelector(".point-4"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(0.6827, 1.19975, 0.0751),
-      //     element: document.querySelector(".point-5"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(0.24735, 1.6617, -0.46475),
-      //     element: document.querySelector(".point-6"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(1.615, 3.4663, -0.04465),
-      //     element: document.querySelector(".point-7"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(0.8487, 3.3736, 0.23075),
-      //     element: document.querySelector(".point-8"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(0.57445, 3.45325, -0.0522),
-      //     element: document.querySelector(".point-9"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(0.60245, 3.3337, -0.7051),
-      //     element: document.querySelector(".point-10"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(-0.26745, 2.50965, -0.3352),
-      //     element: document.querySelector(".point-11"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(-0.72475, 2.5461, -0.4612),
-      //     element: document.querySelector(".point-12"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(-0.49355, 2.1686, 0.5836),
-      //     element: document.querySelector(".point-13"),
-      //   },
-      //   {
-      //     position: new THREE.Vector3(0.55145, 3.5849, -0.76405),
-      //     element: document.querySelector(".point-14"),
-      //   },
-      // ];
       this.render();
     },
 
@@ -845,6 +715,7 @@ export default {
       requestAnimationFrame(this.render);
       const delta = this.clock.getDelta();
       //this.controls.update();
+    TWEEN.update(this.time);
       // this.scene.update();
       if (this.mixer.length != 0) {
         this.mixer.update(delta);
@@ -923,110 +794,6 @@ export default {
         });
       });
 
-    this.contenidos = [];
-    // db.collection("contenido")
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //       this.id = `${doc.id}`;
-    //       this.contenidos[doc.id] = doc.data().descripcion;
-    //     });
-    //   });
-    // let iterable = [
-    //   0.01,
-    //   0.02,
-    //   0.03,
-    //   0.04,
-    //   0.05,
-    //   0.06,
-    //   0.07,
-    //   0.08,
-    //   0.09,
-    //   0.1,
-    //   0.11,
-    //   0.12,
-    //   0.13,
-    //   0.14,
-    // ];
-    // for (let value of iterable) {
-    //   db.collection("contenido")
-    //     .doc(`${value}`)
-    //     .onSnapshot((doc) => {
-    //       this.contenidos[value] = `${doc.data().descripcion}`;
-    //     });
-    //   console.log(this.contenidos);
-    // }
-
-    // db.collection("contenido")
-    //   .doc("0.01")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.02")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos2 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.03")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos3 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.04")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos4 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.05")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos5 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.06")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos6 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.07")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos7 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.08")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos8 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.09")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos9 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.1")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos10 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.11")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos11 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.12")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos12 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.13")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos13 = `${doc.data().descripcion}`;
-    //   });
-    // db.collection("contenido")
-    //   .doc("0.14")
-    //   .onSnapshot((doc) => {
-    //     this.contenidos14 = `${doc.data().descripcion}`;
-    //   });
   },
 };
 </script>
@@ -1258,5 +1025,8 @@ export default {
   background-color: yellow;  
   /* border: 2px solid yellow; */
 }
-
+.Off, .Off:hover{
+  background-color: darkgrey;
+  cursor: default;
+}
 </style>
