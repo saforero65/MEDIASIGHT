@@ -449,41 +449,44 @@ export default {
         this.HabitacionArriba();
         if(this.camera.position.y <= 1.5)
         {
+          let position1 = new THREE.Vector3(0.8,1.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000,)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          camara.start();
           this.sphereMesh.position.x = 0.8;
           this.sphereMesh.position.y = 1.2;
           this.sphereMesh.position.z = -0.5;
           this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
           this.controls.update();
-          let position1 = new THREE.Vector3(0.8,1.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          camara.start();
           this.camera.rotation.set(-0.3,0,0); 
         }
         else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
         {
+          let position1 = new THREE.Vector3(-0.8,2.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          camara.start();
           this.sphereMesh.position.x = -0.8;
           this.sphereMesh.position.y = 2.2;
           this.sphereMesh.position.z = -0.5;
           this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
           this.controls.update();
-          let position1 = new THREE.Vector3(-0.8,2.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          camara.start();
           this.camera.rotation.set(-0.3,0,0);
         }
         else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
         {
+          let position1 = new THREE.Vector3(0.8,3.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          camara.start();
           this.sphereMesh.position.x = 0.8;
           this.sphereMesh.position.y = 3;
           this.sphereMesh.position.z = -0.5;
           this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
           this.controls.update();
-          let position1 = new THREE.Vector3(0.8,3.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          camara.start();
           this.camera.rotation.set(-0.3,0,0);
         }
     },
@@ -491,41 +494,44 @@ export default {
         this.HabitacionAbajo();
         if (this.camera.position.y >= 3.5)
         {
+          let position1 = new THREE.Vector3(-0.8,2.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          camara.start();
           this.sphereMesh.position.x = -0.8;
           this.sphereMesh.position.y = 2.2;
           this.sphereMesh.position.z = -0.5;
           this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
           this.controls.update();
-          let position1 = new THREE.Vector3(-0.8,2.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          camara.start();
           this.camera.rotation.set(-0.3,0,0);
         }
         else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
         {
+          let position1 = new THREE.Vector3(0.8,1.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          camara.start();
           this.sphereMesh.position.x = 0.8;
           this.sphereMesh.position.y = 1.2;
           this.sphereMesh.position.z = -0.5;
           this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
           this.controls.update();
-          let position1 = new THREE.Vector3(0.8,1.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          camara.start();
           this.camera.rotation.set(-0.3,0,0);
         }
         else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
         {
+          let position1 = new THREE.Vector3(-0.8,0.85,1.8);
+          let camara = new TWEEN.Tween(this.camera.position)
+          .to(position1, 1000)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          camara.start();
           this.sphereMesh.position.x = -0.8;
           this.sphereMesh.position.y = 0;
           this.sphereMesh.position.z = -0.5;
           this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
           this.controls.update();
-          let position1 = new THREE.Vector3(-0.8,0.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          camara.start();
           this.camera.rotation.set(-0.3,0,0);
         }
       },
