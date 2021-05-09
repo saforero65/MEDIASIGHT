@@ -1,38 +1,12 @@
 <template>
   <div>
-    <div>
-      <button
-        v-if="saltar && ocultar == true"
-        @click.prevent="ocultar = false"
-        class="arrow right"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="60px"
-          height="80px"
-          viewBox="0 0 50 80"
-          xml:space="preserve"
-        >
-          <polyline
-            fill="none"
-            stroke="#FFFFFF"
-            stroke-width="1"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            points="
-	0.375,0.375 45.63,38.087 0.375,75.8 "
-          />
-        </svg>
-      </button>
-    </div>
-
-    <div class="lds-ellipsis saltar" v-if="saltar == false">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <button
+      v-if="saltar && ocultar == true"
+      @click.prevent="ocultar = false"
+      class="btn_Saltar"
+    >
+      SALTAR
+    </button>
     <button
       v-show="saltar && ocultar == true"
       @click.prevent="ocultar = false"
@@ -444,6 +418,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TWEEN } from "three/examples/jsm/libs/tween.module.min";
+// import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper";
 require("@/css/fondomain.css");
 import { db } from "@/firebase/init";
 export default {
@@ -454,13 +429,11 @@ export default {
   },
   data() {
     return {
+      ocultar: true,
+      saltar: false,
       aux1: false,
       habitacion: 1,
       aux: false,
-      sphereMesh: null,
-      ocultar: true,
-      saltar: false,
-      Mover_Camara: false,
       proyectos: [],
       showModal: false,
       showModal2: false,
@@ -495,6 +468,7 @@ export default {
       particulas: null,
       particulas2: null,
       aux2: 0,
+      sphereMesh: null,
     };
   },
   methods: {
@@ -643,9 +617,9 @@ export default {
     },
     init() {
       console.log(this.contenidos);
-      // console.log(Object.values(this.contenidos));
-      // estabcer el container
+
       this.container = this.$refs.sceneContainer;
+
       //elemento clock para animacion
       this.clock = new THREE.Clock();
       // crear render
@@ -684,6 +658,7 @@ export default {
       this.camera.rotation.set(-0.3, 0, 0);
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+
       this.controls.enablePan = false;
       this.controls.minAzimuthAngle = [(7 * Math.PI) / 4];
       this.controls.maxAzimuthAngle = [Math.PI / 4];
@@ -711,6 +686,7 @@ export default {
       this.scene.add(dirLight);
       // const helper = new THREE.DirectionalLightHelper(dirLight, 1);
       // this.scene.add(helper);
+
       const dirLight2 = new THREE.DirectionalLight(0xffffff, 1);
       dirLight2.position.set(0, 6, 5);
       dirLight2.target.position.set(0, 3, 0);
@@ -725,28 +701,34 @@ export default {
       this.scene.add(dirLight2);
       // const helper2 = new THREE.DirectionalLightHelper(dirLight2, 1);
       // this.scene.add(helper2);
+
       const width = 1;
       const height = 1;
+
       const rectLight = new THREE.RectAreaLight(0xade8f4, 7, width, height);
       rectLight.position.set(-0.3, 1.5, 1.3);
       rectLight.lookAt(-1, 0.5, -0.5);
       this.scene.add(rectLight);
       // this.scene.add(new RectAreaLightHelper(rectLight));
+
       const rectLight2 = new THREE.RectAreaLight(0xffd000, 4, width, height);
       rectLight2.position.set(0.5, 2.5, 0.7);
       rectLight2.lookAt(1, 1.5, 0);
       this.scene.add(rectLight2);
       // this.scene.add(new RectAreaLightHelper(rectLight2));
+
       const rectLight3 = new THREE.RectAreaLight(0xffdd33, 7, width, height);
       rectLight3.position.set(-1, 3.5, 1);
       rectLight3.lookAt(-1, 2.5, -0.5);
       this.scene.add(rectLight3);
       // this.scene.add(new RectAreaLightHelper(rectLight3));
+
       const rectLight4 = new THREE.RectAreaLight(0x240046, 7, width, height);
       rectLight4.position.set(1, 3.8, 0.6);
       rectLight4.lookAt(1, 3.5, 0);
       this.scene.add(rectLight4);
       // this.scene.add(new RectAreaLightHelper(rectLight4));
+
       // establecer el aspecto respecto al tamaño de la ventana
       this.camera.aspect =
         this.container.clientWidth / this.container.clientHeight;
@@ -770,10 +752,12 @@ export default {
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
         const model = gltf.scene;
         const animations = gltf.animations;
+
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
         });
+
         this.mixer = new THREE.AnimationMixer(model);
         console.log(animations);
         const action = this.mixer.clipAction(animations[0]);
@@ -785,87 +769,13 @@ export default {
         model.scale.set(5, 5, 5);
         // model.needsUpdate = true;
       });
-      this.raycaster = new THREE.Raycaster();
-      this.points = [
-        {
-          position: new THREE.Vector3(-1.6789, 0.44965, 0.10555),
-          element: document.querySelector(".pointProject_1"),
-        },
-        {
-          position: new THREE.Vector3(1.65975, 1.4345, 0.03925),
-          element: document.querySelector(".pointProject_2"),
-        },
-        {
-          position: new THREE.Vector3(-0.244, 2.3842, -0.24985),
-          element: document.querySelector(".pointProject_3"),
-        },
-        {
-          position: new THREE.Vector3(1.6473, 3.35865, 0.03885),
-          element: document.querySelector(".pointProject_4"),
-        },
-        {
-          position: new THREE.Vector3(-1.6811, 0.5912, 0.00745),
-          element: document.querySelector(".point-1"),
-        },
-        {
-          position: new THREE.Vector3(-0.6839, 0.3635, -0.0836),
-          element: document.querySelector(".point-2"),
-        },
-        {
-          position: new THREE.Vector3(-0.84935, 0.3072, 0.55295),
-          element: document.querySelector(".point-3"),
-        },
-        // {
-        //   position: new THREE.Vector3(1.63735, 1.56235, -0.045),
-        //   element: document.querySelector(".point-4"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.6827, 1.19975, 0.0751),
-        //   element: document.querySelector(".point-5"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.24735, 1.6617, -0.46475),
-        //   element: document.querySelector(".point-6"),
-        // },
-        // {
-        //   position: new THREE.Vector3(1.615, 3.4663, -0.04465),
-        //   element: document.querySelector(".point-7"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.8487, 3.3736, 0.23075),
-        //   element: document.querySelector(".point-8"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.57445, 3.45325, -0.0522),
-        //   element: document.querySelector(".point-9"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.60245, 3.3337, -0.7051),
-        //   element: document.querySelector(".point-10"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.26745, 2.50965, -0.3352),
-        //   element: document.querySelector(".point-11"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.72475, 2.5461, -0.4612),
-        //   element: document.querySelector(".point-12"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.49355, 2.1686, 0.5836),
-        //   element: document.querySelector(".point-13"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.55145, 3.5849, -0.76405),
-        //   element: document.querySelector(".point-14"),
-        // },
-      ];
+
       this.render();
     },
     content_ponits() {
       for (this.point of this.points) {
         // Get 2D screen position
-
+        // this.mixer.update(delta);
         const screenPosition = this.point.position.clone();
         screenPosition.project(this.camera);
         // Set the raycaster
@@ -908,14 +818,12 @@ export default {
         requestAnimationFrame(this.render);
         const delta = this.clock.getDelta();
         TWEEN.update(this.time);
-
         if (this.mixer.length != 0) {
           this.mixer.update(delta);
-          // this.content_ponits();
+
           console.log(`mixer update fondo main`);
         }
         this.renderer.render(this.scene, this.camera);
-        // console.log(this.camera.position);
       } else {
         this.mixer = 0;
         this.aux2 = 1;
@@ -925,6 +833,7 @@ export default {
         console.log(`PARO DE RENDERIZAR mixer update fondoMain`);
         this.$router.push({ name: "login" });
       }
+
       if (this.statuspadre4 == false && this.aux2 == 1 && this.mixer == 0) {
         this.mixer = 0;
         console.log(`PARO DE RENDERIZAR mixer update fondo2`);
@@ -958,6 +867,7 @@ export default {
           });
         });
       });
+
     db.collection("contenido")
       .doc("0.01")
       .onSnapshot((doc) => {
@@ -1031,160 +941,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-.lds-ellipsis {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
-}
-.lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #fff;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
-}
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(24px, 0);
-  }
-}
-button {
-  -webkit-appearance: none;
-  background: transparent;
-  border: 0;
-  outline: 0;
-}
-svg {
-  padding: 5px;
-  width: 2rem;
-}
-.arrow {
-  cursor: pointer;
-  position: absolute;
-  /* top: 50%; */
-  margin-top: -45px;
-  margin-left: -35px;
-  width: 70px;
-  height: 90px;
-  z-index: 500;
-  right: 6rem;
-  bottom: 1.5rem;
-  color: white;
-}
-.right:hover polyline,
-.right:focus polyline {
-  stroke-width: 10;
-}
-.right:active polyline {
-  stroke-width: 15;
-  transition: all 100ms ease-in-out;
-}
-polyline {
-  transition: all 250ms ease-in-out;
-  stroke-width: 5;
-}
-.btn_iniciar {
-  position: absolute;
-  border-radius: 25px;
-  padding: 0.2rem 0;
-  height: 50px;
-  width: 15%;
-  background-color: #d01f22;
-  color: #0e031a;
-  display: inline-flex;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
-  margin: auto;
-  z-index: 500;
-  top: 150px;
-  bottom: -3rem;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  animation: cambiar 2s;
-  animation-delay: 9s;
-  animation-fill-mode: forwards;
-}
-@keyframes cambiar {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@media screen and (max-width: 1340px) {
-  .btn_iniciar {
-    position: absolute;
-    border-radius: 25px;
-    padding: 0.2rem 0;
-    height: 50px;
-    width: 15%;
-    background-color: #d01f22;
-    color: #0e031a;
-    display: inline-flex;
-    text-decoration: none;
-    justify-content: center;
-    align-items: center;
-    font-size: 22px;
-    font-weight: bold;
-    text-transform: uppercase;
-    border: none;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
-    margin: auto;
-    z-index: 500;
-    top: 150px;
-    bottom: 4rem;
-    left: 0;
-    right: 0;
-    opacity: 0;
-    animation: cambiar 2s;
-    animation-delay: 9s;
-    animation-fill-mode: forwards;
-  }
-}
-</style>
+

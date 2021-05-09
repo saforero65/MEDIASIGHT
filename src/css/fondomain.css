@@ -184,3 +184,52 @@
     right: 6rem;
     bottom: 40px;
 }
+
+.Caja_Ascensor {
+    position: fixed;
+    bottom: 2%;
+    right: 40%;
+    min-width: 10vh;
+    width: 30vh;
+    max-width: 30vh;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Caja_Ascensor p {
+    margin: 0;
+}
+
+.MoverCamaraArriba {
+    padding: 1.5vh;
+    border-radius: 50%;
+    background-color: rgb(214, 214, 214);
+    cursor: pointer;
+}
+
+.MoverCamaraArriba img,
+.MoverCamaraAbajo img {
+    min-width: 0.5vh;
+    max-width: 2.5vh;
+}
+
+.MoverCamaraAbajo {
+    padding: 1.5vh;
+    border-radius: 50%;
+    background-color: rgb(214, 214, 214);
+    cursor: pointer;
+}
+
+.MoverCamaraArriba:hover,
+.MoverCamaraAbajo:hover {
+    background-color: yellow;
+    /* border: 2px solid yellow; */
+}
+
+.Off,
+.Off:hover {
+    background-color: darkgrey;
+    cursor: default;
+}
