@@ -1,6 +1,6 @@
 <template>
   <div id="scene-container" ref="sceneContainer">
-<div class="Caja_Ascensor">
+    <div class="Caja_Ascensor">
       <a v-if="aux1 == false" class="MoverCamaraAbajo" @click="MoverAbajo">
         <img src="@/assets/img/icons/boton-abajo.svg" alt="abajo"/>
       </a>
@@ -32,60 +32,59 @@
         <div class="modal-overlay" v-if="showModal4"></div>
       </transition>
       <div class="Fondo">
-      <transition name="fade">
-        <div v-if="showModal" class="modal_proyectos">
-          <!-- <h1>Proyectos</h1> -->
-          <div class="carrusel">
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              controls
-              no-animatio
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <div v-for="item in proyectos" v-bind:key="item.id">
-                <b-carousel-slide
-                  v-if="
-                    item.data.estado == 'aprobado' &&
-                    item.data.materia == 'Ciencias Basicas'
-                  "
-                >
-                  <template #img>
-                    <div class="contenedor_carrusel">
-                      <img
-                        :src="getImageUrl(item.data.imagen)"
-                        alt="image slot"
-                      />
-                      <div class="titulos">
-                        <h2 class="nombre_proyecto">
-                          {{ item.data.nombre_proyecto }}
-                        </h2>
-                        <h3 class="materia_proyecto">
-                          -
-                          {{ item.data.materia }}
-                        </h3>
+        <transition name="fade">
+          <div v-if="showModal" class="modal_proyectos">
+            <!-- <h1>Proyectos</h1> -->
+            <div class="carrusel">
+              <b-carousel
+                id="carousel-1"
+                v-model="slide"
+                controls
+                no-animatio
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+              >
+                <div v-for="item in proyectos" v-bind:key="item.id">
+                  <b-carousel-slide
+                    v-if="
+                      item.data.estado == 'aprobado' &&
+                      item.data.materia == 'Ciencias Basicas'
+                    "
+                  >
+                    <template #img>
+                      <div class="contenedor_carrusel">
+                        <img
+                          :src="getImageUrl(item.data.imagen)"
+                          alt="image slot"
+                        />
+                        <div class="titulos">
+                          <h2 class="nombre_proyecto">
+                            {{ item.data.nombre_proyecto }}
+                          </h2>
+                          <h3 class="materia_proyecto">
+                            -
+                            {{ item.data.materia }}
+                          </h3>
+                        </div>
+                        <p class="descripcion_proyecto">
+                          {{ item.data.descripcion }}
+                        </p>
                       </div>
-                      <p class="descripcion_proyecto">
-                        {{ item.data.descripcion }}
-                      </p>
-                    </div>
-                  </template>
-                </b-carousel-slide>
-              </div>
-            </b-carousel>
+                    </template>
+                  </b-carousel-slide>
+                </div>
+              </b-carousel>
+            </div>
+            <a class="posicion_boton_cerrar" @click="showModal = false">
+              <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
+            </a>
           </div>
-          <a class="posicion_boton_cerrar" @click="showModal = false">
-            <img src="@/assets/img/icons/cerrar.svg" alt="logo_umng" />
-          </a>
-        </div>
-      </transition>
+        </transition>
     </div>
     <div>
       <transition name="fade">
         <div class="modal-overlay" v-if="showModal"></div>
       </transition>
-
       <transition name="fade">
         <div v-if="showModal2" class="modal_proyectos">
           <!-- <h1>Proyectos</h1> -->
@@ -139,7 +138,6 @@
       <transition name="fade">
         <div class="modal-overlay" v-if="showModal2"></div>
       </transition>
-
       <transition name="fade">
         <div v-if="showModal3" class="modal_proyectos">
           <!-- <h1>Proyectos</h1> -->
@@ -193,7 +191,6 @@
       <transition name="fade">
         <div class="modal-overlay" v-if="showModal3"></div>
       </transition>
-
       <transition name="fade">
         <div v-if="showModal4" class="modal_proyectos">
           <!-- <h1>Proyectos</h1> -->
@@ -281,7 +278,6 @@
         {{ contenidos3 }}
       </div>
     </div>
-
     <div class="point point-4">
       <div class="label">4</div>
       <div class="text">
@@ -357,9 +353,8 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // import { InteractionManager } from "three.interactive";
 import { TWEEN } from "three/examples/jsm/libs/tween.module.min";
-//import { GUI } from '/jsm/libs/dat.gui.module';
-
 import { db } from "@/firebase/init";
+
 export default {
   name: "FondoMain",
   data() {
@@ -403,7 +398,6 @@ export default {
       habitacion: 1,
     };
   },
-  
   methods: {
     HabitacionArriba(){
       if(this.camera.position.y <= 1.5)
@@ -426,116 +420,230 @@ export default {
       }
     },
     HabitacionAbajo(){
-        if (this.camera.position.y >= 3.5)
-        {
-          this.aux = false;
-          this.aux1 = false;
-          this.habitacion = 3;
-        }
-        else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
-        {
-          this.aux = false;
-          this.aux1 = false;
-          this.habitacion = 2;
-        }
-        else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
-        {
-          this.aux = false;
-          this.aux1 = true;
-          this.habitacion = 1;
-        }
+      if (this.camera.position.y >= 3.5)
+      {
+        this.aux = false;
+        this.aux1 = false;
+        this.habitacion = 3;
+      }
+      else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
+      {
+        this.aux = false;
+        this.aux1 = false;
+        this.habitacion = 2;
+      }
+      else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
+      {
+        this.aux = false;
+        this.aux1 = true;
+        this.habitacion = 1;
+      }
     },
     MoverArriba() {
-        this.HabitacionArriba();
-        if(this.camera.position.y <= 1.5)
-        {
-          let position1 = new THREE.Vector3(0.8,1.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000,)
-          .easing(TWEEN.Easing.Quadratic.InOut)
-          camara.start();
-          this.sphereMesh.position.x = 0.8;
-          this.sphereMesh.position.y = 1.2;
-          this.sphereMesh.position.z = -0.5;
-          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
-          this.controls.update();
-          this.camera.rotation.set(-0.3,0,0); 
-        }
-        else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
-        {
-          let position1 = new THREE.Vector3(-0.8,2.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          .easing(TWEEN.Easing.Quadratic.InOut)
-          camara.start();
-          this.sphereMesh.position.x = -0.8;
-          this.sphereMesh.position.y = 2.2;
-          this.sphereMesh.position.z = -0.5;
-          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
-          this.controls.update();
-          this.camera.rotation.set(-0.3,0,0);
-        }
-        else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
-        {
-          let position1 = new THREE.Vector3(0.8,3.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          .easing(TWEEN.Easing.Quadratic.InOut)
-          camara.start();
-          this.sphereMesh.position.x = 0.8;
-          this.sphereMesh.position.y = 3;
-          this.sphereMesh.position.z = -0.5;
-          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
-          this.controls.update();
-          this.camera.rotation.set(-0.3,0,0);
-        }
+      this.HabitacionArriba();
+      if(this.camera.position.y <= 1.5)
+      {
+        let position1 = new THREE.Vector3(0.8,1.85,1.8);
+        let camara = new TWEEN.Tween(this.camera.position)
+        .to(position1, 1700,)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        camara.start();
+
+        let positionA = new THREE.Vector3(0, 0.98, 0);
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
+        .to(positionA, 1700,)
+        ascensor1.start();
+        let rotationA = new THREE.Vector3(0, 3.1416, 0);
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
+        .to(rotationA, 1700,)
+        ascensor2.start();
+        
+        let rotationP1 = new THREE.Vector3(0, 0, 0);
+        let Puerta1 = new TWEEN.Tween(this.PuertaCB.rotation)
+        .to(rotationP1, 1000,)
+        Puerta1.start();
+        let rotationP = new THREE.Vector3(0, 2, 0);
+        let Puerta = new TWEEN.Tween(this.PuertaH.rotation)
+        .to(rotationP, 2700,)
+        Puerta.start();
+
+        this.sphereMesh.position.x = 0.8;
+        this.sphereMesh.position.y = 1.2;
+        this.sphereMesh.position.z = -0.5;
+        this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+        this.controls.update();
+        this.camera.rotation.set(-0.3,0,0); 
+      }
+      else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
+      {
+        let position1 = new THREE.Vector3(-0.8,2.85,1.8);
+        let camara = new TWEEN.Tween(this.camera.position)
+        .to(position1, 1700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        camara.start();
+        
+        let positionA = new THREE.Vector3(0, 1.95, 0);
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
+        .to(positionA, 1700,)
+        ascensor1.start();
+        let rotationA = new THREE.Vector3(0, 0, 0);
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
+        .to(rotationA, 1700,)
+        ascensor2.start();
+        
+        let rotationP1 = new THREE.Vector3(0, 0, 0);
+        let Puerta1 = new TWEEN.Tween(this.PuertaH.rotation)
+        .to(rotationP1, 1000,)
+        Puerta1.start();
+        let rotationP = new THREE.Vector3(0, 2, 0);
+        let Puerta = new TWEEN.Tween(this.PuertaD.rotation)
+        .to(rotationP, 2700,)
+        Puerta.start();
+
+        this.sphereMesh.position.x = -0.8;
+        this.sphereMesh.position.y = 2.2;
+        this.sphereMesh.position.z = -0.5;
+        this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+        this.controls.update();
+        this.camera.rotation.set(-0.3,0,0);
+      }
+      else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
+      {
+        let position1 = new THREE.Vector3(0.8,3.85,1.8);
+        let camara = new TWEEN.Tween(this.camera.position)
+        .to(position1, 1700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        camara.start();
+        
+        let positionA = new THREE.Vector3(0, 2.9, 0);
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
+        .to(positionA, 1700,)
+        ascensor1.start();
+        let rotationA = new THREE.Vector3(0, 3.1416, 0);
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
+        .to(rotationA, 1700,)
+        ascensor2.start();
+        
+        let rotationP1 = new THREE.Vector3(0, 0, 0);
+        let Puerta1 = new TWEEN.Tween(this.PuertaD.rotation)
+        .to(rotationP1, 1000,)
+        Puerta1.start();
+        let rotationP = new THREE.Vector3(0, 2, 0);
+        let Puerta = new TWEEN.Tween(this.PuertaIA.rotation)
+        .to(rotationP, 2700,)
+        Puerta.start();
+
+        this.sphereMesh.position.x = 0.8;
+        this.sphereMesh.position.y = 3;
+        this.sphereMesh.position.z = -0.5;
+        this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+        this.controls.update();
+        this.camera.rotation.set(-0.3,0,0);
+      }
     },
     MoverAbajo() {
-        this.HabitacionAbajo();
-        if (this.camera.position.y >= 3.5)
-        {
-          let position1 = new THREE.Vector3(-0.8,2.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          .easing(TWEEN.Easing.Quadratic.InOut)
-          camara.start();
-          this.sphereMesh.position.x = -0.8;
-          this.sphereMesh.position.y = 2.2;
-          this.sphereMesh.position.z = -0.5;
-          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
-          this.controls.update();
-          this.camera.rotation.set(-0.3,0,0);
-        }
-        else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
-        {
-          let position1 = new THREE.Vector3(0.8,1.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          .easing(TWEEN.Easing.Quadratic.InOut)
-          camara.start();
-          this.sphereMesh.position.x = 0.8;
-          this.sphereMesh.position.y = 1.2;
-          this.sphereMesh.position.z = -0.5;
-          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
-          this.controls.update();
-          this.camera.rotation.set(-0.3,0,0);
-        }
-        else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
-        {
-          let position1 = new THREE.Vector3(-0.8,0.85,1.8);
-          let camara = new TWEEN.Tween(this.camera.position)
-          .to(position1, 1000)
-          .easing(TWEEN.Easing.Quadratic.InOut)
-          camara.start();
-          this.sphereMesh.position.x = -0.8;
-          this.sphereMesh.position.y = 0;
-          this.sphereMesh.position.z = -0.5;
-          this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
-          this.controls.update();
-          this.camera.rotation.set(-0.3,0,0);
-        }
-      },
-    onSlideStart() {
+      this.HabitacionAbajo();
+      if (this.camera.position.y >= 3.5)
+      {
+        let position1 = new THREE.Vector3(-0.8,2.85,1.8);
+        let camara = new TWEEN.Tween(this.camera.position)
+        .to(position1, 1700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        camara.start();
+        
+        let positionA = new THREE.Vector3(0, 1.95, 0);
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
+        .to(positionA, 1700,)
+        ascensor1.start();
+        let rotationA = new THREE.Vector3(0, 0, 0);
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
+        .to(rotationA, 1700,)
+        ascensor2.start();
+        
+        let rotationP1 = new THREE.Vector3(0, 0, 0);
+        let Puerta1 = new TWEEN.Tween(this.PuertaIA.rotation)
+        .to(rotationP1, 1000,)
+        Puerta1.start();
+        let rotationP = new THREE.Vector3(0, 2, 0);
+        let Puerta = new TWEEN.Tween(this.PuertaD.rotation)
+        .to(rotationP, 2700,)
+        Puerta.start();
+
+        this.sphereMesh.position.x = -0.8;
+        this.sphereMesh.position.y = 2.2;
+        this.sphereMesh.position.z = -0.5;
+        this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+        this.controls.update();
+        this.camera.rotation.set(-0.3,0,0);
+      }
+      else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
+      {
+        let position1 = new THREE.Vector3(0.8,1.85,1.8);
+        let camara = new TWEEN.Tween(this.camera.position)
+        .to(position1, 1700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        camara.start();
+        
+        let positionA = new THREE.Vector3(0, 0.98, 0);
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
+        .to(positionA, 1700,)
+        ascensor1.start();
+        let rotationA = new THREE.Vector3(0, 3.1416, 0);
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
+        .to(rotationA, 1700,)
+        ascensor2.start();
+        
+        let rotationP1 = new THREE.Vector3(0, 0, 0);
+        let Puerta1 = new TWEEN.Tween(this.PuertaD.rotation)
+        .to(rotationP1, 1000,)
+        Puerta1.start();
+        let rotationP = new THREE.Vector3(0, 2, 0);
+        let Puerta = new TWEEN.Tween(this.PuertaH.rotation)
+        .to(rotationP, 2700,)
+        Puerta.start();
+
+        this.sphereMesh.position.x = 0.8;
+        this.sphereMesh.position.y = 1.2;
+        this.sphereMesh.position.z = -0.5;
+        this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+        this.controls.update();
+        this.camera.rotation.set(-0.3,0,0);
+      }
+      else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
+      {
+        let position1 = new THREE.Vector3(-0.8,0.85,1.8);
+        let camara = new TWEEN.Tween(this.camera.position)
+        .to(position1, 1700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        camara.start();
+        
+        let positionA = new THREE.Vector3(0, 0, 0);
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
+        .to(positionA, 1700,)
+        ascensor1.start();
+        let rotationA = new THREE.Vector3(0, 0, 0);
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
+        .to(rotationA, 1700,)
+        ascensor2.start();
+        
+        let rotationP1 = new THREE.Vector3(0, 0, 0);
+        let Puerta1 = new TWEEN.Tween(this.PuertaH.rotation)
+        .to(rotationP1, 1000,)
+        Puerta1.start();
+        let rotationP = new THREE.Vector3(0, 2, 0);
+        let Puerta = new TWEEN.Tween(this.PuertaCB.rotation)
+        .to(rotationP, 2700,)
+        Puerta.start();
+
+        this.sphereMesh.position.x = -0.8;
+        this.sphereMesh.position.y = 0;
+        this.sphereMesh.position.z = -0.5;
+        this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
+        this.controls.update();
+        this.camera.rotation.set(-0.3,0,0);
+      }
+    },
+    oSlideStart() {
       this.sliding = true;
     },
     onSlideEnd() {
@@ -570,17 +678,17 @@ export default {
       // añade camaras
       this.camera = new THREE.PerspectiveCamera(45,this.container.clientWidth / this.container.clientHeight,0.1,100);
 
-var sphere=new THREE.SphereGeometry(2,2,2);
-var sphereMaterial=new THREE.MeshLambertMaterial({color:0xff0000});
-this.sphereMesh = new THREE.Mesh(sphere,sphereMaterial);
-this.sphereMesh.position.x = -0.8;
-this.sphereMesh.position.y = 0;
-this.sphereMesh.position.z = -0.5;
-// this.scene.add(this.sphereMesh);
-    this.camera.position.x = -0.8;
-    this.camera.position.y = 0.85;
-    this.camera.position.z = 1.8;
-    this.camera.rotation.set(-0.3,0,0);
+      var sphere=new THREE.SphereGeometry(2,2,2);
+      var sphereMaterial=new THREE.MeshLambertMaterial({color:0xff0000});
+      this.sphereMesh = new THREE.Mesh(sphere,sphereMaterial);
+      this.sphereMesh.position.x = -0.8;
+      this.sphereMesh.position.y = 0;
+      this.sphereMesh.position.z = -0.5;
+      // this.scene.add(this.sphereMesh);
+      this.camera.position.x = -0.8;
+      this.camera.position.y = 0.85;
+      this.camera.position.z = 1.8;
+      this.camera.rotation.set(-0.3,0,0);
 
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -624,7 +732,7 @@ this.sphereMesh.position.z = -0.5;
       // axesHelper.translateY(-1);
       this.scene.add(axesHelper);
 
-      const loader = new GLTFLoader();
+      const loader = new GLTFLoader();  //Habitaciones
       loader.load("/three-assets/Habitaciones.glb", (gltf) => {
       const model = gltf.scene;
       const animations = gltf.animations;
@@ -638,7 +746,7 @@ this.sphereMesh.position.z = -0.5;
       model.scale.set(5, 5, 5);
       });
 
-      const loader8 = new GLTFLoader();
+      const loader8 = new GLTFLoader(); //Ventana
       loader8.load("/three-assets/VentanaIA.glb", (gltf1) => {
       const VentanaIA = gltf1.scene;
       const animations1 = gltf1.animations;
@@ -653,66 +761,68 @@ this.sphereMesh.position.z = -0.5;
       // model.needsUpdate = true;
       });
 
-        const loader1 = new GLTFLoader();
-        loader1.load("/three-assets/Lampara_ciencias_basicas.glb", (gltf) => {
-        const lampara = gltf.scene;
-        console.log(`modelo cargado`);
-        lampara.position.set(0, 0, 0);
-        lampara.scale.set(5, 5, 5);
+      const loader1 = new GLTFLoader(); //Lámpara Ciencias Básicas
+      loader1.load("/three-assets/Lampara_ciencias_basicas.glb", (gltf) => {
+      const lampara = gltf.scene;
+      console.log(`modelo cargado`);
+      lampara.position.set(0, 0, 0);
+      lampara.scale.set(5, 5, 5);
 
         this.scene.add(lampara);
       });
-        const loader2 = new GLTFLoader();
-        loader2.load("/three-assets/Avion_humanistica.glb", (gltf) => {
-        const model2 = gltf.scene;
-        this.scene.add(model2);
-        console.log(`modelo cargado`);
-        model2.position.set(0, 0, 0);
-        model2.scale.set(5, 5, 5);
+
+      const loader2 = new GLTFLoader(); // Avión Humanística
+      loader2.load("/three-assets/Avion_humanistica.glb", (gltf) => {
+      const model2 = gltf.scene;
+      this.scene.add(model2);
+      console.log(`modelo cargado`);
+      model2.position.set(0, 0, 0);
+      model2.scale.set(5, 5, 5);
       });
-        const loader3 = new GLTFLoader();
-        loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
-        this.ascensor = gltf.scene;
-        this.scene.add(this.ascensor);
-        console.log(`modelo cargado`);
-        this.ascensor.position.set(0, 0.015, 0);
-        this.ascensor.scale.set(5, 5, 5);
+
+      const loader3 = new GLTFLoader(); //Cabina Ascensor
+      loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
+      this.ascensor = gltf.scene;
+      this.scene.add(this.ascensor);
+      console.log(`modelo cargado`);
+      this.ascensor.position.set(0, 0.015, 0);
+      this.ascensor.scale.set(5, 5, 5);
       });
-        const loader4 = new GLTFLoader();
-        loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
-        this.PuertaCB = gltf.scene;
-        this.scene.add(this.PuertaCB);
-        console.log(`modelo cargado`);
-        this.PuertaCB.position.set(0, 0, 0);
-        this.PuertaCB.scale.set(5, 5, 5);
-        this.PuertaCB.rotation.set(0,2,0);
+      const loader4 = new GLTFLoader(); //Puerta Ciencias Básicas
+      loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
+      this.PuertaCB = gltf.scene;
+      this.scene.add(this.PuertaCB);
+      console.log(`modelo cargado`);
+      this.PuertaCB.position.set(0, 0, 0);
+      this.PuertaCB.scale.set(5, 5, 5);
+      this.PuertaCB.rotation.set(0,2,0);
       });
-        const loader5 = new GLTFLoader();
-        loader5.load("/three-assets/PuertaH.glb", (gltf) => {
-        this.PuertaH = gltf.scene;
-        this.scene.add(this.PuertaH);
-        console.log(`modelo cargado`);
-        this.PuertaH.position.set(0, 0, 0);
-        this.PuertaH.scale.set(5, 5, 5);
-        this.PuertaH.rotation.set(0,2,0);
+      const loader5 = new GLTFLoader(); //Puerta Humanística
+      loader5.load("/three-assets/PuertaH.glb", (gltf) => {
+      this.PuertaH = gltf.scene;
+      this.scene.add(this.PuertaH);
+      console.log(`modelo cargado`);
+      this.PuertaH.position.set(0, 0, 0);
+      this.PuertaH.scale.set(5, 5, 5);
+      this.PuertaH.rotation.set(0,0,0);
       });
-        const loader6 = new GLTFLoader();
-        loader6.load("/three-assets/PuertaD.glb", (gltf) => {
-        this.PuertaD = gltf.scene;
-        this.scene.add(this.PuertaD);
-        console.log(`modelo cargado`);
-        this.PuertaD.position.set(0, 0, 0);
-        this.PuertaD.scale.set(5, 5, 5);
-        this.PuertaD.rotation.set(0,2,0);
+      const loader6 = new GLTFLoader(); //Puerta Diseño
+      loader6.load("/three-assets/PuertaD.glb", (gltf) => {
+      this.PuertaD = gltf.scene;
+      this.scene.add(this.PuertaD);
+      console.log(`modelo cargado`);
+      this.PuertaD.position.set(0, 0, 0);
+      this.PuertaD.scale.set(5, 5, 5);
+      this.PuertaD.rotation.set(0,0,0);
       });
-        const loader7 = new GLTFLoader();
-        loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
-        this.PuertaIA = gltf.scene;
-        this.scene.add(this.PuertaIA);
-        console.log(`modelo cargado`);
-        this.PuertaIA.position.set(0, 0, 0);
-        this.PuertaIA.scale.set(5, 5, 5);
-        this.PuertaIA.rotation.set(0,2,0);
+      const loader7 = new GLTFLoader(); //Puerta Ingeniería aplicada
+      loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
+      this.PuertaIA = gltf.scene;
+      this.scene.add(this.PuertaIA);
+      console.log(`modelo cargado`);
+      this.PuertaIA.position.set(0, 0, 0);
+      this.PuertaIA.scale.set(5, 5, 5);
+      this.PuertaIA.rotation.set(0,0,0);
       });
       this.render();
     },
