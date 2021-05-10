@@ -434,6 +434,78 @@
           {{ contenidos14 }}
         </div>
       </div>
+      <video
+        id="video1"
+        playsinline
+        webkit-playsinline
+        muted
+        loop
+        autoplay
+        width="320"
+        height="240"
+        src="/textures/Pacman.mp4"
+        style="display: none"
+      ></video>
+      <video
+        id="video2"
+        playsinline
+        webkit-playsinline
+        muted
+        loop
+        autoplay
+        width="320"
+        height="240"
+        src="/textures/esfera.mp4"
+        style="display: none"
+      ></video>
+      <video
+        id="video3"
+        playsinline
+        webkit-playsinline
+        muted
+        loop
+        autoplay
+        width="320"
+        height="240"
+        src="/textures/rectangulo.mp4"
+        style="display: none"
+      ></video>
+      <video
+        id="video4"
+        playsinline
+        webkit-playsinline
+        muted
+        loop
+        autoplay
+        width="320"
+        height="240"
+        src="/textures/cuadrado.mp4"
+        style="display: none"
+      ></video>
+      <video
+        id="video5"
+        playsinline
+        webkit-playsinline
+        muted
+        loop
+        autoplay
+        width="320"
+        height="240"
+        src="/textures/codigo.mp4"
+        style="display: none"
+      ></video>
+      <video
+        id="video6"
+        playsinline
+        webkit-playsinline
+        muted
+        loop
+        autoplay
+        width="240"
+        height="240"
+        src="/textures/logo.mp4"
+        style="display: none"
+      ></video>
     </div>
   </div>
 </template>
@@ -455,8 +527,8 @@ export default {
   data() {
     return {
       aux1: false,
-      habitacion: 1,
       aux: false,
+      habitacion: 1,
       sphereMesh: null,
       ocultar: true,
       saltar: false,
@@ -474,9 +546,17 @@ export default {
       renderer: null,
       clock: null,
       mixer: [],
-      raycaster: null,
+      grupo1: null,
+      grupo2: null,
+      grupo3: null,
+      grupo4: null,
+      intensity: 0,
+      material1: null,
       points: [],
-      intersects: [],
+      intersects1: [],
+      intersects2: [],
+      intersects3: [],
+      intersects4: [],
       contenidos: null,
       contenidos2: null,
       contenidos3: null,
@@ -495,6 +575,12 @@ export default {
       particulas: null,
       particulas2: null,
       aux2: 0,
+      auxLuz: 0,
+      raycaster: null,
+      mouse: new THREE.Vector2(),
+      animations: [],
+      spotLight: null,
+      video6: null,
     };
   },
   methods: {
@@ -542,7 +628,6 @@ export default {
     },
     MoverArriba() {
       this.HabitacionArriba();
-
       if (this.camera.position.y <= 1.5) {
         let position1 = new THREE.Vector3(0.8, 1.85, 1.8);
         let camara = new TWEEN.Tween(this.camera.position)
@@ -566,7 +651,6 @@ export default {
           1700
         );
         ascensor2.start();
-
         let rotationP1 = new THREE.Vector3(0, 0, 0);
         let Puerta1 = new TWEEN.Tween(this.PuertaCB.rotation).to(
           rotationP1,
@@ -590,13 +674,11 @@ export default {
           .to(position1, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camara.start();
-
         let rotationr = new THREE.Vector3(-0.3, 0, 0);
         let camarar = new TWEEN.Tween(this.camera.rotation)
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-
         let positionA = new THREE.Vector3(0, 1.95, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
@@ -609,7 +691,6 @@ export default {
           1700
         );
         ascensor2.start();
-
         let rotationP1 = new THREE.Vector3(0, 0, 0);
         let Puerta1 = new TWEEN.Tween(this.PuertaH.rotation).to(
           rotationP1,
@@ -633,13 +714,11 @@ export default {
           .to(position1, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camara.start();
-
         let rotationr = new THREE.Vector3(-0.3, 0, 0);
         let camarar = new TWEEN.Tween(this.camera.rotation)
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-
         let positionA = new THREE.Vector3(0, 2.9, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
@@ -652,7 +731,6 @@ export default {
           1700
         );
         ascensor2.start();
-
         let rotationP1 = new THREE.Vector3(0, 0, 0);
         let Puerta1 = new TWEEN.Tween(this.PuertaD.rotation).to(
           rotationP1,
@@ -697,7 +775,6 @@ export default {
           1700
         );
         ascensor2.start();
-
         let rotationP1 = new THREE.Vector3(0, 0, 0);
         let Puerta1 = new TWEEN.Tween(this.PuertaIA.rotation).to(
           rotationP1,
@@ -726,7 +803,6 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-
         let positionA = new THREE.Vector3(0, 0.98, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
@@ -739,7 +815,6 @@ export default {
           1700
         );
         ascensor2.start();
-
         let rotationP1 = new THREE.Vector3(0, 0, 0);
         let Puerta1 = new TWEEN.Tween(this.PuertaD.rotation).to(
           rotationP1,
@@ -768,7 +843,6 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-
         let positionA = new THREE.Vector3(0, 0, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
@@ -781,7 +855,6 @@ export default {
           1700
         );
         ascensor2.start();
-
         let rotationP1 = new THREE.Vector3(0, 0, 0);
         let Puerta1 = new TWEEN.Tween(this.PuertaH.rotation).to(
           rotationP1,
@@ -830,7 +903,7 @@ export default {
       this.container.appendChild(this.renderer.domElement);
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      // cra la escena
+      // crea la escena
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color("#000");
       // añade camaras
@@ -846,11 +919,11 @@ export default {
       this.sphereMesh.position.x = -0.8;
       this.sphereMesh.position.y = 0;
       this.sphereMesh.position.z = -0.5;
-
       this.camera.position.x = -0.8;
       this.camera.position.y = 0.85;
       this.camera.position.z = 1.8;
       this.camera.rotation.set(-0.3, 0, 0);
+
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.enablePan = false;
@@ -862,7 +935,6 @@ export default {
       this.controls.maxDistance = 2.34;
       this.controls.enableDamping = true;
       this.controls.dampingFactor = 0.5;
-
       this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
       this.controls.update();
 
@@ -929,6 +1001,7 @@ export default {
       const gridHelper = new THREE.GridHelper(size, divisions);
       gridHelper.translateY(-1);
       this.scene.add(gridHelper);
+
       //añadiendo modelo .glb
       const axesHelper = new THREE.AxesHelper(5);
       axesHelper.translateY(-1);
@@ -938,14 +1011,14 @@ export default {
 
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
         const model = gltf.scene;
-        const animations = gltf.animations;
+        this.animations = gltf.animations;
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
         });
         this.mixer = new THREE.AnimationMixer(model);
-        console.log(animations);
-        const action = this.mixer.clipAction(animations[0]);
+        console.log(this.animations);
+        let action = this.mixer.clipAction(this.animations[0]);
         action.play();
         this.scene.add(model);
         console.log(`modelo cargado`);
@@ -958,7 +1031,7 @@ export default {
       loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
         this.ascensor = gltf.scene;
         this.scene.add(this.ascensor);
-        console.log(`modelo cargado`);
+
         this.ascensor.position.set(0, 0.015, 0);
         this.ascensor.scale.set(5, 5, 5);
       });
@@ -966,7 +1039,7 @@ export default {
       loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
         this.PuertaCB = gltf.scene;
         this.scene.add(this.PuertaCB);
-        console.log(`modelo cargado`);
+
         this.PuertaCB.position.set(0, 0, 0);
         this.PuertaCB.scale.set(5, 5, 5);
         this.PuertaCB.rotation.set(0, 2, 0);
@@ -975,7 +1048,7 @@ export default {
       loader5.load("/three-assets/PuertaH.glb", (gltf) => {
         this.PuertaH = gltf.scene;
         this.scene.add(this.PuertaH);
-        console.log(`modelo cargado`);
+
         this.PuertaH.position.set(0, 0, 0);
         this.PuertaH.scale.set(5, 5, 5);
         this.PuertaH.rotation.set(0, 0, 0);
@@ -984,7 +1057,7 @@ export default {
       loader6.load("/three-assets/PuertaD.glb", (gltf) => {
         this.PuertaD = gltf.scene;
         this.scene.add(this.PuertaD);
-        console.log(`modelo cargado`);
+
         this.PuertaD.position.set(0, 0, 0);
         this.PuertaD.scale.set(5, 5, 5);
         this.PuertaD.rotation.set(0, 0, 0);
@@ -993,92 +1066,245 @@ export default {
       loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
         this.PuertaIA = gltf.scene;
         this.scene.add(this.PuertaIA);
-        console.log(`modelo cargado`);
+
         this.PuertaIA.position.set(0, 0, 0);
         this.PuertaIA.scale.set(5, 5, 5);
         this.PuertaIA.rotation.set(0, 0, 0);
       });
-      this.raycaster = new THREE.Raycaster();
-      this.points = [
-        {
-          position: new THREE.Vector3(-1.6789, 0.44965, 0.10555),
-          element: document.querySelector(".pointProject_1"),
-        },
-        {
-          position: new THREE.Vector3(1.65975, 1.4345, 0.03925),
-          element: document.querySelector(".pointProject_2"),
-        },
-        {
-          position: new THREE.Vector3(-0.244, 2.3842, -0.24985),
-          element: document.querySelector(".pointProject_3"),
-        },
-        {
-          position: new THREE.Vector3(1.6473, 3.35865, 0.03885),
-          element: document.querySelector(".pointProject_4"),
-        },
-        {
-          position: new THREE.Vector3(-1.6811, 0.5912, 0.00745),
-          element: document.querySelector(".point-1"),
-        },
-        {
-          position: new THREE.Vector3(-0.6839, 0.3635, -0.0836),
-          element: document.querySelector(".point-2"),
-        },
-        {
-          position: new THREE.Vector3(-0.84935, 0.3072, 0.55295),
-          element: document.querySelector(".point-3"),
-        },
-        // {
-        //   position: new THREE.Vector3(1.63735, 1.56235, -0.045),
-        //   element: document.querySelector(".point-4"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.6827, 1.19975, 0.0751),
-        //   element: document.querySelector(".point-5"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.24735, 1.6617, -0.46475),
-        //   element: document.querySelector(".point-6"),
-        // },
-        // {
-        //   position: new THREE.Vector3(1.615, 3.4663, -0.04465),
-        //   element: document.querySelector(".point-7"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.8487, 3.3736, 0.23075),
-        //   element: document.querySelector(".point-8"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.57445, 3.45325, -0.0522),
-        //   element: document.querySelector(".point-9"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.60245, 3.3337, -0.7051),
-        //   element: document.querySelector(".point-10"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.26745, 2.50965, -0.3352),
-        //   element: document.querySelector(".point-11"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.72475, 2.5461, -0.4612),
-        //   element: document.querySelector(".point-12"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.49355, 2.1686, 0.5836),
-        //   element: document.querySelector(".point-13"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.55145, 3.5849, -0.76405),
-        //   element: document.querySelector(".point-14"),
-        // },
-      ];
+      // ------------------------------------------------------
+      this.grupo1 = new THREE.Object3D();
+      const geometry = new THREE.BoxGeometry(1, 0.45, 0.02);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0,
+      });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.set(0, 3.57, -0.36);
+      cube.rotation.set(0, 0.9, 0);
+      // this.scene.add(cube);
+      this.grupo1.add(cube);
+      this.grupo2 = new THREE.Object3D();
+      const geometry1 = new THREE.CylinderGeometry(0.07, 0.07, 0.2, 32);
+      const cylinder = new THREE.Mesh(geometry1, material);
+      //scene.add( cylinder );
+      cylinder.position.set(-0.9, 2.56, -0.45);
+      this.grupo2.add(cylinder);
+      this.grupo3 = new THREE.Object3D();
+      const geometry3 = new THREE.CylinderGeometry(0.05, 0.05, 0.2, 32);
+      const cylinder3 = new THREE.Mesh(geometry3, material);
+      cylinder3.position.set(-1.08, 0.36, -0.1);
+      this.grupo3.add(cylinder3);
+      // ------------------
+      const geometry2 = new THREE.CylinderGeometry(0.001, 0.08, 0.15, 32);
+      this.material1 = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.0,
+      });
+      const cylinder2 = new THREE.Mesh(geometry2, this.material1);
+      //scene.add( cylinder );
+      cylinder2.position.set(-1.02, 0.36, -0.13);
+      cylinder2.rotation.set(0.2, 0, 0.4);
+      this.scene.add(cylinder2);
+      this.spotLight = new THREE.SpotLight(
+        0xffffff,
+        this.intensity,
+        0.15,
+        0.5,
+        0.02
+      );
+
+      this.spotLight.target.position.set(-0.85, 0, -0.2);
+      this.spotLight.target.updateMatrixWorld();
+      this.spotLight.position.set(-1.05, 0.42, -0.11);
+      this.scene.add(this.spotLight);
+      console.log(this.spotLight);
+      console.log(this.material1);
+      //Video pacman
+      const video = document.getElementById("video1");
+      const videoTexture = new THREE.VideoTexture(video);
+      const videoMaterial = new THREE.MeshBasicMaterial({
+        map: videoTexture,
+        side: THREE.FrontSide,
+        toneMapped: false,
+      });
+      //Create screen
+      const screen = new THREE.PlaneGeometry(0.195, 0.195, 1);
+      const videoScreen = new THREE.Mesh(screen, videoMaterial);
+      videoScreen.position.set(0.63, 3.38, -0.745);
+      videoScreen.rotation.set(-0.42, -0.64, -0.25);
+      this.scene.add(videoScreen);
+      video.play();
+      //video diseño
+      const video2 = document.getElementById("video2");
+      const videoTexture2 = new THREE.VideoTexture(video2);
+      const screen2 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const videoMaterial2 = new THREE.MeshBasicMaterial({
+        map: videoTexture2,
+        side: THREE.FrontSide,
+        toneMapped: false,
+      });
+      const videoScreen2 = new THREE.Mesh(screen2, videoMaterial2);
+      videoScreen2.position.set(-1.34, 2.61, -0.38);
+      videoScreen2.rotation.set(0, 0.8, 0);
+      this.scene.add(videoScreen2);
+      video2.play();
+      //video diseño
+      const video3 = document.getElementById("video3");
+      const videoTexture3 = new THREE.VideoTexture(video3);
+      const screen3 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const videoMaterial3 = new THREE.MeshBasicMaterial({
+        map: videoTexture3,
+        side: THREE.FrontSide,
+        toneMapped: false,
+      });
+      const videoScreen3 = new THREE.Mesh(screen3, videoMaterial3);
+      videoScreen3.position.set(-0.8, 2.61, -0.8);
+      videoScreen3.rotation.set(0, 0.9, 0);
+      this.scene.add(videoScreen3);
+      video3.play();
+      //video diseño
+      const video4 = document.getElementById("video4");
+      const videoTexture4 = new THREE.VideoTexture(video4);
+      const screen4 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const videoMaterial4 = new THREE.MeshBasicMaterial({
+        map: videoTexture4,
+        side: THREE.FrontSide,
+        toneMapped: false,
+      });
+      const videoScreen4 = new THREE.Mesh(screen4, videoMaterial4);
+      videoScreen4.position.set(-1.34, 2.61, 0);
+      videoScreen4.rotation.set(-0, 1, 0);
+      this.scene.add(videoScreen4);
+      video4.play();
+      //video tablet
+      const video5 = document.getElementById("video5");
+      const videoTexture5 = new THREE.VideoTexture(video5);
+      const screen5 = new THREE.PlaneGeometry(0.13, 0.1, 1);
+      const videoMaterial5 = new THREE.MeshBasicMaterial({
+        map: videoTexture5,
+        side: THREE.FrontSide,
+        toneMapped: false,
+      });
+      const videoScreen5 = new THREE.Mesh(screen5, videoMaterial5);
+      videoScreen5.position.set(0.95, 3.3, 0.15);
+      videoScreen5.rotation.set(-0.4, 0, 0);
+      this.scene.add(videoScreen5);
+      video5.play();
+      //video caballete
+      this.grupo4 = new THREE.Object3D();
+      this.video6 = document.getElementById("video6");
+      const videoTexture6 = new THREE.VideoTexture(this.video6);
+      const screen6 = new THREE.PlaneGeometry(0.25, 0.2, 1);
+      const videoMaterial6 = new THREE.MeshBasicMaterial({
+        map: videoTexture6,
+        side: THREE.FrontSide,
+        toneMapped: false,
+      });
+      const videoScreen6 = new THREE.Mesh(screen6, videoMaterial6);
+      videoScreen6.position.set(1.28, 1.315, 0.34);
+      videoScreen6.rotation.set(-0.24, -0.12, -0.03);
+      //this.scene.add(videoScreen6);
+      this.grupo4.add(videoScreen6);
+
       this.render();
+    },
+    onMouseMove(event) {
+      // calculate mouse position in normalized device coordinates
+      // (-1 to +1) for both components
+      event.preventDefault();
+      this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      this.raycaster = new THREE.Raycaster();
+      this.raycaster.setFromCamera(this.mouse, this.camera);
+      this.scene.add(this.grupo1);
+      this.scene.add(this.grupo2);
+      this.scene.add(this.grupo3);
+      this.scene.add(this.grupo4);
+      // calculate objects intersecting the picking ray
+      this.intersects1 = this.raycaster.intersectObjects(this.grupo1.children);
+      this.intersects2 = this.raycaster.intersectObjects(this.grupo2.children);
+      this.intersects3 = this.raycaster.intersectObjects(this.grupo3.children);
+      this.intersects4 = this.raycaster.intersectObjects(this.grupo4.children);
+      // const intersects = this.raycaster.intersectObjects(this.scene.children);
+      if (this.intersects1.length > 0 && this.mixer.length != 0) {
+        console.log("intersecto un objeto");
+        let aux = 0;
+        let action = this.mixer.clipAction(this.animations[0]);
+        let action1 = this.mixer.clipAction(this.animations[1]);
+        // action1.paused = false;
+        if (aux == 0) {
+          aux == 1;
+          action.stop();
+          action1.play();
+        }
+        // action1.crossFadeFrom(action, 1, true);
+      }
+      if (this.intersects2.length > 0 && this.mixer.length != 0) {
+        console.log("intersecto un objeto2");
+        let aux = 0;
+        let action = this.mixer.clipAction(this.animations[0]);
+        let action2 = this.mixer.clipAction(this.animations[2]);
+        // action1.paused = false;
+        if (aux == 0) {
+          aux == 1;
+          action.stop();
+          action2.play();
+        }
+      }
+      if (this.intersects3.length > 0 && this.mixer.length != 0) {
+        let aux = 0;
+        console.log("intersecto lampara");
+
+        if (aux == 0) {
+          aux == 1;
+        }
+        if (this.spotLight.intensity == 0) {
+          this.spotLight.intensity = 2;
+          this.material1.opacity = 0.05;
+        }
+      }
+      if (this.intersects4.length > 0 && this.mixer.length != 0) {
+        console.log("intersecto un objeto4");
+        let aux = 0;
+
+        if (aux == 0) {
+          aux == 1;
+          this.video6.play();
+        }
+      }
+      if (
+        this.intersects1.length == 0 &&
+        this.intersects2.length == 0 &&
+        this.intersects3.length == 0 &&
+        this.intersects4.length == 0 &&
+        this.mixer.length != 0
+      ) {
+        console.log("intersecto FONDO");
+
+        if (this.spotLight.intensity == 2) {
+          this.spotLight.intensity = 0;
+          this.material1.opacity = 0;
+        }
+        let aux = 0;
+        let action = this.mixer.clipAction(this.animations[0]);
+        let action1 = this.mixer.clipAction(this.animations[1]);
+        let action2 = this.mixer.clipAction(this.animations[2]);
+        // action1.paused = true;
+        if (aux == 0) {
+          aux == 1;
+          action2.stop();
+          action1.stop();
+          action.play();
+          this.video6.pause();
+        }
+      }
     },
     content_ponits() {
       for (this.point of this.points) {
         // Get 2D screen position
-
+        // this.mixer.update(delta);
         const screenPosition = this.point.position.clone();
         screenPosition.project(this.camera);
         // Set the raycaster
@@ -1120,14 +1346,16 @@ export default {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
         requestAnimationFrame(this.render);
         const delta = this.clock.getDelta();
-
+        this.controls.update();
+        // this.scene.update();
         if (this.mixer.length != 0) {
           this.mixer.update(delta);
-          // this.content_ponits();
           TWEEN.update(this.time);
-          console.log(`mixer update fondo main`);
+          window.addEventListener("mousemove", this.onMouseMove, false);
         }
+
         this.renderer.render(this.scene, this.camera);
+        // console.log(this.camera.position);
       } else {
         this.mixer = 0;
         this.aux2 = 1;
