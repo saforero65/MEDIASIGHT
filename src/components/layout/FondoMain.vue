@@ -417,6 +417,12 @@
           {{ contenidos14 }}
         </div>
       </div>
+      <video id="video1" playsinline webkit-playsinline muted loop autoplay width="320" height="240" src="/textures/Pacman.mp4" style="display: none;"></video>
+      <video id="video2" playsinline webkit-playsinline muted loop autoplay width="320" height="240" src="/textures/esfera.mp4" style="display: none;"></video>
+      <video id="video3" playsinline webkit-playsinline muted loop autoplay width="320" height="240" src="/textures/rectangulo.mp4" style="display: none;"></video>
+      <video id="video4" playsinline webkit-playsinline muted loop autoplay width="320" height="240" src="/textures/cuadrado.mp4" style="display: none;"></video>
+      <video id="video5" playsinline webkit-playsinline muted loop autoplay width="320" height="240" src="/textures/codigo.mp4" style="display: none;"></video>
+      <video id="video6" playsinline webkit-playsinline muted loop autoplay width="240" height="240" src="/textures/logo.mp4" style="display: none;"></video>
     </div>
   </div>
 </template>
@@ -454,8 +460,16 @@ export default {
       clock: null,
       mixer: [],
       grupo1: null,
+      grupo2: null,
+      grupo3: null,
+      grupo4: null,
+      intensity: 0,
+      material1: null,
       points: [],
-      intersects: [],
+      intersects1: [],
+      intersects2: [],
+      intersects3: [],
+      intersects4: [],
       contenidos: null,
       contenidos2: null,
       contenidos3: null,
@@ -474,9 +488,12 @@ export default {
       particulas: null,
       particulas2: null,
       aux2: 0,
+      auxLuz: 0,
       raycaster: null,
       mouse: new THREE.Vector2(),
       animations: [],
+      spotLight: null,
+      video6: null,
     };
   },
   methods: {
@@ -512,6 +529,7 @@ export default {
         this.container.clientWidth,
         this.container.clientHeight
       );
+
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.gammaFactor = 2.2;
       this.renderer.outputEncoding = THREE.sRGBEncoding;
@@ -519,9 +537,11 @@ export default {
       this.container.appendChild(this.renderer.domElement);
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      // cra la escena
+
+      // crea la escena
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color("#000");
+
       // añade camaras
       this.camera = new THREE.PerspectiveCamera(
         45,
@@ -530,6 +550,7 @@ export default {
         100
       );
       this.camera.position.set(1, 1, 3);
+
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.target.set(0, 0, 0); //Objetivo de la cámara
@@ -546,6 +567,7 @@ export default {
       this.controls.dampingFactor = 0.5;
 
       this.controls.update();
+
       // añade luces
       // const hemiLight = new THREE.HemisphereLight(0xffffff, 0x94c9ff, 2);
       // hemiLight.position.set(0, 3, 0);
@@ -579,6 +601,7 @@ export default {
       dirLight.shadow.camera.near = 0.1;
       dirLight.shadow.camera.far = 40;
       this.scene.add(dirLight);
+
       // const helper = new THREE.DirectionalLightHelper(dirLight, 1);
       // this.scene.add(helper);
 
@@ -594,6 +617,7 @@ export default {
       dirLight2.shadow.camera.near = 0.1;
       dirLight2.shadow.camera.far = 40;
       this.scene.add(dirLight2);
+
       // const helper2 = new THREE.DirectionalLightHelper(dirLight2, 1);
       // this.scene.add(helper2);
 
@@ -723,17 +747,133 @@ export default {
         model.scale.set(5, 5, 5);
         // model.needsUpdate = true;
       });
+
       // ------------------------------------------------------
       this.grupo1 = new THREE.Object3D();
-      const geometry = new THREE.BoxGeometry(1, 1, 1);
-      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      const geometry = new THREE.BoxGeometry(1, 0.45, 0.02);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0,
+      });
       const cube = new THREE.Mesh(geometry, material);
+      cube.position.set(0, 3.57, -0.36);
+      cube.rotation.set(0, 0.9, 0);
       // this.scene.add(cube);
       this.grupo1.add(cube);
+
+      this.grupo2 = new THREE.Object3D();
+      const geometry1 = new THREE.CylinderGeometry(0.07, 0.07, 0.2, 32);
+      const cylinder = new THREE.Mesh(geometry1, material);
+      //scene.add( cylinder );
+      cylinder.position.set(-0.9, 2.56, -0.45);
+      this.grupo2.add(cylinder);
+
+      this.grupo3 = new THREE.Object3D();
+      const geometry3 = new THREE.CylinderGeometry(0.05, 0.05, 0.2, 32);
+      const cylinder3 = new THREE.Mesh(geometry3, material);
+      cylinder3.position.set(-1.08, 0.36, -0.1);
+      this.grupo3.add(cylinder3);
       // ------------------
 
+      const geometry2 = new THREE.CylinderGeometry(0.001, 0.08, 0.15, 32);
+      this.material1 = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.0,
+      });
+      const cylinder2 = new THREE.Mesh(geometry2, this.material1);
+      //scene.add( cylinder );
+      cylinder2.position.set(-1.02, 0.36, -0.13);
+      cylinder2.rotation.set(0.2, 0, 0.4);
+      this.scene.add(cylinder2);
+
+      this.spotLight = new THREE.SpotLight(
+        0xffffff,
+        this.intensity,
+        0.15,
+        0.5,
+        0.02
+      );
+      //SpotLight( color : Integer, intensity : Float, distance : Float, angle : Radians, penumbra : Float, decay : Float )
+      this.spotLight.target.position.set(-0.85, 0, -0.2);
+      this.spotLight.target.updateMatrixWorld();
+      this.spotLight.position.set(-1.05, 0.42, -0.11);
+      this.scene.add(this.spotLight);
+      console.log(this.spotLight);
+      console.log(this.material1);
+
+      //Video pacman
+      const video = document.getElementById('video1');
+      const videoTexture = new THREE.VideoTexture(video);
+      const videoMaterial =  new THREE.MeshBasicMaterial( {map: videoTexture, side: THREE.FrontSide, toneMapped: false} );
+      //Create screen
+      const screen = new THREE.PlaneGeometry(0.195, 0.195, 1);
+      const videoScreen = new THREE.Mesh(screen, videoMaterial);
+      videoScreen.position.set(0.63,3.38,-0.745);
+      videoScreen.rotation.set(-0.42,-0.64,-0.25);
+      this.scene.add(videoScreen);
+      video.play();
+
+      //video diseño 
+      const video2 = document.getElementById('video2');
+      const videoTexture2 = new THREE.VideoTexture(video2);
+      const screen2 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const videoMaterial2 =  new THREE.MeshBasicMaterial({map: videoTexture2, side: THREE.FrontSide, toneMapped: false});
+      const videoScreen2 = new THREE.Mesh(screen2, videoMaterial2);
+      videoScreen2.position.set(-1.34,2.61,-0.38);
+      videoScreen2.rotation.set(0,0.8,0);  
+      this.scene.add(videoScreen2);  
+      video2.play();
+
+      //video diseño 
+      const video3 = document.getElementById('video3');
+      const videoTexture3 = new THREE.VideoTexture(video3);
+      const screen3 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const videoMaterial3 =  new THREE.MeshBasicMaterial({map: videoTexture3, side: THREE.FrontSide, toneMapped: false});
+      const videoScreen3 = new THREE.Mesh(screen3, videoMaterial3);
+      videoScreen3.position.set(-0.8,2.61,-0.8);
+      videoScreen3.rotation.set(0,0.9,0);  
+      this.scene.add(videoScreen3);  
+      video3.play();
+
+      //video diseño 
+      const video4 = document.getElementById('video4');
+      const videoTexture4 = new THREE.VideoTexture(video4);
+      const screen4 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const videoMaterial4 =  new THREE.MeshBasicMaterial({map: videoTexture4, side: THREE.FrontSide, toneMapped: false});
+      const videoScreen4 = new THREE.Mesh(screen4, videoMaterial4);
+      videoScreen4.position.set(-1.34,2.61,0);
+      videoScreen4.rotation.set(-0,1,0);  
+      this.scene.add(videoScreen4);  
+      video4.play();
+
+      //video tablet 
+      const video5 = document.getElementById('video5');
+      const videoTexture5 = new THREE.VideoTexture(video5);
+      const screen5 = new THREE.PlaneGeometry(0.13, 0.1, 1);
+      const videoMaterial5 =  new THREE.MeshBasicMaterial({map: videoTexture5, side: THREE.FrontSide, toneMapped: false});
+      const videoScreen5 = new THREE.Mesh(screen5, videoMaterial5);
+      videoScreen5.position.set(0.95,3.3,0.15);
+      videoScreen5.rotation.set(-0.4,0,0);
+      this.scene.add(videoScreen5);
+      video5.play();
+
+      //video caballete 
+      this.grupo4 = new THREE.Object3D();
+      this.video6 = document.getElementById('video6');
+      const videoTexture6 = new THREE.VideoTexture(this.video6);
+      const screen6 = new THREE.PlaneGeometry(0.25, 0.20, 1);
+      const videoMaterial6 =  new THREE.MeshBasicMaterial({map: videoTexture6, side: THREE.FrontSide, toneMapped: false});
+      const videoScreen6 = new THREE.Mesh(screen6, videoMaterial6);
+      videoScreen6.position.set(1.28,1.315,0.34);
+      videoScreen6.rotation.set(-0.24,-0.12,-0.03);
+      //this.scene.add(videoScreen6);
+      this.grupo4.add(videoScreen6);
+      
       this.render();
     },
+
     onMouseMove(event) {
       // calculate mouse position in normalized device coordinates
       // (-1 to +1) for both components
@@ -745,11 +885,19 @@ export default {
       this.raycaster.setFromCamera(this.mouse, this.camera);
 
       this.scene.add(this.grupo1);
+      this.scene.add(this.grupo2);
+      this.scene.add(this.grupo3);
+      this.scene.add(this.grupo4);
       // calculate objects intersecting the picking ray
-      this.intersects = this.raycaster.intersectObjects(this.grupo1.children);
+      this.intersects1 = this.raycaster.intersectObjects(this.grupo1.children);
+      this.intersects2 = this.raycaster.intersectObjects(this.grupo2.children);
+      this.intersects3 = this.raycaster.intersectObjects(this.grupo3.children);
+      this.intersects4 = this.raycaster.intersectObjects(this.grupo4.children);
       // const intersects = this.raycaster.intersectObjects(this.scene.children);
-      if (this.intersects.length > 0 && this.mixer.length != 0) {
+
+      if (this.intersects1.length > 0 && this.mixer.length != 0) {
         console.log("intersecto un objeto");
+        //console.log(this.intersects1.length);
         let aux = 0;
         let action = this.mixer.clipAction(this.animations[0]);
         let action1 = this.mixer.clipAction(this.animations[1]);
@@ -759,22 +907,80 @@ export default {
           action.stop();
           action1.play();
         }
-
         // action1.crossFadeFrom(action, 1, true);
       }
-      if (this.intersects.length == 0 && this.mixer.length != 0) {
+
+      if (this.intersects2.length > 0 && this.mixer.length != 0) {
+        console.log("intersecto un objeto2");
+        //console.log(this.intersects2.length);
+        let aux = 0;
+        let action = this.mixer.clipAction(this.animations[0]);
+        let action2 = this.mixer.clipAction(this.animations[2]);
+        // action1.paused = false;
+        if (aux == 0) {
+          aux == 1;
+          action.stop();
+          action2.play();
+        }
+      }
+
+      if (this.intersects3.length > 0 && this.mixer.length != 0) {
+        let aux = 0;
+        console.log("intersecto lampara");
+        //console.log(this.intersects1.length);
+        // action1.paused = false;
+        if (aux == 0) {
+          aux == 1;
+        }
+        if (this.spotLight.intensity == 0) {
+          this.spotLight.intensity = 2;
+          this.material1.opacity = 0.05;
+          console.log(this.spotLight.intensity);
+        }
+        console.log(this.spotLight.intensity);
+      }
+
+      if (this.intersects4.length > 0 && this.mixer.length != 0) {
+        console.log("intersecto un objeto4");
+        let aux = 0;
+        // action1.paused = false;
+        if (aux == 0) {
+          aux == 1;
+          this.video6.play();
+          console.log(this.video6.play());
+        }
+      }
+
+      if (
+        this.intersects1.length == 0 &&
+        this.intersects2.length == 0 &&
+        this.intersects3.length == 0 &&
+        this.intersects4.length == 0 &&
+        this.mixer.length != 0
+      ) {
         console.log("intersecto FONDO");
+        console.log("this.spotLight.intensity");
+        if (this.spotLight.intensity == 2) {
+          this.spotLight.intensity = 0;
+          this.material1.opacity = 0;
+          console.log(this.spotLight.intensity);
+        }
+
         let aux = 0;
         let action = this.mixer.clipAction(this.animations[0]);
         let action1 = this.mixer.clipAction(this.animations[1]);
+        let action2 = this.mixer.clipAction(this.animations[2]);
         // action1.paused = true;
         if (aux == 0) {
           aux == 1;
+          action2.stop();
           action1.stop();
           action.play();
+          this.video6.pause();
         }
       }
     },
+
     content_ponits() {
       for (this.point of this.points) {
         // Get 2D screen position
@@ -816,6 +1022,7 @@ export default {
         this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
       }
     },
+
     render() {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
         requestAnimationFrame(this.render);
