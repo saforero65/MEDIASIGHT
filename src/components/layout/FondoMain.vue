@@ -314,34 +314,34 @@
           </div>
         </transition>
       </div>
-      <div class="point pointProject_1">
+      <div v-show="h1" class="point pointProject_1">
         <div class="label point_project" @click="showModal = true">
           <b> P1</b>
         </div>
       </div>
-      <div class="point pointProject_2">
+      <div v-show="h2" class="point pointProject_2">
         <div class="label point_project" @click="showModal2 = true">
           <b> P2</b>
         </div>
       </div>
-      <div class="point pointProject_3">
+      <div v-show="h3" class="point pointProject_3">
         <div class="label point_project" @click="showModal3 = true">
           <b> P3</b>
         </div>
       </div>
-      <div class="point pointProject_4">
+      <div v-show="h4" class="point pointProject_4">
         <div class="label point_project" @click="showModal4 = true">
           <b> P4</b>
         </div>
       </div>
-      <div class="point point-1">
+      <div v-show="h1" class="point point-1">
         <div class="label"><b>1</b></div>
         <div class="text">
           <b>MATERIAS:</b> <br />
           {{ contenidos }}
         </div>
       </div>
-      <div class="point point-2">
+      <div v-show="h1" class="point point-2">
         <div class="label"><b>2</b></div>
         <div class="text">
           <b>PROFESORES:</b> <br />
@@ -360,7 +360,7 @@
           <b>QUIMICA:</b> <br />
         </div>
       </div>
-      <div class="point point-3">
+      <div v-show="h1" class="point point-3">
         <div class="label"><b>3</b></div>
         <div class="text">
           <b>MOTIVACIÓN:</b> <br />
@@ -368,67 +368,67 @@
         </div>
       </div>
 
-      <div class="point point-4">
+      <div v-show="h2" class="point point-4">
         <div class="label">4</div>
         <div class="text">
           {{ contenidos4 }}
         </div>
       </div>
-      <div class="point point-5">
+      <div v-show="h2" class="point point-5">
         <div class="label">5</div>
         <div class="text">
           {{ contenidos5 }}
         </div>
       </div>
-      <div class="point point-6">
+      <div v-show="h2" class="point point-6">
         <div class="label">6</div>
         <div class="text">
           {{ contenidos6 }}
         </div>
       </div>
-      <div class="point point-7">
+      <div v-show="h3" class="point point-7">
         <div class="label">7</div>
         <div class="text">
           {{ contenidos7 }}
         </div>
       </div>
-      <div class="point point-8">
+      <div v-show="h3" class="point point-8">
         <div class="label">8</div>
         <div class="text">
           {{ contenidos8 }}
         </div>
       </div>
-      <div class="point point-9">
+      <div v-show="h3" class="point point-9">
         <div class="label">9</div>
         <div class="text">
           {{ contenidos9 }}
         </div>
       </div>
-      <div class="point point-10">
+      <div v-show="h3" class="point point-10">
         <div class="label">10</div>
         <div class="text">
           {{ contenidos10 }}
         </div>
       </div>
-      <div class="point point-11">
+      <div v-show="h4" class="point point-11">
         <div class="label">11</div>
         <div class="text">
           {{ contenidos11 }}
         </div>
       </div>
-      <div class="point point-12">
+      <div v-show="h4" class="point point-12">
         <div class="label">12</div>
         <div class="text">
           {{ contenidos12 }}
         </div>
       </div>
-      <div class="point point-13">
+      <div v-show="h4" class="point point-13">
         <div class="label">13</div>
         <div class="text">
           {{ contenidos13 }}
         </div>
       </div>
-      <div class="point point-14">
+      <div v-show="h4" class="point point-14">
         <div class="label">14</div>
         <div class="text">
           {{ contenidos14 }}
@@ -526,6 +526,10 @@ export default {
   },
   data() {
     return {
+      h1: false,
+      h2: false,
+      h3: false,
+      h4: false,
       aux1: false,
       aux: false,
       habitacion: 1,
@@ -552,7 +556,10 @@ export default {
       grupo4: null,
       intensity: 0,
       material1: null,
-      points: [],
+      pointsCB: [],
+      pointsH: [],
+      pointsIA: [],
+      pointsI: [],
       intersects1: [],
       intersects2: [],
       intersects3: [],
@@ -1207,12 +1214,93 @@ export default {
       videoScreen6.rotation.set(-0.24, -0.12, -0.03);
       //this.scene.add(videoScreen6);
       this.grupo4.add(videoScreen6);
+      this.raycaster = new THREE.Raycaster();
+      this.pointsCB = [
+        {
+          position: new THREE.Vector3(-1.6789, 0.44965, 0.10555),
+          element: document.querySelector(".pointProject_1"),
+        },
 
+        {
+          position: new THREE.Vector3(-1.6811, 0.5912, 0.00745),
+          element: document.querySelector(".point-1"),
+        },
+        {
+          position: new THREE.Vector3(-0.6839, 0.3635, -0.0836),
+          element: document.querySelector(".point-2"),
+        },
+        {
+          position: new THREE.Vector3(-0.84935, 0.3072, 0.55295),
+          element: document.querySelector(".point-3"),
+        },
+      ];
+      this.pointsH = [
+        {
+          position: new THREE.Vector3(1.65975, 1.4345, 0.03925),
+          element: document.querySelector(".pointProject_2"),
+        },
+
+        {
+          position: new THREE.Vector3(1.63, 1.56, -0.04),
+          element: document.querySelector(".point-4"),
+        },
+        {
+          position: new THREE.Vector3(0.7, 1.2, 0.07),
+          element: document.querySelector(".point-5"),
+        },
+        {
+          position: new THREE.Vector3(0.5, 1.7, -0.46),
+          element: document.querySelector(".point-6"),
+        },
+      ];
+      this.pointsIA = [
+        {
+          position: new THREE.Vector3(-0.244, 2.3842, -0.24985),
+          element: document.querySelector(".pointProject_3"),
+        },
+
+        {
+          position: new THREE.Vector3(1.615, 3.4663, -0.04465),
+          element: document.querySelector(".point-7"),
+        },
+        {
+          position: new THREE.Vector3(0.8487, 3.3736, 0.23075),
+          element: document.querySelector(".point-8"),
+        },
+        {
+          position: new THREE.Vector3(0.57445, 3.45325, -0.0522),
+          element: document.querySelector(".point-9"),
+        },
+        {
+          position: new THREE.Vector3(0.60245, 3.3337, -0.7051),
+          element: document.querySelector(".point-10"),
+        },
+      ];
+      this.pointsI = [
+        {
+          position: new THREE.Vector3(1.6473, 3.35865, 0.03885),
+          element: document.querySelector(".pointProject_4"),
+        },
+        {
+          position: new THREE.Vector3(-0.26745, 2.50965, -0.3352),
+          element: document.querySelector(".point-11"),
+        },
+        {
+          position: new THREE.Vector3(-0.72475, 2.5461, -0.4612),
+          element: document.querySelector(".point-12"),
+        },
+        {
+          position: new THREE.Vector3(-0.49355, 2.1686, 0.5836),
+          element: document.querySelector(".point-13"),
+        },
+        {
+          position: new THREE.Vector3(0.55145, 3.5849, -0.76405),
+          element: document.querySelector(".point-14"),
+        },
+      ];
       this.render();
     },
     onMouseMove(event) {
-      // calculate mouse position in normalized device coordinates
-      // (-1 to +1) for both components
       event.preventDefault();
       this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -1302,44 +1390,181 @@ export default {
       }
     },
     content_ponits() {
-      for (this.point of this.points) {
-        // Get 2D screen position
-        // this.mixer.update(delta);
-        const screenPosition = this.point.position.clone();
-        screenPosition.project(this.camera);
-        // Set the raycaster
-        this.raycaster.setFromCamera(screenPosition, this.camera);
-        this.intersects = this.raycaster.intersectObjects(
-          this.scene.children,
-          true
-        );
-        // No intersect found
-        if (this.intersects.length === 0) {
-          // Show
-          this.point.element.classList.add("visible");
-        }
-        // Intersect found
-        else {
-          // Get the distance of the intersection and the distance of the point
-          const intersectionDistance = this.intersects[0].distance;
-          const pointDistance = this.point.position.distanceTo(
-            this.camera.position
+      if (this.camera.position.y <= 1.5) {
+        this.point = null;
+        this.h1 = true;
+        this.h2 = false;
+        for (this.point of this.pointsCB) {
+          const screenPosition = this.point.position.clone();
+          screenPosition.project(this.camera);
+          // Set the raycaster
+          this.raycaster.setFromCamera(screenPosition, this.camera);
+          this.intersects = this.raycaster.intersectObjects(
+            this.scene.children,
+            true
           );
-          // Intersection is close than the point
-          if (intersectionDistance < pointDistance) {
-            // Hide
-            this.point.element.classList.remove("visible");
-          }
-          // Intersection is further than the point
-          else {
+          // No intersect found
+          if (this.intersects.length === 0) {
             // Show
             this.point.element.classList.add("visible");
           }
+          // Intersect found
+          else {
+            // Get the distance of the intersection and the distance of the point
+            const intersectionDistance = this.intersects[0].distance;
+            const pointDistance = this.point.position.distanceTo(
+              this.camera.position
+            );
+            // Intersection is close than the point
+            if (intersectionDistance < pointDistance) {
+              // Hide
+              this.point.element.classList.remove("visible");
+            }
+            // Intersection is further than the point
+            else {
+              // Show
+              this.point.element.classList.add("visible");
+            }
+          }
+          const translateX =
+            screenPosition.x * this.container.clientWidth * 0.5;
+          const translateY =
+            -screenPosition.y * this.container.clientHeight * 0.5;
+          this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
         }
-        const translateX = screenPosition.x * this.container.clientWidth * 0.5;
-        const translateY =
-          -screenPosition.y * this.container.clientHeight * 0.5;
-        this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+      } else if (
+        this.camera.position.y <= 2.5 &&
+        this.camera.position.y >= 1.5
+      ) {
+        this.h1 = false;
+        this.h2 = true;
+        this.h3 = false;
+        // this.point.element.classList.remove("visible");
+        for (this.point2 of this.pointsH) {
+          const screenPosition = this.point2.position.clone();
+          screenPosition.project(this.camera);
+          // Set the raycaster
+          this.raycaster.setFromCamera(screenPosition, this.camera);
+          this.intersects = this.raycaster.intersectObjects(
+            this.scene.children,
+            true
+          );
+          // No intersect found
+          if (this.intersects.length === 0) {
+            // Show
+            this.point2.element.classList.add("visible");
+          }
+          // Intersect found
+          else {
+            // Get the distance of the intersection and the distance of the point2
+            const intersectionDistance = this.intersects[0].distance;
+            const pointDistance = this.point2.position.distanceTo(
+              this.camera.position
+            );
+            // Intersection is close than the point
+            if (intersectionDistance < pointDistance) {
+              // Hide
+              this.point2.element.classList.remove("visible");
+            }
+            // Intersection is further than the point
+            else {
+              // Show
+              this.point2.element.classList.add("visible");
+            }
+          }
+          const translateX =
+            screenPosition.x * this.container.clientWidth * 0.5;
+          const translateY =
+            -screenPosition.y * this.container.clientHeight * 0.5;
+          this.point2.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+        }
+      } else if (
+        this.camera.position.y <= 3.5 &&
+        this.camera.position.y >= 2.5
+      ) {
+        this.point = null;
+        this.h2 = false;
+        this.h3 = true;
+        this.h4 = false;
+        for (this.point of this.pointsI) {
+          const screenPosition = this.point.position.clone();
+          screenPosition.project(this.camera);
+          // Set the raycaster
+          this.raycaster.setFromCamera(screenPosition, this.camera);
+          this.intersects = this.raycaster.intersectObjects(
+            this.scene.children,
+            true
+          );
+          // No intersect found
+          if (this.intersects.length === 0) {
+            // Show
+            this.point.element.classList.add("visible");
+          }
+          // Intersect found
+          else {
+            // Get the distance of the intersection and the distance of the point
+            const intersectionDistance = this.intersects[0].distance;
+            const pointDistance = this.point.position.distanceTo(
+              this.camera.position
+            );
+            // Intersection is close than the point
+            if (intersectionDistance < pointDistance) {
+              // Hide
+              this.point.element.classList.remove("visible");
+            }
+            // Intersection is further than the point
+            else {
+              // Show
+              this.point.element.classList.add("visible");
+            }
+          }
+          const translateX =
+            screenPosition.x * this.container.clientWidth * 0.5;
+          const translateY =
+            -screenPosition.y * this.container.clientHeight * 0.5;
+          this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+        }
+      } else if (this.camera.position.y >= 3.5) {
+        this.h3 = false;
+        this.h4 = true;
+        for (this.point of this.pointsI) {
+          const screenPosition = this.point.position.clone();
+          screenPosition.project(this.camera);
+          // Set the raycaster
+          this.raycaster.setFromCamera(screenPosition, this.camera);
+          this.intersects = this.raycaster.intersectObjects(
+            this.scene.children,
+            true
+          );
+          // No intersect found
+          if (this.intersects.length === 0) {
+            // Show
+            this.point.element.classList.add("visible");
+          }
+          // Intersect found
+          else {
+            // Get the distance of the intersection and the distance of the point
+            const intersectionDistance = this.intersects[0].distance;
+            const pointDistance = this.point.position.distanceTo(
+              this.camera.position
+            );
+            // Intersection is close than the point
+            if (intersectionDistance < pointDistance) {
+              // Hide
+              this.point.element.classList.remove("visible");
+            }
+            // Intersection is further than the point
+            else {
+              // Show
+              this.point.element.classList.add("visible");
+            }
+          }
+          const translateX =
+            screenPosition.x * this.container.clientWidth * 0.5;
+          const translateY =
+            -screenPosition.y * this.container.clientHeight * 0.5;
+          this.point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+        }
       }
     },
     render() {
@@ -1350,6 +1575,7 @@ export default {
         // this.scene.update();
         if (this.mixer.length != 0) {
           this.mixer.update(delta);
+          this.content_ponits();
           TWEEN.update(this.time);
           window.addEventListener("mousemove", this.onMouseMove, false);
         }
