@@ -639,7 +639,7 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-        let positionA = new THREE.Vector3(0, 0.98, 0);
+        let positionA = new THREE.Vector3(0, 0.95, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
           1700
@@ -679,7 +679,7 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-        let positionA = new THREE.Vector3(0, 1.95, 0);
+        let positionA = new THREE.Vector3(0, 1.92, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
           1700
@@ -719,7 +719,7 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-        let positionA = new THREE.Vector3(0, 2.9, 0);
+        let positionA = new THREE.Vector3(0, 2.87, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
           1700
@@ -763,7 +763,7 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-        let positionA = new THREE.Vector3(0, 1.95, 0);
+        let positionA = new THREE.Vector3(0, 1.92, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
           1700
@@ -803,7 +803,7 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-        let positionA = new THREE.Vector3(0, 0.98, 0);
+        let positionA = new THREE.Vector3(0, 0.95, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
           1700
@@ -843,7 +843,7 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-        let positionA = new THREE.Vector3(0, 0, 0);
+        let positionA = new THREE.Vector3(0, 0.01, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
           1700
