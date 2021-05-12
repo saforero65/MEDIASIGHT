@@ -940,7 +940,7 @@ export default {
       this.controls.maxPolarAngle = (5 * Math.PI) / 12;
       this.controls.minDistance = 1;
       this.controls.maxDistance = 2.34;
-      this.controls.enableDamping = true;
+      this.controls.enableDamping = false;
       this.controls.dampingFactor = 0.5;
       this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
       this.controls.update();
@@ -1217,26 +1217,26 @@ export default {
       this.raycaster = new THREE.Raycaster();
       this.pointsCB = [
         {
-          position: new THREE.Vector3(-1.6789, 0.44965, 0.10555),
+          position: new THREE.Vector3(-1.67, 0.5, 0.1),
           element: document.querySelector(".pointProject_1"),
         },
 
         {
-          position: new THREE.Vector3(-1.6811, 0.5912, 0.00745),
+          position: new THREE.Vector3(-1.7, 0.6, 0.01),
           element: document.querySelector(".point-1"),
         },
         {
-          position: new THREE.Vector3(-0.6839, 0.3635, -0.0836),
+          position: new THREE.Vector3(-0.68, 0.4, -0.08),
           element: document.querySelector(".point-2"),
         },
         {
-          position: new THREE.Vector3(-0.84935, 0.3072, 0.55295),
+          position: new THREE.Vector3(-0.85, 0.3, 0.55),
           element: document.querySelector(".point-3"),
         },
       ];
       this.pointsH = [
         {
-          position: new THREE.Vector3(1.65975, 1.4345, 0.03925),
+          position: new THREE.Vector3(1.66, 1.43, 0.04),
           element: document.querySelector(".pointProject_2"),
         },
 
@@ -1249,52 +1249,52 @@ export default {
           element: document.querySelector(".point-5"),
         },
         {
-          position: new THREE.Vector3(0.5, 1.7, -0.46),
+          position: new THREE.Vector3(0.25, 1.7, -0.46),
           element: document.querySelector(".point-6"),
         },
       ];
       this.pointsIA = [
         {
-          position: new THREE.Vector3(-0.244, 2.3842, -0.24985),
+          position: new THREE.Vector3(-0.25, 2.38, -0.2),
           element: document.querySelector(".pointProject_3"),
         },
 
         {
-          position: new THREE.Vector3(1.615, 3.4663, -0.04465),
+          position: new THREE.Vector3(-0.25, 2.49, -0.35),
           element: document.querySelector(".point-7"),
         },
         {
-          position: new THREE.Vector3(0.8487, 3.3736, 0.23075),
+          position: new THREE.Vector3(-0.72, 2.52, -0.47),
           element: document.querySelector(".point-8"),
         },
         {
-          position: new THREE.Vector3(0.57445, 3.45325, -0.0522),
+          position: new THREE.Vector3(-0.46, 2.15, 0.6),
           element: document.querySelector(".point-9"),
         },
         {
-          position: new THREE.Vector3(0.60245, 3.3337, -0.7051),
+          position: new THREE.Vector3(-0.6, 2.15, 0.7),
           element: document.querySelector(".point-10"),
         },
       ];
       this.pointsI = [
         {
-          position: new THREE.Vector3(1.6473, 3.35865, 0.03885),
+          position: new THREE.Vector3(1.65, 3.35, 0.03),
           element: document.querySelector(".pointProject_4"),
         },
         {
-          position: new THREE.Vector3(-0.26745, 2.50965, -0.3352),
+          position: new THREE.Vector3(1.6, 3.5, -0.05),
           element: document.querySelector(".point-11"),
         },
         {
-          position: new THREE.Vector3(-0.72475, 2.5461, -0.4612),
+          position: new THREE.Vector3(0.83, 3.35, 0.25),
           element: document.querySelector(".point-12"),
         },
         {
-          position: new THREE.Vector3(-0.49355, 2.1686, 0.5836),
+          position: new THREE.Vector3(0.57, 3.38, 0.1),
           element: document.querySelector(".point-13"),
         },
         {
-          position: new THREE.Vector3(0.55145, 3.5849, -0.76405),
+          position: new THREE.Vector3(0.58, 3.32, -0.65),
           element: document.querySelector(".point-14"),
         },
       ];
@@ -1403,29 +1403,7 @@ export default {
             this.scene.children,
             true
           );
-          // No intersect found
-          if (this.intersects.length === 0) {
-            // Show
-            this.point.element.classList.add("visible");
-          }
-          // Intersect found
-          else {
-            // Get the distance of the intersection and the distance of the point
-            const intersectionDistance = this.intersects[0].distance;
-            const pointDistance = this.point.position.distanceTo(
-              this.camera.position
-            );
-            // Intersection is close than the point
-            if (intersectionDistance < pointDistance) {
-              // Hide
-              this.point.element.classList.remove("visible");
-            }
-            // Intersection is further than the point
-            else {
-              // Show
-              this.point.element.classList.add("visible");
-            }
-          }
+          this.point.element.classList.add("visible");
           const translateX =
             screenPosition.x * this.container.clientWidth * 0.5;
           const translateY =
@@ -1449,29 +1427,7 @@ export default {
             this.scene.children,
             true
           );
-          // No intersect found
-          if (this.intersects.length === 0) {
-            // Show
-            this.point2.element.classList.add("visible");
-          }
-          // Intersect found
-          else {
-            // Get the distance of the intersection and the distance of the point2
-            const intersectionDistance = this.intersects[0].distance;
-            const pointDistance = this.point2.position.distanceTo(
-              this.camera.position
-            );
-            // Intersection is close than the point
-            if (intersectionDistance < pointDistance) {
-              // Hide
-              this.point2.element.classList.remove("visible");
-            }
-            // Intersection is further than the point
-            else {
-              // Show
-              this.point2.element.classList.add("visible");
-            }
-          }
+          this.point2.element.classList.add("visible");
           const translateX =
             screenPosition.x * this.container.clientWidth * 0.5;
           const translateY =
@@ -1486,7 +1442,7 @@ export default {
         this.h2 = false;
         this.h3 = true;
         this.h4 = false;
-        for (this.point of this.pointsI) {
+        for (this.point of this.pointsIA) {
           const screenPosition = this.point.position.clone();
           screenPosition.project(this.camera);
           // Set the raycaster
@@ -1495,29 +1451,7 @@ export default {
             this.scene.children,
             true
           );
-          // No intersect found
-          if (this.intersects.length === 0) {
-            // Show
-            this.point.element.classList.add("visible");
-          }
-          // Intersect found
-          else {
-            // Get the distance of the intersection and the distance of the point
-            const intersectionDistance = this.intersects[0].distance;
-            const pointDistance = this.point.position.distanceTo(
-              this.camera.position
-            );
-            // Intersection is close than the point
-            if (intersectionDistance < pointDistance) {
-              // Hide
-              this.point.element.classList.remove("visible");
-            }
-            // Intersection is further than the point
-            else {
-              // Show
-              this.point.element.classList.add("visible");
-            }
-          }
+          this.point.element.classList.add("visible");
           const translateX =
             screenPosition.x * this.container.clientWidth * 0.5;
           const translateY =
@@ -1536,29 +1470,7 @@ export default {
             this.scene.children,
             true
           );
-          // No intersect found
-          if (this.intersects.length === 0) {
-            // Show
-            this.point.element.classList.add("visible");
-          }
-          // Intersect found
-          else {
-            // Get the distance of the intersection and the distance of the point
-            const intersectionDistance = this.intersects[0].distance;
-            const pointDistance = this.point.position.distanceTo(
-              this.camera.position
-            );
-            // Intersection is close than the point
-            if (intersectionDistance < pointDistance) {
-              // Hide
-              this.point.element.classList.remove("visible");
-            }
-            // Intersection is further than the point
-            else {
-              // Show
-              this.point.element.classList.add("visible");
-            }
-          }
+          this.point.element.classList.add("visible");
           const translateX =
             screenPosition.x * this.container.clientWidth * 0.5;
           const translateY =
