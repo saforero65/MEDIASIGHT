@@ -1221,18 +1221,18 @@ export default {
           element: document.querySelector(".pointProject_1"),
         },
 
-        {
-          position: new THREE.Vector3(-1.7, 0.6, 0.01),
-          element: document.querySelector(".point-1"),
-        },
-        {
-          position: new THREE.Vector3(-0.68, 0.4, -0.08),
-          element: document.querySelector(".point-2"),
-        },
-        {
-          position: new THREE.Vector3(-0.85, 0.3, 0.55),
-          element: document.querySelector(".point-3"),
-        },
+        // {
+        //   position: new THREE.Vector3(-1.7, 0.6, 0.01),
+        //   element: document.querySelector(".point-1"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.68, 0.4, -0.08),
+        //   element: document.querySelector(".point-2"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.85, 0.3, 0.55),
+        //   element: document.querySelector(".point-3"),
+        // },
       ];
       this.pointsH = [
         {
@@ -1240,18 +1240,18 @@ export default {
           element: document.querySelector(".pointProject_2"),
         },
 
-        {
-          position: new THREE.Vector3(1.63, 1.56, -0.04),
-          element: document.querySelector(".point-4"),
-        },
-        {
-          position: new THREE.Vector3(0.7, 1.2, 0.07),
-          element: document.querySelector(".point-5"),
-        },
-        {
-          position: new THREE.Vector3(0.25, 1.7, -0.46),
-          element: document.querySelector(".point-6"),
-        },
+        // {
+        //   position: new THREE.Vector3(1.63, 1.56, -0.04),
+        //   element: document.querySelector(".point-4"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0.7, 1.2, 0.07),
+        //   element: document.querySelector(".point-5"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0.25, 1.7, -0.46),
+        //   element: document.querySelector(".point-6"),
+        // },
       ];
       this.pointsIA = [
         {
@@ -1259,44 +1259,44 @@ export default {
           element: document.querySelector(".pointProject_3"),
         },
 
-        {
-          position: new THREE.Vector3(-0.25, 2.49, -0.35),
-          element: document.querySelector(".point-7"),
-        },
-        {
-          position: new THREE.Vector3(-0.72, 2.52, -0.47),
-          element: document.querySelector(".point-8"),
-        },
-        {
-          position: new THREE.Vector3(-0.46, 2.15, 0.6),
-          element: document.querySelector(".point-9"),
-        },
-        {
-          position: new THREE.Vector3(-0.6, 2.15, 0.7),
-          element: document.querySelector(".point-10"),
-        },
+        // {
+        //   position: new THREE.Vector3(-0.25, 2.49, -0.35),
+        //   element: document.querySelector(".point-7"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.72, 2.52, -0.47),
+        //   element: document.querySelector(".point-8"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.46, 2.15, 0.6),
+        //   element: document.querySelector(".point-9"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.6, 2.15, 0.7),
+        //   element: document.querySelector(".point-10"),
+        // },
       ];
       this.pointsI = [
         {
           position: new THREE.Vector3(1.65, 3.35, 0.03),
           element: document.querySelector(".pointProject_4"),
         },
-        {
-          position: new THREE.Vector3(1.6, 3.5, -0.05),
-          element: document.querySelector(".point-11"),
-        },
-        {
-          position: new THREE.Vector3(0.83, 3.35, 0.25),
-          element: document.querySelector(".point-12"),
-        },
-        {
-          position: new THREE.Vector3(0.57, 3.38, 0.1),
-          element: document.querySelector(".point-13"),
-        },
-        {
-          position: new THREE.Vector3(0.58, 3.32, -0.65),
-          element: document.querySelector(".point-14"),
-        },
+        // {
+        //   position: new THREE.Vector3(1.6, 3.5, -0.05),
+        //   element: document.querySelector(".point-11"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0.83, 3.35, 0.25),
+        //   element: document.querySelector(".point-12"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0.57, 3.38, 0.1),
+        //   element: document.querySelector(".point-13"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0.58, 3.32, -0.65),
+        //   element: document.querySelector(".point-14"),
+        // },
       ];
       this.render();
     },
@@ -1344,7 +1344,7 @@ export default {
       if (this.intersects3.length > 0 && this.mixer.length != 0) {
         let aux = 0;
         console.log("intersecto lampara");
-
+        // this.pointsCB[0].element.classList.add("visible");
         if (aux == 0) {
           aux == 1;
         }
