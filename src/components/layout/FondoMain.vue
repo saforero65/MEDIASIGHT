@@ -726,7 +726,7 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-        let positionA = new THREE.Vector3(0, 2.9, 0);
+        let positionA = new THREE.Vector3(0, 2.85, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
           1700
@@ -939,8 +939,8 @@ export default {
       this.controls.minPolarAngle = Math.PI / 4;
       this.controls.maxPolarAngle = (5 * Math.PI) / 12;
       this.controls.minDistance = 1;
-      this.controls.maxDistance = 2.34;
-      this.controls.enableDamping = false;
+      this.controls.maxDistance = 2.64;
+      this.controls.enableDamping = true;
       this.controls.dampingFactor = 0.5;
       this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
       this.controls.update();
@@ -1153,22 +1153,22 @@ export default {
         toneMapped: false,
       });
       const videoScreen2 = new THREE.Mesh(screen2, videoMaterial2);
-      videoScreen2.position.set(-1.34, 2.61, -0.38);
-      videoScreen2.rotation.set(0, 0.8, 0);
+      videoScreen2.position.set(-1.51, 2.618, -0.16);
+      videoScreen2.rotation.set(0, 1.2, 0);
       this.scene.add(videoScreen2);
       video2.play();
       //video diseño
       const video3 = document.getElementById("video3");
       const videoTexture3 = new THREE.VideoTexture(video3);
-      const screen3 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const screen3 = new THREE.PlaneGeometry(0.25, 0.25, 1);
       const videoMaterial3 = new THREE.MeshBasicMaterial({
         map: videoTexture3,
         side: THREE.FrontSide,
         toneMapped: false,
       });
       const videoScreen3 = new THREE.Mesh(screen3, videoMaterial3);
-      videoScreen3.position.set(-0.8, 2.61, -0.8);
-      videoScreen3.rotation.set(0, 0.9, 0);
+      videoScreen3.position.set(-1.37, 2.618, -0.398);
+      videoScreen3.rotation.set(0, 0.905, 0);
       this.scene.add(videoScreen3);
       video3.play();
       //video diseño
@@ -1181,37 +1181,37 @@ export default {
         toneMapped: false,
       });
       const videoScreen4 = new THREE.Mesh(screen4, videoMaterial4);
-      videoScreen4.position.set(-1.34, 2.61, 0);
-      videoScreen4.rotation.set(-0, 1, 0);
+      videoScreen4.position.set(-1.169, 2.618, -0.59);
+      videoScreen4.rotation.set(0, 0.6, 0);
       this.scene.add(videoScreen4);
       video4.play();
       //video tablet
       const video5 = document.getElementById("video5");
       const videoTexture5 = new THREE.VideoTexture(video5);
-      const screen5 = new THREE.PlaneGeometry(0.13, 0.1, 1);
+      const screen5 = new THREE.PlaneGeometry(0.125, 0.075, 1);
       const videoMaterial5 = new THREE.MeshBasicMaterial({
         map: videoTexture5,
         side: THREE.FrontSide,
         toneMapped: false,
       });
       const videoScreen5 = new THREE.Mesh(screen5, videoMaterial5);
-      videoScreen5.position.set(0.95, 3.3, 0.15);
-      videoScreen5.rotation.set(-0.4, 0, 0);
+      videoScreen5.position.set(0.988, 3.295, 0.158);
+      videoScreen5.rotation.set(-0.22, 0.055, 0.02);
       this.scene.add(videoScreen5);
       video5.play();
       //video caballete
       this.grupo4 = new THREE.Object3D();
       this.video6 = document.getElementById("video6");
       const videoTexture6 = new THREE.VideoTexture(this.video6);
-      const screen6 = new THREE.PlaneGeometry(0.25, 0.2, 1);
+      const screen6 = new THREE.PlaneGeometry(0.25, 0.18, 1);
       const videoMaterial6 = new THREE.MeshBasicMaterial({
         map: videoTexture6,
         side: THREE.FrontSide,
         toneMapped: false,
       });
       const videoScreen6 = new THREE.Mesh(screen6, videoMaterial6);
-      videoScreen6.position.set(1.28, 1.315, 0.34);
-      videoScreen6.rotation.set(-0.24, -0.12, -0.03);
+      videoScreen6.position.set(1.265, 1.33, 0.34);
+      videoScreen6.rotation.set(-0.25, -0.12, -0.03);
       //this.scene.add(videoScreen6);
       this.grupo4.add(videoScreen6);
       this.raycaster = new THREE.Raycaster();
