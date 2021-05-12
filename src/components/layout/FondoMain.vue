@@ -1229,10 +1229,10 @@ export default {
           position: new THREE.Vector3(-0.68, 0.4, -0.08),
           element: document.querySelector(".point-2"),
         },
-        {
-          position: new THREE.Vector3(-0.85, 0.3, 0.55),
-          element: document.querySelector(".point-3"),
-        },
+        // {
+        //   position: new THREE.Vector3(-0.85, 0.3, 0.55),
+        //   element: document.querySelector(".point-3"),
+        // },
       ];
       this.pointsH = [
         {
@@ -1248,10 +1248,10 @@ export default {
           position: new THREE.Vector3(0.7, 1.2, 0.07),
           element: document.querySelector(".point-5"),
         },
-        {
-          position: new THREE.Vector3(0.25, 1.7, -0.46),
-          element: document.querySelector(".point-6"),
-        },
+        // {
+        //   position: new THREE.Vector3(0.25, 1.7, -0.46),
+        //   element: document.querySelector(".point-6"),
+        // },
       ];
       this.pointsIA = [
         {
@@ -1267,14 +1267,14 @@ export default {
           position: new THREE.Vector3(-0.72, 2.52, -0.47),
           element: document.querySelector(".point-8"),
         },
-        {
-          position: new THREE.Vector3(-0.46, 2.15, 0.6),
-          element: document.querySelector(".point-9"),
-        },
-        {
-          position: new THREE.Vector3(-0.6, 2.15, 0.7),
-          element: document.querySelector(".point-10"),
-        },
+        // {
+        //   position: new THREE.Vector3(-0.46, 2.15, 0.6),
+        //   element: document.querySelector(".point-9"),
+        // },
+        // {
+        //   position: new THREE.Vector3(-0.6, 2.15, 0.7),
+        //   element: document.querySelector(".point-10"),
+        // },
       ];
       this.pointsI = [
         {
@@ -1289,14 +1289,14 @@ export default {
           position: new THREE.Vector3(0.83, 3.35, 0.25),
           element: document.querySelector(".point-12"),
         },
-        {
-          position: new THREE.Vector3(0.57, 3.38, 0.1),
-          element: document.querySelector(".point-13"),
-        },
-        {
-          position: new THREE.Vector3(0.58, 3.32, -0.65),
-          element: document.querySelector(".point-14"),
-        },
+        // {
+        //   position: new THREE.Vector3(0.57, 3.38, 0.1),
+        //   element: document.querySelector(".point-13"),
+        // },
+        // {
+        //   position: new THREE.Vector3(0.58, 3.32, -0.65),
+        //   element: document.querySelector(".point-14"),
+        // },
       ];
       this.render();
     },
@@ -1481,19 +1481,16 @@ export default {
     },
     render() {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
-        requestAnimationFrame(this.render);
-        const delta = this.clock.getDelta();
-        this.controls.update();
-        // this.scene.update();
         if (this.mixer.length != 0) {
+          const delta = this.clock.getDelta();
           this.mixer.update(delta);
+          this.controls.update();
           this.content_ponits();
           TWEEN.update(this.time);
           window.addEventListener("mousemove", this.onMouseMove, false);
         }
-
         this.renderer.render(this.scene, this.camera);
-        // console.log(this.camera.position);
+        requestAnimationFrame(this.render);
       } else {
         this.mixer = 0;
         this.aux2 = 1;
