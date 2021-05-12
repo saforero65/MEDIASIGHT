@@ -1071,7 +1071,9 @@ export default {
         this.PuertaIA.scale.set(5, 5, 5);
         this.PuertaIA.rotation.set(0, 0, 0);
       });
+
       // ------------------------------------------------------
+      //Ventana interactiva
       this.grupo1 = new THREE.Object3D();
       const geometry = new THREE.BoxGeometry(1, 0.45, 0.02);
       const material = new THREE.MeshBasicMaterial({
@@ -1082,12 +1084,12 @@ export default {
       const cube = new THREE.Mesh(geometry, material);
       cube.position.set(0, 3.57, -0.36);
       cube.rotation.set(0, 0.9, 0);
-      // this.scene.add(cube);
       this.grupo1.add(cube);
+
+      //Muñeco interactivo
       this.grupo2 = new THREE.Object3D();
       const geometry1 = new THREE.CylinderGeometry(0.07, 0.07, 0.2, 32);
       const cylinder = new THREE.Mesh(geometry1, material);
-      //scene.add( cylinder );
       cylinder.position.set(-0.9, 2.56, -0.45);
       this.grupo2.add(cylinder);
       this.grupo3 = new THREE.Object3D();
@@ -1096,6 +1098,8 @@ export default {
       cylinder3.position.set(-1.08, 0.36, -0.1);
       this.grupo3.add(cylinder3);
       // ------------------
+      
+      //Lampara interactiva
       const geometry2 = new THREE.CylinderGeometry(0.001, 0.08, 0.15, 32);
       this.material1 = new THREE.MeshBasicMaterial({
         color: 0xffffff,
@@ -1103,7 +1107,6 @@ export default {
         opacity: 0.0,
       });
       const cylinder2 = new THREE.Mesh(geometry2, this.material1);
-      //scene.add( cylinder );
       cylinder2.position.set(-1.02, 0.36, -0.13);
       cylinder2.rotation.set(0.2, 0, 0.4);
       this.scene.add(cylinder2);
@@ -1115,12 +1118,14 @@ export default {
         0.02
       );
 
+      //Luz interactiva
       this.spotLight.target.position.set(-0.85, 0, -0.2);
       this.spotLight.target.updateMatrixWorld();
       this.spotLight.position.set(-1.05, 0.42, -0.11);
       this.scene.add(this.spotLight);
       console.log(this.spotLight);
       console.log(this.material1);
+
       //Video pacman
       const video = document.getElementById("video1");
       const videoTexture = new THREE.VideoTexture(video);
@@ -1129,83 +1134,86 @@ export default {
         side: THREE.FrontSide,
         toneMapped: false,
       });
-      //Create screen
       const screen = new THREE.PlaneGeometry(0.195, 0.195, 1);
       const videoScreen = new THREE.Mesh(screen, videoMaterial);
       videoScreen.position.set(0.63, 3.38, -0.745);
-      videoScreen.rotation.set(-0.42, -0.64, -0.25);
+      videoScreen.rotation.set(-0.42, -0.64, -0.27);
       this.scene.add(videoScreen);
       video.play();
-      //video diseño
+
+      //video diseño esfera
       const video2 = document.getElementById("video2");
       const videoTexture2 = new THREE.VideoTexture(video2);
-      const screen2 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const screen2 = new THREE.PlaneGeometry(0.25, 0.25, 1);
       const videoMaterial2 = new THREE.MeshBasicMaterial({
         map: videoTexture2,
         side: THREE.FrontSide,
         toneMapped: false,
       });
       const videoScreen2 = new THREE.Mesh(screen2, videoMaterial2);
-      videoScreen2.position.set(-1.34, 2.61, -0.38);
-      videoScreen2.rotation.set(0, 0.8, 0);
+      videoScreen2.position.set(-1.51, 2.618, -0.16);
+      videoScreen2.rotation.set(0, 1.2, 0);
       this.scene.add(videoScreen2);
       video2.play();
-      //video diseño
+
+      //video diseño rectangulo
       const video3 = document.getElementById("video3");
       const videoTexture3 = new THREE.VideoTexture(video3);
-      const screen3 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const screen3 = new THREE.PlaneGeometry(0.25, 0.25, 1);
       const videoMaterial3 = new THREE.MeshBasicMaterial({
         map: videoTexture3,
         side: THREE.FrontSide,
         toneMapped: false,
       });
       const videoScreen3 = new THREE.Mesh(screen3, videoMaterial3);
-      videoScreen3.position.set(-0.8, 2.61, -0.8);
-      videoScreen3.rotation.set(0, 0.9, 0);
+      videoScreen3.position.set(-1.37, 2.618, -0.398);
+      videoScreen3.rotation.set(0, 0.905, 0);
       this.scene.add(videoScreen3);
       video3.play();
-      //video diseño
+
+      //video diseño cuadrado
       const video4 = document.getElementById("video4");
       const videoTexture4 = new THREE.VideoTexture(video4);
-      const screen4 = new THREE.PlaneGeometry(0.2, 0.25, 1);
+      const screen4 = new THREE.PlaneGeometry(0.25, 0.25, 1);
       const videoMaterial4 = new THREE.MeshBasicMaterial({
         map: videoTexture4,
         side: THREE.FrontSide,
         toneMapped: false,
       });
       const videoScreen4 = new THREE.Mesh(screen4, videoMaterial4);
-      videoScreen4.position.set(-1.34, 2.61, 0);
-      videoScreen4.rotation.set(-0, 1, 0);
+      videoScreen4.position.set(-1.169, 2.618, -0.59);
+      videoScreen4.rotation.set(0, 0.6, 0);
       this.scene.add(videoScreen4);
       video4.play();
+
       //video tablet
       const video5 = document.getElementById("video5");
       const videoTexture5 = new THREE.VideoTexture(video5);
-      const screen5 = new THREE.PlaneGeometry(0.13, 0.1, 1);
+      const screen5 = new THREE.PlaneGeometry(0.125, 0.075, 1);
       const videoMaterial5 = new THREE.MeshBasicMaterial({
         map: videoTexture5,
         side: THREE.FrontSide,
         toneMapped: false,
       });
       const videoScreen5 = new THREE.Mesh(screen5, videoMaterial5);
-      videoScreen5.position.set(0.95, 3.3, 0.15);
-      videoScreen5.rotation.set(-0.4, 0, 0);
+      videoScreen5.position.set(0.988, 3.295, 0.158);
+      videoScreen5.rotation.set(-0.22, 0.055, 0.02);
       this.scene.add(videoScreen5);
       video5.play();
+
       //video caballete
       this.grupo4 = new THREE.Object3D();
       this.video6 = document.getElementById("video6");
       const videoTexture6 = new THREE.VideoTexture(this.video6);
-      const screen6 = new THREE.PlaneGeometry(0.25, 0.2, 1);
+      const screen6 = new THREE.PlaneGeometry(0.25, 0.18, 1);
       const videoMaterial6 = new THREE.MeshBasicMaterial({
         map: videoTexture6,
         side: THREE.FrontSide,
         toneMapped: false,
       });
       const videoScreen6 = new THREE.Mesh(screen6, videoMaterial6);
-      videoScreen6.position.set(1.28, 1.315, 0.34);
-      videoScreen6.rotation.set(-0.24, -0.12, -0.03);
-      //this.scene.add(videoScreen6);
+      videoScreen6.position.set(1.265, 1.33, 0.34);
+      videoScreen6.rotation.set(-0.25, -0.12, -0.03);
       this.grupo4.add(videoScreen6);
 
       this.render();
