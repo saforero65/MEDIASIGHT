@@ -42,6 +42,9 @@
     </button>
     <PreLoader v-if="ocultar" />
     <div id="scene-container" ref="sceneContainer">
+      <!-- <div id="stars"></div>
+      <div id="stars2"></div> -->
+      <!-- <div id="stars3"></div> -->
       <div class="Caja_Ascensor">
         <a v-if="aux1 == false" class="MoverCamaraAbajo" @click="MoverAbajo">
           <img src="@/assets/img/icons/boton-abajo.svg" alt="abajo" />
@@ -894,11 +897,11 @@ export default {
       console.log(this.contenidos);
       // console.log(Object.values(this.contenidos));
       // estabcer el container
-      this.container = this.$refs.sceneContainer;
+      this.container = document.getElementById("scene-container");
       //elemento clock para animacion
       this.clock = new THREE.Clock();
       // crear render
-      this.renderer = new THREE.WebGLRenderer({ antialias: true });
+      this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       this.renderer.setSize(
         this.container.clientWidth,
         this.container.clientHeight
@@ -912,7 +915,8 @@ export default {
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       // crea la escena
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color("#000");
+      // this.scene.background = new THREE.Color("#0000007e");
+      this.scene.fog = new THREE.Fog(0x000000, 1.7, 5); // niebla
       // añade camaras
       this.camera = new THREE.PerspectiveCamera(
         45,
@@ -933,13 +937,13 @@ export default {
 
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-      this.controls.enablePan = false;
-      this.controls.minAzimuthAngle = [(7 * Math.PI) / 4];
-      this.controls.maxAzimuthAngle = [Math.PI / 4];
-      this.controls.minPolarAngle = Math.PI / 4;
-      this.controls.maxPolarAngle = (5 * Math.PI) / 12;
-      this.controls.minDistance = 1;
-      this.controls.maxDistance = 2.64;
+      this.controls.enablePan = true;
+      // this.controls.minAzimuthAngle = [(7 * Math.PI) / 4];
+      // this.controls.maxAzimuthAngle = [Math.PI / 4];
+      // this.controls.minPolarAngle = Math.PI / 4;
+      // this.controls.maxPolarAngle = (5 * Math.PI) / 12;
+      // this.controls.minDistance = 1;
+      // this.controls.maxDistance = 2.64;
       this.controls.enableDamping = true;
       this.controls.dampingFactor = 0.5;
       this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
@@ -1003,19 +1007,31 @@ export default {
         this.container.clientWidth,
         this.container.clientHeight
       );
-      const size = 10;
-      const divisions = 10;
-      const gridHelper = new THREE.GridHelper(size, divisions);
-      gridHelper.translateY(-1);
-      this.scene.add(gridHelper);
 
-      //añadiendo modelo .glb
-      const axesHelper = new THREE.AxesHelper(5);
-      axesHelper.translateY(-1);
-      this.scene.add(axesHelper);
+      const puntos = new THREE.SphereGeometry(0.005, 32, 32);
+
+      // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      var material3 = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+      });
+
+      var range = 5;
+      this.particulas = new THREE.Object3D();
+      this.scene.add(this.particulas);
+
+      for (var i = 0; i < 200; i++) {
+        var cube3 = new THREE.Mesh(puntos, material3);
+        cube3.position.x = range * (0.5 - Math.random());
+        cube3.position.y = range * (0.5 - Math.random());
+        cube3.position.z = range * (0.5 - Math.random());
+
+        this.particulas.add(cube3);
+      }
+
+      // this.particulas.translateX(-10);
+      this.particulas.translateY(2);
 
       const loader = new GLTFLoader();
-
       loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
         const model = gltf.scene;
         this.animations = gltf.animations;
@@ -1229,10 +1245,10 @@ export default {
           position: new THREE.Vector3(-0.68, 0.4, -0.08),
           element: document.querySelector(".point-2"),
         },
-        // {
-        //   position: new THREE.Vector3(-0.85, 0.3, 0.55),
-        //   element: document.querySelector(".point-3"),
-        // },
+        {
+          position: new THREE.Vector3(-0.85, 0.3, 0.55),
+          element: document.querySelector(".point-3"),
+        },
       ];
       this.pointsH = [
         {
@@ -1248,10 +1264,10 @@ export default {
           position: new THREE.Vector3(0.7, 1.2, 0.07),
           element: document.querySelector(".point-5"),
         },
-        // {
-        //   position: new THREE.Vector3(0.25, 1.7, -0.46),
-        //   element: document.querySelector(".point-6"),
-        // },
+        {
+          position: new THREE.Vector3(0.25, 1.7, -0.46),
+          element: document.querySelector(".point-6"),
+        },
       ];
       this.pointsIA = [
         {
@@ -1267,14 +1283,14 @@ export default {
           position: new THREE.Vector3(-0.72, 2.52, -0.47),
           element: document.querySelector(".point-8"),
         },
-        // {
-        //   position: new THREE.Vector3(-0.46, 2.15, 0.6),
-        //   element: document.querySelector(".point-9"),
-        // },
-        // {
-        //   position: new THREE.Vector3(-0.6, 2.15, 0.7),
-        //   element: document.querySelector(".point-10"),
-        // },
+        {
+          position: new THREE.Vector3(-0.46, 2.15, 0.6),
+          element: document.querySelector(".point-9"),
+        },
+        {
+          position: new THREE.Vector3(-0.6, 2.15, 0.7),
+          element: document.querySelector(".point-10"),
+        },
       ];
       this.pointsI = [
         {
@@ -1289,14 +1305,14 @@ export default {
           position: new THREE.Vector3(0.83, 3.35, 0.25),
           element: document.querySelector(".point-12"),
         },
-        // {
-        //   position: new THREE.Vector3(0.57, 3.38, 0.1),
-        //   element: document.querySelector(".point-13"),
-        // },
-        // {
-        //   position: new THREE.Vector3(0.58, 3.32, -0.65),
-        //   element: document.querySelector(".point-14"),
-        // },
+        {
+          position: new THREE.Vector3(0.57, 3.38, 0.1),
+          element: document.querySelector(".point-13"),
+        },
+        {
+          position: new THREE.Vector3(0.58, 3.32, -0.65),
+          element: document.querySelector(".point-14"),
+        },
       ];
       this.render();
     },
@@ -1483,6 +1499,11 @@ export default {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
         if (this.mixer.length != 0) {
           const delta = this.clock.getDelta();
+
+          var time = Date.now() * 0.008;
+          this.particulas.position.x = Math.sin(time * 0.005) * 1;
+          this.particulas.position.z = Math.cos(time * 0.005) * 1;
+
           this.mixer.update(delta);
           this.controls.update();
           this.content_ponits();
@@ -1749,7 +1770,8 @@ polyline {
     font-weight: bold;
     text-transform: uppercase;
     border: none;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0);
+
     margin: auto;
     z-index: 500;
     top: 150px;

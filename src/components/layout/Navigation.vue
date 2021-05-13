@@ -325,8 +325,8 @@ export default {
           // this.status3 = false;
           // console.log(`estado pagina principal${this.status}`);
           // // this.$router.push({ name: "/" });
+          window.location.href = "/";
         });
-      window.location.href = "/";
     },
   },
   created() {
