@@ -7,10 +7,10 @@
       <a v-if="aux1" class="MoverCamaraAbajo Off" @click="MoverAbajo">
         <img src="@/assets/img/icons/boton-abajo.svg" alt="abajo"/>
       </a>
-      <div v-if="habitacion == 1"><p>Ciencias básicas</p></div>
-      <div v-if="habitacion == 2"><p>Humanística</p></div>
-      <div v-if="habitacion == 3"><p>Diseño</p></div>
-      <div v-if="habitacion == 4"><p>Ingeniería aplicada</p></div>
+      <div class ="tableroA"><p v-if="habitacion == 1">Ciencias básicas</p>
+      <p v-if="habitacion == 2">Humanística</p>
+      <p v-if="habitacion == 3">Diseño</p>
+      <p v-if="habitacion == 4">Ingeniería aplicada</p></div>
       <a v-if="aux == false" class="MoverCamaraArriba" @click="MoverArriba">
         <img src="@/assets/img/icons/boton-arriba.svg" alt="arriba"/>
       </a>
@@ -441,206 +441,250 @@ export default {
     },
     MoverArriba() {
       this.HabitacionArriba();
-      if(this.camera.position.y <= 1.5)
-      {
-        let position1 = new THREE.Vector3(0.8,1.85,1.8);
+      if (this.camera.position.y <= 1.5) {
+        let position1 = new THREE.Vector3(0.8, 1.85, 1.8);
         let camara = new TWEEN.Tween(this.camera.position)
-        .to(position1, 1700,)
-        .easing(TWEEN.Easing.Quadratic.InOut)
+          .to(position1, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
         camara.start();
-
+        let rotationr = new THREE.Vector3(-0.3, 0, 0);
+        let camarar = new TWEEN.Tween(this.camera.rotation)
+          .to(rotationr, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
+        camarar.start();
         let positionA = new THREE.Vector3(0, 0.98, 0);
-        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
-        .to(positionA, 1700,)
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
+          positionA,
+          1700
+        );
         ascensor1.start();
         let rotationA = new THREE.Vector3(0, 3.1416, 0);
-        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
-        .to(rotationA, 1700,)
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation).to(
+          rotationA,
+          1700
+        );
         ascensor2.start();
-        
         let rotationP1 = new THREE.Vector3(0, 0, 0);
-        let Puerta1 = new TWEEN.Tween(this.PuertaCB.rotation)
-        .to(rotationP1, 1000,)
+        let Puerta1 = new TWEEN.Tween(this.PuertaCB.rotation).to(
+          rotationP1,
+          1000
+        );
         Puerta1.start();
         let rotationP = new THREE.Vector3(0, 2, 0);
-        let Puerta = new TWEEN.Tween(this.PuertaH.rotation)
-        .to(rotationP, 2700,)
+        let Puerta = new TWEEN.Tween(this.PuertaH.rotation).to(rotationP, 2700);
         Puerta.start();
-
         this.sphereMesh.position.x = 0.8;
-        this.sphereMesh.position.y = 1.2;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 1.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
-        this.camera.rotation.set(-0.3,0,0); 
-      }
-      else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
-      {
-        let position1 = new THREE.Vector3(-0.8,2.85,1.8);
+      } else if (
+        this.camera.position.y <= 2.5 &&
+        this.camera.position.y >= 1.5
+      ) {
+        let position1 = new THREE.Vector3(-0.8, 2.85, 1.8);
         let camara = new TWEEN.Tween(this.camera.position)
-        .to(position1, 1700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
+          .to(position1, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
         camara.start();
-        
+        let rotationr = new THREE.Vector3(-0.3, 0, 0);
+        let camarar = new TWEEN.Tween(this.camera.rotation)
+          .to(rotationr, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
+        camarar.start();
         let positionA = new THREE.Vector3(0, 1.95, 0);
-        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
-        .to(positionA, 1700,)
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
+          positionA,
+          1700
+        );
         ascensor1.start();
         let rotationA = new THREE.Vector3(0, 0, 0);
-        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
-        .to(rotationA, 1700,)
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation).to(
+          rotationA,
+          1700
+        );
         ascensor2.start();
-        
         let rotationP1 = new THREE.Vector3(0, 0, 0);
-        let Puerta1 = new TWEEN.Tween(this.PuertaH.rotation)
-        .to(rotationP1, 1000,)
+        let Puerta1 = new TWEEN.Tween(this.PuertaH.rotation).to(
+          rotationP1,
+          1000
+        );
         Puerta1.start();
         let rotationP = new THREE.Vector3(0, 2, 0);
-        let Puerta = new TWEEN.Tween(this.PuertaD.rotation)
-        .to(rotationP, 2700,)
+        let Puerta = new TWEEN.Tween(this.PuertaD.rotation).to(rotationP, 2700);
         Puerta.start();
-
         this.sphereMesh.position.x = -0.8;
-        this.sphereMesh.position.y = 2.2;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 2.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
-        this.camera.rotation.set(-0.3,0,0);
-      }
-      else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
-      {
-        let position1 = new THREE.Vector3(0.8,3.85,1.8);
+      } else if (
+        this.camera.position.y <= 3.5 &&
+        this.camera.position.y >= 2.5
+      ) {
+        let position1 = new THREE.Vector3(0.8, 3.85, 1.8);
         let camara = new TWEEN.Tween(this.camera.position)
-        .to(position1, 1700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
+          .to(position1, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
         camara.start();
-        
+        let rotationr = new THREE.Vector3(-0.3, 0, 0);
+        let camarar = new TWEEN.Tween(this.camera.rotation)
+          .to(rotationr, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
+        camarar.start();
         let positionA = new THREE.Vector3(0, 2.9, 0);
-        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
-        .to(positionA, 1700,)
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
+          positionA,
+          1700
+        );
         ascensor1.start();
         let rotationA = new THREE.Vector3(0, 3.1416, 0);
-        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
-        .to(rotationA, 1700,)
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation).to(
+          rotationA,
+          1700
+        );
         ascensor2.start();
-        
         let rotationP1 = new THREE.Vector3(0, 0, 0);
-        let Puerta1 = new TWEEN.Tween(this.PuertaD.rotation)
-        .to(rotationP1, 1000,)
+        let Puerta1 = new TWEEN.Tween(this.PuertaD.rotation).to(
+          rotationP1,
+          1000
+        );
         Puerta1.start();
         let rotationP = new THREE.Vector3(0, 2, 0);
-        let Puerta = new TWEEN.Tween(this.PuertaIA.rotation)
-        .to(rotationP, 2700,)
+        let Puerta = new TWEEN.Tween(this.PuertaIA.rotation).to(
+          rotationP,
+          2700
+        );
         Puerta.start();
-
         this.sphereMesh.position.x = 0.8;
-        this.sphereMesh.position.y = 3;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 3.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
-        this.camera.rotation.set(-0.3,0,0);
       }
     },
     MoverAbajo() {
       this.HabitacionAbajo();
-      if (this.camera.position.y >= 3.5)
-      {
-        let position1 = new THREE.Vector3(-0.8,2.85,1.8);
+      if (this.camera.position.y >= 3.5) {
+        let position1 = new THREE.Vector3(-0.8, 2.85, 1.8);
         let camara = new TWEEN.Tween(this.camera.position)
-        .to(position1, 1700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
+          .to(position1, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
         camara.start();
-        
+        let rotationr = new THREE.Vector3(-0.3, 0, 0);
+        let camarar = new TWEEN.Tween(this.camera.rotation)
+          .to(rotationr, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
+        camarar.start();
         let positionA = new THREE.Vector3(0, 1.95, 0);
-        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
-        .to(positionA, 1700,)
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
+          positionA,
+          1700
+        );
         ascensor1.start();
         let rotationA = new THREE.Vector3(0, 0, 0);
-        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
-        .to(rotationA, 1700,)
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation).to(
+          rotationA,
+          1700
+        );
         ascensor2.start();
-        
         let rotationP1 = new THREE.Vector3(0, 0, 0);
-        let Puerta1 = new TWEEN.Tween(this.PuertaIA.rotation)
-        .to(rotationP1, 1000,)
+        let Puerta1 = new TWEEN.Tween(this.PuertaIA.rotation).to(
+          rotationP1,
+          1000
+        );
         Puerta1.start();
         let rotationP = new THREE.Vector3(0, 2, 0);
-        let Puerta = new TWEEN.Tween(this.PuertaD.rotation)
-        .to(rotationP, 2700,)
+        let Puerta = new TWEEN.Tween(this.PuertaD.rotation).to(rotationP, 2700);
         Puerta.start();
-
         this.sphereMesh.position.x = -0.8;
-        this.sphereMesh.position.y = 2.2;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 2.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
-        this.camera.rotation.set(-0.3,0,0);
-      }
-      else if (this.camera.position.y <= 3.5 && this.camera.position.y >= 2.5)
-      {
-        let position1 = new THREE.Vector3(0.8,1.85,1.8);
+      } else if (
+        this.camera.position.y <= 3.5 &&
+        this.camera.position.y >= 2.5
+      ) {
+        let position1 = new THREE.Vector3(0.8, 1.85, 1.8);
         let camara = new TWEEN.Tween(this.camera.position)
-        .to(position1, 1700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
+          .to(position1, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
         camara.start();
-        
+        let rotationr = new THREE.Vector3(-0.3, 0, 0);
+        let camarar = new TWEEN.Tween(this.camera.rotation)
+          .to(rotationr, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
+        camarar.start();
         let positionA = new THREE.Vector3(0, 0.98, 0);
-        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
-        .to(positionA, 1700,)
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
+          positionA,
+          1700
+        );
         ascensor1.start();
         let rotationA = new THREE.Vector3(0, 3.1416, 0);
-        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
-        .to(rotationA, 1700,)
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation).to(
+          rotationA,
+          1700
+        );
         ascensor2.start();
-        
         let rotationP1 = new THREE.Vector3(0, 0, 0);
-        let Puerta1 = new TWEEN.Tween(this.PuertaD.rotation)
-        .to(rotationP1, 1000,)
+        let Puerta1 = new TWEEN.Tween(this.PuertaD.rotation).to(
+          rotationP1,
+          1000
+        );
         Puerta1.start();
         let rotationP = new THREE.Vector3(0, 2, 0);
-        let Puerta = new TWEEN.Tween(this.PuertaH.rotation)
-        .to(rotationP, 2700,)
+        let Puerta = new TWEEN.Tween(this.PuertaH.rotation).to(rotationP, 2700);
         Puerta.start();
-
         this.sphereMesh.position.x = 0.8;
-        this.sphereMesh.position.y = 1.2;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 1.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
-        this.camera.rotation.set(-0.3,0,0);
-      }
-      else if (this.camera.position.y <= 2.5 && this.camera.position.y >= 1.5)
-      {
-        let position1 = new THREE.Vector3(-0.8,0.85,1.8);
+      } else if (
+        this.camera.position.y <= 2.5 &&
+        this.camera.position.y >= 1.5
+      ) {
+        let position1 = new THREE.Vector3(-0.8, 0.85, 1.8);
         let camara = new TWEEN.Tween(this.camera.position)
-        .to(position1, 1700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
+          .to(position1, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
         camara.start();
-        
+        let rotationr = new THREE.Vector3(-0.3, 0, 0);
+        let camarar = new TWEEN.Tween(this.camera.rotation)
+          .to(rotationr, 1700)
+          .easing(TWEEN.Easing.Quadratic.InOut);
+        camarar.start();
         let positionA = new THREE.Vector3(0, 0, 0);
-        let ascensor1 = new TWEEN.Tween(this.ascensor.position)
-        .to(positionA, 1700,)
+        let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
+          positionA,
+          1700
+        );
         ascensor1.start();
         let rotationA = new THREE.Vector3(0, 0, 0);
-        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation)
-        .to(rotationA, 1700,)
+        let ascensor2 = new TWEEN.Tween(this.ascensor.rotation).to(
+          rotationA,
+          1700
+        );
         ascensor2.start();
-        
         let rotationP1 = new THREE.Vector3(0, 0, 0);
-        let Puerta1 = new TWEEN.Tween(this.PuertaH.rotation)
-        .to(rotationP1, 1000,)
+        let Puerta1 = new TWEEN.Tween(this.PuertaH.rotation).to(
+          rotationP1,
+          1000
+        );
         Puerta1.start();
         let rotationP = new THREE.Vector3(0, 2, 0);
-        let Puerta = new TWEEN.Tween(this.PuertaCB.rotation)
-        .to(rotationP, 2700,)
+        let Puerta = new TWEEN.Tween(this.PuertaCB.rotation).to(
+          rotationP,
+          2700
+        );
         Puerta.start();
-
         this.sphereMesh.position.x = -0.8;
-        this.sphereMesh.position.y = 0;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 0.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
-        this.camera.rotation.set(-0.3,0,0);
       }
     },
     oSlideStart() {
@@ -682,8 +726,8 @@ export default {
       var sphereMaterial=new THREE.MeshLambertMaterial({color:0xff0000});
       this.sphereMesh = new THREE.Mesh(sphere,sphereMaterial);
       this.sphereMesh.position.x = -0.8;
-      this.sphereMesh.position.y = 0;
-      this.sphereMesh.position.z = -0.5;
+      this.sphereMesh.position.y = 0.23;
+      this.sphereMesh.position.z = -0.2;
       // this.scene.add(this.sphereMesh);
       this.camera.position.x = -0.8;
       this.camera.position.y = 0.85;
@@ -698,7 +742,7 @@ export default {
       this.controls.minPolarAngle = Math.PI / 4;
       this.controls.maxPolarAngle = 5*Math.PI / 12;
       this.controls.minDistance = 1;
-      this.controls.maxDistance = 2.34;
+      this.controls.maxDistance = 2.35;
       // this.controls.enableDamping = true;      
       this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
       this.controls.update();
@@ -1110,39 +1154,54 @@ export default {
   position: fixed;
   bottom: 2%;
   right: 40%;
-  min-width: 10vh;
+  /* min-width: 30vh;
   width: 30vh;
-  max-width: 30vh;
-  height: auto;
+  max-width: 40vh; */
+  width: auto;
+  height: 7vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.5vh 2vh;
+  border-radius: 15px;
+  background: linear-gradient(180deg, rgba(122,122,122,1) 0%, rgba(185,183,183,1) 28%, rgba(191,191,191,1) 68%, rgba(147,147,147,1) 100%);
+  border: 2px solid gray;
+  box-shadow: 0px 0px 5px 1px black;
+}
+.tableroA {
+  /* min-width: 8vh;
+  max-width: 10h; */
+  display: flex;
+  justify-content: center;
+  width: 21vh;
+  margin: 2rem;
+  background: linear-gradient(90deg, rgba(65,65,65,1) 0%, rgba(0,0,0,1) 28%, rgba(0,0,0,1) 70%, rgba(57,57,57,1) 100%);
+  border: 1.5px solid rgb(185, 185, 185);
+  box-shadow: 0px 0px 3px 1px black;
 }
 .Caja_Ascensor p {
+  color: #4ACC97;
   margin: 0;
+  padding: 0.5vh;
+  font-size: 1.7vh;
+  font-family: "Consolas", monospace;
 }
-.MoverCamaraArriba {
-  padding: 1.5vh;
+.MoverCamaraArriba, .MoverCamaraAbajo {
   border-radius: 50%;
-  background-color: rgb(214, 214, 214);
   cursor: pointer;
 }
 .MoverCamaraArriba img, .MoverCamaraAbajo img {
-  min-width: 0.5vh;
-  max-width: 2.5vh;
-}
-.MoverCamaraAbajo {
-  padding: 1.5vh;
+  min-width: 6vh;
+  max-width: 9vh;
   border-radius: 50%;
-  background-color: rgb(214, 214, 214);
-  cursor: pointer;
+  box-shadow: 0px 0px 3px 1px black;
 }
 .MoverCamaraArriba:hover, .MoverCamaraAbajo:hover {
-  background-color: yellow;  
+  background-color: #4ACC97;  
   /* border: 2px solid yellow; */
 }
 .Off, .Off:hover{
-  background-color: darkgrey;
+  background-color: rgb(73, 73, 73);
   cursor: default;
 }
 </style>
