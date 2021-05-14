@@ -175,6 +175,7 @@
                 v-model="password2"
               />
             </div>
+
             <div class="form-check">
               <input
                 v-on:click="checked = true"
@@ -183,10 +184,24 @@
                 class="form-check-input"
                 required
               />
-              <label class="form-check-label" for="exampleCheck1"
-                >Acepto condiciones</label
-              >
+
+              <label
+                class="form-check-label text_conditions"
+                for="exampleCheck1"
+                >He leido y acepto los
+                <!-- <a href="#">terminos y condiciones</a> -->
+                <router-link
+                  class="link"
+                  target="_blank"
+                  to="/Terminos_y_Condiciones"
+                  >terminos y condiciones</router-link
+                >
+              </label>
             </div>
+            <!-- <p class="text_conditions">
+              Al registrarse en este sitio web, acepta nuestros Términos de uso
+              y nuestra Política de privacidad
+            </p> -->
             <button type="submit" class="boton">Registrar</button>
           </div>
         </div>
@@ -385,5 +400,14 @@ export default {
   .block_inferior {
     height: 20rem;
   }
+}
+.text_conditions {
+  font-size: 10px;
+  text-align: center;
+}
+.link,
+.link_Registro {
+  color: #ff4b46;
+  font-weight: 900;
 }
 </style>

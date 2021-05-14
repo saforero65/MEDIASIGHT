@@ -352,22 +352,22 @@ export default {
     Firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
+        db.collection(user.email)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              // console.log(`${doc.id} => ${doc.data().nombre}`);
+              this.id = `${doc.id}`;
+              this.nombre = `${doc.data().nombre}`;
+              this.correo = `${doc.data().correo}`;
+              this.tipo = `${doc.data().tipo}`;
+              this.avatar = `${doc.data().avatar}`;
+              this.splitedStr = this.nombre.split(" ");
+            });
+          });
       } else {
         this.user = null;
       }
-      db.collection(user.email)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            // console.log(`${doc.id} => ${doc.data().nombre}`);
-            this.id = `${doc.id}`;
-            this.nombre = `${doc.data().nombre}`;
-            this.correo = `${doc.data().correo}`;
-            this.tipo = `${doc.data().tipo}`;
-            this.avatar = `${doc.data().avatar}`;
-            this.splitedStr = this.nombre.split(" ");
-          });
-        });
     });
   },
 };
@@ -428,6 +428,7 @@ header {
   color: #000;
   cursor: pointer;
   border-top-left-radius: 7px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
 }
 .menu_nav a {
   color: #000;
@@ -488,6 +489,7 @@ header {
   background-color: white;
   height: auto;
   border-bottom-left-radius: 7px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
 }
 .logos_info ul {
   display: flex;
@@ -512,6 +514,7 @@ header {
 .about,
 .contactus,
 .perfil {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
   width: auto;
   height: auto;
   max-height: 75vh;

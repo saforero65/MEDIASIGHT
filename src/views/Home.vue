@@ -25,9 +25,12 @@ export default {
   },
 };
 </script>
-<style>
+<style  scoped>
+html {
+  overflow: scroll;
+}
 .body {
   background: lightblue;
   height: 100vh;
 }
-</style>
+</style>>

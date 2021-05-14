@@ -321,35 +321,33 @@
       </div>
       <div v-show="h1" class="point pointProject_1">
         <div class="label point_project" @click="showModal = true">
-          <b> P1</b>
+          <b> PROYECTOS</b>
         </div>
       </div>
       <div v-show="h2" class="point pointProject_2">
         <div class="label point_project" @click="showModal2 = true">
-          <b> P2</b>
+          <b> PROYECTOS</b>
         </div>
       </div>
       <div v-show="h3" class="point pointProject_3">
         <div class="label point_project" @click="showModal3 = true">
-          <b> P3</b>
+          <b> PROYECTOS</b>
         </div>
       </div>
       <div v-show="h4" class="point pointProject_4">
         <div class="label point_project" @click="showModal4 = true">
-          <b> P4</b>
+          <b> PROYECTOS</b>
         </div>
       </div>
       <div v-show="h1" class="point point-1">
-        <div class="label"><b>1</b></div>
+        <div class="label"><b>MATERIAS</b></div>
         <div class="text" id="content" ref="content">
-          <b>MATERIAS:</b> <br />
           {{ contenidos }}
         </div>
       </div>
       <div v-show="h1" class="point point-2">
-        <div class="label"><b>2</b></div>
+        <div class="label"><b>PROFESORES:</b></div>
         <div class="text text_point-2">
-          <b>PROFESORES:</b> <br />
           <b>MATEMATICA BASICAS:</b>
           {{ splitedStr[0] }}<br />
           <b>CALCULO DIFERENCIAL:</b>
@@ -377,87 +375,145 @@
         </div>
       </div>
       <div v-show="h1" class="point point-3">
-        <div class="label"><b>3</b></div>
+        <div class="label"><b>MOTIVACIÓN</b></div>
         <div class="text">
-          <b>MOTIVACIÓN:</b> <br />
           {{ contenidos3 }}
         </div>
       </div>
 
       <div v-show="h2" class="point point-4">
-        <div class="label">4</div>
+        <div class="label"><b>MATERIAS</b></div>
         <div class="text">
-          <b>MATERIAS:</b> <br />
           {{ contenidos4 }}
         </div>
       </div>
       <div v-show="h2" class="point point-5">
-        <div class="label">5</div>
-        <div class="text">
-          <b>PROFESORES:</b> <br />
-          {{ contenidos5 }}
+        <div class="label"><b>PROFESORES:</b></div>
+        <div class="text text_point-2">
+          <b>MATEMATICA BASICAS:</b>
+          {{ splitedStr2[0] }}<br />
+          <b>CALCULO DIFERENCIAL:</b>
+          {{ splitedStr2[1] }}<br />
+          <b>CALCULO INTEGRAL:</b>
+          {{ splitedStr2[2] }}<br />
+          <b>CALCULO VECTORIAL:</b>
+          {{ splitedStr2[3] }}<br />
+          <b>ECUACIONES DIFERENCIALES:</b>
+          {{ splitedStr2[4] }}<br />
+          <b>FISICA MECANICA:</b>
+          {{ splitedStr2[5] }}<br />
+          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b>
+          {{ splitedStr2[6] }}<br />
+          <b>FISICA OPTICA Y ACUSTICA:</b>
+          {{ splitedStr2[7] }}<br />
+          <b>ALGEBRA LINEAL:</b>
+          {{ splitedStr2[8] }}<br />
+          <b>PROBABILIDAD Y ESTADISTICA:</b>
+          {{ splitedStr2[9] }}<br />
+          <b>METODOS NUMERICOS:</b>
+          {{ splitedStr2[10] }}<br />
+          <b>QUIMICA:</b>
+          {{ splitedStr2[11] }}<br />
         </div>
       </div>
       <div v-show="h2" class="point point-6">
-        <div class="label">6</div>
+        <div class="label"><b>MOTIVACIÓN</b></div>
         <div class="text">
-          <b>MOTIVACIÓN:</b> <br />
           {{ contenidos6 }}
         </div>
       </div>
       <div v-show="h3" class="point point-7">
-        <div class="label">7</div>
+        <div class="label"><b>MATERIAS</b></div>
         <div class="text">
-          <b>MATERIAS:</b> <br />
           {{ contenidos7 }}
         </div>
       </div>
       <div v-show="h3" class="point point-8">
-        <div class="label">8</div>
-        <div class="text">
-          <b>PROFESORES:</b> <br />
-          {{ contenidos8 }}
+        <div class="label"><b>PROFESORES:</b></div>
+        <div class="text text_point-2">
+          <b>MATEMATICA BASICAS:</b>
+          {{ splitedStr3[0] }}<br />
+          <b>CALCULO DIFERENCIAL:</b>
+          {{ splitedStr3[1] }}<br />
+          <b>CALCULO INTEGRAL:</b>
+          {{ splitedStr3[2] }}<br />
+          <b>CALCULO VECTORIAL:</b>
+          {{ splitedStr3[3] }}<br />
+          <b>ECUACIONES DIFERENCIALES:</b>
+          {{ splitedStr3[4] }}<br />
+          <b>FISICA MECANICA:</b>
+          {{ splitedStr3[5] }}<br />
+          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b>
+          {{ splitedStr3[6] }}<br />
+          <b>FISICA OPTICA Y ACUSTICA:</b>
+          {{ splitedStr3[7] }}<br />
+          <b>ALGEBRA LINEAL:</b>
+          {{ splitedStr3[8] }}<br />
+          <b>PROBABILIDAD Y ESTADISTICA:</b>
+          {{ splitedStr3[9] }}<br />
+          <b>METODOS NUMERICOS:</b>
+          {{ splitedStr3[10] }}<br />
+          <b>QUIMICA:</b>
+          {{ splitedStr3[11] }}<br />
         </div>
       </div>
       <div v-show="h3" class="point point-9">
-        <div class="label">9</div>
+        <div class="label"><b>MOTIVACIÓN</b></div>
         <div class="text text_point-9">
-          <b>MOTIVACIÓN:</b> <br />
           {{ contenidos9 }}
         </div>
       </div>
       <div v-show="h3" class="point point-10">
-        <div class="label">10</div>
+        <div class="label dato"><b> DATO CURIOSO </b></div>
         <div class="text text_point-10">
           <b>¿VEN ESA TETERA?</b> <br />
           {{ contenidos10 }}
         </div>
       </div>
       <div v-show="h4" class="point point-11">
-        <div class="label">11</div>
+        <div class="label"><b>MATERIAS</b></div>
         <div class="text">
-          <b>MATERIAS:</b> <br />
           {{ contenidos11 }}
         </div>
       </div>
       <div v-show="h4" class="point point-12">
-        <div class="label">12</div>
-        <div class="text">
-          <b>PROFESORES:</b> <br />
-          {{ contenidos12 }}
+        <div class="label"><b>PROFESORES</b></div>
+        <div class="text text_point-2">
+          <b>MATEMATICA BASICAS:</b>
+          {{ splitedStr4[0] }}<br />
+          <b>CALCULO DIFERENCIAL:</b>
+          {{ splitedStr4[1] }}<br />
+          <b>CALCULO INTEGRAL:</b>
+          {{ splitedStr4[2] }}<br />
+          <b>CALCULO VECTORIAL:</b>
+          {{ splitedStr4[3] }}<br />
+          <b>ECUACIONES DIFERENCIALES:</b>
+          {{ splitedStr4[4] }}<br />
+          <b>FISICA MECANICA:</b>
+          {{ splitedStr4[5] }}<br />
+          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b>
+          {{ splitedStr4[6] }}<br />
+          <b>FISICA OPTICA Y ACUSTICA:</b>
+          {{ splitedStr4[7] }}<br />
+          <b>ALGEBRA LINEAL:</b>
+          {{ splitedStr4[8] }}<br />
+          <b>PROBABILIDAD Y ESTADISTICA:</b>
+          {{ splitedStr4[9] }}<br />
+          <b>METODOS NUMERICOS:</b>
+          {{ splitedStr4[10] }}<br />
+          <b>QUIMICA:</b>
+          {{ splitedStr4[11] }}<br />
         </div>
       </div>
       <div v-show="h4" class="point point-13">
-        <div class="label">13</div>
+        <div class="label"><b>MOTIVACIÓN</b></div>
         <div class="text">
-          <b>MOTIVACIÓN:</b> <br />
           {{ contenidos13 }}
         </div>
       </div>
       <div v-show="h4" class="point point-14">
-        <div class="label">14</div>
+        <div class="label dato"><b>DATO CURIOSO</b></div>
         <div class="text">
-          <b>DATO CURIOSO:</b> <br />
           {{ contenidos14 }}
         </div>
       </div>
@@ -555,6 +611,9 @@ export default {
     return {
       // str:"Welcome to Canada!",
       splitedStr: [],
+      splitedStr2: [],
+      splitedStr3: [],
+      splitedStr4: [],
       h1: false,
       h2: false,
       h3: false,
@@ -976,7 +1035,7 @@ export default {
       // this.controls.minDistance = 1;
       // this.controls.maxDistance = 2.64;
       this.controls.enableDamping = true;
-      this.controls.dampingFactor = 0.5;
+      this.controls.dampingFactor = 0.6;
       this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
       this.controls.update();
 
@@ -1063,7 +1122,7 @@ export default {
       this.particulas.translateY(2);
 
       const loader = new GLTFLoader();
-      loader.load("/three-assets/Habitaciones_export.glb", (gltf) => {
+      loader.load("/three-assets/p1.glb", (gltf) => {
         const model = gltf.scene;
         this.animations = gltf.animations;
         gltf.scene.traverse(function (node) {
@@ -1534,7 +1593,7 @@ export default {
           var time = Date.now() * 0.008;
           this.particulas.position.x = Math.sin(time * 0.005) * 1;
           this.particulas.position.z = Math.cos(time * 0.005) * 1;
-
+          console.log("renderizando");
           this.mixer.update(delta);
           this.controls.update();
           this.content_ponits();
@@ -1612,6 +1671,8 @@ export default {
       .doc("0.05")
       .onSnapshot((doc) => {
         this.contenidos5 = `${doc.data().descripcion}`;
+        this.splitedStr2 = this.contenidos5.split(",");
+        console.log(this.splitedStr.length);
       });
     db.collection("contenido")
       .doc("0.06")
@@ -1627,6 +1688,9 @@ export default {
       .doc("0.08")
       .onSnapshot((doc) => {
         this.contenidos8 = `${doc.data().descripcion}`;
+
+        this.splitedStr3 = this.contenidos8.split(",");
+        // console.log(this.splitedStr.length);
       });
     db.collection("contenido")
       .doc("0.09")
@@ -1647,6 +1711,7 @@ export default {
       .doc("0.12")
       .onSnapshot((doc) => {
         this.contenidos12 = `${doc.data().descripcion}`;
+        this.splitedStr4 = this.contenidos12.split(",");
       });
     db.collection("contenido")
       .doc("0.13")

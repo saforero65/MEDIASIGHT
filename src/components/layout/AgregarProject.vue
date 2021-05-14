@@ -101,50 +101,49 @@
               >
                 <div class="popup_ver">
                   <form enctype="multipart/form-data">
+                    <div class="col">
+                      <h3 class="subtittle">Nombre del Proyecto</h3>
+                      <input
+                        class="form-control"
+                        type="text"
+                        v-model="nombre_proyecto"
+                        placeholder="Nombre del proyecto"
+                      />
+                    </div>
                     <div class="primerrow">
                       <div class="row">
-                        <div class="col">
-                          <h3 class="subtittle">Nombre del Proyecto</h3>
-                          <input
-                            class="form-control"
-                            type="text"
-                            v-model="nombre_proyecto"
-                            placeholder="Nombre del proyecto"
-                          />
-                        </div>
-                      </div>
-                      <div class="primerrow row">
-                        <div class="col">
-                          <h3 class="subtittle">Habitación</h3>
+                        <div class="primerrow row">
+                          <div class="col">
+                            <h3 class="subtittle">Habitación</h3>
+                            <b-form-select
+                              v-model="habitacion"
+                              :options="habitaciones"
+                            ></b-form-select>
+                          </div>
+                          <div class="col">
+                            <h3 class="subtittle">Materia</h3>
 
-                          <b-form-select
-                            v-model="habitacion"
-                            :options="habitaciones"
-                          ></b-form-select>
-                        </div>
-                        <div class="col">
-                          <h3 class="subtittle">Materia</h3>
-
-                          <b-form-select
-                            v-if="habitacion == 'Ciencias Básicas'"
-                            v-model="materia"
-                            :options="materiasCB"
-                          ></b-form-select>
-                          <b-form-select
-                            v-if="habitacion == 'Humanística'"
-                            v-model="materia"
-                            :options="materiasH"
-                          ></b-form-select>
-                          <b-form-select
-                            v-if="habitacion == 'Ingeniería Aplicada'"
-                            v-model="materia"
-                            :options="materiasIA"
-                          ></b-form-select>
-                          <b-form-select
-                            v-if="habitacion == 'Ingeniería'"
-                            v-model="materia"
-                            :options="materiasI"
-                          ></b-form-select>
+                            <b-form-select
+                              v-if="habitacion == 'Ciencias Básicas'"
+                              v-model="materia"
+                              :options="materiasCB"
+                            ></b-form-select>
+                            <b-form-select
+                              v-if="habitacion == 'Humanística'"
+                              v-model="materia"
+                              :options="materiasH"
+                            ></b-form-select>
+                            <b-form-select
+                              v-if="habitacion == 'Ingeniería Aplicada'"
+                              v-model="materia"
+                              :options="materiasIA"
+                            ></b-form-select>
+                            <b-form-select
+                              v-if="habitacion == 'Ingeniería'"
+                              v-model="materia"
+                              :options="materiasI"
+                            ></b-form-select>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -325,9 +324,8 @@ export default {
       nombre: null,
       correo: null,
       descripcion: null,
-      habitacion: null,
+      habitacion: "Ciencias Básicas",
       habitaciones: [
-        { text: "Habitación", value: null },
         "Ciencias Básicas",
         "Humanística",
         "Ingeniería Aplicada",
@@ -637,9 +635,9 @@ export default {
   font-size: 18px;
 }
 .primerrow {
-  display: flex;
   justify-content: space-between;
-  padding: 0 1rem 0 1rem;
+  padding: 0 0.5rem;
+  margin: 0.5rem 0;
 }
 .primerrow1 {
   display: flex;

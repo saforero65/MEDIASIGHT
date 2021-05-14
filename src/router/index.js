@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
-// import Login from '../views/Auth/Login.vue'
-// import Register from '../views/Auth/Register.vue'
-// import Dashboard from '../views/Dashboard.vue'
 import Firebase from 'firebase'
 import '../firebase/init'
 
@@ -15,12 +11,12 @@ const routes = [{
         component: () =>
             import ('../views/Home.vue')
     },
-    // {
-    //     path: '/home',
-    //     name: 'home',
-    //     component: () =>
-    //         import ('../views/Home.vue')
-    // },
+    {
+        path: '/Terminos_y_Condiciones',
+        name: 'terminos',
+        component: () =>
+            import ('../views/termadncond.vue')
+    },
     {
         path: '/login',
         name: 'login',
