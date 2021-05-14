@@ -20,8 +20,7 @@
             stroke-width="1"
             stroke-linecap="round"
             stroke-linejoin="round"
-            points="
-	0.375,0.375 45.63,38.087 0.375,75.8 "
+            points="0.375,0.375 45.63,38.087 0.375,75.8 "
           />
         </svg>
       </button>
@@ -45,6 +44,7 @@
       <!-- <div id="stars"></div>
       <div id="stars2"></div> -->
       <!-- <div id="stars3"></div> -->
+
       <div class="Caja_Ascensor">
         <a v-if="aux1 == false" class="MoverCamaraAbajo" @click="MoverAbajo">
           <img src="@/assets/img/icons/boton-abajo.svg" alt="abajo" />
@@ -52,10 +52,12 @@
         <a v-if="aux1" class="MoverCamaraAbajo Off" @click="MoverAbajo">
           <img src="@/assets/img/icons/boton-abajo.svg" alt="abajo" />
         </a>
-        <div v-if="habitacion == 1"><p>Ciencias básicas</p></div>
-        <div v-if="habitacion == 2"><p>Humanística</p></div>
-        <div v-if="habitacion == 3"><p>Diseño</p></div>
-        <div v-if="habitacion == 4"><p>Ingeniería aplicada</p></div>
+        <div class="tableroA">
+          <p v-if="habitacion == 1">Ciencias básicas</p>
+          <p v-if="habitacion == 2">Humanística</p>
+          <p v-if="habitacion == 3">Diseño</p>
+          <p v-if="habitacion == 4">Ingeniería aplicada</p>
+        </div>
         <a v-if="aux == false" class="MoverCamaraArriba" @click="MoverArriba">
           <img src="@/assets/img/icons/boton-arriba.svg" alt="arriba" />
         </a>
@@ -339,28 +341,39 @@
       </div>
       <div v-show="h1" class="point point-1">
         <div class="label"><b>1</b></div>
-        <div class="text">
+        <div class="text" id="content" ref="content">
           <b>MATERIAS:</b> <br />
           {{ contenidos }}
         </div>
       </div>
       <div v-show="h1" class="point point-2">
         <div class="label"><b>2</b></div>
-        <div class="text">
+        <div class="text text_point-2">
           <b>PROFESORES:</b> <br />
-          <b>MATEMATICA BASICAS:</b> <br />
-          {{ contenidos2 }}<br />
-          <b>CALCULO DIFERENCIAL:</b> <br />
-          <b>CALCULO INTEGRAL:</b> <br />
-          <b>CALCULO VECTORIAL:</b> <br />
-          <b>ECUACIONES DIFERENCIALES:</b> <br />
-          <b>FISICA MECANICA:</b> <br />
-          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b> <br />
-          <b>FISICA OPTICA Y ACUSTICA:</b> <br />
-          <b>ALGEBRA LINEAL:</b> <br />
-          <b>PROBABILIDAD Y ESTADISTICA:</b> <br />
-          <b>METODOS NUMERICOS:</b> <br />
-          <b>QUIMICA:</b> <br />
+          <b>MATEMATICA BASICAS:</b>
+          {{ splitedStr[0] }}<br />
+          <b>CALCULO DIFERENCIAL:</b>
+          {{ splitedStr[1] }}<br />
+          <b>CALCULO INTEGRAL:</b>
+          {{ splitedStr[2] }}<br />
+          <b>CALCULO VECTORIAL:</b>
+          {{ splitedStr[3] }}<br />
+          <b>ECUACIONES DIFERENCIALES:</b>
+          {{ splitedStr[4] }}<br />
+          <b>FISICA MECANICA:</b>
+          {{ splitedStr[5] }}<br />
+          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b>
+          {{ splitedStr[6] }}<br />
+          <b>FISICA OPTICA Y ACUSTICA:</b>
+          {{ splitedStr[7] }}<br />
+          <b>ALGEBRA LINEAL:</b>
+          {{ splitedStr[8] }}<br />
+          <b>PROBABILIDAD Y ESTADISTICA:</b>
+          {{ splitedStr[9] }}<br />
+          <b>METODOS NUMERICOS:</b>
+          {{ splitedStr[10] }}<br />
+          <b>QUIMICA:</b>
+          {{ splitedStr[11] }}<br />
         </div>
       </div>
       <div v-show="h1" class="point point-3">
@@ -374,66 +387,77 @@
       <div v-show="h2" class="point point-4">
         <div class="label">4</div>
         <div class="text">
+          <b>MATERIAS:</b> <br />
           {{ contenidos4 }}
         </div>
       </div>
       <div v-show="h2" class="point point-5">
         <div class="label">5</div>
         <div class="text">
+          <b>PROFESORES:</b> <br />
           {{ contenidos5 }}
         </div>
       </div>
       <div v-show="h2" class="point point-6">
         <div class="label">6</div>
         <div class="text">
+          <b>MOTIVACIÓN:</b> <br />
           {{ contenidos6 }}
         </div>
       </div>
       <div v-show="h3" class="point point-7">
         <div class="label">7</div>
         <div class="text">
+          <b>MATERIAS:</b> <br />
           {{ contenidos7 }}
         </div>
       </div>
       <div v-show="h3" class="point point-8">
         <div class="label">8</div>
         <div class="text">
+          <b>PROFESORES:</b> <br />
           {{ contenidos8 }}
         </div>
       </div>
       <div v-show="h3" class="point point-9">
         <div class="label">9</div>
-        <div class="text">
+        <div class="text text_point-9">
+          <b>MOTIVACIÓN:</b> <br />
           {{ contenidos9 }}
         </div>
       </div>
       <div v-show="h3" class="point point-10">
         <div class="label">10</div>
-        <div class="text">
+        <div class="text text_point-10">
+          <b>¿VEN ESA TETERA?</b> <br />
           {{ contenidos10 }}
         </div>
       </div>
       <div v-show="h4" class="point point-11">
         <div class="label">11</div>
         <div class="text">
+          <b>MATERIAS:</b> <br />
           {{ contenidos11 }}
         </div>
       </div>
       <div v-show="h4" class="point point-12">
         <div class="label">12</div>
         <div class="text">
+          <b>PROFESORES:</b> <br />
           {{ contenidos12 }}
         </div>
       </div>
       <div v-show="h4" class="point point-13">
         <div class="label">13</div>
         <div class="text">
+          <b>MOTIVACIÓN:</b> <br />
           {{ contenidos13 }}
         </div>
       </div>
       <div v-show="h4" class="point point-14">
         <div class="label">14</div>
         <div class="text">
+          <b>DATO CURIOSO:</b> <br />
           {{ contenidos14 }}
         </div>
       </div>
@@ -446,7 +470,7 @@
         autoplay
         width="320"
         height="240"
-        src="/textures/Pacman.mp4"
+        src="/textures/PONG.mp4"
         style="display: none"
       ></video>
       <video
@@ -529,11 +553,13 @@ export default {
   },
   data() {
     return {
+      // str:"Welcome to Canada!",
+      splitedStr: [],
       h1: false,
       h2: false,
       h3: false,
       h4: false,
-      aux1: false,
+      aux1: true,
       aux: false,
       habitacion: 1,
       sphereMesh: null,
@@ -594,6 +620,11 @@ export default {
     };
   },
   methods: {
+    myFunction: function () {
+      this.splitedStr = this.contenidos.split(",");
+      console.log(this.splitedStr.length);
+      // return this.splitedStr.length;
+    },
     HabitacionArriba() {
       if (this.camera.position.y <= 1.5) {
         this.aux = false;
@@ -671,8 +702,8 @@ export default {
         let Puerta = new TWEEN.Tween(this.PuertaH.rotation).to(rotationP, 2700);
         Puerta.start();
         this.sphereMesh.position.x = 0.8;
-        this.sphereMesh.position.y = 1.2;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 1.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
       } else if (
@@ -711,8 +742,8 @@ export default {
         let Puerta = new TWEEN.Tween(this.PuertaD.rotation).to(rotationP, 2700);
         Puerta.start();
         this.sphereMesh.position.x = -0.8;
-        this.sphereMesh.position.y = 2.2;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 2.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
       } else if (
@@ -754,8 +785,8 @@ export default {
         );
         Puerta.start();
         this.sphereMesh.position.x = 0.8;
-        this.sphereMesh.position.y = 3;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 3.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
       }
@@ -795,8 +826,8 @@ export default {
         let Puerta = new TWEEN.Tween(this.PuertaD.rotation).to(rotationP, 2700);
         Puerta.start();
         this.sphereMesh.position.x = -0.8;
-        this.sphereMesh.position.y = 2.2;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 2.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
       } else if (
@@ -835,8 +866,8 @@ export default {
         let Puerta = new TWEEN.Tween(this.PuertaH.rotation).to(rotationP, 2700);
         Puerta.start();
         this.sphereMesh.position.x = 0.8;
-        this.sphereMesh.position.y = 1.2;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 1.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
       } else if (
@@ -878,8 +909,8 @@ export default {
         );
         Puerta.start();
         this.sphereMesh.position.x = -0.8;
-        this.sphereMesh.position.y = 0;
-        this.sphereMesh.position.z = -0.5;
+        this.sphereMesh.position.y = 0.23;
+        this.sphereMesh.position.z = -0.2;
         this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
         this.controls.update();
       }
@@ -928,8 +959,8 @@ export default {
       var sphereMaterial = new THREE.MeshLambertMaterial({ color: 0xff0000 });
       this.sphereMesh = new THREE.Mesh(sphere, sphereMaterial);
       this.sphereMesh.position.x = -0.8;
-      this.sphereMesh.position.y = 0;
-      this.sphereMesh.position.z = -0.5;
+      this.sphereMesh.position.y = 0.23;
+      this.sphereMesh.position.z = -0.2;
       this.camera.position.x = -0.8;
       this.camera.position.y = 0.85;
       this.camera.position.z = 1.8;
@@ -1333,7 +1364,7 @@ export default {
       this.intersects4 = this.raycaster.intersectObjects(this.grupo4.children);
       // const intersects = this.raycaster.intersectObjects(this.scene.children);
       if (this.intersects1.length > 0 && this.mixer.length != 0) {
-        console.log("intersecto un objeto");
+        // console.log("intersecto un objeto");
         let aux = 0;
         let action = this.mixer.clipAction(this.animations[0]);
         let action1 = this.mixer.clipAction(this.animations[1]);
@@ -1346,7 +1377,7 @@ export default {
         // action1.crossFadeFrom(action, 1, true);
       }
       if (this.intersects2.length > 0 && this.mixer.length != 0) {
-        console.log("intersecto un objeto2");
+        // console.log("intersecto un objeto2");
         let aux = 0;
         let action = this.mixer.clipAction(this.animations[0]);
         let action2 = this.mixer.clipAction(this.animations[2]);
@@ -1359,7 +1390,7 @@ export default {
       }
       if (this.intersects3.length > 0 && this.mixer.length != 0) {
         let aux = 0;
-        console.log("intersecto lampara");
+        // console.log("intersecto lampara");
         // this.pointsCB[0].element.classList.add("visible");
         if (aux == 0) {
           aux == 1;
@@ -1370,7 +1401,7 @@ export default {
         }
       }
       if (this.intersects4.length > 0 && this.mixer.length != 0) {
-        console.log("intersecto un objeto4");
+        // console.log("intersecto un objeto4");
         let aux = 0;
 
         if (aux == 0) {
@@ -1385,16 +1416,16 @@ export default {
         this.intersects4.length == 0 &&
         this.mixer.length != 0
       ) {
-        console.log("intersecto FONDO");
+        // console.log("intersecto FONDO");
 
         if (this.spotLight.intensity == 2) {
           this.spotLight.intensity = 0;
           this.material1.opacity = 0;
         }
         let aux = 0;
-        let action = this.mixer.clipAction(this.animations[0]);
-        let action1 = this.mixer.clipAction(this.animations[1]);
-        let action2 = this.mixer.clipAction(this.animations[2]);
+        const action = this.mixer.clipAction(this.animations[0]);
+        const action1 = this.mixer.clipAction(this.animations[1]);
+        const action2 = this.mixer.clipAction(this.animations[2]);
         // action1.paused = true;
         if (aux == 0) {
           aux == 1;
@@ -1497,7 +1528,7 @@ export default {
     },
     render() {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
-        if (this.mixer.length != 0) {
+        if (this.mixer != 0) {
           const delta = this.clock.getDelta();
 
           var time = Date.now() * 0.008;
@@ -1513,16 +1544,17 @@ export default {
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render);
       } else {
-        this.mixer = 0;
+        // this.mixer = 0;
         this.aux2 = 1;
       }
-      if (this.statuspadre == false && this.aux2 == 1 && this.mixer == 0) {
-        this.mixer = 0;
+      if (this.statuspadre == false && this.aux2 == 1) {
+        this.raycaster = null;
         console.log(`PARO DE RENDERIZAR mixer update fondoMain`);
         this.$router.push({ name: "login" });
       }
-      if (this.statuspadre4 == false && this.aux2 == 1 && this.mixer == 0) {
-        this.mixer = 0;
+      if (this.statuspadre4 == false && this.aux2 == 1) {
+        // this.mixer = 0;
+        this.raycaster = null;
         console.log(`PARO DE RENDERIZAR mixer update fondo2`);
         this.$router.push({ name: "dashboard" });
       }
@@ -1563,6 +1595,8 @@ export default {
       .doc("0.02")
       .onSnapshot((doc) => {
         this.contenidos2 = `${doc.data().descripcion}`;
+        this.splitedStr = this.contenidos2.split(",");
+        console.log(this.splitedStr.length);
       });
     db.collection("contenido")
       .doc("0.03")
@@ -1717,6 +1751,7 @@ polyline {
   transition: all 250ms ease-in-out;
   stroke-width: 5;
 }
+
 .btn_iniciar {
   position: absolute;
   border-radius: 25px;

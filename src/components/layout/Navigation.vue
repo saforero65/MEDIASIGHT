@@ -48,9 +48,7 @@
       <div class="sliding--menu__wrapper slide--right">
         <input type="checkbox" id="navigation" />
         <label class="bm-burger-button" for="navigation">
-          <span class="bm-burger-bars line-style" style="top: 0%"></span>
-          <span class="bm-burger-bars line-style" style="top: 50%"></span>
-          <span class="bm-burger-bars line-style" style="top: 100%"></span>
+          <img src="@/assets/img/icons/menu.svg" alt="menu" width="35vh" />
         </label>
         <nav>
           <ul class="menu_nav">
@@ -72,9 +70,20 @@
               <div v-if="user == null">
                 <a @click="cambiar_estado()">Login</a>
               </div>
-              <div v-else class="nombre_usuario">
-                <a @click="(showA = false), (showC = false), (showP = !showP)">
-                  {{ user.displayName || user.email }}
+              <div
+                v-else
+                class="nombre_usuario"
+                @click="(showA = false), (showC = false), (showP = !showP)"
+              >
+                <div class="img_perfils">
+                  <img
+                    class="img_perfil"
+                    :src="getImageUrl(avatar)"
+                    alt="imagen perfil"
+                  />
+                </div>
+                <a>
+                  {{ splitedStr[0] }}
                 </a>
               </div>
             </li>
@@ -292,6 +301,7 @@
 <script>
 import Firebase from "firebase";
 import FondoMain from "@/components/layout/FondoMain";
+import { db } from "@/firebase/init";
 export default {
   data() {
     return {
@@ -304,12 +314,21 @@ export default {
       showP: false,
       informacion: false,
       mouse: false,
+      id: null,
+      nombre: null,
+      correo: null,
+      tipo: null,
+      avatar: null,
+      splitedStr: "",
     };
   },
   components: {
     FondoMain,
   },
   methods: {
+    getImageUrl(imageId) {
+      return `${imageId}`;
+    },
     cambiar_estado() {
       this.status = false;
       console.log(`estado pagina principal${this.status}`);
@@ -336,12 +355,31 @@ export default {
       } else {
         this.user = null;
       }
+      db.collection(user.email)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            // console.log(`${doc.id} => ${doc.data().nombre}`);
+            this.id = `${doc.id}`;
+            this.nombre = `${doc.data().nombre}`;
+            this.correo = `${doc.data().correo}`;
+            this.tipo = `${doc.data().tipo}`;
+            this.avatar = `${doc.data().avatar}`;
+            this.splitedStr = this.nombre.split(" ");
+          });
+        });
     });
   },
 };
 </script>
 <style scoped >
+.img_perfil {
+  margin: 0.5rem;
+  clip-path: circle(50% at 50% 50%);
+  width: 3rem;
+}
 header {
+  font-family: "Roboto Mono", monospace;
   display: flex;
 }
 .logo_main {
@@ -375,22 +413,26 @@ header {
   margin: 0 -25% 0 0;
 }
 .menu_nav {
+  font-family: "Roboto Mono", monospace;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   list-style: none;
-  background: #222;
+  background: #fff;
   width: 100%;
   min-height: 6vh;
   max-height: auto;
   margin: 2vh 0 0 0;
   padding: 0;
   font-size: 1.8vh;
-  color: #fff;
+  color: #000;
   cursor: pointer;
+  border-top-left-radius: 7px;
 }
 .menu_nav a {
-  color: #fff;
+  color: #000;
+  font-weight: 700;
+  text-transform: uppercase;
   text-decoration: none;
   display: inline-flex;
   justify-content: center;
@@ -401,9 +443,13 @@ header {
 .menu_nav a:hover {
   /* background: #111; */
   font-size: 2vh;
+  font-weight: 600;
 }
 .nombre_usuario {
   word-break: break-word;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .bm-burger-button {
   width: 4.2vh;
@@ -441,6 +487,7 @@ header {
 .logos_info {
   background-color: white;
   height: auto;
+  border-bottom-left-radius: 7px;
 }
 .logos_info ul {
   display: flex;
@@ -572,5 +619,8 @@ footer ul {
   color: white;
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid black;
+}
+.img_perfils {
+  filter: drop-shadow(-1px 4px 3px rgba(20, 20, 0, 0.5));
 }
 </style>

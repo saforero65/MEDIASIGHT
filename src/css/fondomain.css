@@ -59,6 +59,63 @@
     pointer-events: none;
 }
 
+.point .text_point-2 {
+    position: absolute;
+    top: 30px;
+    left: -120px;
+    width: 400px;
+    padding: 20px;
+    border-radius: 6px;
+    background: #000000cb;
+    border: 1px solid #ffffff77;
+    color: #ffffff;
+    line-height: 1.3em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.point .text_point-10 {
+    position: absolute;
+    top: -180px;
+    left: -120px;
+    width: 400px;
+    padding: 20px;
+    border-radius: 6px;
+    background: #000000cb;
+    border: 1px solid #ffffff77;
+    color: #ffffff;
+    line-height: 1.3em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.point .text_point-9 {
+    position: absolute;
+    top: -120px;
+    left: -120px;
+    width: 400px;
+    padding: 20px;
+    border-radius: 6px;
+    background: #000000cb;
+    border: 1px solid #ffffff77;
+    color: #ffffff;
+    line-height: 1.3em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
 .point:hover .text {
     opacity: 1;
     overflow: hidden;
@@ -195,48 +252,58 @@
     position: fixed;
     bottom: 2%;
     right: 40%;
-    min-width: 10vh;
-    width: 30vh;
-    max-width: 30vh;
-    height: auto;
+    width: auto;
+    height: 7vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5vh 2vh;
+    border-radius: 15px;
+    background: linear-gradient( 180deg, rgba(122, 122, 122, 1) 0%, rgba(185, 183, 183, 1) 28%, rgba(191, 191, 191, 1) 68%, rgba(147, 147, 147, 1) 100%);
+    border: 2px solid gray;
+    box-shadow: 0px 0px 5px 1px black;
+}
+
+.tableroA {
+    display: flex;
+    justify-content: center;
+    width: 21vh;
+    margin: 2rem;
+    background: linear-gradient( 90deg, rgba(65, 65, 65, 1) 0%, rgba(0, 0, 0, 1) 28%, rgba(0, 0, 0, 1) 70%, rgba(57, 57, 57, 1) 100%);
+    border: 1.5px solid rgb(185, 185, 185);
+    box-shadow: 0px 0px 3px 1px black;
 }
 
 .Caja_Ascensor p {
+    color: #4acc97;
     margin: 0;
+    padding: 0.5vh;
+    font-size: 1.7vh;
+    font-family: "Consolas", monospace;
 }
 
-.MoverCamaraArriba {
-    padding: 1.5vh;
+.MoverCamaraArriba,
+.MoverCamaraAbajo {
     border-radius: 50%;
-    background-color: rgb(214, 214, 214);
     cursor: pointer;
 }
 
 .MoverCamaraArriba img,
 .MoverCamaraAbajo img {
-    min-width: 0.5vh;
-    max-width: 2.5vh;
-}
-
-.MoverCamaraAbajo {
-    padding: 1.5vh;
+    min-width: 6vh;
+    max-width: 9vh;
     border-radius: 50%;
-    background-color: rgb(214, 214, 214);
-    cursor: pointer;
+    box-shadow: 0px 0px 3px 1px black;
 }
 
 .MoverCamaraArriba:hover,
 .MoverCamaraAbajo:hover {
-    background-color: yellow;
-    /* border: 2px solid yellow; */
+    background-color: #4acc97;
 }
 
 .Off,
 .Off:hover {
-    background-color: darkgrey;
+    background-color: rgb(73, 73, 73);
     cursor: default;
 }
 

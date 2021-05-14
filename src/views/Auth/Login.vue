@@ -67,8 +67,8 @@
               <button type="submit" class="boton">Iniciar</button>
               <span
                 >¿Aún no tienes cuenta?
-                <router-link class="link_Registro" to="/register"
-                  >Regístrate</router-link
+                <a v-on:click="mostrar = false" class="link_Registro"
+                  >Regístrate</a
                 >
               </span>
             </div>
@@ -282,6 +282,8 @@ export default {
                 nombre: this.name,
                 correo: this.email,
                 tipo: this.type,
+                avatar:
+                  "https://firebasestorage.googleapis.com/v0/b/mediasight-8eb8e.appspot.com/o/imagenes%2F1.jpg?alt=media&token=979045de-5341-4436-a83d-8dd31aa5f112",
               });
             })
             .catch((err) => {
@@ -289,7 +291,11 @@ export default {
               this.ver = true;
             });
         } else {
-          this.error = "Todos los campos son requeridos";
+          if (this.password != this.password2) {
+            this.error = "Las contraseñas no son iguales";
+          } else {
+            this.error = "Todos los campos son requeridos";
+          }
           this.ver = true;
         }
       } else {

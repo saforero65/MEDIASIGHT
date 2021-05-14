@@ -170,6 +170,20 @@
                   />
                 </div>
               </div>
+              <H3 class="label">SELECCIONA UN AVATAR</H3>
+
+              <div class="container_avatar row">
+                <div v-for="imagen in avatares" v-bind:key="imagen.id">
+                  <label @click="avatar = imagen.data.imagen">
+                    <input type="radio" name="test" value="small" />
+                    <img
+                      class="img_perfil_selector"
+                      :src="getImageUrl(imagen.data.imagen)"
+                      alt="imagen perfil"
+                    />
+                  </label>
+                </div>
+              </div>
               <div class="row">
                 <div class="col">
                   <input
@@ -185,18 +199,6 @@
                     value=" Guardar"
                     class="btn btn-success"
                   />
-                </div>
-              </div>
-              <div class="row">
-                <div v-for="imagen in avatares" v-bind:key="imagen.id">
-                  <label @click="avatar = imagen.data.imagen">
-                    <input type="radio" name="test" value="small" />
-                    <img
-                      class="img_perfil_selector"
-                      :src="getImageUrl(imagen.data.imagen)"
-                      alt="imagen perfil"
-                    />
-                  </label>
                 </div>
               </div>
             </form>
@@ -247,8 +249,8 @@ export default {
     },
     actualizar() {
       this.edit = false;
-      console.log(this.nombre);
-      console.log(this.tipo);
+      // console.log(this.nombre);
+      // console.log(this.tipo);
       db.collection(`${this.correo}`)
         .doc(this.id)
         .update({
@@ -306,11 +308,11 @@ export default {
     Firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
-        console.log(this.user);
+        // console.log(this.user);
         if (user.email == "admin@unimilitar.edu.co") {
-          console.log(`estado de mostrar dep=${this.mostrardep}`);
+          // console.log(`estado de mostrar dep=${this.mostrardep}`);
           this.mostrardep = false;
-          console.log(`estado de mostrar dep=${this.mostrardep}`);
+          // console.log(`estado de mostrar dep=${this.mostrardep}`);
         } else {
           this.mostrardep = true;
         }
@@ -319,7 +321,7 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              console.log(`${doc.id} => ${doc.data().nombre}`);
+              // console.log(`${doc.id} => ${doc.data().nombre}`);
               this.id = `${doc.id}`;
               this.nombre = `${doc.data().nombre}`;
               this.correo = `${doc.data().correo}`;
