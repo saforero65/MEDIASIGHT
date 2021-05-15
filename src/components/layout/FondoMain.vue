@@ -905,7 +905,7 @@ export default {
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       // crea la escena
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color("#000");
+      this.scene.background = new THREE.Color("#FFF");
       // añade camaras
       this.camera = new THREE.PerspectiveCamera(
         45,
@@ -996,16 +996,16 @@ export default {
         this.container.clientWidth,
         this.container.clientHeight
       );
-      const size = 10;
-      const divisions = 10;
-      const gridHelper = new THREE.GridHelper(size, divisions);
-      gridHelper.translateY(-1);
-      this.scene.add(gridHelper);
+      // const size = 10;
+      // const divisions = 10;
+      // const gridHelper = new THREE.GridHelper(size, divisions);
+      // gridHelper.translateY(-1);
+      // this.scene.add(gridHelper);
 
       //añadiendo modelo .glb
-      const axesHelper = new THREE.AxesHelper(5);
-      axesHelper.translateY(-1);
-      this.scene.add(axesHelper);
+      // const axesHelper = new THREE.AxesHelper(5);
+      // axesHelper.translateY(-1);
+      // this.scene.add(axesHelper);
 
       const loader = new GLTFLoader();
 

@@ -39,9 +39,14 @@
         <p v-if="informacion" class="Info_Footer">
           UMNG 2021-1<br />Bogotá D.C.
         </p>
-        <p v-if="mouse" class="Info_Footer">
-          Clic derecho para rotar<br />Scroll para zoom
-        </p>
+        <div v-if="mouse" class="Info_Footer">
+          <div>
+            <img src="@/assets/img/gifs/clic.gif" alt="">
+          </div>
+          <div>
+            <img src="@/assets/img/gifs/scroll.gif" alt="">
+          </div>
+/        </div>
       </div>
     </footer>
     <template>
