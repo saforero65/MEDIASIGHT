@@ -363,6 +363,7 @@ export default {
 
 /* CHECKED STYLES */
 [type="radio"]:checked + img {
-  outline: 2px solid #f00;
+  box-shadow: 0 -2px 5px 0 rgba(0, 55, 138, 0.6),
+    0 2px 5px 0 rgba(0, 55, 138, 0.6);
 }
 </style>

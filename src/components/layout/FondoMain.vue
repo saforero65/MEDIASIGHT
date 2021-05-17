@@ -609,6 +609,7 @@ export default {
   },
   data() {
     return {
+      habitaciones: null,
       // str:"Welcome to Canada!",
       splitedStr: [],
       splitedStr2: [],
@@ -1035,10 +1036,11 @@ export default {
       // this.controls.minDistance = 1;
       // this.controls.maxDistance = 2.64;
       this.controls.enableDamping = true;
-      this.controls.dampingFactor = 0.6;
+      this.controls.dampingFactor = 0.3;
       this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
       this.controls.update();
-
+      // const light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+      // this.scene.add(light);
       const dirLight = new THREE.DirectionalLight(0xffffff, 1);
       dirLight.position.set(0, 3, 5);
       dirLight.target.position.set(0, 1, 0);
@@ -1121,9 +1123,9 @@ export default {
       // this.particulas.translateX(-10);
       this.particulas.translateY(2);
 
-      const loader = new GLTFLoader();
-      loader.load("/three-assets/p1.glb", (gltf) => {
-        const model = gltf.scene;
+      let loader = new GLTFLoader();
+      loader.load("/three-assets/Animaciones.glb", (gltf) => {
+        let model = gltf.scene;
         this.animations = gltf.animations;
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
@@ -1143,15 +1145,23 @@ export default {
       const loader3 = new GLTFLoader(); //Cabina Ascensor
       loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
         this.ascensor = gltf.scene;
-        this.scene.add(this.ascensor);
+        // this.scene.add(this.ascensor);
 
         this.ascensor.position.set(0, 0.015, 0);
         this.ascensor.scale.set(5, 5, 5);
       });
+      const loader1 = new GLTFLoader(); //Cabina Ascensor
+      loader1.load("/three-assets/HabitacionesOB.glb", (gltf) => {
+        this.habitaciones = gltf.scene;
+
+        this.habitaciones.position.set(0, 0, 0);
+        this.habitaciones.scale.set(5, 5, 5);
+        this.scene.add(this.habitaciones);
+      });
       const loader4 = new GLTFLoader(); //Puerta Ciencias Básicas
       loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
         this.PuertaCB = gltf.scene;
-        this.scene.add(this.PuertaCB);
+        // this.scene.add(this.PuertaCB);
 
         this.PuertaCB.position.set(0, 0, 0);
         this.PuertaCB.scale.set(5, 5, 5);
@@ -1160,7 +1170,7 @@ export default {
       const loader5 = new GLTFLoader(); //Puerta Humanística
       loader5.load("/three-assets/PuertaH.glb", (gltf) => {
         this.PuertaH = gltf.scene;
-        this.scene.add(this.PuertaH);
+        // this.scene.add(this.PuertaH);
 
         this.PuertaH.position.set(0, 0, 0);
         this.PuertaH.scale.set(5, 5, 5);
@@ -1169,7 +1179,7 @@ export default {
       const loader6 = new GLTFLoader(); //Puerta Diseño
       loader6.load("/three-assets/PuertaD.glb", (gltf) => {
         this.PuertaD = gltf.scene;
-        this.scene.add(this.PuertaD);
+        // this.scene.add(this.PuertaD);
 
         this.PuertaD.position.set(0, 0, 0);
         this.PuertaD.scale.set(5, 5, 5);
@@ -1178,7 +1188,7 @@ export default {
       const loader7 = new GLTFLoader(); //Puerta Ingeniería aplicada
       loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
         this.PuertaIA = gltf.scene;
-        this.scene.add(this.PuertaIA);
+        // this.scene.add(this.PuertaIA);
 
         this.PuertaIA.position.set(0, 0, 0);
         this.PuertaIA.scale.set(5, 5, 5);
@@ -1600,8 +1610,8 @@ export default {
           TWEEN.update(this.time);
           window.addEventListener("mousemove", this.onMouseMove, false);
         }
-        this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render);
+        this.renderer.render(this.scene, this.camera);
       } else {
         // this.mixer = 0;
         this.aux2 = 1;

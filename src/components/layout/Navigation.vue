@@ -29,10 +29,24 @@
           <img
             @mouseover="mouse = true"
             @mouseleave="mouse = false"
+            v-b-modal.modal-lg
             class="info_controls"
             src="@/assets/img/icons/mouse.svg"
             alt="mouse"
           />
+          <!-- <b-button v-b-modal.modal-lg variant="primary">lg modal</b-button> -->
+          <b-modal
+            v-model="show"
+            title="Instrucciones de Navegacion 3D"
+            :header-bg-variant="headerBgVariant"
+            :header-text-variant="headerTextVariant"
+            :body-bg-variant="bodyBgVariant"
+            :body-text-variant="bodyTextVariant"
+            id="modal-lg"
+            size="lg"
+            >Hello Large Modal!
+            <div class="icon-scroll"></div>
+          </b-modal>
         </li>
       </ul>
       <div>
@@ -47,7 +61,25 @@
     <template>
       <div class="sliding--menu__wrapper slide--right">
         <input type="checkbox" id="navigation" />
-        <label class="bm-burger-button" for="navigation">
+        <label
+          class="bm-burger-button"
+          for="navigation"
+          @click="menu = false"
+          v-if="menu"
+        >
+          <img
+            src="@/assets/img/icons/menu.svg"
+            alt="menu"
+            width="35vh"
+            class="imagen_menu"
+          />
+        </label>
+        <label
+          class="bm-burger-button"
+          for="navigation"
+          @click="menu = true"
+          v-else
+        >
           <img src="@/assets/img/icons/menu.svg" alt="menu" width="35vh" />
         </label>
         <nav>
@@ -305,6 +337,24 @@ import { db } from "@/firebase/init";
 export default {
   data() {
     return {
+      show: false,
+      variants: [
+        "primary",
+        "secondary",
+        "success",
+        "warning",
+        "danger",
+        "info",
+        "light",
+        "dark",
+      ],
+      headerBgVariant: "light",
+      headerTextVariant: "dark",
+      bodyBgVariant: "dark",
+      bodyTextVariant: "dark",
+      // footerBgVariant: "warning",
+      // footerTextVariant: "dark",
+      menu: true,
       status: true,
       status2: true,
       status3: true,
@@ -625,5 +675,45 @@ footer ul {
 }
 .img_perfils {
   filter: drop-shadow(-1px 4px 3px rgba(20, 20, 0, 0.5));
+}
+
+.imagen_menu {
+  filter: invert(1);
+}
+.icon-scroll,
+.icon-scroll:before {
+  position: absolute;
+  left: 50%;
+}
+
+.icon-scroll {
+  width: 40px;
+  height: 70px;
+  margin-left: -20px;
+  top: 50%;
+  margin-top: -35px;
+  box-shadow: inset 0 0 0 1px #fff;
+  border-radius: 25px;
+}
+.icon-scroll:before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  margin-left: -4px;
+  top: 8px;
+  border-radius: 4px;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-name: scroll;
+}
+@keyframes scroll {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(46px);
+  }
 }
 </style>
