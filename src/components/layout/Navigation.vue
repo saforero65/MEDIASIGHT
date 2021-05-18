@@ -29,33 +29,28 @@
           <img
             @mouseover="mouse = true"
             @mouseleave="mouse = false"
-            v-b-modal.modal-lg
             class="info_controls"
             src="@/assets/img/icons/mouse.svg"
             alt="mouse"
           />
-          <!-- <b-button v-b-modal.modal-lg variant="primary">lg modal</b-button> -->
-          <b-modal
-            v-model="show"
-            title="Instrucciones de Navegacion 3D"
-            :header-bg-variant="headerBgVariant"
-            :header-text-variant="headerTextVariant"
-            :body-bg-variant="bodyBgVariant"
-            :body-text-variant="bodyTextVariant"
-            id="modal-lg"
-            size="lg"
-            >Hello Large Modal!
-            <div class="icon-scroll"></div>
-          </b-modal>
         </li>
       </ul>
       <div>
-        <p v-if="informacion" class="Info_Footer">
+        <p v-if="informacion" class="Info_Footer1">
           UMNG 2021-1<br />Bogotá D.C.
         </p>
-        <p v-if="mouse" class="Info_Footer">
-          Clic derecho para rotar<br />Scroll para zoom
-        </p>
+        <div v-if="mouse" class="Info_Footer">
+          <div class="clic">
+            <img src="@/assets/img/gifs/clic.gif" alt="" />
+            <p>
+              Mantenga el clic derecho presionado para moverse en la habitación
+            </p>
+          </div>
+          <div class="clic">
+            <p>Use el scroll del mouse para hacer zoom en la habitación</p>
+            <img src="@/assets/img/gifs/scroll.gif" alt="" />
+          </div>
+        </div>
       </div>
     </footer>
     <template>
@@ -88,7 +83,7 @@
               <a
                 href="#"
                 @click="(showC = !showC), (showA = false), (showP = false)"
-                >Perfiles</a
+                >Acerca de</a
               >
             </li>
             <li>
@@ -124,41 +119,43 @@
             <transition name="slide-fade">
               <div v-if="showC">
                 <div class="about">
-                  <h3>Perfil del aspirante</h3>
-                  <p>
-                    Debe tener pensamiento lógico y crítico, y fuerte
-                    inclinación por la tecnología, con habilidad para las
-                    matemáticas, la física, la informática, la comunicación y la
-                    expresión gráfica. Además, debe tener capacidad de análisis,
-                    aprendizaje autónomo, creatividad, responsabilidad,
-                    compromiso y liderazgo, que le permitan asumir nuevos retos
-                    en su formación profesional.
-                  </p>
-                  <h3>Perfil del egresado</h3>
-                  <p>
-                    El ingeniero en multimedia de la Universidad Militar Nueva
-                    Ganada está en capacidad de utilizar los estándares de
-                    ingeniería computacionales y de multimedia, para desarrollar
-                    productos innovadores en términos de diseño, interactividad,
-                    uso, realismo e inteligencia, como cualidades de la calidad
-                    de la experiencia para el usuario final. Además, cuenta con
-                    la idoneidad para analizar, evaluar e investigar situaciones
-                    reales de su campo profesional, de manera crítica y
-                    reflexiva, y con compromiso social y ético, con el fin de
-                    establecer oportunidades de avance tecnológico y científico
-                    en la ingeniería en multimedia, así como con habilidades
-                    administrativas y gerenciales, que le posibilitan su
-                    integración en el entorno laboral y la creación de empresa.
-                  </p>
+                  <h3>Ingeniería en Multimedia</h3>
+                  <div class="cont_info">
+                    <a
+                      href="https://www.umng.edu.co/documents/20127/432682/Ing+en+Multimedia+copia.pdf/027fbe6e-b046-00c1-4a97-81a520f299ae?t=1589289836585"
+                      target="_blank"
+                    >
+                      <img src="@/assets/img/icons/folleto.svg" alt="Folleto" />
+                      <h4>Folleto del programa</h4></a
+                    >
+                  </div>
+                  <div class="cont_info">
+                    <a
+                      href="https://www.umng.edu.co/web/guest/programas/pregrados/ingenieria-multimedia"
+                      target="_blank"
+                    >
+                      <img
+                        src="@/assets/img/icons/info_general.svg"
+                        alt="Informacion general"
+                      />
+                      <h4>Información General</h4></a
+                    >
+                  </div>
+                  <div class="cont_info">
+                    <a
+                      href="https://www.umng.edu.co/documents/20127/463311/Plan+de+estudios+IngMultimedia.pdf/280c5b1f-3d57-2598-86a4-81b7be79300f?t=1574191474428"
+                      target="_blank"
+                    >
+                      <img
+                        src="@/assets/img/icons/plan_estudios.svg"
+                        alt="Plan de estudios"
+                      />
+                      <h4>Plan de estudios</h4></a
+                    >
+                  </div>
                 </div>
                 <div class="logos_info">
                   <ul>
-                    <li>
-                      <img
-                        src="@/assets/img/logo_main.png"
-                        alt="logo_multimedia"
-                      />
-                    </li>
                     <li>
                       <img
                         src="@/assets/img/logo_mul.png"
@@ -182,13 +179,23 @@
               <div v-if="showA">
                 <div class="contactus">
                   <h3>Contáctanos</h3>
-                  <p>Desarrolladores del proyecto:</p>
                   <div class="nombres">
                     <ul>
                       <li>
+                        <p>Product owner:</p>
+                        <img src="@/assets/img/foto.png" alt="foto1" />
+                        <p>Marlon Steven Pinto Pinto</p>
+                      </li>
+                      <li>
+                        <p>Scrum master:</p>
                         <img src="@/assets/img/foto.png" alt="foto1" />
                         <p>Javier Santiago Bocanegra</p>
                       </li>
+                    </ul>
+                  </div>
+                  <p><b>Desarrolladores del proyecto:</b></p>
+                  <div class="nombres">
+                    <ul class="nombresD">
                       <li>
                         <img src="@/assets/img/foto.png" alt="foto2" />
                         <p>Santiago Forero Zapata</p>
@@ -255,12 +262,7 @@
                         alt="logo_multimedia"
                       />
                     </li>
-                    <li>
-                      <img
-                        src="@/assets/img/logo_mul.png"
-                        alt="logo_multimedia"
-                      />
-                    </li>
+
                     <li>
                       <a href="https://www.umng.edu.co/inicio" target="_blank">
                         <img src="@/assets/img/logo_umng.png" alt="logo_umng" />
@@ -574,10 +576,34 @@ header {
   color: #fff;
   font-size: 1.7vh;
 }
-.about h3,
 .contactus h3 {
+  /* margin-bottom: 10; */
+  font-size: 3vh;
+}
+.about h3 {
   margin-bottom: 2vh;
   font-size: 3vh;
+}
+.about h4:hover {
+  font-size: 2vh;
+}
+.about img {
+  min-width: 2vh;
+  max-width: 4vh;
+}
+.about h4 {
+  font-size: 1.9vh;
+  margin-left: 2vh;
+}
+.cont_info {
+  padding: 2vh;
+  border-top: 1px solid gray;
+}
+.about a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
 }
 .contactus ul,
 .contactus a {
@@ -591,9 +617,8 @@ header {
   font-size: 1.76vh;
 }
 .nombres,
-.contactus p,
-.about p {
-  margin: 0 0 2.5vh 0;
+.contactus p {
+  margin: 1.5vh 0 1.5vh 0;
   text-align: justify;
 }
 .nombres ul {
@@ -602,16 +627,13 @@ header {
   flex-wrap: wrap;
   justify-content: center;
 }
-.nombres li {
-  display: inline-grid;
-  justify-items: center;
-  height: auto;
-  margin: 0.5vh 2vh;
-  width: 35%;
+.nombresD li {
+  width: 20%;
 }
 .nombres img {
-  max-width: 8vh;
-  min-width: 5vh;
+  border-radius: 50%;
+  max-width: 5vh;
+  min-width: 2vh;
 }
 .nombres p {
   text-align: center;
@@ -666,12 +688,42 @@ footer ul {
   bottom: 5vh;
   height: auto;
   margin: 0 0 0 2vh;
+  padding: 1vh 5vh;
+  font-size: 1.5vh;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid black;
+  font-size: 2vh;
+  font-family: "Consolas", monospace;
+  text-align: justify;
+}
+.Info_Footer1 {
+  position: fixed;
+  bottom: 5vh;
+  height: auto;
+  margin: 0 0 0 1vh;
   padding: 1vh;
   font-size: 1.5vh;
   text-align: center;
   color: white;
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid black;
+  font-size: 2vh;
+  font-family: "Consolas", monospace;
+  text-align: justify;
+}
+.Info_Footer img {
+  min-width: 5vh;
+  max-width: 20vh;
+  margin: 0 0;
+}
+.clic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 5vh;
+  max-width: 50vh;
 }
 .img_perfils {
   filter: drop-shadow(-1px 4px 3px rgba(20, 20, 0, 0.5));
