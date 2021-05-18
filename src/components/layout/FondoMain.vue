@@ -113,8 +113,7 @@
                             {{ item.data.materia }}:
                           </h3>
                           <h3 class="materia_proyecto">
-                            -
-                            {{ item.data.tipo }}:
+                            {{ item.data.tipo }} -
                           </h3>
                           <h3 class="materia_proyecto">
                             {{ item.data.nombre }}
@@ -174,8 +173,7 @@
                             {{ item.data.materia }}:
                           </h3>
                           <h3 class="materia_proyecto">
-                            -
-                            {{ item.data.tipo }}:
+                            {{ item.data.tipo }} -
                           </h3>
                           <h3 class="materia_proyecto">
                             {{ item.data.nombre }}
@@ -235,8 +233,7 @@
                             {{ item.data.materia }}:
                           </h3>
                           <h3 class="materia_proyecto">
-                            -
-                            {{ item.data.tipo }}:
+                            {{ item.data.tipo }} -
                           </h3>
                           <h3 class="materia_proyecto">
                             {{ item.data.nombre }}
@@ -297,8 +294,7 @@
                             {{ item.data.materia }}:
                           </h3>
                           <h3 class="materia_proyecto">
-                            -
-                            {{ item.data.tipo }}:
+                            {{ item.data.tipo }} -
                           </h3>
                           <h3 class="materia_proyecto">
                             {{ item.data.nombre }}
@@ -639,6 +635,7 @@ export default {
       renderer: null,
       clock: null,
       mixer: [],
+      mixer2: [],
       grupo1: null,
       grupo2: null,
       grupo3: null,
@@ -1103,8 +1100,9 @@ export default {
       const puntos = new THREE.SphereGeometry(0.005, 32, 32);
 
       // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-      var material3 = new THREE.MeshPhongMaterial({
+      var material3 = new THREE.MeshLambertMaterial({
         color: 0xffffff,
+        // vertexColors: true,
       });
 
       var range = 5;
@@ -1124,45 +1122,72 @@ export default {
       this.particulas.translateY(2);
 
       let loader = new GLTFLoader();
-      loader.load("/three-assets/Animaciones.glb", (gltf) => {
-        let model = gltf.scene;
+      loader.load("/three-assets/Interactivos.glb", (gltf) => {
+        this.model = gltf.scene;
         this.animations = gltf.animations;
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
         });
-        this.mixer = new THREE.AnimationMixer(model);
+
+        this.mixer = new THREE.AnimationMixer(this.model);
         console.log(this.animations);
         let action = this.mixer.clipAction(this.animations[0]);
         action.play();
-        this.scene.add(model);
+        this.scene.add(this.model);
         console.log(`modelo cargado`);
         this.saltar = true;
-        model.position.set(0, 0, 0);
-        model.scale.set(5, 5, 5);
+        this.model.position.set(0, 0, 0);
+        this.model.scale.set(5, 5, 5);
         // model.needsUpdate = true;
       });
       const loader3 = new GLTFLoader(); //Cabina Ascensor
       loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
         this.ascensor = gltf.scene;
         // this.scene.add(this.ascensor);
-
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
         this.ascensor.position.set(0, 0.015, 0);
         this.ascensor.scale.set(5, 5, 5);
       });
       const loader1 = new GLTFLoader(); //Cabina Ascensor
       loader1.load("/three-assets/HabitacionesOB.glb", (gltf) => {
         this.habitaciones = gltf.scene;
-
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
         this.habitaciones.position.set(0, 0, 0);
         this.habitaciones.scale.set(5, 5, 5);
         this.scene.add(this.habitaciones);
+      });
+      const loader2 = new GLTFLoader(); //Cabina Ascensor
+      loader2.load("/three-assets/Nointeractivos.glb", (gltf) => {
+        this.Nointeractivos = gltf.scene;
+        this.animations2 = gltf.animations;
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
+
+        this.mixer2 = new THREE.AnimationMixer(this.Nointeractivos);
+        console.log(this.animations2);
+        let action = this.mixer2.clipAction(this.animations2[0]);
+        action.play();
+        this.Nointeractivos.position.set(0, 0, 0);
+        this.Nointeractivos.scale.set(5, 5, 5);
+        this.scene.add(this.Nointeractivos);
       });
       const loader4 = new GLTFLoader(); //Puerta Ciencias Básicas
       loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
         this.PuertaCB = gltf.scene;
         // this.scene.add(this.PuertaCB);
-
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
         this.PuertaCB.position.set(0, 0, 0);
         this.PuertaCB.scale.set(5, 5, 5);
         this.PuertaCB.rotation.set(0, 2, 0);
@@ -1171,7 +1196,10 @@ export default {
       loader5.load("/three-assets/PuertaH.glb", (gltf) => {
         this.PuertaH = gltf.scene;
         // this.scene.add(this.PuertaH);
-
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
         this.PuertaH.position.set(0, 0, 0);
         this.PuertaH.scale.set(5, 5, 5);
         this.PuertaH.rotation.set(0, 0, 0);
@@ -1180,7 +1208,10 @@ export default {
       loader6.load("/three-assets/PuertaD.glb", (gltf) => {
         this.PuertaD = gltf.scene;
         // this.scene.add(this.PuertaD);
-
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
         this.PuertaD.position.set(0, 0, 0);
         this.PuertaD.scale.set(5, 5, 5);
         this.PuertaD.rotation.set(0, 0, 0);
@@ -1189,7 +1220,10 @@ export default {
       loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
         this.PuertaIA = gltf.scene;
         // this.scene.add(this.PuertaIA);
-
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
         this.PuertaIA.position.set(0, 0, 0);
         this.PuertaIA.scale.set(5, 5, 5);
         this.PuertaIA.rotation.set(0, 0, 0);
@@ -1440,8 +1474,8 @@ export default {
         // action1.paused = false;
         if (aux == 0) {
           aux == 1;
-          action.stop();
-          action1.play();
+          action1.stop();
+          action.play();
         }
         // action1.crossFadeFrom(action, 1, true);
       }
@@ -1449,12 +1483,12 @@ export default {
         // console.log("intersecto un objeto2");
         let aux = 0;
         let action = this.mixer.clipAction(this.animations[0]);
-        let action2 = this.mixer.clipAction(this.animations[2]);
+        let action1 = this.mixer.clipAction(this.animations[1]);
         // action1.paused = false;
         if (aux == 0) {
           aux == 1;
           action.stop();
-          action2.play();
+          action1.play();
         }
       }
       if (this.intersects3.length > 0 && this.mixer.length != 0) {
@@ -1478,6 +1512,21 @@ export default {
           this.video6.play();
         }
       }
+
+      if (
+        (this.intersects1.length == 0 ||
+          this.intersects2.length == 0 ||
+          this.intersects3.length == 0 ||
+          this.intersects4.length == 0) &&
+        this.mixer.length != 0
+      ) {
+        this.model.traverse((node) => {
+          if (node.isMesh) {
+            node.material.emissive = new THREE.Color(0x00000000);
+            // console.log(node.material.emissive);
+          }
+        });
+      }
       if (
         this.intersects1.length == 0 &&
         this.intersects2.length == 0 &&
@@ -1486,21 +1535,30 @@ export default {
         this.mixer.length != 0
       ) {
         // console.log("intersecto FONDO");
-
+        this.model.traverse((node) => {
+          if (node.isMesh) {
+            node.material.emissive = new THREE.Color(0x00ffff);
+          }
+        });
         if (this.spotLight.intensity == 2) {
           this.spotLight.intensity = 0;
           this.material1.opacity = 0;
+          this.habitaciones.traverse((o) => {
+            if (o.isMesh) {
+              o.material.emissive = new THREE.Color(0x00000000);
+            }
+          });
         }
         let aux = 0;
         const action = this.mixer.clipAction(this.animations[0]);
         const action1 = this.mixer.clipAction(this.animations[1]);
-        const action2 = this.mixer.clipAction(this.animations[2]);
+        // const action2 = this.mixer.clipAction(this.animations[2]);
         // action1.paused = true;
         if (aux == 0) {
           aux == 1;
-          action2.stop();
+          action.stop();
           action1.stop();
-          action.play();
+          // action.play();
           this.video6.pause();
         }
       }
@@ -1597,7 +1655,7 @@ export default {
     },
     render() {
       if (this.statuspadre && this.statuspadre4 && this.aux2 == 0) {
-        if (this.mixer != 0) {
+        if (this.mixer != 0 && this.mixer2 != 0) {
           const delta = this.clock.getDelta();
 
           var time = Date.now() * 0.008;
@@ -1605,6 +1663,7 @@ export default {
           this.particulas.position.z = Math.cos(time * 0.005) * 1;
           console.log("renderizando");
           this.mixer.update(delta);
+          this.mixer2.update(delta);
           this.controls.update();
           this.content_ponits();
           TWEEN.update(this.time);
