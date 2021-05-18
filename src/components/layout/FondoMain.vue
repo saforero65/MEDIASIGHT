@@ -905,7 +905,7 @@ export default {
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       // crea la escena
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color("#FFF");
+      this.scene.background = new THREE.Color("black");
       // añade camaras
       this.camera = new THREE.PerspectiveCamera(
         45,
