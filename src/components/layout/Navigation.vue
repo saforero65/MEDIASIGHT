@@ -577,7 +577,7 @@ header {
   font-size: 1.7vh;
 }
 .contactus h3 {
-  /* margin-bottom: 10; */
+  margin-bottom: 10;
   font-size: 3vh;
 }
 .about h3 {
@@ -626,6 +626,13 @@ header {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.nombres li {
+  display: inline-grid;
+  justify-items: center;
+  height: auto;
+  margin: 0.5vh 2vh;
+  width: 35%;
 }
 .nombresD li {
   width: 20%;
