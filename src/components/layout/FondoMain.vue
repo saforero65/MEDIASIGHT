@@ -1026,14 +1026,14 @@ export default {
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.enablePan = true;
-      // this.controls.minAzimuthAngle = [(7 * Math.PI) / 4];
-      // this.controls.maxAzimuthAngle = [Math.PI / 4];
-      // this.controls.minPolarAngle = Math.PI / 4;
-      // this.controls.maxPolarAngle = (5 * Math.PI) / 12;
-      // this.controls.minDistance = 1;
-      // this.controls.maxDistance = 2.64;
+      this.controls.minAzimuthAngle = [(7 * Math.PI) / 4];
+      this.controls.maxAzimuthAngle = [Math.PI / 4];
+      this.controls.minPolarAngle = Math.PI / 4;
+      this.controls.maxPolarAngle = (5 * Math.PI) / 12;
+      this.controls.minDistance = 1;
+      this.controls.maxDistance = 2.64;
       this.controls.enableDamping = true;
-      this.controls.dampingFactor = 0.3;
+      this.controls.dampingFactor = 0.5;
       this.controls.target.copy(this.sphereMesh.position); //Objetivo de la cámara
       this.controls.update();
       // const light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
@@ -1136,7 +1136,7 @@ export default {
         action.play();
         this.scene.add(this.model);
         console.log(`modelo cargado`);
-        this.saltar = true;
+
         this.model.position.set(0, 0, 0);
         this.model.scale.set(5, 5, 5);
         // model.needsUpdate = true;
@@ -1144,16 +1144,16 @@ export default {
       const loader3 = new GLTFLoader(); //Cabina Ascensor
       loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
         this.ascensor = gltf.scene;
-        // this.scene.add(this.ascensor);
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
         });
         this.ascensor.position.set(0, 0.015, 0);
         this.ascensor.scale.set(5, 5, 5);
+        // this.scene.add(this.ascensor);
       });
-      const loader1 = new GLTFLoader(); //Cabina Ascensor
-      loader1.load("/three-assets/HabitacionesOB.glb", (gltf) => {
+      const loader1 = new GLTFLoader();
+      loader1.load("/three-assets/Habitaciones.glb", (gltf) => {
         this.habitaciones = gltf.scene;
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
@@ -1162,6 +1162,7 @@ export default {
         this.habitaciones.position.set(0, 0, 0);
         this.habitaciones.scale.set(5, 5, 5);
         this.scene.add(this.habitaciones);
+        this.saltar = true;
       });
       const loader2 = new GLTFLoader(); //Cabina Ascensor
       loader2.load("/three-assets/Nointeractivos.glb", (gltf) => {
@@ -1183,7 +1184,6 @@ export default {
       const loader4 = new GLTFLoader(); //Puerta Ciencias Básicas
       loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
         this.PuertaCB = gltf.scene;
-        // this.scene.add(this.PuertaCB);
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
@@ -1191,11 +1191,11 @@ export default {
         this.PuertaCB.position.set(0, 0, 0);
         this.PuertaCB.scale.set(5, 5, 5);
         this.PuertaCB.rotation.set(0, 2, 0);
+        this.scene.add(this.PuertaCB);
       });
       const loader5 = new GLTFLoader(); //Puerta Humanística
       loader5.load("/three-assets/PuertaH.glb", (gltf) => {
         this.PuertaH = gltf.scene;
-        // this.scene.add(this.PuertaH);
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
@@ -1203,11 +1203,11 @@ export default {
         this.PuertaH.position.set(0, 0, 0);
         this.PuertaH.scale.set(5, 5, 5);
         this.PuertaH.rotation.set(0, 0, 0);
+        this.scene.add(this.PuertaH);
       });
       const loader6 = new GLTFLoader(); //Puerta Diseño
       loader6.load("/three-assets/PuertaD.glb", (gltf) => {
         this.PuertaD = gltf.scene;
-        // this.scene.add(this.PuertaD);
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
@@ -1215,11 +1215,11 @@ export default {
         this.PuertaD.position.set(0, 0, 0);
         this.PuertaD.scale.set(5, 5, 5);
         this.PuertaD.rotation.set(0, 0, 0);
+        this.scene.add(this.PuertaD);
       });
       const loader7 = new GLTFLoader(); //Puerta Ingeniería aplicada
       loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
         this.PuertaIA = gltf.scene;
-        // this.scene.add(this.PuertaIA);
         gltf.scene.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
@@ -1227,6 +1227,7 @@ export default {
         this.PuertaIA.position.set(0, 0, 0);
         this.PuertaIA.scale.set(5, 5, 5);
         this.PuertaIA.rotation.set(0, 0, 0);
+        this.scene.add(this.PuertaIA);
       });
       // ------------------------------------------------------
       this.grupo1 = new THREE.Object3D();
@@ -1239,13 +1240,12 @@ export default {
       const cube = new THREE.Mesh(geometry, material);
       cube.position.set(0, 3.57, -0.36);
       cube.rotation.set(0, 0.9, 0);
-      // this.scene.add(cube);
       this.grupo1.add(cube);
       this.grupo2 = new THREE.Object3D();
       const geometry1 = new THREE.CylinderGeometry(0.07, 0.07, 0.2, 32);
       const cylinder = new THREE.Mesh(geometry1, material);
       //scene.add( cylinder );
-      cylinder.position.set(-0.9, 2.56, -0.45);
+      cylinder.position.set(-1, 2.65, -0.8);
       this.grupo2.add(cylinder);
       this.grupo3 = new THREE.Object3D();
       const geometry3 = new THREE.CylinderGeometry(0.05, 0.05, 0.2, 32);
@@ -1523,7 +1523,6 @@ export default {
         this.model.traverse((node) => {
           if (node.isMesh) {
             node.material.emissive = new THREE.Color(0x00000000);
-            // console.log(node.material.emissive);
           }
         });
       }
