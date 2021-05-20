@@ -1141,6 +1141,28 @@ export default {
         this.model.scale.set(5, 5, 5);
         // model.needsUpdate = true;
       });
+
+      let cargador = new GLTFLoader();
+      cargador.load("/three-assets/NoInteractivos.glb", (gltf) => {
+        this.nointeractivos = gltf.scene;
+        this.animations2 = gltf.animations;
+        gltf.scene.traverse(function (node) {
+          if (node.isMesh || node.isLight) node.castShadow = true;
+          if (node.isMesh || node.isLight) node.receiveShadow = true;
+        });
+
+        this.mixer2 = new THREE.AnimationMixer(this.nointeractivos);
+        console.log(this.animations2);
+        let action = this.mixer2.clipAction(this.animations2[0]);
+        action.play();
+        this.scene.add(this.nointeractivos);
+        console.log(`modelo cargado`);
+
+        this.nointeractivos.position.set(0, 0, 0);
+        this.nointeractivos.scale.set(5, 5, 5);
+        // model.needsUpdate = true;
+      });
+
       const loader3 = new GLTFLoader(); //Cabina Ascensor
       loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
         this.ascensor = gltf.scene;
@@ -1164,23 +1186,7 @@ export default {
         this.scene.add(this.habitaciones);
         this.saltar = true;
       });
-      const loader2 = new GLTFLoader(); //Cabina Ascensor
-      loader2.load("/three-assets/Nointeractivos.glb", (gltf) => {
-        this.Nointeractivos = gltf.scene;
-        this.animations2 = gltf.animations;
-        gltf.scene.traverse(function (node) {
-          if (node.isMesh || node.isLight) node.castShadow = true;
-          if (node.isMesh || node.isLight) node.receiveShadow = true;
-        });
 
-        this.mixer2 = new THREE.AnimationMixer(this.Nointeractivos);
-        console.log(this.animations2);
-        let action = this.mixer2.clipAction(this.animations2[0]);
-        action.play();
-        this.Nointeractivos.position.set(0, 0, 0);
-        this.Nointeractivos.scale.set(5, 5, 5);
-        this.scene.add(this.Nointeractivos);
-      });
       const loader4 = new GLTFLoader(); //Puerta Ciencias Básicas
       loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
         this.PuertaCB = gltf.scene;
@@ -1191,7 +1197,7 @@ export default {
         this.PuertaCB.position.set(0, 0, 0);
         this.PuertaCB.scale.set(5, 5, 5);
         this.PuertaCB.rotation.set(0, 2, 0);
-        this.scene.add(this.PuertaCB);
+        // this.scene.add(this.PuertaCB);
       });
       const loader5 = new GLTFLoader(); //Puerta Humanística
       loader5.load("/three-assets/PuertaH.glb", (gltf) => {
@@ -1203,7 +1209,7 @@ export default {
         this.PuertaH.position.set(0, 0, 0);
         this.PuertaH.scale.set(5, 5, 5);
         this.PuertaH.rotation.set(0, 0, 0);
-        this.scene.add(this.PuertaH);
+        // this.scene.add(this.PuertaH);
       });
       const loader6 = new GLTFLoader(); //Puerta Diseño
       loader6.load("/three-assets/PuertaD.glb", (gltf) => {
@@ -1215,7 +1221,7 @@ export default {
         this.PuertaD.position.set(0, 0, 0);
         this.PuertaD.scale.set(5, 5, 5);
         this.PuertaD.rotation.set(0, 0, 0);
-        this.scene.add(this.PuertaD);
+        // this.scene.add(this.PuertaD);
       });
       const loader7 = new GLTFLoader(); //Puerta Ingeniería aplicada
       loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
@@ -1227,7 +1233,7 @@ export default {
         this.PuertaIA.position.set(0, 0, 0);
         this.PuertaIA.scale.set(5, 5, 5);
         this.PuertaIA.rotation.set(0, 0, 0);
-        this.scene.add(this.PuertaIA);
+        // this.scene.add(this.PuertaIA);
       });
       // ------------------------------------------------------
       this.grupo1 = new THREE.Object3D();
@@ -1663,6 +1669,7 @@ export default {
           console.log("renderizando");
           this.mixer.update(delta);
           this.mixer2.update(delta);
+
           this.controls.update();
           this.content_ponits();
           TWEEN.update(this.time);
