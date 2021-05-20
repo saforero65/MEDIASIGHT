@@ -257,6 +257,13 @@
                       Aprobar
                     </b-button>
                     <b-spinner v-if="cargando2" label="Spinning"></b-spinner>
+                    <b-button
+                      variant="primary"
+                      @click.prevent="updateStatus(item.id, item.data.id)"
+                    >
+                      Guardar
+                    </b-button>
+                    <b-spinner v-if="cargando3" label="Spinning"></b-spinner>
                   </template>
                 </b-modal>
               </td>
@@ -383,6 +390,13 @@
                       Aprobar
                     </b-button>
                     <b-spinner v-if="cargando2" label="Spinning"></b-spinner>
+                    <b-button
+                      variant="primary"
+                      @click.prevent="updateStatus(item.id, item.data.id)"
+                    >
+                      Guardar
+                    </b-button>
+                    <b-spinner v-if="cargando3" label="Spinning"></b-spinner>
                   </template>
                 </b-modal>
               </td>
@@ -512,6 +526,13 @@
                       Aprobar
                     </b-button>
                     <b-spinner v-if="cargando2" label="Spinning"></b-spinner>
+                    <b-button
+                      variant="primary"
+                      @click.prevent="updateStatus(item.id, item.data.id)"
+                    >
+                      Guardar
+                    </b-button>
+                    <b-spinner v-if="cargando3" label="Spinning"></b-spinner>
                   </template>
                 </b-modal>
               </td>
@@ -638,6 +659,13 @@
                       Aprobar
                     </b-button>
                     <b-spinner v-if="cargando2" label="Spinning"></b-spinner>
+                    <b-button
+                      variant="primary"
+                      @click.prevent="updateStatus(item.id, item.data.id)"
+                    >
+                      Guardar
+                    </b-button>
+                    <b-spinner v-if="cargando3" label="Spinning"></b-spinner>
                   </template>
                 </b-modal>
               </td>
@@ -665,6 +693,7 @@ export default {
       footerTextVariant: "light",
       cargando: false,
       cargando2: false,
+      cargando3: false,
       user: null,
       id: null,
       nombre: null,
@@ -771,6 +800,39 @@ export default {
         .then(() => {
           console.log("Document successfully updated!");
           this.cargando2 = false;
+          this.$router.go(0);
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+      this.ver_form = false;
+    },
+    updateStatus(id, id2) {
+      this.cargando2 = true;
+      db.collection("proyectos_admin")
+        .doc(id)
+        .update({
+          descripcion: this.descripcion,
+          nombre_proyecto: this.nombre_proyecto,
+        })
+        .then(() => {
+          console.log("Document successfully updated!");
+          this.$router.go(0);
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+      db.collection("proyecto")
+        .doc(id2)
+        .update({
+          descripcion: this.descripcion,
+          nombre_proyecto: this.nombre_proyecto,
+        })
+        .then(() => {
+          console.log("Document successfully updated!");
+          this.cargando3 = false;
           this.$router.go(0);
         })
         .catch((error) => {

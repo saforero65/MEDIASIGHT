@@ -817,7 +817,7 @@ export default {
           .to(rotationr, 1700)
           .easing(TWEEN.Easing.Quadratic.InOut);
         camarar.start();
-        let positionA = new THREE.Vector3(0, 2.85, 0);
+        let positionA = new THREE.Vector3(0, 2.91, 0);
         let ascensor1 = new TWEEN.Tween(this.ascensor.position).to(
           positionA,
           1700
@@ -1125,7 +1125,7 @@ export default {
       loader.load("/three-assets/Interactivos.glb", (gltf) => {
         this.model = gltf.scene;
         this.animations = gltf.animations;
-        gltf.scene.traverse(function (node) {
+        this.model.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
         });
@@ -1146,7 +1146,7 @@ export default {
       cargador.load("/three-assets/NoInteractivos.glb", (gltf) => {
         this.nointeractivos = gltf.scene;
         this.animations2 = gltf.animations;
-        gltf.scene.traverse(function (node) {
+        this.nointeractivos.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
         });
@@ -1166,18 +1166,15 @@ export default {
       const loader3 = new GLTFLoader(); //Cabina Ascensor
       loader3.load("/three-assets/Ascensor_cabina.glb", (gltf) => {
         this.ascensor = gltf.scene;
-        gltf.scene.traverse(function (node) {
-          if (node.isMesh || node.isLight) node.castShadow = true;
-          if (node.isMesh || node.isLight) node.receiveShadow = true;
-        });
+
         this.ascensor.position.set(0, 0.015, 0);
         this.ascensor.scale.set(5, 5, 5);
-        // this.scene.add(this.ascensor);
+        this.scene.add(this.ascensor);
       });
       const loader1 = new GLTFLoader();
       loader1.load("/three-assets/Habitaciones.glb", (gltf) => {
         this.habitaciones = gltf.scene;
-        gltf.scene.traverse(function (node) {
+        this.habitaciones.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
         });
@@ -1190,50 +1187,38 @@ export default {
       const loader4 = new GLTFLoader(); //Puerta Ciencias Básicas
       loader4.load("/three-assets/PuertaCB.glb", (gltf) => {
         this.PuertaCB = gltf.scene;
-        gltf.scene.traverse(function (node) {
-          if (node.isMesh || node.isLight) node.castShadow = true;
-          if (node.isMesh || node.isLight) node.receiveShadow = true;
-        });
+
         this.PuertaCB.position.set(0, 0, 0);
         this.PuertaCB.scale.set(5, 5, 5);
         this.PuertaCB.rotation.set(0, 2, 0);
-        // this.scene.add(this.PuertaCB);
+        this.scene.add(this.PuertaCB);
       });
       const loader5 = new GLTFLoader(); //Puerta Humanística
       loader5.load("/three-assets/PuertaH.glb", (gltf) => {
         this.PuertaH = gltf.scene;
-        gltf.scene.traverse(function (node) {
-          if (node.isMesh || node.isLight) node.castShadow = true;
-          if (node.isMesh || node.isLight) node.receiveShadow = true;
-        });
+
         this.PuertaH.position.set(0, 0, 0);
         this.PuertaH.scale.set(5, 5, 5);
         this.PuertaH.rotation.set(0, 0, 0);
-        // this.scene.add(this.PuertaH);
+        this.scene.add(this.PuertaH);
       });
       const loader6 = new GLTFLoader(); //Puerta Diseño
       loader6.load("/three-assets/PuertaD.glb", (gltf) => {
         this.PuertaD = gltf.scene;
-        gltf.scene.traverse(function (node) {
-          if (node.isMesh || node.isLight) node.castShadow = true;
-          if (node.isMesh || node.isLight) node.receiveShadow = true;
-        });
+
         this.PuertaD.position.set(0, 0, 0);
         this.PuertaD.scale.set(5, 5, 5);
         this.PuertaD.rotation.set(0, 0, 0);
-        // this.scene.add(this.PuertaD);
+        this.scene.add(this.PuertaD);
       });
       const loader7 = new GLTFLoader(); //Puerta Ingeniería aplicada
       loader7.load("/three-assets/PuertaIA.glb", (gltf) => {
         this.PuertaIA = gltf.scene;
-        gltf.scene.traverse(function (node) {
-          if (node.isMesh || node.isLight) node.castShadow = true;
-          if (node.isMesh || node.isLight) node.receiveShadow = true;
-        });
+
         this.PuertaIA.position.set(0, 0, 0);
         this.PuertaIA.scale.set(5, 5, 5);
         this.PuertaIA.rotation.set(0, 0, 0);
-        // this.scene.add(this.PuertaIA);
+        this.scene.add(this.PuertaIA);
       });
       // ------------------------------------------------------
       this.grupo1 = new THREE.Object3D();
@@ -1405,30 +1390,30 @@ export default {
           element: document.querySelector(".point-5"),
         },
         {
-          position: new THREE.Vector3(0.25, 1.7, -0.46),
+          position: new THREE.Vector3(0.32, 1.65, -0.48),
           element: document.querySelector(".point-6"),
         },
       ];
       this.pointsIA = [
         {
-          position: new THREE.Vector3(-0.25, 2.38, -0.2),
+          position: new THREE.Vector3(-1.63, 2.38, 0.1),
           element: document.querySelector(".pointProject_3"),
         },
 
         {
-          position: new THREE.Vector3(-0.25, 2.49, -0.35),
+          position: new THREE.Vector3(-1.63, 2.49, 0),
           element: document.querySelector(".point-7"),
         },
         {
-          position: new THREE.Vector3(-0.72, 2.52, -0.47),
+          position: new THREE.Vector3(-0.58, 2.13, 0.72),
           element: document.querySelector(".point-8"),
         },
         {
-          position: new THREE.Vector3(-0.46, 2.15, 0.6),
+          position: new THREE.Vector3(-0.46, 2.25, 0.6),
           element: document.querySelector(".point-9"),
         },
         {
-          position: new THREE.Vector3(-0.6, 2.15, 0.7),
+          position: new THREE.Vector3(-0.35, 2.46, -0.4),
           element: document.querySelector(".point-10"),
         },
       ];
@@ -1438,7 +1423,7 @@ export default {
           element: document.querySelector(".pointProject_4"),
         },
         {
-          position: new THREE.Vector3(1.6, 3.5, -0.05),
+          position: new THREE.Vector3(1.61, 3.46, -0.05),
           element: document.querySelector(".point-11"),
         },
         {
@@ -1446,7 +1431,7 @@ export default {
           element: document.querySelector(".point-12"),
         },
         {
-          position: new THREE.Vector3(0.57, 3.38, 0.1),
+          position: new THREE.Vector3(1.21, 3.7, -0.42),
           element: document.querySelector(".point-13"),
         },
         {

@@ -2,7 +2,7 @@
   <div>
     <div class="container todo">
       <h2 style="text-align: center">
-        <strong>POLÍTICA DE PRIVACIDAD</strong>
+        <strong>TERMINOS Y CONDICIONES</strong>
       </h2>
       <div class="contenido overflow-auto" style="height: 70vh">
         <p>&nbsp;</p>
