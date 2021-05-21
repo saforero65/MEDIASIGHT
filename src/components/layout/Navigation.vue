@@ -109,9 +109,9 @@
                     alt="imagen perfil"
                   />
                 </div>
-                <a>
+                <span>
                   {{ splitedStr[0] }}
-                </a>
+                </span>
               </div>
             </li>
           </ul>
@@ -153,19 +153,94 @@
                       <h4>Plan de estudios</h4></a
                     >
                   </div>
+                  <div>
+                    <div v-if="user">
+                      <h2 class="comentarios">Comentarios</h2>
+                      <b-form-textarea
+                        class="comentario"
+                        id="textarea-no-resize"
+                        placeholder="Escribe aqui tu comentario"
+                        rows="5"
+                        v-model="comentario"
+                        no-resize
+                      ></b-form-textarea>
+                      <div class="box_valoracion">
+                        <form>
+                          <p id="estrellas" class="clasificacion">
+                            <input
+                              id="radio1"
+                              type="radio"
+                              name="estrellas"
+                              value="5"
+                            /><!--
+    --><label class="estrella" @click="estrellas = 5" for="radio1">★</label
+                            ><!--
+    --><input
+                              id="radio2"
+                              type="radio"
+                              name="estrellas"
+                              @click="estrellas = 4"
+                              value="4"
+                            /><!--
+    --><label class="estrella" for="radio2">★</label
+                            ><!--
+    --><input
+                              id="radio3"
+                              type="radio"
+                              name="estrellas"
+                              @click="estrellas = 3"
+                              value="3"
+                            /><!--
+    --><label class="estrella" for="radio3">★</label
+                            ><!--
+    --><input
+                              id="radio4"
+                              type="radio"
+                              name="estrellas"
+                              @click="estrellas = 2"
+                              value="2"
+                            /><!--
+    --><label class="estrella" for="radio4">★</label
+                            ><!--
+    --><input
+                              id="radio5"
+                              type="radio"
+                              name="estrellas"
+                              @click="estrellas = 1"
+                              value="1"
+                            /><!--
+    --><label class="estrella" for="radio5">★</label>
+                          </p>
+                        </form>
+
+                        <button class="boton_valoracion" @click="enviar()">
+                          Enviar
+                        </button>
+                      </div>
+                      <div class="advertencia">
+                        <p style="color: white">{{ error }}</p>
+                        <b-spinner
+                          v-show="carga"
+                          variant="secondary"
+                          label="Loading..."
+                        ></b-spinner>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="logos_info">
                   <ul>
                     <li>
                       <img
-                        src="@/assets/img/logo_mul.png"
+                        src="@/assets/img/logo_main.png"
                         alt="logo_multimedia"
                       />
                     </li>
+
                     <li>
                       <a href="https://www.umng.edu.co/inicio" target="_blank">
-                        <img src="@/assets/img/logo_umng.png" alt="logo_umng"
-                      /></a>
+                        <img src="@/assets/img/logo_umng.png" alt="logo_umng" />
+                      </a>
                     </li>
                     <li>
                       <img
@@ -304,16 +379,11 @@
                         alt="logo_multimedia"
                       />
                     </li>
-                    <li>
-                      <img
-                        src="@/assets/img/logo_mul.png"
-                        alt="logo_multimedia"
-                      />
-                    </li>
+
                     <li>
                       <a href="https://www.umng.edu.co/inicio" target="_blank">
-                        <img src="@/assets/img/logo_umng.png" alt="logo_umng"
-                      /></a>
+                        <img src="@/assets/img/logo_umng.png" alt="logo_umng" />
+                      </a>
                     </li>
                     <li>
                       <img
@@ -339,6 +409,9 @@ import { db } from "@/firebase/init";
 export default {
   data() {
     return {
+      carga: false,
+      comentario: "",
+      estrellas: 0,
       show: false,
       variants: [
         "primary",
@@ -372,12 +445,41 @@ export default {
       tipo: null,
       avatar: null,
       splitedStr: "",
+      error: "",
     };
   },
   components: {
     FondoMain,
   },
   methods: {
+    enviar() {
+      if (this.comentario && this.estrellas) {
+        this.carga = true;
+        db.collection("valoracion")
+          .add({
+            nombre: this.nombre,
+            correo: this.correo,
+            estrellas: this.estrellas,
+            comentario: this.comentario,
+          })
+          .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+            this.estrellas = null;
+            this.comentario = null;
+            var ele = document.getElementsByName("estrellas");
+            for (var i = 0; i < ele.length; i++) ele[i].checked = false;
+            this.error = "";
+            this.carga = false;
+          })
+          .catch((error) => {
+            this.error = error.message;
+            console.error("Error adding document: ", error);
+          });
+      } else {
+        console.log("algun campo esta vacio");
+        this.error = "Llene todos los campos";
+      }
+    },
     getImageUrl(imageId) {
       return `${imageId}`;
     },
@@ -482,7 +584,8 @@ header {
   border-top-left-radius: 7px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.493);
 }
-.menu_nav a {
+.menu_nav a,
+.menu_nav span {
   color: #000;
   font-weight: 700;
   text-transform: uppercase;
@@ -503,6 +606,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.nombre_usuario:hover {
+  font-size: 2vh;
 }
 .bm-burger-button {
   width: 4.2vh;
@@ -580,9 +686,20 @@ header {
   margin-bottom: 10;
   font-size: 3vh;
 }
-.about h3 {
+.about h3,
+.comentarios {
   margin-bottom: 2vh;
   font-size: 3vh;
+}
+.comentarios {
+  padding-top: 1rem;
+  border-top: 1px solid white;
+}
+.comentario {
+  height: auto;
+  resize: none;
+  background: #ffffff0f;
+  color: white;
 }
 .about h4:hover {
   font-size: 2vh;
@@ -774,5 +891,65 @@ footer ul {
     opacity: 0;
     transform: translateY(46px);
   }
+}
+#form {
+  width: 250px;
+  margin: 0 auto;
+  height: 50px;
+}
+
+#form p {
+  text-align: center;
+}
+
+.estrella {
+  font-size: 40px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  height: 40px;
+}
+
+label:hover,
+label:hover ~ label {
+  color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+  color: orange;
+}
+.box_valoracion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.boton_valoracion {
+  height: 3em;
+  width: 5rem;
+  margin: auto 0.5rem;
+  background: none;
+  border: 1px solid white;
+  color: white;
+  border-radius: 10px;
+}
+.boton_valoracion:hover {
+  background: white;
+  color: black;
+}
+.advertencia {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
 }
 </style>
