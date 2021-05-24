@@ -424,9 +424,23 @@
           {{ contenidos7 }}
         </div>
       </div>
+
+      <div v-show="h3" class="point point-9">
+        <div class="label"><b>MOTIVACIÓN</b></div>
+        <div class="text text_point-9">
+          {{ contenidos9 }}
+        </div>
+      </div>
+      <div v-show="h3" class="point point-10">
+        <div class="label dato"><b> DATO CURIOSO </b></div>
+        <div class="text text_point-10">
+          <b>¿VEN ESA TETERA?</b> <br />
+          {{ contenidos10 }}
+        </div>
+      </div>
       <div v-show="h3" class="point point-8">
-        <div class="label"><b>PROFESORES:</b></div>
-        <div class="text text_point-2">
+        <div class="label"><b>PROFESORES</b></div>
+        <div class="text text_point-11">
           <b>MATEMATICA BASICAS:</b>
           {{ splitedStr3[0] }}<br />
           <b>CALCULO DIFERENCIAL:</b>
@@ -451,19 +465,6 @@
           {{ splitedStr3[10] }}<br />
           <b>QUIMICA:</b>
           {{ splitedStr3[11] }}<br />
-        </div>
-      </div>
-      <div v-show="h3" class="point point-9">
-        <div class="label"><b>MOTIVACIÓN</b></div>
-        <div class="text text_point-9">
-          {{ contenidos9 }}
-        </div>
-      </div>
-      <div v-show="h3" class="point point-10">
-        <div class="label dato"><b> DATO CURIOSO </b></div>
-        <div class="text text_point-10">
-          <b>¿VEN ESA TETERA?</b> <br />
-          {{ contenidos10 }}
         </div>
       </div>
       <div v-show="h4" class="point point-11">

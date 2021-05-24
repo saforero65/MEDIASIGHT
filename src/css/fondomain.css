@@ -108,6 +108,25 @@
     pointer-events: none;
 }
 
+.point .text_point-11 {
+    position: absolute;
+    top: -380px;
+    left: -120px;
+    width: 400px;
+    padding: 20px;
+    border-radius: 6px;
+    background: #000000cb;
+    border: 1px solid #ffffff77;
+    color: #ffffff;
+    line-height: 1.3em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
 .point .text_point-9 {
     position: absolute;
     top: -120px;
