@@ -1178,6 +1178,10 @@ export default {
         this.habitaciones.traverse(function (node) {
           if (node.isMesh || node.isLight) node.castShadow = true;
           if (node.isMesh || node.isLight) node.receiveShadow = true;
+          if (node.isMesh) {
+            // node.material.wireframe = true;
+            // node.material.emissive = new THREE.Color(0xffffff);
+          }
         });
         this.habitaciones.position.set(0, 0, 0);
         this.habitaciones.scale.set(5, 5, 5);
@@ -1514,7 +1518,7 @@ export default {
       ) {
         this.model.traverse((node) => {
           if (node.isMesh) {
-            node.material.emissive = new THREE.Color(0x00000000);
+            node.material.emissive = new THREE.Color(0x000000);
           }
         });
       }
@@ -1528,17 +1532,16 @@ export default {
         // console.log("intersecto FONDO");
         this.model.traverse((node) => {
           if (node.isMesh) {
-            node.material.emissive = new THREE.Color(0x00ffff);
+            // node.material.metalness = 0.5;
+            // node.material.emissiveIntensity = 0.5;
+            // node.material.bumpScale = 0.5;
+
+            node.material.emissive = new THREE.Color(0xffffff);
           }
         });
         if (this.spotLight.intensity == 2) {
           this.spotLight.intensity = 0;
           this.material1.opacity = 0;
-          this.habitaciones.traverse((o) => {
-            if (o.isMesh) {
-              o.material.emissive = new THREE.Color(0x00000000);
-            }
-          });
         }
         let aux = 0;
         const action = this.mixer.clipAction(this.animations[0]);
