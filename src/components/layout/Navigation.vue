@@ -9,7 +9,7 @@
         />
         <img
           class="logo_main"
-          src="@/assets/img/logo_20_años.png"
+          src="@/assets/img/logo_20_años_blanco.png"
           alt="mouse"
         />
       </router-link>
@@ -807,7 +807,7 @@ footer ul {
   font-size: 1.5vh;
   text-align: center;
   color: white;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid black;
   font-size: 2vh;
   font-family: "Consolas", monospace;
@@ -822,7 +822,7 @@ footer ul {
   font-size: 1.5vh;
   text-align: center;
   color: white;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid black;
   font-size: 2vh;
   font-family: "Consolas", monospace;
