@@ -56,7 +56,9 @@
           <p v-if="habitacion == 1">Ciencias básicas</p>
           <p v-if="habitacion == 2">Humanística</p>
           <p v-if="habitacion == 3">Ingeniería aplicada</p>
-          <p v-if="habitacion == 4">Ciencias de la ingeniería</p>
+          <p v-if="habitacion == 4" style="text-align: center">
+            Ciencias de la ingeniería
+          </p>
         </div>
         <a v-if="aux == false" class="MoverCamaraArriba" @click="MoverArriba">
           <img src="@/assets/img/icons/boton-arriba.svg" alt="arriba" />
@@ -344,29 +346,29 @@
       <div v-show="h1" class="point point-2">
         <div class="label"><b>PROFESORES:</b></div>
         <div class="text text_point-2">
-          <b>MATEMATICA BASICAS:</b>
+          <b class="mayusculas">{{ materias[0] }}:</b>
           {{ splitedStr[0] }}<br />
-          <b>CALCULO DIFERENCIAL:</b>
+          <b class="mayusculas">{{ materias[1] }}:</b>
           {{ splitedStr[1] }}<br />
-          <b>CALCULO INTEGRAL:</b>
+          <b class="mayusculas">{{ materias[2] }}:</b>
           {{ splitedStr[2] }}<br />
-          <b>CALCULO VECTORIAL:</b>
+          <b class="mayusculas">{{ materias[3] }}:</b>
           {{ splitedStr[3] }}<br />
-          <b>ECUACIONES DIFERENCIALES:</b>
+          <b class="mayusculas">{{ materias[4] }}:</b>
           {{ splitedStr[4] }}<br />
-          <b>FISICA MECANICA:</b>
+          <b class="mayusculas">{{ materias[5] }}:</b>
           {{ splitedStr[5] }}<br />
-          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b>
+          <b class="mayusculas">{{ materias[6] }}:</b>
           {{ splitedStr[6] }}<br />
-          <b>FISICA OPTICA Y ACUSTICA:</b>
+          <b class="mayusculas">{{ materias[7] }}:</b>
           {{ splitedStr[7] }}<br />
-          <b>ALGEBRA LINEAL:</b>
+          <b class="mayusculas">{{ materias[8] }}:</b>
           {{ splitedStr[8] }}<br />
-          <b>PROBABILIDAD Y ESTADISTICA:</b>
+          <b class="mayusculas">{{ materias[9] }}:</b>
           {{ splitedStr[9] }}<br />
-          <b>METODOS NUMERICOS:</b>
+          <b class="mayusculas">{{ materias[10] }}:</b>
           {{ splitedStr[10] }}<br />
-          <b>QUIMICA:</b>
+          <b class="mayusculas">{{ materias[11] }}:</b>
           {{ splitedStr[11] }}<br />
         </div>
       </div>
@@ -386,30 +388,22 @@
       <div v-show="h2" class="point point-5">
         <div class="label"><b>PROFESORES:</b></div>
         <div class="text text_point-2">
-          <b>MATEMATICA BASICAS:</b>
+          <b class="mayusculas">{{ materias2[0] }}:</b>
           {{ splitedStr2[0] }}<br />
-          <b>CALCULO DIFERENCIAL:</b>
+          <b class="mayusculas">{{ materias2[1] }}:</b>
           {{ splitedStr2[1] }}<br />
-          <b>CALCULO INTEGRAL:</b>
+          <b class="mayusculas">{{ materias2[2] }}:</b>
           {{ splitedStr2[2] }}<br />
-          <b>CALCULO VECTORIAL:</b>
+          <b class="mayusculas">{{ materias2[3] }}:</b>
           {{ splitedStr2[3] }}<br />
-          <b>ECUACIONES DIFERENCIALES:</b>
+          <b class="mayusculas">{{ materias2[4] }}:</b>
           {{ splitedStr2[4] }}<br />
-          <b>FISICA MECANICA:</b>
+          <b class="mayusculas">{{ materias2[5] }}:</b>
           {{ splitedStr2[5] }}<br />
-          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b>
+          <b class="mayusculas">{{ materias2[6] }}:</b>
           {{ splitedStr2[6] }}<br />
-          <b>FISICA OPTICA Y ACUSTICA:</b>
+          <b class="mayusculas">{{ materias2[7] }}:</b>
           {{ splitedStr2[7] }}<br />
-          <b>ALGEBRA LINEAL:</b>
-          {{ splitedStr2[8] }}<br />
-          <b>PROBABILIDAD Y ESTADISTICA:</b>
-          {{ splitedStr2[9] }}<br />
-          <b>METODOS NUMERICOS:</b>
-          {{ splitedStr2[10] }}<br />
-          <b>QUIMICA:</b>
-          {{ splitedStr2[11] }}<br />
         </div>
       </div>
       <div v-show="h2" class="point point-6">
@@ -441,30 +435,42 @@
       <div v-show="h3" class="point point-8">
         <div class="label"><b>PROFESORES</b></div>
         <div class="text text_point-11">
-          <b>MATEMATICA BASICAS:</b>
+          <b class="mayusculas">{{ materias3[0] }}:</b>
           {{ splitedStr3[0] }}<br />
-          <b>CALCULO DIFERENCIAL:</b>
+          <b class="mayusculas">{{ materias3[1] }}:</b>
           {{ splitedStr3[1] }}<br />
-          <b>CALCULO INTEGRAL:</b>
+          <b class="mayusculas">{{ materias3[2] }}:</b>
           {{ splitedStr3[2] }}<br />
-          <b>CALCULO VECTORIAL:</b>
+          <b class="mayusculas">{{ materias3[3] }}:</b>
           {{ splitedStr3[3] }}<br />
-          <b>ECUACIONES DIFERENCIALES:</b>
+          <b class="mayusculas">{{ materias3[4] }}:</b>
           {{ splitedStr3[4] }}<br />
-          <b>FISICA MECANICA:</b>
+          <b class="mayusculas">{{ materias3[5] }}:</b>
           {{ splitedStr3[5] }}<br />
-          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b>
+          <b class="mayusculas">{{ materias3[6] }}:</b>
           {{ splitedStr3[6] }}<br />
-          <b>FISICA OPTICA Y ACUSTICA:</b>
+          <b class="mayusculas">{{ materias3[7] }}:</b>
           {{ splitedStr3[7] }}<br />
-          <b>ALGEBRA LINEAL:</b>
+          <b class="mayusculas">{{ materias3[8] }}:</b>
           {{ splitedStr3[8] }}<br />
-          <b>PROBABILIDAD Y ESTADISTICA:</b>
+          <b class="mayusculas">{{ materias3[9] }}:</b>
           {{ splitedStr3[9] }}<br />
-          <b>METODOS NUMERICOS:</b>
+          <b class="mayusculas">{{ materias3[10] }}:</b>
           {{ splitedStr3[10] }}<br />
-          <b>QUIMICA:</b>
+          <b class="mayusculas">{{ materias3[11] }}:</b>
           {{ splitedStr3[11] }}<br />
+          <b class="mayusculas">{{ materias3[12] }}:</b>
+          {{ splitedStr3[12] }}<br />
+          <b class="mayusculas">{{ materias3[13] }}:</b>
+          {{ splitedStr3[13] }}<br />
+          <b class="mayusculas">{{ materias3[14] }}:</b>
+          {{ splitedStr3[14] }}<br />
+          <b class="mayusculas">{{ materias3[15] }}:</b>
+          {{ splitedStr3[15] }}<br />
+          <b class="mayusculas">{{ materias3[16] }}:</b>
+          {{ splitedStr3[16] }}<br />
+          <b class="mayusculas">{{ materias3[17] }}:</b>
+          {{ splitedStr3[17] }}<br />
         </div>
       </div>
       <div v-show="h4" class="point point-11">
@@ -476,30 +482,24 @@
       <div v-show="h4" class="point point-12">
         <div class="label"><b>PROFESORES</b></div>
         <div class="text text_point-2">
-          <b>MATEMATICA BASICAS:</b>
+          <b class="mayusculas">{{ materias4[0] }}:</b>
           {{ splitedStr4[0] }}<br />
-          <b>CALCULO DIFERENCIAL:</b>
+          <b class="mayusculas">{{ materias4[1] }}:</b>
           {{ splitedStr4[1] }}<br />
-          <b>CALCULO INTEGRAL:</b>
+          <b class="mayusculas">{{ materias4[2] }}:</b>
           {{ splitedStr4[2] }}<br />
-          <b>CALCULO VECTORIAL:</b>
+          <b class="mayusculas">{{ materias4[3] }}:</b>
           {{ splitedStr4[3] }}<br />
-          <b>ECUACIONES DIFERENCIALES:</b>
+          <b class="mayusculas">{{ materias4[4] }}:</b>
           {{ splitedStr4[4] }}<br />
-          <b>FISICA MECANICA:</b>
+          <b class="mayusculas">{{ materias4[5] }}:</b>
           {{ splitedStr4[5] }}<br />
-          <b>FISICA ELECTRICIDAD Y MAGNETISMO:</b>
+          <b class="mayusculas">{{ materias4[6] }}:</b>
           {{ splitedStr4[6] }}<br />
-          <b>FISICA OPTICA Y ACUSTICA:</b>
+          <b class="mayusculas">{{ materias4[7] }}:</b>
           {{ splitedStr4[7] }}<br />
-          <b>ALGEBRA LINEAL:</b>
+          <b class="mayusculas">{{ materias4[8] }}:</b>
           {{ splitedStr4[8] }}<br />
-          <b>PROBABILIDAD Y ESTADISTICA:</b>
-          {{ splitedStr4[9] }}<br />
-          <b>METODOS NUMERICOS:</b>
-          {{ splitedStr4[10] }}<br />
-          <b>QUIMICA:</b>
-          {{ splitedStr4[11] }}<br />
         </div>
       </div>
       <div v-show="h4" class="point point-13">
@@ -612,6 +612,10 @@ export default {
       splitedStr2: [],
       splitedStr3: [],
       splitedStr4: [],
+      materias: [],
+      materias2: [],
+      materias3: [],
+      materias4: [],
       h1: false,
       h2: false,
       h3: false,
@@ -1713,13 +1717,13 @@ export default {
       .doc("0.01")
       .onSnapshot((doc) => {
         this.contenidos = `${doc.data().descripcion}`;
+        this.materias = this.contenidos.split(",");
       });
     db.collection("contenido")
       .doc("0.02")
       .onSnapshot((doc) => {
         this.contenidos2 = `${doc.data().descripcion}`;
         this.splitedStr = this.contenidos2.split(",");
-        console.log(this.splitedStr.length);
       });
     db.collection("contenido")
       .doc("0.03")
@@ -1730,6 +1734,7 @@ export default {
       .doc("0.04")
       .onSnapshot((doc) => {
         this.contenidos4 = `${doc.data().descripcion}`;
+        this.materias2 = this.contenidos4.split(",");
       });
     db.collection("contenido")
       .doc("0.05")
@@ -1747,6 +1752,7 @@ export default {
       .doc("0.07")
       .onSnapshot((doc) => {
         this.contenidos7 = `${doc.data().descripcion}`;
+        this.materias3 = this.contenidos7.split(",");
       });
     db.collection("contenido")
       .doc("0.08")
@@ -1770,6 +1776,7 @@ export default {
       .doc("0.11")
       .onSnapshot((doc) => {
         this.contenidos11 = `${doc.data().descripcion}`;
+        this.materias4 = this.contenidos11.split(",");
       });
     db.collection("contenido")
       .doc("0.12")

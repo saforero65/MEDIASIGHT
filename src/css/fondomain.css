@@ -401,3 +401,8 @@
         transform: translateY(-2000px);
     }
 }
+
+.mayusculas {
+    text-transform: uppercase;
+    font-weight: bold;
+}
