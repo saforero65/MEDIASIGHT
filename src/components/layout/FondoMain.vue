@@ -1030,11 +1030,12 @@ export default {
 
       //Orbit controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-      this.controls.enablePan = true;
+      this.controls.enablePan = false;
       this.controls.minAzimuthAngle = [(7 * Math.PI) / 4];
       this.controls.maxAzimuthAngle = [Math.PI / 4];
       this.controls.minPolarAngle = Math.PI / 4;
       this.controls.maxPolarAngle = (5 * Math.PI) / 12;
+      this.controls.rotateSpeed = 0.5;
       this.controls.minDistance = 1;
       this.controls.maxDistance = 2.64;
       this.controls.enableDamping = true;

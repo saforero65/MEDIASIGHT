@@ -248,12 +248,12 @@
                     <ul>
                       <li>
                         <p>Product owner:</p>
-                        <img src="@/assets/img/foto.png" alt="foto1" />
+                        <img src="@/assets/img/Fotos/Marlon.jpg" alt="foto1" />
                         <p>Marlon Steven Pinto Pinto</p>
                       </li>
                       <li>
                         <p>Scrum master:</p>
-                        <img src="@/assets/img/foto.png" alt="foto1" />
+                        <img src="@/assets/img/Fotos/Javier.jpg" alt="foto1" />
                         <p>Javier Santiago Bocanegra</p>
                       </li>
                     </ul>
@@ -262,15 +262,15 @@
                   <div class="nombres">
                     <ul class="nombresD">
                       <li>
-                        <img src="@/assets/img/foto.png" alt="foto2" />
+                        <img src="@/assets/img/Fotos/Santiago.jpg" alt="foto2" />
                         <p>Santiago Forero Zapata</p>
                       </li>
                       <li>
-                        <img src="@/assets/img/foto.png" alt="foto3" />
+                        <img src="@/assets/img/Fotos/Natalia.jpg" alt="foto3" />
                         <p>Natalia Gómez Malaver</p>
                       </li>
                       <li>
-                        <img src="@/assets/img/foto.png" alt="foto4" />
+                        <img src="@/assets/img/Fotos/Vanessa.jpg" alt="foto4" />
                         <p>Vanessa Escobar Mora</p>
                       </li>
                     </ul>
@@ -697,6 +697,8 @@ header {
 .about img {
   min-width: 2vh;
   max-width: 4vh;
+  min-height: 2vh;
+  max-height: 4vh;
 }
 .about h4 {
   font-size: 1.9vh;
@@ -731,18 +733,17 @@ header {
 .nombres ul {
   margin-bottom: 0;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
 }
 .nombres li {
   display: inline-grid;
   justify-items: center;
   height: auto;
-  margin: 0.5vh 2vh;
+  margin: 0.5vh 1vh;
   width: 35%;
 }
 .nombresD li {
-  width: 20%;
+  width: 7rem;
 }
 .nombres img {
   border-radius: 50%;
