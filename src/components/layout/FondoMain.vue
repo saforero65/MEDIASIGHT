@@ -55,8 +55,8 @@
         <div class="tableroA">
           <p v-if="habitacion == 1">Ciencias básicas</p>
           <p v-if="habitacion == 2">Humanística</p>
-          <p v-if="habitacion == 3">Diseño</p>
-          <p v-if="habitacion == 4">Ingeniería aplicada</p>
+          <p v-if="habitacion == 3">Ingeniería aplicada</p>
+          <p v-if="habitacion == 4">Ciencias de la ingeniería</p>
         </div>
         <a v-if="aux == false" class="MoverCamaraArriba" @click="MoverArriba">
           <img src="@/assets/img/icons/boton-arriba.svg" alt="arriba" />

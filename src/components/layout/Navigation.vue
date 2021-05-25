@@ -43,7 +43,7 @@
           <div class="clic">
             <img src="@/assets/img/gifs/clic.gif" alt="" />
             <p>
-              Mantenga el clic derecho presionado para moverse en la habitación
+              Mantenga el clic izquierdo presionado para moverse en la habitación
             </p>
           </div>
           <div class="clic">
@@ -59,8 +59,6 @@
         <label
           class="bm-burger-button"
           for="navigation"
-          @click="menu = false"
-          v-if="menu"
         >
           <img
             src="@/assets/img/icons/menu.svg"
@@ -68,14 +66,6 @@
             width="35vh"
             class="imagen_menu"
           />
-        </label>
-        <label
-          class="bm-burger-button"
-          for="navigation"
-          @click="menu = true"
-          v-else
-        >
-          <img src="@/assets/img/icons/menu.svg" alt="menu" width="35vh" />
         </label>
         <nav>
           <ul class="menu_nav">
@@ -95,7 +85,7 @@
             </li>
             <li>
               <div v-if="user == null">
-                <a @click="cambiar_estado()">Login</a>
+                <a @click="cambiar_estado()">Iniciar sesión</a>
               </div>
               <div
                 v-else
@@ -367,7 +357,7 @@
                         src="@/assets/img/icons/cerrar-sesion.svg"
                         alt="logo_20_años"
                       />
-                      <a> Cerrar Sesion </a>
+                      <a> Cerrar sesión </a>
                     </li>
                   </ul>
                 </div>

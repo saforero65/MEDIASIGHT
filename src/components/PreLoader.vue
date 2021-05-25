@@ -9,7 +9,7 @@
           <h1 class="title">¡BIENVENIDO!</h1>
           <p class="content1">
             Estas a punto de entrar a MEDIASIGHT un proyecto en el que podrás
-            ver el entorno de estudio de un estudiante de Ingeniería Multimedia
+            ver el entorno de estudio de un estudiante de Ingeniería en Multimedia
             de la UMNG donde podrás ver la información del programa, proyectos y
             las capacidades que un estudiante desarrolla en el transcurso de la
             carrera.
