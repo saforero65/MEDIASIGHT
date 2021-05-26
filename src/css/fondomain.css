@@ -23,7 +23,7 @@
 
 .point .label {
     position: absolute;
-    top: -20px;
+    top: -10px;
     left: -100px;
     padding: 0.1rem 1rem;
     /* width: 40px; */
@@ -110,7 +110,7 @@
 
 .point .text_point-11 {
     position: absolute;
-    top: -380px;
+    top: -450px;
     left: -120px;
     width: 400px;
     padding: 20px;

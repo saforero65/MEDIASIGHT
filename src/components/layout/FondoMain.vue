@@ -217,7 +217,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.habitacion == 'Ingeniería'
+                      item.data.habitacion == 'Ingeniería Aplicada'
                     "
                   >
                     <template #img>
@@ -277,7 +277,7 @@
                   <b-carousel-slide
                     v-if="
                       item.data.estado == 'aprobado' &&
-                      item.data.habitacion == 'Ingeniería Aplicada'
+                      item.data.habitacion == 'Ingeniería'
                     "
                   >
                     <template #img>
